@@ -2,6 +2,7 @@
     --maincolor: #4589FF;
     --icon: #A8A8A8; 
     --menue-text: #42526E;
+    --menue-click-background: #D2E3FF;
     --style: #D1D1D1;
     --botongradient: #F4F4F4;
     --lightBlue: #D2E3FF;
@@ -390,8 +391,6 @@ body {
 
 
 /*  Navigation ----------------------------------------------------- */
-
-
 .navigation-row {
     position: fixed;
     width: 100vw;
@@ -421,6 +420,15 @@ body {
     width: auto;
 }
 
+.navigation-item p:hover {
+    cursor: pointer;
+    color: var(--hoverBlue);
+}
+
+.navigation-item:hover  {
+    cursor: pointer;
+}
+
 .navigation-legal {
     display: none;
 }
@@ -434,16 +442,29 @@ body {
         align-items: flex-start;
         left: 0;
         width: 200px;
-        padding: 4rem 0px;
+        padding: 4rem 16px;
         height: 100%;
         justify-content: flex-start;
+        gap: 16px;
     }
 
     .navigation-item {
         flex-direction: row;
+        align-items: center;
         padding: 8px 32px;
-        gap: 8px;
-        
+        gap: 8px;  
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    .navigation-item p:hover {
+        cursor: pointer;
+        color: var(--menue-text);
+    }
+
+    .navigation-item:hover  {
+        cursor: pointer;
+        background-color: var(--menue-click-background);
     }
 
     .navigation {
@@ -466,7 +487,13 @@ body {
         justify-content: flex-end;
         padding: 4rem 16px;
         gap: 16px;
+        color: var(--menue-text);
+    }
+
+    .navigation-legal div:hover {
+        cursor: pointer;
+        color: var(--hoverBlue);
     }
 }
-/*  Anderer container ----------------------------------------------------- */
+/*  nächter container ----------------------------------------------------- */
 
