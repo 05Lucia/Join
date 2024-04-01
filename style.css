@@ -1,27 +1,34 @@
-
 :root {
-	--maincolor: #4589FF;
-    --icon: #A8A8A8;
-    --style: #D1D1D1; 
+    --maincolor: #4589FF;
+    --icon: #A8A8A8; 
+    --menue-text: #42526E;
+    --menue-click-background: #D2E3FF;
+    --style: #D1D1D1;
     --botongradient: #F4F4F4;
     --lightBlue: #D2E3FF;
     --red: #FF3D00;
     --green: #7AE229;
     --orange: #FFA800;
-    --hoverBlue: #005DFF;  
-    --border: #647188;   
+    --hoverBlue: #005DFF;
+    --border: #647188;
+}
+
+* {
+margin: 0;
+box-sizing: border-box;
 }
 
 body {
     font-family: 'Open Sans', sans-serif;
-    margin: 0;
     overflow: hidden;
 }
+
+/* login ---------------------------------------------------------------------- */
 
 .slide1 {
     background-color: var(--maincolor);
     width: 100%;
-    height: 100vh; 
+    height: 100vh;
     position: relative;
 }
 
@@ -33,46 +40,49 @@ body {
     width: 265px;
     height: 323.1px;
     opacity: 1;
-    animation: logoMove 6s ease-in-out forwards;  
+    animation: logoMove 6s ease-in-out forwards;
 }
 
 @keyframes logoMove {
-    0% {  
+    0% {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         opacity: 1
     }
+
     100% {
-      top: 80px;
-      left: 77px;
-      transform: translate(0, 0);
-      width: 100.03px;
-      height: 121.97px;
-      opacity: 1;  
+        top: 80px;
+        left: 77px;
+        transform: translate(0, 0);
+        width: 100.03px;
+        height: 121.97px;
+        opacity: 1;
     }
-  }
-  
-.slide1 img {
-    cursor: pointer;
-    animation: logoMove 200ms ease-in-out 100ms forwards      
 }
 
-/*login.html*/ 
+.slide1 img {
+    cursor: pointer;
+    animation: logoMove 200ms ease-in-out 100ms forwards
+}
+
+/*login.html*/
 .mainContainer {
     display: flex;
     justify-content: center;
-    align-items: center; 
-    flex-direction: column; 
+    align-items: center;
+    flex-direction: column;
     gap: 50px;
     margin-top: 50px;
 }
+
 .loginHeader {
     width: 90%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+
 .noJoinUser {
     display: flex;
     align-items: center;
@@ -81,7 +91,7 @@ body {
     gap: 35px
 }
 
-.noJoinUser span { 
+.noJoinUser span {
     width: 168px;
     height: 28px;
     font-family: Open Sans;
@@ -94,12 +104,12 @@ body {
 
 .loginContainer {
     position: relative;
-    display: flex; 
+    display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     width: 652px;
-    height: 491px;  
+    height: 491px;
     border-radius: 30px;
     gap: 39px;
     background: #FFFFFF;
@@ -108,13 +118,13 @@ body {
 
 @keyframes fadeOut {
     to {
-      opacity: 0;
+        opacity: 0;
     }
-  }
-  
+}
+
 .bodyFadeOut {
     animation: fadeOut 500ms ease-in-out forwards;
-}  
+}
 
 .loginHeadline {
     display: flex;
@@ -136,6 +146,7 @@ body {
     margin-top: 0;
     margin-bottom: 0px;
 }
+
 .loginForm {
     display: flex;
     justify-content: center;
@@ -145,9 +156,10 @@ body {
     height: 195px;
     margin-top: -30px;
 }
+
 .inputField {
     cursor: pointer;
-    display: flex; 
+    display: flex;
     align-items: center;
     width: 422px;
 }
@@ -155,9 +167,9 @@ body {
 .input {
     cursor: pointer;
     width: 422px;
-    height: 48px; 
-    border: unset; 
-    color: #FFFFFF; 
+    height: 48px;
+    border: unset;
+    color: #FFFFFF;
     padding: 12px, 21px;
     border-bottom: 1px solid #D1D1D1;
 }
@@ -178,7 +190,7 @@ body {
     gap: 10px;
 }
 
-.underlinedTextButton { 
+.underlinedTextButton {
     height: 19px;
     top: 2px;
     left: 197px;
@@ -187,12 +199,12 @@ body {
 
 .textRemember {
     width: 158px;
-    height: 19px; 
+    height: 19px;
     font-family: Open Sans;
     font-size: 16px;
     font-weight: 400;
     line-height: 19px;
-    letter-spacing: 0em; 
+    letter-spacing: 0em;
 }
 
 .buttonContainer {
@@ -203,6 +215,7 @@ body {
     height: 48px;
     gap: 35px;
 }
+
 .loginButton {
     cursor: pointer;
     width: 135px;
@@ -235,7 +248,7 @@ body {
     gap: 10px;
     background-color: white;
     color: var(--border);
-    border: 1px solid #647188;  
+    border: 1px solid #647188;
     font-family: Open Sans;
     font-size: 23px;
     font-weight: 400;
@@ -253,7 +266,7 @@ body {
     position: fixed;
     bottom: 30px;
     width: 240px;
-    height: 35px; 
+    height: 35px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -266,7 +279,7 @@ body {
     top: 946.3px;
     left: 732px;
     padding: 8px;
-    gap: 8px; 
+    gap: 8px;
     font-family: Open Sans;
     font-size: 16px;
     font-weight: 400;
@@ -282,43 +295,43 @@ body {
     color: var(--maincolor);
 }
 
-/*signup.html*/ 
+/* sing up -------------------------------------------------------------- */
 .signupContainer {
     position: relative;
     width: 100%;
     height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center; 
-    flex-direction: column;  
+    align-items: center;
+    flex-direction: column;
     background-color: var(--maincolor);
 }
 
 .signupContent {
-        padding: 20px 0;
-        position: relative;
-        display: flex; 
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        width: 598px;
-        height: 607px;
-        border-radius: 30px;
-        gap: 39px;
-        background: #FFFFFF;
-        box-shadow: 0px 0px 10px 3px #00000014; 
+    padding: 20px 0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 598px;
+    height: 607px;
+    border-radius: 30px;
+    gap: 39px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 10px 3px #00000014;
 }
 
 .signupLogo {
     position: absolute;
     top: 80px;
-    left: 77px; 
+    left: 77px;
     width: 100.03px;
     height: 121.97px;
-    opacity: 1;  
+    opacity: 1;
 }
 
-.signinForm { 
+.signinForm {
     width: 422px;
     height: 284px;
     display: flex;
@@ -339,13 +352,14 @@ body {
     font-size: 48px;
     font-weight: 700;
     line-height: 58px;
-    letter-spacing: 0em; 
+    letter-spacing: 0em;
 }
+
 .legalNotesNegative {
     position: fixed;
     bottom: 30px;
     width: 240px;
-    height: 35px; 
+    height: 35px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -359,7 +373,7 @@ body {
     top: 946.3px;
     left: 732px;
     padding: 8px;
-    gap: 8px; 
+    gap: 8px;
     font-family: Open Sans;
     font-size: 16px;
     font-weight: 400;
@@ -375,23 +389,114 @@ body {
     color: var(--hoverBlue);
 }
 
-.drag-area {
-    height: 200px;
-    background-color: rgba(0, 0, 0, 0.1);
-    border: 1px dashed black;
-    margin-bottom: 50px;
+
+/*  Navigation ----------------------------------------------------- */
+.navigation-row {
+    position: fixed;
+    width: 100vw;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 5rem;
     display: flex;
-    align-items: flex-start;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 16px;
 }
 
-.drag-area-highlight {
-    background-color: rgba(0, 0, 0, 0.2);
+.navigation-item {
+    
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
-.todo {
-    background-color: white;
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 10px;
-    margin: 10px;
+.navigation-item p {
+    color: var(--menue-text);
 }
+
+.navigation-item img {
+    height: 25px;
+    width: auto;
+} 
+
+.navigation-item p:hover {
+    cursor: pointer;
+}
+
+.navigation-item:hover  {
+    cursor: pointer;
+}
+
+.navigation-legal {
+    display: none;
+}
+
+@media (min-width: 800px) {
+    .navigation-row {
+        position: relative;
+        right: none;
+        top: 0;
+        flex-direction: column;
+        align-items: flex-start;
+        left: 0;
+        width: 200px;
+        padding: 4rem 16px;
+        height: 100%;
+        justify-content: flex-start;
+        gap: 16px;
+    }
+
+    .navigation-item {
+        flex-direction: row;
+        align-items: center;
+        padding: 8px 32px;
+        gap: 8px;  
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    .navigation-item p:hover {
+        cursor: pointer;
+    }
+
+    .navigation-item:hover  {
+        cursor: pointer;
+        background-color: var(--menue-click-background);
+    }
+
+    .navigation-item:focus  {
+        background-color: var(--menue-click-background);
+        /* vllt js nötig? */
+    }
+
+    .navigation {
+        position: fixed;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+        height: 100vh;
+        width: 200px;
+    }
+
+    .navigation-legal {
+        width: 200px;
+        height: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 4rem 16px;
+        gap: 16px;
+        color: var(--menue-text);
+    }
+
+    .navigation-legal div:hover {
+        cursor: pointer;
+        color: var(--hoverBlue);
+    }
+}
+/*  nächter container ----------------------------------------------------- */
+
