@@ -40,7 +40,7 @@ body {
     width: 265px;
     height: 323.1px;
     opacity: 1;
-    animation: logoMove 6s ease-in-out forwards;
+    animation: logoMove 200ms ease-in-out forwards;
 }
 
 @keyframes logoMove {
