@@ -418,10 +418,7 @@ body {
 .navigation-item img {
     height: 25px;
     width: auto;
-}
-.navigation-item img:hover {
-    
-}
+} 
 
 .navigation-item p:hover {
     cursor: pointer;
