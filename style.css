@@ -467,7 +467,6 @@ body {
     .navigation-item:focus  {
         background-color: var(--lightBlue);
         /* vllt js nötig? */
-        
     }
 
     .navigation {
