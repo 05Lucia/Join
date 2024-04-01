@@ -2,7 +2,6 @@
     --maincolor: #4589FF;
     --icon: #A8A8A8; 
     --menue-text: #42526E;
-    --menue-click-background: #D2E3FF;
     --style: #D1D1D1;
     --botongradient: #F4F4F4;
     --lightBlue: #D2E3FF;
@@ -462,11 +461,11 @@ body {
 
     .navigation-item:hover  {
         cursor: pointer;
-        background-color: var(--menue-click-background);
+        background-color: var(--lightBlue);
     }
 
     .navigation-item:focus  {
-        background-color: var(--menue-click-background);
+        background-color: var(--lightBlue);
         /* vllt js nötig? */
     }
 
