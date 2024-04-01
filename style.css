@@ -1,6 +1,7 @@
 :root {
     --maincolor: #4589FF;
-    --icon: #A8A8A8;
+    --icon: #A8A8A8; 
+    --menue-text: #42526E;
     --style: #D1D1D1;
     --botongradient: #F4F4F4;
     --lightBlue: #D2E3FF;
@@ -11,9 +12,13 @@
     --border: #647188;
 }
 
+* {
+margin: 0;
+box-sizing: border-box;
+}
+
 body {
     font-family: 'Open Sans', sans-serif;
-    margin: 0;
     overflow: hidden;
 }
 
@@ -384,7 +389,39 @@ body {
 }
 
 
-/*  next container ----------------------------------------------------- */
+/*  Navigation ----------------------------------------------------- */
+.test {
+    height: 100vh;
+}
+
+.navigation-row {
+    position: fixed;
+    width: 100vw;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 16px;
+}
+
+.navigation-item {
+    
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.navigation-item p {
+    color: var(--menue-text);
+}
+
+.navigation-item img {
+    height: 25px;
+    width: auto;
+}
 
 /*  Anderer container ----------------------------------------------------- */
 
