@@ -22,6 +22,122 @@ body {
     overflow: hidden;
 }
 
+/*general button design - siehe 00 General elements.pdf*/
+
+/*design von buttons*/
+
+.blueBtn {
+    cursor: pointer;
+    width: 135px;
+    height: 48px;
+    padding: 10px, 35px, 10px, 35px;
+    border-radius: 8px;
+    border: unset;
+    gap: 10px;
+    background-color: var(--maincolor);
+    font-family: Open Sans;
+    font-size: 23px;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: white;
+}
+
+.blueBtn:hover {
+    background-color: var(--hoverBlue);
+}
+
+.whiteBtnBlueText {
+    cursor: pointer;
+    width: 135px;
+    height: 48px;
+    padding: 10px, 35px, 10px, 35px;
+    border-radius: 8px;
+    border: unset;
+    gap: 10px;
+    background-color: white;
+    font-family: Open Sans;
+    font-size: 23px;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: var(--maincolor);
+}
+
+/*button with border*/
+.greyBorderBtn {
+    cursor: pointer;
+    width: 197px;
+    height: 48px;
+    padding: 10px, 35px, 10px, 35px;
+    border-radius: 8px;
+    border: 1px;
+    gap: 10px;
+    background-color: white;
+    color: var(--border);
+    border: 1px solid #647188;
+    font-family: Open Sans;
+    font-size: 23px;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: 0em;
+    text-align: center;
+}
+
+.greyBorderBtn:hover {    
+    color: var(--maincolor);
+    border-color: var(--maincolor);
+}
+
+.hoverBlueBorderBtn {
+    color: var(--hoverBlue);
+    border-color: var(--hoverBlue);
+    border: 1px solid var(--hoverBlue);
+    cursor: pointer;
+    width: 197px;
+    height: 48px;
+    padding: 10px, 35px, 10px, 35px;
+    border-radius: 8px;
+    border: 1px;
+    gap: 10px; 
+
+    font-family: Open Sans;
+    font-size: 23px;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: 0em;
+    text-align: center;
+}
+
+/*legal Notes*/
+
+.legalNotes button {
+    cursor: pointer;
+    width: 150px;
+    height: 35px;
+    top: 946.3px;
+    left: 732px;
+    padding: 8px;
+    gap: 8px;
+    font-family: Open Sans;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: center;
+    background-color: white;
+    border: unset;
+    color: var(--border);
+}
+
+.legalNotes button:hover {
+    color: var(--maincolor);
+}
+
+
+
 
 /* login ---------------------------------------------------------------------- */
 
@@ -216,52 +332,6 @@ body {
     gap: 35px;
 }
 
-.loginButton {
-    cursor: pointer;
-    width: 135px;
-    height: 48px;
-    padding: 10px, 35px, 10px, 35px;
-    border-radius: 8px;
-    border: unset;
-    gap: 10px;
-    background-color: var(--maincolor);
-    font-family: Open Sans;
-    font-size: 23px;
-    font-weight: 400;
-    line-height: 28px;
-    letter-spacing: 0em;
-    text-align: center;
-    color: white;
-}
-
-.loginButton:hover {
-    background-color: var(--hoverBlue);
-}
-
-.GuestLoginButton {
-    cursor: pointer;
-    width: 197px;
-    height: 48px;
-    padding: 10px, 35px, 10px, 35px;
-    border-radius: 8px;
-    border: 1px;
-    gap: 10px;
-    background-color: white;
-    color: var(--border);
-    border: 1px solid #647188;
-    font-family: Open Sans;
-    font-size: 23px;
-    font-weight: 400;
-    line-height: 28px;
-    letter-spacing: 0em;
-    text-align: center;
-}
-
-.GuestLoginButton:hover {
-    color: var(--maincolor);
-    border-color: var(--maincolor);
-}
-
 .legalNotes {
     position: fixed;
     bottom: 30px;
@@ -272,28 +342,7 @@ body {
     align-items: center;
 }
 
-.legalNotes button {
-    cursor: pointer;
-    width: 150px;
-    height: 35px;
-    top: 946.3px;
-    left: 732px;
-    padding: 8px;
-    gap: 8px;
-    font-family: Open Sans;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 19px;
-    letter-spacing: 0em;
-    text-align: center;
-    background-color: white;
-    border: unset;
-    color: var(--border);
-}
 
-.legalNotes button:hover {
-    color: var(--maincolor);
-}
 
 /* sing up -------------------------------------------------------------- */
 .signupContainer {
