@@ -963,10 +963,6 @@ h3 {
         height: 100%;
     }
 
-    /* to hide scrollbar in display mode but sill scrollebl if needed!!*/
-    .addTaskContainer::-webkit-scrollbar {
-        display: none;
-      }
 
 }
 /*  nächter container ----------------------------------------------------- */
