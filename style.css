@@ -682,6 +682,33 @@ body {
     overflow-y: scroll;
 }
 
+/* Breite des Scrollbalkens anpassen */
+::-webkit-scrollbar {
+    width: 4px;
+    height: 10px;
+}
+
+/* Hintergrundfarbe des Scrollbalken-Tracks */
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+/* Farbe des Scrollbalken-Daumens */
+::-webkit-scrollbar-thumb {
+    background-color: rgba(168, 168, 168, 1);
+    border-radius: 8px; /* Runden den Daumen ab */
+}
+
+/* Hover-Farbe des Scrollbalken-Daumens */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+/* Hover-Farbe der Scrollbalken-Pfeile */
+::-webkit-scrollbar-button:hover {
+    background-color: #999;
+}
+
 .addTaskInputTitle {
     border: none;
     border-bottom: 1px solid rgb(209, 209, 209);
@@ -797,6 +824,7 @@ h3 {
     font-size: 16px;
     line-height: 19px;
     gap: 16px;
+    height: 50px;
 }
 
 .priorityButtons button {
@@ -824,7 +852,7 @@ h3 {
     flex-direction: column;
     width: 100%;
     gap: 8px;
-    margin-top: 12px;
+    margin-top: -12px;
 }
 
 .assignContactsDropdown {
@@ -857,7 +885,7 @@ h3 {
     flex-direction: column;
     width: 100%;
     gap: 8px;
-    margin-top: 12px;
+    margin-top: -12px;
 }
 
 .selectTaskDropdown {
@@ -890,7 +918,7 @@ h3 {
     flex-direction: column;
     width: 100%;
     gap: 8px;
-    margin-top: 12px;
+    margin-top: -12px;
 }
 
 .addTaskSubtasksInput {
@@ -942,6 +970,31 @@ h3 {
     gap: 4px;
     border: none;
     filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+.createTaskButton:hover {
+    cursor: pointer;
+}
+
+@media only screen and (min-width: 480px) {
+    .urgentPriorityButton:hover {
+        height: 50px;
+        border-bottom: 2px solid rgba(255, 61, 0, 1);
+        box-sizing: border-box;
+    }
+
+    .mediumPriorityButton:hover {
+        height: 50px;
+        border-bottom: 2px solid rgba(255, 168, 0, 1);
+        box-sizing: border-box;
+    }
+
+    .lowPriorityButton:hover {
+        height: 50px;
+        border-bottom: 2px solid rgba(122, 226, 41, 1);
+        box-sizing: border-box;
+    }
+
 }
 
 /*  nächter container ----------------------------------------------------- */
