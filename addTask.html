@@ -16,9 +16,7 @@
                 <span class="addTaskTopics">
                     <h3>Description</h3>(optional)
                 </span>
-                <!-- <input class="addTaskDescriptionInput" type="text" placeholder="Enter a Description"> -->
-                <textarea class="addTaskDescriptionInput" name="text" id="text" placeholder="Mehr dazu schreiben">
-                </textarea>
+                <textarea class="addTaskDescriptionInput" name="text" id="text" placeholder="Enter a description" required></textarea>
             </div>
             <div class="dueDateBox">
                 <span class="addTaskTopics">
@@ -66,6 +64,10 @@
             </div>
         </div>
         <div class="createTaskContainer">
+            <button class="clearTaskButton">
+                <p>Clear</p>
+                <img src="./img/clearTaskX.svg">
+            </button>
             <button class="createTaskButton">
                 <p>Create Task</p>
                 <img src="./img/createTaskCheckIcon.svg">
