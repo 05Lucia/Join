@@ -481,6 +481,7 @@ body {
     display: none;
 }
 
+/* for desktop screens */
 @media (min-width: 800px) {
     .navigation-row {
         position: relative;
