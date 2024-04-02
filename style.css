@@ -557,7 +557,16 @@ body {
     display: flex;
 }
 
+.content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
 
+.main-container {
+    width: 100vw;
+}
 
 /* for desktop screens */
 @media (min-width: 800px) {
@@ -657,16 +666,18 @@ body {
         width: 100%;
         height: 100%;
     }
+
 }
 
 /*  Add Task ----------------------------------------------------- */
 .addTaskWrapper {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    max-height: calc(100vh - 10rem)
 }
 
 .addTaskContainer {
@@ -674,8 +685,7 @@ body {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 80vh;
-    padding-top: 144px;
+    padding-top: 80px;
     padding-left: 16px;
     padding-right: 16px;
     gap: 28px;
@@ -951,10 +961,12 @@ h3 {
 }
 
 .createTaskContainer {
+    position: sticky;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 64px;
+    
 }
 
 .createTaskButton {
@@ -970,6 +982,13 @@ h3 {
     gap: 4px;
     border: none;
     filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+@media (min-width: 800px) {
+    .addTaskWrapper {
+        width: 100%;
+        height: 100%;
+    }
 }
 
 .createTaskButton:hover {
@@ -996,5 +1015,4 @@ h3 {
     }
 
 }
-
 /*  nächter container ----------------------------------------------------- */
