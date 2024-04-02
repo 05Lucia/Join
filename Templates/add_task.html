@@ -1,0 +1,61 @@
+<div class="addTaskWrapper">
+    <div class="addTaskContainer">
+        <input class="addTaskInputTitle" type="text" placeholder="Enter a title">
+        <div class="descriptionBox">
+            <span class="addTaskTopics">
+                <h3>Description</h3>(optional)
+            </span>
+            <input class="addTaskDescriptionInput" type="text" placeholder="Enter a Description">
+        </div>
+        <div class="dueDateBox">
+            <span class="addTaskTopics">
+                <h3>Due date</h3>
+            </span>
+            <input class="addTaskDueDateInput" type="date" placeholder="dd/mm/yyyy">
+        </div>
+        <div class="priorityBox">
+            <span class="addTaskTopics">
+                <h3>Priority</h3>
+            </span>
+            <div class="priorityButtons">
+                <button class="urgentPriorityButton">Urgent <img src="./img/priorityHighInactive.svg"></button>
+                <button class="mediumPriorityButton">Medium <img src="./img/priorityMediumInactive.svg"></button>
+                <button class="lowPriorityButton">Low <img src="./img/priorityLowInactive.svg"></button>
+            </div>
+        </div>
+        <div class="assignedToBox">
+            <span class="addTaskTopics">
+                <h3>Assigned to</h3>(optional)
+            </span>
+            <select class="assignContactsDropdown">
+                <option disabled selected hidden>Select contacts to assign</option>
+                <option value="contact1">Kontakt 1</option>
+                <option value="contact2">Kontakt 2</option>
+                <option value="contact3">Kontakt 3</option>
+            </select>
+        </div>
+        <div class="taskCategoryBox">
+            <span class="addTaskTopics">
+                <h3>Category</h3>
+            </span>
+            <select class="selectTaskDropdown">
+                <option disabled selected hidden>Select task category</option>
+                <option value="task1">Task Category 1</option>
+                <option value="task2">Task Category 2</option>
+                <option value="task3">Task Category 3</option>
+            </select>
+        </div>
+        <div class="subtasksBox">
+            <span class="addTaskTopics">
+                <h3>Subtasks</h3>(optional)
+            </span>
+            <input class="addTaskSubtasksInput" type="text" placeholder="Add new subtask">
+        </div>
+    </div>
+    <div class="createTaskContainer">
+        <button class="createTaskButton">
+            <p>Create Task</p>
+            <img src="./img/createTaskCheckIcon.svg">
+        </button>
+    </div>
+</div>
