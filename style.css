@@ -1054,8 +1054,8 @@ h3 {
         font-size: 23px;
     }
 
-    .addTaskContainer{
-        width:488px;
+    .addTaskContainer {
+        width: 488px;
         min-width: 428px;
     }
 
@@ -1064,7 +1064,7 @@ h3 {
         height: 100%;
         align-items: flex-end;
         justify-content: flex-end;
-        margin-top:0;
+        margin-top: 0;
         flex-grow: 1;
         padding-right: 40px;
     }
@@ -1086,6 +1086,23 @@ h3 {
         border-bottom: 2px solid rgba(122, 226, 41, 1);
         box-sizing: border-box;
     }
+}
+
+/*  Summary ----------------------------------------------------- */
+
+.greeting {
+    display: none;
+}
+
+.btn-container {
+    width: 100%;
+    max-height: calc(100vh - 10rem);
+    display: flex;
+
+}
+
+.urgent-button {
+    background-color: var(--maincolor);
 }
 
 /*  nächter container ----------------------------------------------------- */
