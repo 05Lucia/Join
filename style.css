@@ -1123,6 +1123,11 @@ h3 {
     gap: 24px;
 }
 
+.btn-container img {
+    height: 76px;
+    width: 76px;
+}
+
 .urgent-button {
     background-color: var(--maincolor);
     color: white;
