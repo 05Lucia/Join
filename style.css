@@ -1473,11 +1473,11 @@ h3 {
     color: white;
 }
 
-.light-task-btn:hover .boder-hover{
+.light-task-btn:hover img{
+    object-fit: cover;
     border: 3px solid white;
     border-radius: 100%;
-    padding: 0;
-    height: 76px;
+    /* maybe png */
 }
 
 .light-task-btn:hover .btn-text {
