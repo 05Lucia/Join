@@ -1,28 +1,56 @@
 <div class="summary-overview">
     <h1 id="greeting" class="greeting">Good morning</h1>
     <div class="btn-container">
-        <div class="top-btn">
-            <button class="urgent-button">
-                <div class="btn-urgent-front">
-                    <div class="flex-row">
-                        <img src="./img/urgent icon.svg" alt="clock icon">
-                        <h2 id="urgent-number" class="task-number">1</h2>
-                    </div>
-                    <p>Tasks Urgent</p>
+        <button class="urgent-button" onclick="Templates('board')">
+            <div class="btn-urgent-front">
+                <div class="flex-row">
+                    <img src="./img/urgent icon.svg" alt="clock icon">
+                    <h2 id="urgent-number" class="task-number">1</h2>
                 </div>
-                <div class="wiht-line"></div>
-                <div class="btn-urgent-back">
-                    <h2 id="due-date">April 13, 2024</h2>
-                    <p>Upcoming Deadline</p>
+                <p class="btn-text">Tasks Urgent</p>
+            </div>
+            <div class="wiht-line"></div>
+            <div class="btn-urgent-back">
+                <h2 id="due-date">April 13, 2024</h2>
+                <p>Upcoming Deadline</p>
+            </div>
+        </button>
+        <button class="to-do-btn" onclick="Templates('board')">
+            <img src="./img/To-do Icon.svg" alt="to-do icon">
+            <h2 id="to-do-number" class="task-number">1</h2>
+            <p class="btn-text">Tasks To-Do</p>
+        </button>
+        <div>
+            <button onclick="Templates('board')">
+                <div class="flex-row">
+                    <img src="" alt="">
+                    <h2 class="task-number"></h2>
                 </div>
+                <p class="btn-text"></p>
             </button>
-            <button></button>
+            <button onclick="Templates('board')">
+                <div class="flex-row">
+                    <img src="" alt="">
+                    <h2 class="task-number"></h2>
+                </div>
+                <p class="btn-text"></p>
+            </button>
         </div>
         <div>
-            <button></button>
-            <button></button>
-            <button></button>
-            <button></button>
+            <button onclick="Templates('board')">
+                <div class="flex-row">
+                    <img src="" alt="">
+                    <h2 class="task-number"></h2>
+                </div>
+                <p class="btn-text"></p>
+            </button>
+            <button onclick="Templates('board')">
+                <div class="flex-row">
+                    <img src="" alt="">
+                    <h2 class="task-number"></h2>
+                </div>
+                <p class="btn-text"></p>
+            </button>
         </div>
     </div>
 </div>

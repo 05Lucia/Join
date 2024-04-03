@@ -673,7 +673,7 @@ body {
     }
 
     .content {
-        width: 100%;
+        width: calc(100vw - 200px);
         height: 100%;
     }
 
@@ -1120,6 +1120,7 @@ h3 {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    gap: 24px;
 }
 
 .urgent-button {
@@ -1134,6 +1135,8 @@ h3 {
     font-size: 16px;
     border: 0px;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+    width: calc(100vw - 50px);
+    max-width: 400px;
 }
 
 .urgent-button h2 {
@@ -1162,8 +1165,9 @@ h3 {
     min-width: 116px;
 }
 
-.btn-urgent-front p {
+.btn-text {
     font-size: 19px;
+    font-weight: 400;
 }
 
 .btn-urgent-back {
@@ -1172,7 +1176,7 @@ h3 {
     align-items: flex-start;
     justify-content: center;
     gap: 2px;
-    width: ;
+    
 }
 .btn-urgent-back h2 {
     font-size: 23px;
@@ -1181,6 +1185,20 @@ h3 {
 .btn-urgent-back p {
     font-size: 16px;
     font-weight: 300;
+}
+
+.to-do-btn {
+    background-color: var(--lightBlue);
+    width: calc(100vw - 50px);
+    max-width: 400px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 16px;
+    padding: 15px 40px;
+    border-radius: 30px;
+    border: 0px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
 }
 
 /*  nächter container ----------------------------------------------------- */
