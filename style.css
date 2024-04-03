@@ -674,12 +674,13 @@ body {
 
     .content {
         width: 100%;
-        height: 100%;
+        height: 93vh;
     }
 
 }
 
 /*  Add Task ----------------------------------------------------- */
+
 .addTaskWrapper {
     position: relative;
     display: flex;
@@ -705,7 +706,6 @@ body {
 /* Breite des Scrollbalkens anpassen */
 ::-webkit-scrollbar {
     width: 4px;
-    height: 10px;
 }
 
 /* Hintergrundfarbe des Scrollbalken-Tracks */
@@ -728,6 +728,14 @@ body {
 /* Hover-Farbe der Scrollbalken-Pfeile */
 ::-webkit-scrollbar-button:hover {
     background-color: #999;
+}
+
+.enterTitleBox {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 68px;
+    gap: 4px;
 }
 
 .addTaskInputTitle {
@@ -754,10 +762,18 @@ body {
     outline: none;
 }
 
+.errorMessageIfEmptyTitle {
+    font-size: 13px;
+    color: rgba(255, 129, 144, 1);
+    line-height: 16px;
+    visibility: hidden;
+}
+
 .descriptionBox {
     display: flex;
     flex-direction: column;
     width: 100%;
+    margin-top: -20px;
 }
 
 .addTaskTopics {
@@ -836,19 +852,24 @@ h3 {
     height: 20px;
 }
 
+.errorMessageIfEmptyDueDate {
+    font-size: 13px;
+    color: rgba(255, 129, 144, 1);
+    line-height: 16px;
+    visibility: hidden;
+}
+
 .priorityBox {
     display: flex;
     flex-direction: column;
     width: 100%;
     gap: 8px;
-    margin-top: 12px;
+    margin-top: -8px;
 }
 
 .priorityButtons {
     display: flex;
     justify-content: space-between;
-    font-size: 16px;
-    line-height: 19px;
     gap: 16px;
     height: 50px;
 }
@@ -1012,6 +1033,8 @@ h3 {
 
 .clearTaskButton:hover {
     cursor: pointer;
+    border: 2px solid rgba(69, 137, 255, 1);
+    filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.2));
 }
 
 .createTaskButton {
@@ -1047,36 +1070,117 @@ h3 {
         flex-direction: row;
         width: calc(100vw - 200px);
         height: 100%;
-    }
-
-    .clearTaskButton {
-        display: flex;
-    }
-
-    .createTaskButton {
-        height: 60px;
-        width: 174px;
-        padding: 16px 10px 16px 10px;
-        filter: none;
-    }
-
-    .createTaskButton p {
-        font-size: 23px;
+        max-height: calc(100vh - 5rem);
+        padding-top: 20px;
+        padding-bottom: 20px;
     }
 
     .addTaskContainer {
         width: 488px;
         min-width: 428px;
+        height: 100%;
+        padding-top: 44px;
+        overflow-y: auto;
     }
 
-    .createTaskContainer {
-        width: 50%;
-        height: 100%;
-        align-items: flex-end;
-        justify-content: flex-end;
-        margin-top: 0;
-        flex-grow: 1;
-        padding-right: 40px;
+    /* Width of Scroll Bar*/
+    .addTaskContainer::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    /* Color of Scroll Bar Thumb */
+    .addTaskContainer::-webkit-scrollbar-thumb {
+        background-color: rgba(168, 168, 168, 1);
+    }
+
+    /* Arrow-Icon for Scroll Bar */
+    .addTaskContainer::-webkit-scrollbar-button {
+        height: 8px;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .addTaskContainer::-webkit-scrollbar-button:start {
+        background-image: url('./img/scrollButtonUp.svg');
+    }
+
+    .addTaskContainer::-webkit-scrollbar-button:end {
+        background-image: url('./img/scrollButtonDown.svg');
+    }
+
+    .addTaskContainer::-webkit-scrollbar-button:decrement {
+        display: flex;
+    }
+
+    .addTaskContainer::-webkit-scrollbar-button:increment {
+        display: flex;
+    }
+
+    .enterTitleBox {
+        height: 84px;
+    }
+
+    .addTaskInputTitle {
+        height: 64px;
+        line-height: 38px;
+        padding: 13px 16px 13px 16px;
+        font-size: 32px;
+    }
+
+    .addTaskInputTitle:hover {
+        border-bottom-color: rgba(0, 93, 255, 1);
+        outline: none;
+    }
+
+    .descriptionBox {
+        gap: 8px;
+        padding-bottom: 20px;
+    }
+
+    .addTaskTopics {
+        font-size: 19px;
+        line-height: 23px;
+    }
+
+    h3 {
+        margin-block-end: 0px;
+        font-size: 19px;
+        line-height: 23px;
+    }
+
+    .addTaskDescriptionInput {
+        min-height: 103px;
+        padding: 13px 16px 13px 16px;
+        font-size: 19px;
+        line-height: 23px;
+    }
+
+    .dueDateBox {
+        margin-top: -20px;
+        gap: 4px;
+    }
+
+    .addTaskDueDateInput {
+        height: 48px;
+        font-size: 19px;
+        line-height: 23px;
+        margin-top: 4px;
+    }
+
+    .addTaskDueDateInput:hover {
+        border-bottom-color: rgba(0, 93, 255, 1);
+        outline: none;
+    }
+
+    .priorityBox {
+        gap: 8px;
+        margin-top: -20px;
+    }
+
+    .priorityButtons button {
+        gap: 10px;
+        font-size: 19px;
+        line-height: 23px;
     }
 
     .urgentPriorityButton:hover {
@@ -1095,6 +1199,78 @@ h3 {
         height: 50px;
         border-bottom: 2px solid rgba(122, 226, 41, 1);
         box-sizing: border-box;
+    }
+
+    .assignedToBox {
+        margin-top: -4px;
+    }
+
+    .assignContactsDropdown {
+        font-size: 19px;
+        line-height: 23px;
+    }
+
+    .assignContactsDropdown:hover {
+        border-bottom-color: rgba(0, 93, 255, 1);
+        outline: none;
+    }
+
+    .taskCategoryBox {
+        margin-top: -4px;
+    }
+
+    .selectTaskDropdown {
+        font-size: 19px;
+        line-height: 23px;
+    }
+
+    .selectTaskDropdown:hover {
+        border-bottom-color: rgba(0, 93, 255, 1);
+        outline: none;
+    }
+
+    .subtasksBox {
+        margin-top: -4px;
+    }
+
+    .addTaskSubtasksInput {
+        font-size: 19px;
+        line-height: 23px;
+    }
+
+    .addTaskSubtasksInput:hover {
+        border-bottom-color: rgba(0, 93, 255, 1);
+        outline: none;
+    }
+
+    .createTaskContainer {
+        width: 50%;
+        height: 100%;
+        align-items: flex-end;
+        justify-content: flex-end;
+        margin-top: 0;
+        flex-grow: 1;
+        padding-right: 40px;
+    }
+
+    .clearTaskButton {
+        display: flex;
+    }
+
+    .createTaskButton {
+        height: 60px;
+        width: 174px;
+        padding: 16px 10px 16px 10px;
+        filter: none;
+    }
+
+    .createTaskButton p {
+        font-size: 23px;
+    }
+
+    .createTaskButton:hover {
+        background-color: rgba(0, 93, 255, 1);
+        filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.2));
     }
 }
 
@@ -1174,6 +1350,7 @@ h3 {
     gap: 2px;
     width: ;
 }
+
 .btn-urgent-back h2 {
     font-size: 23px;
 }

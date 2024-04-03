@@ -1,17 +1,22 @@
 <div class="addTaskWrapper">
     <div class="addTaskContainer">
-        <input class="addTaskInputTitle" type="text" placeholder="Enter a title">
+        <div class="enterTitleBox">
+            <input class="addTaskInputTitle" type="text" placeholder="Enter a title" required>
+            <p class="errorMessageIfEmptyTitle">This field is required</p>
+        </div>
         <div class="descriptionBox">
             <span class="addTaskTopics">
                 <h3>Description</h3>(optional)
             </span>
-            <textarea class="addTaskDescriptionInput" name="text" id="text" placeholder="Enter a description" required></textarea>
+            <textarea class="addTaskDescriptionInput" name="text" id="text" placeholder="Enter a description"
+                required></textarea>
         </div>
         <div class="dueDateBox">
             <span class="addTaskTopics">
                 <h3>Due date</h3>
             </span>
             <input class="addTaskDueDateInput" type="date" placeholder="dd/mm/yyyy">
+            <p class="errorMessageIfEmptyDueDate">This field is required</p>
         </div>
         <div class="priorityBox">
             <span class="addTaskTopics">
