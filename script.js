@@ -18,5 +18,5 @@ function Templates(template) {
     content.innerHTML = `
     <div include-html="./Templates/${template}.html"> </div>
     `;
-    return includeHTML();
+     includeHTML();
 }
