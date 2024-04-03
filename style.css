@@ -497,6 +497,7 @@ body {
     align-items: center;
     padding: 32px;
     width: 100vw;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.10);
 }
 
 .hadline img {
@@ -1291,11 +1292,35 @@ h3 {
 
 .btn-container {
     width: 100%;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 150px 106px 150px 150px;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
     gap: 24px;
+    grid-template-areas: 
+    " first first"
+    " second second"
+    "thrid fourth"
+    "fith sixed";
+    padding: 16px;
+    max-width: 400px;
+}
+
+.board {
+    grid-area: thrid;
+}
+
+.progress {
+    grid-area: fourth;
+}
+
+.feedback {
+    grid-area: fith;
+}
+
+.done {
+    grid-area: sixed;
 }
 
 .btn-container img {
@@ -1315,8 +1340,11 @@ h3 {
     font-size: 16px;
     border: 0px;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
-    width: calc(100vw - 50px);
+    width: 100vw;
     max-width: 400px;
+    grid-area: first;
+    max-height: 150px; 
+    transition: all 0.15s ease-in-out;
 }
 
 .urgent-button h2 {
@@ -1327,14 +1355,38 @@ h3 {
     font-weight: 400;
 }
 
+.urgent-button:hover {
+    cursor: pointer;
+    border-radius: 0px 30px 30px 30px;
+    transform:scale(1.04);
+    background-color: white;
+    color: var(--hoverBlue);
+}
+
+.urgent-button:hover .wiht-line {
+    border: 2px solid var(--hoverBlue);
+    transition-timing-function: ease-in-out;
+}
+
+.urgent-button:hover p {
+    font-size: 28px;
+    transition-timing-function: ease-in-out;
+}
+
+.urgent-button:hover h2 {
+    font-size: 43px;
+    transition-timing-function: ease-in-out;
+}
+
 .task-number {
     font-weight: 700;
-    font-size: 40px;
+    font-size: 48px;
 }
 
 .wiht-line {
-    height: 115px;
+    height: 120px;
     border: 2px solid white;
+    border-radius: 10px;
 }
 
 .btn-urgent-front {
@@ -1369,7 +1421,7 @@ h3 {
 
 .to-do-btn {
     background-color: var(--lightBlue);
-    width: calc(100vw - 50px);
+    width: 100vw;
     max-width: 400px;
     display: flex;
     justify-content: flex-start;
@@ -1380,6 +1432,7 @@ h3 {
     border: 0px;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
     max-height: 106px;
+    grid-area: second;
 }
 
 .light-task-btn {
@@ -1394,6 +1447,8 @@ h3 {
     padding: 15px 40px;
     gap: 7px;
     max-height: 160px;
+    max-width: 188px;
+    width: 50vw;
 }
 
 .light-task-btn p {
@@ -1417,7 +1472,29 @@ h3 {
     gap: 24px;
 }
 
+@media (max-width: 400px) {
+    .urgent-button {
+        width: 320px;
+    }
+
+    .light-task-btn {
+        width: 150px;
+    }
+
+    .to-do-btn {
+        width: 320px;
+    }
+
+    .summary-overview {
+        padding: 0;
+    }
+}
+
 @media (min-width: 800px) {
+    .greeting {
+        display: flex;
+    }
+
     .summary-overview {
         height: calc(100vh - 5rem);
         width: calc(100vw - 200px);
@@ -1425,6 +1502,8 @@ h3 {
         align-items: center;
         justify-content: center;
         padding: 32px 16px;
+        flex-direction: column;
+        gap: 32px;
     }
 
     .to-do-btn {
@@ -1444,22 +1523,62 @@ h3 {
         padding: 40px;
     }
 
-    .btn-container {
-        flex-wrap: wrap;
-        height: 100%;
-        align-items: flex-start;
-    }
-
     .light-task-btn {
         max-height: none;
     }
 
-    .btn-fix {
-        display: flex;
-        align-items: flex-start;
+    .btn-container {
+        width: 100%;
+        min-width: 600px;
+        max-width: calc(100vw - 200px);
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr ;
+        grid-template-rows: 190px 220px 220px;
         justify-content: center;
-        flex-direction: column;
+        align-items: center;
         gap: 24px;
+        grid-template-areas: 
+        "first first first"
+        "second thrid fourth"
+        "fith sixed ."
+        ;
+    }
+
+    .urgent-button {
+        padding: 40px 35px;
+        max-width: calc(100vw - 50px);
+        grid-area: first;
+        max-height: 150px;
+        width: 100%;
+    }
+
+}
+
+@media (min-width: 1000px) {
+    .btn-container {
+        width: 100%;
+        max-width: 1000px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 190px 220px;
+        justify-content: center;
+        align-items: center;
+        gap: 24px;
+        grid-template-areas: 
+        "first first first thrid"
+        "second fourth fith sixed"
+        ;
+    }
+
+    .board {
+        height: 190px;
+        max-height: 190px !important;
+    }
+
+    .urgent-button {
+        max-height: 190px;
+        gap: 32px;
+        justify-content: space-evenly;
     }
 }
 
