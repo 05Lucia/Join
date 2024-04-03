@@ -1065,6 +1065,19 @@ h3 {
     cursor: pointer;
 }
 
+@media (max-width: 1010px) {
+    .addTaskContainer {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .createTaskContainer {
+        flex-direction: column;
+        gap: 8px;
+        padding-right: 24px !important;
+    }
+}
+
 @media (min-width: 800px) {
     .addTaskWrapper {
         flex-direction: row;
@@ -1077,7 +1090,7 @@ h3 {
 
     .addTaskContainer {
         width: 488px;
-        min-width: 428px;
+        min-width: 400px;
         height: 100%;
         padding-top: 44px;
         overflow-y: auto;
