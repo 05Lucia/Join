@@ -1433,6 +1433,20 @@ h3 {
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
     max-height: 106px;
     grid-area: second;
+    transition: all 0.15s ease-in-out;
+}
+
+.to-do-btn:hover {
+    cursor: pointer;
+    border-radius: 0px 30px 30px 30px;
+    transform:scale(1.04);
+    background-color: white;
+    color: var(--hoverBlue);
+}
+
+.to-do-btn:hover .btn-text {
+    font-size: 28px;
+    font-weight: 400;
 }
 
 .light-task-btn {
@@ -1449,6 +1463,27 @@ h3 {
     max-height: 160px;
     max-width: 188px;
     width: 50vw;
+}
+
+.light-task-btn:hover {
+    cursor: pointer;
+    border-radius: 0px 30px 30px 30px;
+    transform:scale(1.04);
+    background-color: var(--hoverBlue);
+    color: white;
+}
+
+.light-task-btn:hover .boder-hover{
+    border: 3px solid white;
+    border-radius: 100%;
+    padding: 0;
+    height: 76px;
+}
+
+.light-task-btn:hover .btn-text {
+    font-size: 28px;
+    font-weight: 400;
+    color: white;
 }
 
 .light-task-btn p {
