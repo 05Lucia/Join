@@ -1176,8 +1176,8 @@ h3 {
     align-items: flex-start;
     justify-content: center;
     gap: 2px;
-    
 }
+
 .btn-urgent-back h2 {
     font-size: 23px;
 }
@@ -1199,6 +1199,29 @@ h3 {
     border-radius: 30px;
     border: 0px;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+}
+
+.light-task-btn {
+    background-color: white;
+    border-radius: 30px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+    border: 0px;
+    padding: 15px 40px;
+    gap: 7px;
+    
+}
+
+.light-task-btn p {
+    color: var(--maincolor);
+}
+
+.gap-btn-light {
+    gap: 20px;
+}
+
+.flex-row-btn {
+    display: flex;
+    gap: 15px;
 }
 
 /*  nächter container ----------------------------------------------------- */
