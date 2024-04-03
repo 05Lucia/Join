@@ -1,51 +1,49 @@
 <div class="summary-overview">
-    <h1 id="greeting" class="greeting">Good morning</h1>
+    <h1 id="greeting" class="greeting">Good Morning</h1>
     <div class="btn-container">
-        <div class="btn-fix">
-            <button class="urgent-button" onclick="Templates('board')">
-                <div class="btn-urgent-front">
-                    <div class="flex-row">
-                        <img src="./img/urgent icon.svg" alt="clock icon">
-                        <h2 id="urgent-number" class="task-number">1</h2>
-                    </div>
-                    <p class="btn-text">Tasks Urgent</p>
+        <button class="urgent-button" onclick="Templates('board')">
+            <div class="btn-urgent-front">
+                <div class="flex-row">
+                    <img src="./img/urgent icon.svg" alt="clock icon">
+                    <h2 id="urgent-number" class="task-number">1</h2>
                 </div>
-                <div class="wiht-line"></div>
-                <div class="btn-urgent-back">
-                    <h2 id="due-date">April 13, 2024</h2>
-                    <p>Upcoming Deadline</p>
-                </div>
-            </button>
-            <button class="to-do-btn" onclick="Templates('board')">
-                <div class="flex-row ">
-                    <img src="./img/To-do Icon.svg" alt="to-do icon">
-                    <h2 id="to-do-number" class="task-number">1</h2>
-                </div>
-                <p class="btn-text">Tasks To-Do</p>
-            </button>
-        </div>
-        <button class="light-task-btn" onclick="Templates('board')">
+                <p class="btn-text">Tasks Urgent</p>
+            </div>
+            <div class="wiht-line"></div>
+            <div class="btn-urgent-back">
+                <h2 id="due-date">April 13, 2024</h2>
+                <p>Upcoming Deadline</p>
+            </div>
+        </button>
+        <button class="to-do-btn" onclick="Templates('board')">
+            <div class="flex-row ">
+                <img src="./img/To-do Icon.svg" alt="to-do icon">
+                <h2 id="to-do-number" class="task-number">1</h2>
+            </div>
+            <p class="btn-text">Tasks To-Do</p>
+        </button>
+        <button class="light-task-btn board" onclick="Templates('board')">
             <div class="flex-row gap-btn-light">
                 <img src="./img/Board task Icon.svg" alt="">
                 <h2 id="bord-tasks-number" class="task-number">5</h2>
             </div>
             <p class="btn-text">Tasks on<br> Board</p>
         </button>
-        <button class="light-task-btn" onclick="Templates('board')">
+        <button class="light-task-btn progress" onclick="Templates('board')">
             <div class="flex-row  gap-btn-light">
                 <img src="./img/Progress Icon.svg" alt="">
                 <h2 id="progess-task-number" class="task-number">2</h2>
             </div>
             <p class="btn-text">Tasks in<br> Progress</p>
         </button>
-        <button class="light-task-btn" onclick="Templates('board')">
+        <button class="light-task-btn feedback" onclick="Templates('board')">
             <div class="flex-row  gap-btn-light">
                 <img src="./img/feedback Icon.svg" alt="">
                 <h2 id="feedback-number" class="task-number">2</h2>
             </div>
             <p class="btn-text">Awaiting<br> feedback</p>
         </button>
-        <button class="light-task-btn" onclick="Templates('board')">
+        <button class="light-task-btn done" onclick="Templates('board')">
             <div class="flex-row  gap-btn-light">
                 <img src="./img/Done Icon.svg" alt="">
                 <h2 id="done-number" class="task-number">5</h2>
