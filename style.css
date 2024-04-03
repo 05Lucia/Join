@@ -10,7 +10,7 @@
     --orange: #FFA800;
     --hoverBlue: #005DFF;
     --border: #647188;
-    --greeting-text:#2A3647;
+    --greeting-text: #2A3647;
 }
 
 * {
@@ -1312,11 +1312,11 @@ h3 {
     justify-content: center;
     align-items: center;
     gap: 24px;
-    grid-template-areas: 
-    " first first"
-    " second second"
-    "thrid fourth"
-    "fith sixed";
+    grid-template-areas:
+        " first first"
+        " second second"
+        "thrid fourth"
+        "fith sixed";
     padding: 16px;
     max-width: 400px;
 }
@@ -1357,7 +1357,7 @@ h3 {
     width: 100vw;
     max-width: 400px;
     grid-area: first;
-    max-height: 150px; 
+    max-height: 150px;
     transition: all 0.15s ease-in-out;
 }
 
@@ -1372,7 +1372,7 @@ h3 {
 .urgent-button:hover {
     cursor: pointer;
     border-radius: 0px 30px 30px 30px;
-    transform:scale(1.04);
+    transform: scale(1.04);
     background-color: white;
     color: var(--hoverBlue);
 }
@@ -1453,7 +1453,7 @@ h3 {
 .to-do-btn:hover {
     cursor: pointer;
     border-radius: 0px 30px 30px 30px;
-    transform:scale(1.04);
+    transform: scale(1.04);
     background-color: white;
     color: var(--hoverBlue);
 }
@@ -1482,12 +1482,12 @@ h3 {
 .light-task-btn:hover {
     cursor: pointer;
     border-radius: 0px 30px 30px 30px;
-    transform:scale(1.04);
+    transform: scale(1.04);
     background-color: var(--hoverBlue);
     color: white;
 }
 
-.light-task-btn:hover img{
+.light-task-btn:hover img {
     object-fit: cover;
     border: 3px solid white;
     border-radius: 100%;
@@ -1584,15 +1584,15 @@ h3 {
         min-width: 600px;
         max-width: calc(100vw - 200px);
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr ;
+        grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: 190px 220px 220px;
         justify-content: center;
         align-items: center;
         gap: 24px;
-        grid-template-areas: 
-        "first first first"
-        "second thrid fourth"
-        "fith sixed ."
+        grid-template-areas:
+            "first first first"
+            "second thrid fourth"
+            "fith sixed ."
         ;
     }
 
@@ -1616,9 +1616,9 @@ h3 {
         justify-content: center;
         align-items: center;
         gap: 24px;
-        grid-template-areas: 
-        "first first first thrid"
-        "second fourth fith sixed"
+        grid-template-areas:
+            "first first first thrid"
+            "second fourth fith sixed"
         ;
     }
 
@@ -1631,6 +1631,259 @@ h3 {
         max-height: 190px;
         gap: 32px;
         justify-content: space-evenly;
+    }
+}
+
+/*  Contacts ----------------------------------------------------- */
+
+.contactsWrapper {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.contactsContainer {
+    width: 100%;
+    height: 100%;
+}
+
+.addContactButton {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    height: 64px;
+    width: 64px;
+    border-radius: 10px;
+    border: 1px solid rgba(69, 137, 255, 1);
+    background-color: rgba(69, 137, 255, 1);
+    filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+.contactDetailsContainer {
+    display: none;
+}
+
+.addEditContactContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.6);
+    position: absolute;
+    top: 0;
+    right: -100%;
+    transition: right 0.125s ease;
+    padding: 8px 16px 8px 16px;
+}
+
+.showAddEditContactContainer {
+    right: 0;
+}
+
+.addEditContactCard {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    border-radius: 30px;
+    filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.16));
+}
+
+.contactCardTopSection {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    background-color: rgba(0, 93, 255, 1);
+    height: 40%;
+    width: 100%;
+    border-radius: 30px 30px 0px 0px;
+}
+
+.closeAddEditContactCard {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+}
+
+.closeAddEditContactCard:hover {
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.addContactHeadline {
+    color: white;
+    font-size: 47px;
+    line-height: 56px;
+    font-weight: 700;
+}
+
+.addContactSubheadline {
+    color: white;
+    font-size: 21px;
+    line-height: 25px;
+    font-weight: 400;
+}
+
+.avatarIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    left: calc(50% - 60px);
+    top: calc(40% - 60px);
+    height: 120px;
+    width: 120px;
+    background-color: rgba(209, 209, 209, 1);
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 1);
+    filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.1))
+}
+
+.avatarIcon img {
+    height: 64px;
+    width: 64px;
+}
+
+.contactCardBottomSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    height: 60%;
+    width: 100%;
+    border-radius: 0px 0px 30px 30px;
+    padding-top: 24px;
+}
+
+.addContactContactDetails {
+    display: flex;
+    flex-direction: column;
+    height: 54%;
+    width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+    gap: 8px;
+}
+
+.addContactDetailsInput {
+    border: none;
+    width: 100%;
+    border-bottom: 1px solid rgb(209, 209, 209);
+    height: 41px;
+    padding: 12px 16px 12px 16px;
+    font-size: 19px;
+    line-height: 23px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-repeat: no-repeat;
+    background-position: right 0px center;
+    background-origin: content-box;
+}
+
+.addContactDetailsNameInput {
+    background-image: url('./img/addContactNameIcon.svg');
+}
+
+.addContactDetailsEmailInput {
+    background-image: url('./img/addContactEmailIcon.svg');
+}
+
+.addContactDetailsPhoneInput {
+    background-image: url('./img/addContactPhoneIcon.svg');
+}
+
+.addContactDetailsInput::placeholder {
+    color: rgb(209, 209, 209);
+}
+
+.addContactDetailsInput:hover {
+    cursor: pointer;
+}
+
+.addContactDetailsInput:focus {
+    border-bottom-color: rgba(0, 93, 255, 1);
+    outline: none;
+}
+
+.createContactButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 48px;
+    width: 173px;
+    border-radius: 10px;
+    padding: 12px 8px 12px 8px;
+    background-color: rgba(69, 137, 255, 1);
+    color: white;
+    gap: 4px;
+    border: none;
+    filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+.createContactButton p {
+    font-size: 19px;
+    font-weight: 400;
+}
+
+.createContactButton img {
+    height: 24px
+}
+
+.createContactButton:hover {
+    cursor: pointer;
+}
+
+@media (min-width: 800px) {
+    .contactsWrapper {
+        display: flex;
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .contactsContainer {
+        width: 30%;
+        height: 100%;
+        background-color: lightblue;
+    }
+
+    .contactDetailsContainer {
+        display: flex;
+        width: 70%;
+        height: 100%;
+        background-color: lightgreen;
+    }
+
+    .addEditContactContainer {
+        width: 40%;
+        height: 100%;
+        background-color: lightcoral;
+        position: absolute;
+        top: 0;
+        right: -40%;
+        transition: right 0.3s ease;
+    }
+
+    .showAddEditContactContainer {
+        right: 0;
+    }
+
+    .addContactButton {
+        position: unset;
+        height: 80px;
+        width: 160px;
     }
 }
 
