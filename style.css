@@ -1447,7 +1447,7 @@ h3 {
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
     max-height: 106px;
     grid-area: second;
-    transition: all 0.15s ease-in-out;
+    transition: all 0.2s ease-in-out;
 }
 
 .to-do-btn:hover {
@@ -1477,6 +1477,7 @@ h3 {
     max-height: 160px;
     max-width: 188px;
     width: 50vw;
+    transition: all 0.2s ease-in-out;
 }
 
 .light-task-btn:hover {
@@ -1485,13 +1486,14 @@ h3 {
     transform: scale(1.04);
     background-color: var(--hoverBlue);
     color: white;
+    
 }
 
 .light-task-btn:hover img {
     object-fit: cover;
     border: 3px solid white;
     border-radius: 100%;
-    /* maybe png */
+    /* maybe png? */ 
 }
 
 .light-task-btn:hover .btn-text {
@@ -1886,5 +1888,8 @@ h3 {
         width: 160px;
     }
 }
+
+/*  Board ----------------------------------------------------- */
+
 
 /*  nächter container ----------------------------------------------------- */
