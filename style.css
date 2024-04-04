@@ -1639,20 +1639,25 @@ h3 {
 .contactsWrapper {
     display: flex;
     position: relative;
-    width: 100%;
-    height: 100vh;
+    width: 100vw;
+    height: 100%;
     overflow: hidden;
+    padding-right: 4px;
+    padding-left: 4px;
 }
 
 .contactsContainer {
+    display: flex;
     width: 100%;
     height: 100%;
+    padding: 24px;
+    overflow: scroll;
 }
 
 .addContactButton {
     position: absolute;
-    bottom: 20px;
-    right: 20px;
+    bottom: 24px;
+    right: 24px;
     height: 64px;
     width: 64px;
     border-radius: 10px;
@@ -1844,11 +1849,76 @@ h3 {
     cursor: pointer;
 }
 
+.contactList {
+    height: 100%;
+    width: 100%;
+}
+
+.contactBoxForEachLetter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.sectionByFirstLetter {
+    display: flex;
+    width: 100%;
+    padding: 17px 36px 17px 36px;
+}
+
+.contactsSeparator {
+    height: 1px;
+    width: 100%;
+    background-color: rgba(209, 209, 209, 1);
+}
+
+.contact {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 35px;
+    padding: 15px 24px 15px 24px;
+}
+
+.contactAvatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 42px;
+    width: 42px;
+    background-color: rgba(255, 122, 0, 1);
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 1);
+    font-size: 12px;
+    line-height: 14px;
+    color: white;
+}
+
+.contactNameAndEmail {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 42px;
+    gap: 5px;
+}
+
+.contactName {
+    font-size: 19px;
+    line-height: 23px;
+}
+
+.contactEmail {
+    font-size: 16px;
+    line-height: 19px;
+    color: rgba(69, 137, 255, 1);
+}
+
 @media (min-width: 800px) {
     .contactsWrapper {
         display: flex;
         position: relative;
-        width: 100%;
+        width: calc(100vw - 200px);
         height: 100vh;
         overflow: hidden;
     }
