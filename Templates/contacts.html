@@ -22,7 +22,7 @@
                     <div class="contactInfoEmailAndPhone">
                         <div class="contactInfoEmail">
                             <p>Email</p>
-                            <a href= "mailto:abc@example.com">anton@gmail.com</a>
+                            <a href="mailto:abc@example.com">anton@gmail.com</a>
                         </div>
                         <div class="contactInfoPhone">
                             <p>Phone</p>
@@ -31,7 +31,7 @@
                     </div>
                 </div>
             </div>
-            <button class="addContactButton" onclick="editContact()">
+            <button class="addContactButton" onclick="showContactEditDeleteMenu()">
                 <img src="./img/contactMenuButton.svg">
             </button>
         </div>
@@ -155,15 +155,28 @@
                 </div>
                 <div class="contactCardBottomSection">
                     <div class="addContactContactDetails">
-                        <input class="addContactDetailsInput addContactDetailsNameInput" type="text" placeholder="Name" id="editContactName">
-                        <input class="addContactDetailsInput addContactDetailsEmailInput" type="email" placeholder="Email" id="editContactEmail">
-                        <input class="addContactDetailsInput addContactDetailsPhoneInput" type="tel" placeholder="Phone" id="editContactPhone">
+                        <input class="addContactDetailsInput addContactDetailsNameInput" type="text" placeholder="Name"
+                            id="editContactName">
+                        <input class="addContactDetailsInput addContactDetailsEmailInput" type="email"
+                            placeholder="Email" id="editContactEmail">
+                        <input class="addContactDetailsInput addContactDetailsPhoneInput" type="tel" placeholder="Phone"
+                            id="editContactPhone">
                     </div>
                     <button class="createContactButton">
                         <p>Create contact</p>
                         <img src="./img/createTaskCheckIcon.svg">
                     </button>
                 </div>
+            </div>
+        </div>
+        <div class="editContactMenu" id="editContactMenu">
+            <div class="editContact" onclick="editContact()">
+                <img src="./img/editContactIcon.svg">
+                <span>Edit</span>
+            </div>
+            <div class="deleteContact">
+                <img src="./img/deleteContactIcon.svg">
+                <span>Delete</span>
             </div>
         </div>
     </div>

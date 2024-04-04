@@ -8,21 +8,27 @@ function addContact() {
     document.getElementById('editContactPhone').value = '';
 }
 
+function showContactEditDeleteMenu() {
+    document.getElementById('editContactMenu').classList.toggle('showEditContactMenu');
+    document.getElementById('editContactMenu').style.display = 'flex';
+}
+
 function editContact() {
+    document.getElementById('editContactMenu').style.display = 'none';
+    document.getElementById('editContactMenu').classList.toggle('showEditContactMenu');
     document.getElementById('addEditContact').classList.toggle('showAddEditContactContainer');
     document.getElementById('addAndEditContactHeadline').innerHTML = 'Edit contact';
     document.getElementById('avatarIcon').style.backgroundColor = 'rgba(255, 122, 0, 1)';
     document.getElementById('avatarIcon').innerHTML = 'AM';
-    var inputNameField =  document.getElementById('editContactName');
+    var inputNameField = document.getElementById('editContactName');
     var nameToShow = "Anton Mayer";
     inputNameField.value = 'Anton Mayer';
     inputNameField.focus();
     inputNameField.setSelectionRange(nameToShow.length, nameToShow.length);
     document.getElementById('editContactEmail').value = 'anton@gmail.com';
     document.getElementById('editContactPhone').value = '+49 1111 11 111 1';
-
 }
 
-function openContactInfo(){
+function openContactInfo() {
     document.getElementById('contactInfo').classList.toggle('d-flex');
 }

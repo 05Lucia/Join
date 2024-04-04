@@ -1755,11 +1755,11 @@ h3 {
     line-height: 19px;
 }
 
-.contactInfoEmail p{
+.contactInfoEmail p {
     font-weight: 700;
 }
 
-.contactInfoEmail a{
+.contactInfoEmail a {
     color: rgba(0, 124, 238, 1);
     text-decoration: none;
 }
@@ -1772,7 +1772,7 @@ h3 {
     line-height: 19px;
 }
 
-.contactInfoPhone p{
+.contactInfoPhone p {
 
     font-weight: 700;
 }
@@ -1791,7 +1791,7 @@ h3 {
     right: -100%;
     transition: right 0.125s ease;
     padding: 8px 16px 8px 16px;
-    z-index:10;
+    z-index: 10;
 }
 
 .showAddEditContactContainer {
@@ -2026,6 +2026,46 @@ h3 {
     font-size: 16px;
     line-height: 19px;
     color: rgba(69, 137, 255, 1);
+}
+
+.editContactMenu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 116px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 1);
+    filter:drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    border-radius: 20px 20px 0px 20px;
+    position: absolute;
+    bottom: 20px;
+    right: -100%;
+    transition: right 0.125s ease;
+    z-index: 11;
+}
+
+.editContact {
+    display:flex;
+    height:40px;
+    width: 96px;
+    justify-content: flex-start;
+    padding: 8px;
+    gap: 8px;
+}
+
+.deleteContact {
+    display:flex;
+    height:40px;
+    width: 96px;
+    justify-content: flex-start;
+    padding: 8px;
+    gap: 8px;
+}
+
+.showEditContactMenu {
+    right: 24px;
 }
 
 .d-flex {
