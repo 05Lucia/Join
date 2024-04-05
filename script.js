@@ -1,7 +1,7 @@
 function init() {
     setTimeout(() => {
-        document.getElementById('overlay').style.display = 'none';
-    }, 2000);
+        window.location.href = 'login.html';  
+    }, 1200); 
     includeHTML(); 
 }
 
@@ -28,3 +28,4 @@ function Templates(template) {
      includeHTML();
 }
 
+ 

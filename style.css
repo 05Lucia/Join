@@ -225,16 +225,22 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;  
+    z-index: 1000;   
+    animation: fadeOut 0.1s 1s ease-in-out forwards; 
 }
 
 .overlay-logo {
     position: absolute;
-    animation: logoMove 2s ease-in-out forwards;  
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 265px;
+    height: 323.1px;
+    animation: logoMove 1.3s ease-in-out forwards;
 }
 
 @keyframes logoMove {
-    0% {
+    0%, 66% {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
@@ -249,6 +255,8 @@ body {
         width: 100.03px;
         height: 121.97px;
         opacity: 1;
+        animation-delay: 1s; 
+        animation-duration: 0.3s;
     }
 }
 
@@ -267,6 +275,14 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.loginHeader img {
+    position: fixed;
+    top: 80px;  
+    left: 77px;
+    width: 100.03px;  
+    height: 121.97px; 
 }
 
 .noJoinUser {
