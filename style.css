@@ -215,6 +215,10 @@ body {
 
 /* login ---------------------------------------------------------------------- */
 
+.login-page hidden {
+    display: none
+}
+
 .slide1 {
     background-color: var(--maincolor);
     width: 100%;
@@ -230,18 +234,11 @@ body {
     width: 265px;
     height: 323.1px;
     opacity: 1;
-    animation: logoMove 200ms ease-in-out forwards;
+    animation: logoMove 6s ease-in-out forwards;
 }
 
 @keyframes logoMove {
-    0% {
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        opacity: 1
-    }
-
-    100% {
+    to {
         top: 80px;
         left: 77px;
         transform: translate(0, 0);

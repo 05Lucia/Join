@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,41 +13,49 @@
     <script src=".js/register.js"></script>
 </head>
 <main class="mainContainer"> 
-<div class="loginHeader">
-    <img src="./img/logo.png">
-    <div class="noJoinUser">
-        <span>Not a Join User</span>
-        <button class="blueBtn">Sign up</button>
-    </div> 
+<!-- slide 1 -->
+<div id="slide1" class="slide1">
+    <img src="./assets/img/logoNegative.png" alt="Logo">
 </div>
-<div class="loginContainer">
-    <div class="loginHeadline">
-        <h1 class="h1Login">Log in</h1>
-        <img src="./img/Vector5.png">
+<!-- login page (after start animation) -->
+<div id="loginPage" class="login-page hidden">
+    <div class="loginHeader">
+        <img src="./img/logo.png">
+        <div class="noJoinUser">
+            <span>Not a Join User</span>
+            <button class="blueBtn">Sign up</button>
+        </div> 
     </div>
-    <form class="loginForm" onsubmit="login">
-        <div class="inputField">
-            <input class="input" type="email" required id="email" placeholder="E-Mail">
-            <img class="inputImage" src="./img/img/mail.svg">
+
+    <div class="loginContainer">
+        <div class="loginHeadline">
+            <h1 class="h1Login">Log in</h1>
+            <img src="./img/Vector5.png">
         </div>
-        <div class="inputField">
-            <input class="input" type="password" required id="password" placeholder="Password">
-            <img class="inputImage" src="./img/lock.svg">
+        <form class="loginForm" onsubmit="login">
+            <div class="inputField">
+                <input class="input" type="email" required id="email" placeholder="E-Mail">
+                <img class="inputImage" src="./img/img/mail.svg">
+            </div>
+            <div class="inputField">
+                <input class="input" type="password" required id="password" placeholder="Password">
+                <img class="inputImage" src="./img/lock.svg">
+            </div>
+        </form>
+        <div id="msgBox"></div>
+        <div class="rememberMe">
+            <img class="underlinedTextButton" src="./img/Rectangle5.svg">
+            <span class="textRemember">Remember me</span>
         </div>
-    </form>
-    <div id="msgBox"></div>
-    <div class="rememberMe">
-        <img class="underlinedTextButton" src="./img/Rectangle5.svg">
-        <span class="textRemember">Remember me</span>
+        <div class="buttonContainer">
+            <button onclick="login()" class="blueBtn">Log in</button>
+            <button class="greyBorderBtn">Guest log in</button>
+        </div>
     </div>
-    <div class="buttonContainer">
-        <button onclick="login()" class="blueBtn">Log in</button>
-        <button class="greyBorderBtn">Guest log in</button>
+    <div class="legalNotes">
+        <button>Privcy Policy</button>
+        <button>Legal Notice</button>
     </div>
-</div>
-<div class="legalNotes">
-    <button>Privcy Policy</button>
-    <button>Legal Notice</button>
 </div>
 </main>
 </html>

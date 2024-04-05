@@ -1,3 +1,7 @@
+function init() {
+    includeHTML();
+    changeSlide1();
+}
 
 async function includeHTML() {
     let includeElements = document.querySelectorAll('[include-html]');
@@ -21,3 +25,13 @@ function Templates(template) {
     `;
      includeHTML();
 }
+
+function changeSlide1() {
+    setTimeout(() => { 
+        document.getElementById("slide1").style.display = "none";
+        document.getElementById("loginPage").classList.remove("hidden");
+        const logoImg = document.querySelector(".slide1 img");
+        logoImg.src = "./assets/img/logo.png";  
+    }, 1000);  
+}
+ 
