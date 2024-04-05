@@ -146,6 +146,71 @@ body {
 }
 
 
+/*privacyPolicy*/
+
+.templateMainContainer {
+    max-width: 1250px;
+    max-height: 80vh;
+    overflow: auto;
+    margin: auto;
+    padding: 20px;
+}
+
+.topHeadline {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+.pp-h1{
+    font-size: 48px;
+    font-weight: 700; 
+    text-align: left;
+    letter-spacing: 2px;
+}
+
+.pp-h2{
+    margin-top: 10px;
+    font-size: 34px;
+    font-weight: 700;
+    text-align: left;
+    letter-spacing: 1px;
+    color: var(--maincolor);
+}
+
+.pp-h3{
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: 700; 
+    text-align: left;
+    letter-spacing: 1px;
+    color: var(--maincolor);
+}
+
+.highlight {
+    color: #4589FF;
+}  
+
+.goBackButton {
+    cursor: pointer;
+    background-color: white;
+    border: unset;
+}
+
+@media (max-width: 480px) {
+.topHeadline {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.pp-h1{
+    font-size: 32px;
+}
+.pp-h2{
+    font-size: 22px;
+}
+}
 
 
 /* login ---------------------------------------------------------------------- */
