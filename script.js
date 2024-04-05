@@ -1,6 +1,8 @@
 function init() {
-    includeHTML();
-    changeSlide1();
+    setTimeout(() => {
+        document.getElementById('overlay').style.display = 'none';
+    }, 2000);
+    includeHTML(); 
 }
 
 async function includeHTML() {
@@ -26,12 +28,3 @@ function Templates(template) {
      includeHTML();
 }
 
-function changeSlide1() {
-    setTimeout(() => { 
-        document.getElementById("slide1").style.display = "none";
-        document.getElementById("loginPage").classList.remove("hidden");
-        const logoImg = document.querySelector(".slide1 img");
-        logoImg.src = "./assets/img/logo.png";  
-    }, 1000);  
-}
- 

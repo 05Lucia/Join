@@ -22,6 +22,7 @@
 body {
     font-family: 'Open Sans', sans-serif;
     overflow: hidden;
+    position: relative;
 }
 
 .flex-row {
@@ -214,31 +215,34 @@ body {
 
 
 /* login ---------------------------------------------------------------------- */
-
-.login-page hidden {
-    display: none
-}
-
-.slide1 {
-    background-color: var(--maincolor);
-    width: 100%;
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
     height: 100vh;
-    position: relative;
+    background-color: var(--maincolor);  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;  
 }
 
-.slide1 img {
+.overlay-logo {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 265px;
-    height: 323.1px;
-    opacity: 1;
-    animation: logoMove 6s ease-in-out forwards;
+    animation: logoMove 2s ease-in-out forwards;  
 }
 
 @keyframes logoMove {
-    to {
+    0% {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 265px;
+        height: 323.1px;
+        opacity: 1;
+    }
+    100% {
         top: 80px;
         left: 77px;
         transform: translate(0, 0);
@@ -248,13 +252,8 @@ body {
     }
 }
 
-.slide1 img {
-    cursor: pointer;
-    animation: logoMove 200ms ease-in-out 100ms forwards
-}
-
 /*login.html*/
-.mainContainer {
+.mainLoginContainer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -301,16 +300,6 @@ body {
     gap: 39px;
     background: #FFFFFF;
     box-shadow: 0px 0px 10px 3px #00000014;
-}
-
-@keyframes fadeOut {
-    to {
-        opacity: 0;
-    }
-}
-
-.bodyFadeOut {
-    animation: fadeOut 500ms ease-in-out forwards;
 }
 
 .loginHeadline {
@@ -415,7 +404,7 @@ body {
 
 
 
-/* sing up -------------------------------------------------------------- */
+/* sign up -------------------------------------------------------------- */
 .signupContainer {
     position: relative;
     width: 100%;
