@@ -11,6 +11,7 @@
     --hoverBlue: #005DFF;
     --border: #647188;
     --greeting-text: #2A3647;
+    --light-gray-backround: #E7E7E7;
 }
 
 * {
@@ -1777,8 +1778,6 @@ h3 {
     font-weight: 700;
 }
 
-
-
 .addEditContactContainer {
     display: flex;
     justify-content: center;
@@ -2144,13 +2143,17 @@ h3 {
     align-items: flex-start;
     justify-content: center;
     flex-direction: column;
-    gap: 16px;
+    gap: 26px;
     overflow-y: scroll;
     padding: 0px 16px;
 }
 
 .board-collum {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
 }
 
 .board-header {
@@ -2199,4 +2202,23 @@ h3 {
     border: 1px solid var(--style);
 }
 
+.no-task-div {
+    height: 48px;
+    width: 100%;
+    border: 2px dashed var(--icon);
+    background-color: var(--light-gray-backround);
+    border-radius: 10px;
+    color: var(--icon);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 16px;
+}
+
+@media (min-width: 800px) {
+    .wraper-board {
+        width: calc(100vw - 200px);
+    }
+}
 /*  nächter container ----------------------------------------------------- */
