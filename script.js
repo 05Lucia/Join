@@ -1,4 +1,5 @@
 function init() {
+    //login page after start animation//
     setTimeout(() => {
         window.location.href = 'login.html';  
     }, 1200); 

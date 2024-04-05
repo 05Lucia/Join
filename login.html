@@ -12,29 +12,25 @@
     <script src=".js/add_task.js"></script>
     <script src=".js/register.js"></script>
 </head>
-<main class="mainLoginContainer"> 
 <!-- login page (after start animation) -->
-<div id="loginPage">
+<main class="mainLoginContainer"> 
+<div id="loginPage" class="loginPage">
     <div class="loginHeader">
         <img src="./img/logo.png">
-        <div class="noJoinUser">
-            <span>Not a Join User</span>
-            <button class="blueBtn">Sign up</button>
-        </div> 
     </div>
 
     <div class="loginContainer">
         <div class="loginHeadline">
             <h1 class="h1Login">Log in</h1>
-            <img src="./img/Vector5.png">
+            <div class="seperator"></div>
         </div>
         <form class="loginForm" onsubmit="login">
             <div class="inputField">
-                <input class="input" type="email" required id="email" placeholder="E-Mail">
+                <input class="input" type="email" required id="email" placeholder="Email">
                 <img class="inputImage" src="./img/img/mail.svg">
             </div>
             <div class="inputField">
-                <input class="input" type="password" required id="password" placeholder="Password">
+                <input class="input" type="password" required id="password" placeholder="Password" minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
                 <img class="inputImage" src="./img/lock.svg">
             </div>
         </form>
@@ -44,10 +40,14 @@
             <span class="textRemember">Remember me</span>
         </div>
         <div class="buttonContainer">
-            <button onclick="login()" class="blueBtn">Log in</button>
+            <button onclick="login()" class="blueBtn" style="width: 200px;">Log in</button>
             <button class="greyBorderBtn">Guest log in</button>
         </div>
     </div>
+    <div class="noJoinUser">
+        <span>Not a Join User</span>
+        <button class="blueBtn">Sign up</button>
+    </div> 
     <div class="legalNotes">
         <button>Privcy Policy</button>
         <button>Legal Notice</button>
