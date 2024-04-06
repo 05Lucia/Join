@@ -17,39 +17,39 @@
 <div id="loginPage" class="loginPage">
     <div class="loginHeader">
         <img src="./img/logo.png">
-    </div>
-
-    <div class="loginContainer">
-        <div class="loginHeadline">
-            <h1 class="h1Login">Log in</h1>
-            <div class="seperator"></div>
-        </div>
-        <form class="loginForm" onsubmit="login">
-            <div class="inputField">
-                <input class="input" type="email" required id="email" placeholder="Email">
-                <img class="inputImage" src="./img/img/mail.svg">
-            </div>
-            <div class="inputField">
-                <input class="input" type="password" required id="password" placeholder="Password" minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
-                <img class="inputImage" src="./img/lock.svg">
-            </div>
-        </form>
-        <div id="msgBox"></div>
-        <div class="rememberMe">
-            <img class="underlinedTextButton" src="./img/Rectangle5.svg">
-            <span class="textRemember">Remember me</span>
-        </div>
-        <div class="buttonContainer">
-            <button onclick="login()" class="blueBtn" style="width: 200px;">Log in</button>
-            <button class="greyBorderBtn">Guest log in</button>
-        </div>
-    </div>
-    <div class="noJoinUser">
-        <span>Not a Join User</span>
-        <button class="blueBtn">Sign up</button>
     </div> 
+        <div class="loginContainer">
+            <div class="loginHeadline">
+                <h1 class="h1Login">Log in</h1>
+                <div class="seperator"></div>
+            </div>
+            <form class="loginForm" onsubmit="login">
+                <div class="inputField">
+                    <input class="input" type="email" required id="email" placeholder="Email">
+                    <img class="inputImage" src="./img/img/mail.svg">
+                </div>
+                <div class="inputField">
+                    <input class="input" type="password" required id="password" placeholder="Password" minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                    <img class="inputImage" src="./img/lock.svg">
+                </div>
+            </form>
+            <div id="msgBox"></div>
+            <div class="rememberMe">
+                <img class="underlinedTextButton" src="./img/Rectangle5.svg">
+                <span class="textRemember">Remember me</span>
+            </div>
+            <div class="buttonContainer">
+                <button onclick="login()" class="blueBtn" style="width: 200px;">Log in</button>
+                <button class="greyBorderBtn">Guest log in</button>
+            </div>
+        </div>
+        <div class="noJoinUser">
+            <span>Not a Join User?</span>
+            <button class="blueBtn">Sign up</button>
+        </div>
+   
     <div class="legalNotes">
-        <button>Privcy Policy</button>
+        <button>Privacy Policy</button>
         <button>Legal Notice</button>
     </div>
 </div>
