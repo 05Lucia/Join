@@ -1,21 +1,21 @@
 function cardTemplate() {
     return `
     <div class="card">
-        <div class="category-card">${a}]</div>
+        <div class="category-card">${paceholder}]</div>
         <div class="card-text">
-            <h3>${a}</h3>
-            <p>${a}</p>
+            <h3>${paceholder}</h3>
+            <p>${paceholder}</p>
             <!-- dont show more than 2 lines? JS? -->
         </div>
         <div class="progressbar-area">
             <div class="progressbar">
-                <div class="progress-color" style="width: ${a};"></div>
+                <div class="progress-color" style="width: ${paceholder};"></div>
         </div>
-        <p>${a}/${a} Subtasks</p>
+        <p>${p}/${p} Subtasks</p>
         </div>
         <div class="icons-area">
-            <div>${a}</div>
-            <img src="${a}" alt="">
+            <div>${paceholder}</div>
+            <img src="${paceholder}" alt="">
         </div>
     </div>
     `;
