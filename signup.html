@@ -1,54 +1,71 @@
+
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JOIN</title>
-    <link rel="icon" type="image/vnd.icon" href="./assets/img/join.ico">
+    <title>Sign up</title>
+    <link rel="icon" type="image/vnd.icon" href="../img/img/join.ico">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="./fonts/fonts.css">
     <script src="script.js"></script>
     <script src=".js/add_task.js"></script>
-    <script src=".js/signup.js"></script>
-</head>
-
+    <script src=".js/register.js"></script>
+</head> 
 <main class="signupContainer"> 
-    <img class="signupLogo" src="./assets/img/logoNegative.png">   
-<div class="signupContent">
-    <div class="signupHeadline">
-        <h1 class="h1Login">Sign up</h1>
-        <img src="./assets/img/login/Vector5.png">
+<div id="signinPage" class="signinPage">
+    <div class="signinHeader">
+        <img src="../img/logoNegative.png"> 
+    </div> 
+    <div class="signupContent">
+        <div class="headlineContainer" >
+            <button class="goBackButton" onclick="window.location.href='../login.html'"><img src="../img/arrow-left-line.svg"></button>
+            <div style= "margin-left: -45px;"class="signupHeadline">
+                <h1 class="h1Login">Sign up</h1>
+                <div class="seperator"></div>
+            </div>   
+        </div>
+        <form class="loginForm" onsubmit="event.preventDefault(); validateForm();">
+            <div class="inputField">
+                <input class="input" type="name" required id="name" placeholder="Name">
+                <img class="inputImage" src="./img/img/person.svg">
+            </div>
+            <div class="inputField">
+                <input class="input" type="email" required id="email" placeholder="Email">
+                <img class="inputImage" src="./img/img/mail.svg">
+            </div>
+            <div class="inputField">
+                <input class="input" type="password" required id="password" placeholder="Password" minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                <img class="inputImage" src="./img/img/lock.svg">
+            </div>
+            <div class="inputField">
+                <input class="input" type="password" required id="confirm_password" placeholder="Confirm Password">
+                <img class="inputImage" src="./img/img/lock.svg">
+            </div>
+        </form>
+        <div id="message"></div>
+        <div id="msgBox"></div>
+        <div class="acceptPolicy">
+            <img id="checkboxImage" src="../img/Rectangle5.svg" onclick="this.src = this.src.includes('Rectangle5.svg') ? './img/img/checked.svg' : './img/img/Rectangle5.svg';">
+            <span class="acceptance" onclick="window.location.href='./templates/privacy_policy.html'">I accept the <span class="privacy-policy-link">Privacy Policy</span></span>
+        </div>
+        <div class="buttonContainer">
+            <button onclick="succesfulSignup()" class="blueBtn" style="width: 200px;">Sign up</button>
+        </div>
     </div>
-    <form class="signinForm" onsubmit="addUser(); return false;">
-        <div class="inputField">
-            <input class="input" type="name" required id="name" placeholder="Name">
-            <img class="inputImage" src="./assets/img/login/person.svg">
-        </div>
-        <div class="inputField">
-            <input class="input" type="email" required id="email" placeholder="E-Mail">
-            <img class="inputImage" src="./assets/img/login/mail.svg">
-        </div>
-        <div class="inputField">
-            <input class="input" type="password" required id="password" placeholder="Password">
-            <img class="inputImage" src="./assets/img/login/lock.svg">
-        </div>
-        <div class="inputField">
-            <input class="input" type="password" required id="password" placeholder="Confirm Password">
-            <img class="inputImage" src="./assets/img/login/lock.svg">
-        </div>
-    </form>
-    <div>
-        <img class="underlinedTextButton" src="./assets/img/login/Rectangle5.svg">
-        <span class="textRemember">I accept the Privacy Policy</span>
+   
+    <div class="legalNotesNegative">
+        <button onclick="window.location.href='./templates/privacy_policy.html'">Privacy Policy</button>
+        <button onclick="window.location.href='./templates/legal_notice.html'">Legal Notice</button>
     </div>
-    <div class="buttonContainer">
-        <button class="loginButton">Sign up</button> 
+</div> 
+<div id="signupModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <p>You Signed Up successfully</p>
     </div>
-</div>
-<div class="legalNotesNegative">
-    <button>Privcy Policy</button>
-    <button>Legal Notice</button>
-</div>
+  </div> 
+  
 </main>
 </html>
  
