@@ -31,12 +31,12 @@
                     </div>
                 </div>
             </div>
-            <button class="addContactButton" onclick="showContactEditDeleteMenu()">
+            <button class="addContactButton" id="addContactButton" onclick="showContactEditDeleteMenu()">
                 <img src="./img/contactMenuButton.svg">
             </button>
         </div>
         <div class="contactList" id="contactList">
-            <div class="contactBoxForEachLetter">
+            <!-- <div class="contactBoxForEachLetter">
                 <div class="sectionByFirstLetter">
                     A
                 </div>
@@ -68,8 +68,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="contactBoxForEachLetter">
+            </div> -->
+            <!-- <div class="contactBoxForEachLetter">
                 <div class="sectionByFirstLetter">
                     B
                 </div>
@@ -101,8 +101,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="contactBoxForEachLetter">
+            </div> -->
+            <!-- <div class="contactBoxForEachLetter">
                 <div class="sectionByFirstLetter">
                     C
                 </div>
@@ -134,17 +134,15 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
-        <button class="addContactButton" onclick="addContact()">
+        <button class="addContactButton" onclick="showAddContact()">
             <img src="./img/addContactButtonIcon.svg">
         </button>
-        <!-- <div class="contactDetailsContainer">
-        </div> -->
         <div id="addEditContact" class="addEditContactContainer">
             <div class="addEditContactCard">
                 <div class="contactCardTopSection">
-                    <div class="closeAddEditContactCard" onclick="addContact()">
+                    <div class="closeAddEditContactCard" onclick="hideAddContact()">
                         <img src="./img/addEditContactCard.svg">
                     </div>
                     <div class="addAndEditContactHeadline" id="addAndEditContactHeadline">Add contact</div>
@@ -162,21 +160,25 @@
                         <input class="addContactDetailsInput addContactDetailsPhoneInput" type="tel" placeholder="Phone"
                             id="editContactPhone">
                     </div>
-                    <button class="createContactButton">
-                        <p>Create contact</p>
-                        <img src="./img/createTaskCheckIcon.svg">
-                    </button>
+                    <div class="addEditContactButtons" id="addEditContactButtons">
+                        <button class="createContactButton">
+                            <p>Create contact</p>
+                            <img src="./img/createTaskCheckIcon.svg">
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="editContactMenu" id="editContactMenu">
-            <div class="editContact" onclick="editContact()">
-                <img src="./img/editContactIcon.svg">
-                <span>Edit</span>
-            </div>
-            <div class="deleteContact">
-                <img src="./img/deleteContactIcon.svg">
-                <span>Delete</span>
+        <div class="editContactMenuContainer" id="editContactMenuContainer" onclick="hideContactEditDeleteMenu()">
+            <div class="editContactMenu" id="editContactMenu">
+                <div class="editContact" onclick="showEditContact()">
+                    <img src="./img/editContactIcon.svg">
+                    <span>Edit</span>
+                </div>
+                <div class="deleteContact">
+                    <img src="./img/deleteContactIcon.svg">
+                    <span>Delete</span>
+                </div>
             </div>
         </div>
     </div>

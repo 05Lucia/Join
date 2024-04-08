@@ -1983,6 +1983,11 @@ h3 {
     filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.2));
 }
 
+.addContactButton:active {
+    background-color: rgba(0, 93, 255, 1);
+    border: none;
+}
+
 .contactDetailsContainer {
     position: fixed;
     top: 80px;
@@ -2248,6 +2253,13 @@ h3 {
     outline: none;
 }
 
+.addEditContactButtons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
 .createContactButton {
     display: flex;
     justify-content: center;
@@ -2315,6 +2327,7 @@ h3 {
     height: 42px;
     width: 42px;
     background-color: rgba(255, 122, 0, 1);
+    background-color: hsl(hue-rotate(random(60deg, 300deg))), rgba(255, 255, 255, 0.3);
     border-radius: 50%;
     border: 2px solid rgba(255, 255, 255, 1);
     font-size: 12px;
@@ -2341,6 +2354,22 @@ h3 {
     color: rgba(69, 137, 255, 1);
 }
 
+.editContactMenuContainer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+    padding-bottom: 24px;
+    padding-right: 24px;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0);
+    right: -100%;
+    transition: right 0.125s ease;
+    z-index: 11
+}
+
 .editContactMenu {
     display: flex;
     flex-direction: column;
@@ -2352,11 +2381,6 @@ h3 {
     background-color: rgba(255, 255, 255, 1);
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     border-radius: 20px 20px 0px 20px;
-    position: absolute;
-    bottom: 20px;
-    right: -100%;
-    transition: right 0.125s ease;
-    z-index: 11;
 }
 
 .editContact {
@@ -2368,6 +2392,14 @@ h3 {
     gap: 8px;
 }
 
+.editContact:active {
+    background-color: rgba(227, 238, 255, 1);
+    color: rgba(0, 93, 255, 1);
+    font-weight: 700;
+    border-radius: 8px;
+    padding: 8px;
+}
+
 .deleteContact {
     display: flex;
     height: 40px;
@@ -2377,9 +2409,87 @@ h3 {
     gap: 8px;
 }
 
-.showEditContactMenu {
-    right: 24px;
+.deleteContact:active {
+    background-color: rgba(227, 238, 255, 1);
+    color: rgba(0, 93, 255, 1);
+    font-weight: 700;
+    border-radius: 8px;
+    padding: 8px 6px 8px 6px;
 }
+
+.showEditContactMenu {
+    right: 0px;
+}
+
+.saveEditContactButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 48px;
+    width: 86px;
+    border-radius: 10px;
+    padding: 12px 8px 12px 8px;
+    background-color: rgba(69, 137, 255, 1);
+    color: white;
+    gap: 4px;
+    border: none;
+    filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+.saveEditContactButton p {
+    font-size: 19px;
+    font-weight: 400;
+}
+
+.saveEditContactButton img {
+    height: 24px
+}
+
+.saveEditContactButton:hover {
+    cursor: pointer;
+}
+
+.deleteEditContactButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 48px;
+    width: 104px;
+    padding: 12px 16px 12px 16px;
+    border-radius: 10px;
+    border: 1px solid rgba(66, 82, 110, 1);
+    background-color: white;
+}
+
+.deleteEditContactButton p {
+    font-size: 19px;
+    font-weight: 400;
+    color: rgba(66, 82, 110, 1);
+}
+
+.deleteEditContactButton:hover {
+    cursor: pointer;
+    border: 2px solid rgba(69, 137, 255, 1);
+    filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+
+
+
+.kategorie {
+    margin-bottom: 20px;
+}
+
+.kontakt {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+
+
+
+
 
 .d-flex {
     display: flex;
@@ -2419,6 +2529,8 @@ h3 {
     .showAddEditContactContainer {
         right: 0;
     }
+
+
 
     .addContactButton {
         position: unset;
@@ -2625,15 +2737,16 @@ h3 {
         padding: 0px 16px;
     }
 
-    .kanban-board::-webkit-scrollbar{
+    .kanban-board::-webkit-scrollbar {
         height: 4px;
     }
+
     .card-container {
         flex-direction: column;
     }
 
     .add-btn-top {
-        display:flex;
+        display: flex;
         margin-left: 16px;
         align-items: center;
         justify-content: center;
