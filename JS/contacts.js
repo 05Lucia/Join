@@ -3,148 +3,135 @@ let contacts = [
         "name": "Anton",
         "surname": "Mayer",
         "initials": "AM",
-        "email": "anton@gmail.com"
+        "email": "anton@gmail.com",
+        "phone": "+49 1111 111 11 1",
+        "category": "A"
     },
     {
         "name": "Albert",
         "surname": "Gerdes",
         "initials": "AG",
-        "email": "albert@gmail.com"
+        "email": "albert@gmail.com",
+        "phone": "+49 2222 222 22 2",
+        "category": "A"
     },
     {
         "name": "Aaron",
         "surname": "Brier",
         "initials": "AB",
-        "email": "aaron@gmail.com"
+        "email": "aaron@gmail.com",
+        "phone": "+49 3333 333 33 3",
+        "category": "A"
     },
     {
         "name": "Britta",
         "surname": "Zielke",
         "initials": "BZ",
-        "email": "b.zielke@gmail.com"
-    },
-    {
-        "name": "Bernt",
-        "surname": "Saathoff",
-        "initials": "BS",
-        "email": "bernt.s@gmail.com"
+        "email": "b.zielke@gmail.com",
+        "phone": "+49 4444 444 44 4",
+        "category": "B"
     },
     {
         "name": "Carsten",
         "surname": "Schmidt",
         "initials": "CS",
-        "email": "carsten.schmidt@gmail.com"
+        "email": "carsten.schmidt@gmail.com",
+        "phone": "+49 5555 555 55 5",
+        "category": "C"
+    },
+    {
+        "name": "Bernt",
+        "surname": "Saathoff",
+        "initials": "BS",
+        "email": "bernt.s@gmail.com",
+        "phone": "+49 6666 666 66 6",
+        "category": "B"
     },
     {
         "name": "Caroline",
         "surname": "Tabeling",
         "initials": "CT",
-        "email": "caroline@gmail.com"
+        "email": "caroline@gmail.com",
+        "phone": "+49 7777 777 77 7",
+        "category": "C"
     }
 ]
 
-const container = document.getElementById("contactList");
 
-function sortName(a, b) {
-    // Sortierung nach Name (absteigend)
-    if (a.name < b.name) {
-        return -1;
-    } else if (a.name < b.name) {
-        return 1;
-    } else {
-        return 0;
-    }
+function init(){
+// Sortieren der Kontakte nach Vornamen
+console.log('Kontakte vor Sortierung', contacts);
+sortByFirstName(contacts);
+
+// Erstellen der Kategorien
+let categorizedContacts = createCategories(contacts);
+console.log('categorized Contacts', categorizedContacts);
+
+// Anzeigen der Kontaktliste nach Kategorien
+renderContacts(categorizedContacts);
+
 }
 
-function groupNamesToCategory(contacts) {
-    let groupedContacts = {};
+function sortByFirstName(contacts) {
+    contacts.sort((a, b) => a.name.localeCompare(b.name));
+    console.log('Sortierte Kontakte', contacts);
+}
 
-    for (let contact of contacts) {
-        const firstLetter = contact.name.charAt(0).toUpperCase();
-
-        if (!groupedContacts[firstLetter]) {
-            groupedContacts[firstLetter] = [];
+function createCategories(contacts) {
+    let categories = {};
+    contacts.forEach(contact => {
+        let initial = contact.name.charAt(0).toUpperCase();
+        if (!categories[initial]) {
+            categories[initial] = [];
         }
-
-        groupedContacts[firstLetter].push(contact);
-    }
-
-    return groupedContacts;
+        categories[initial].push(contact);
+    });
+    return categories;
 }
 
-function renderContacts(contacts) {
+function renderContacts(categories) {
     setTimeout(() => {
-        const contactList = document.getElementById("contactList");
-        contactList.innerHTML = ""; // Leert den Container vor erneutem Anzeigen
+        let contactListHTML = ''; // Variable zum Sammeln des HTML-Codes für die Kontaktliste
+        let index = 0; // Initialisieren des Index für die Kontakte
 
-        const groupedContacts = groupNamesToCategory(contacts);
+        for (let initial in categories) {
+            // Kategorie-Überschrift hinzufügen
+            contactListHTML += `
+                <div class="sectionByFirstLetter">
+                    ${initial}
+                </div>
+                <div class="contactsSeparator">
+                </div>
+            `;
 
-        for (const category in groupedContacts) {
-            const contactGroup = groupedContacts[category];
-
-            contactGroup.sort(sortName);
-
-            // contactList.innerHTML += /*html*/`
-            // <div class="contactBoxForEachLetter">
-            //     <div class="sectionByFirstLetter">
-            //     </div>
-            //     <div class="contactsSeparator">
-            //     </div>
-            //     <div class="contact" onclick="openContactInfo()">
-            //     </div>
-            // </div>
-            
-            // `;
-
-            const categoryWrapper = document.createElement("div");
-            categoryWrapper.classList.add("contactBoxForEachLetter");
-
-            const sectionByFirstLetter = document.createElement("div");
-            sectionByFirstLetter.classList.add("sectionByFirstLetter");
-            sectionByFirstLetter.textContent = category;
-
-            const contactsSeparator = document.createElement("div");
-            contactsSeparator.classList.add("contactsSeparator");
-
-            // Kategorie und Separator zuerst anfügen
-            categoryWrapper.appendChild(sectionByFirstLetter);
-            categoryWrapper.appendChild(contactsSeparator);
-
-            // Kontakte danach anfügen
-            contactGroup.forEach(contact => {
-                const contactElement = document.createElement("div");
-                contactElement.classList.add("contact");
-
-                const contactAvatar = document.createElement("div");
-                contactAvatar.classList.add("contactAvatar");
-                const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
-                contactAvatar.style.backgroundColor = randomColor;
-                contactAvatar.textContent = contact.initials; // Initialen aus dem Array verwenden
-
-
-                const contactNameAndEmail = document.createElement("div");
-                contactNameAndEmail.classList.add("contactNameAndEmail");
-
-                const contactName = document.createElement("div");
-                contactName.classList.add("contactName");
-                contactName.textContent = `${contact.name} ${contact.surname}`; // Name und Nachname zusammenfügen
-
-                const contactEmail = document.createElement("div");
-                contactEmail.classList.add("contactEmail");
-                contactEmail.textContent = contact.email; // E-Mail-Adresse aus dem Array verwenden
-
-                contactNameAndEmail.appendChild(contactName);
-                contactNameAndEmail.appendChild(contactEmail);
-
-                contactElement.appendChild(contactAvatar);
-                contactElement.appendChild(contactNameAndEmail);
-
-                categoryWrapper.appendChild(contactElement);
+            // Kontakte für die aktuelle Kategorie hinzufügen
+            categories[initial].forEach(contact => {
+                contactListHTML += `
+                    <div class="contact" onclick="openContactInfo(${index})"> <!-- Index übergeben -->
+                        <div class="contactAvatar">
+                            ${contact.initials}
+                        </div>
+                        <div class="contactNameAndEmail">
+                            <div class="contactName">
+                                ${contact.name} ${contact.surname}
+                            </div>
+                            <div class="contactEmail">
+                                ${contact.email}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                index++; // Inkrementieren des Index für den nächsten Kontakt
             });
-
-            contactList.appendChild(categoryWrapper);
         }
-    }, 800);
+
+        // Kontaktliste in das HTML einfügen
+        document.getElementById("contactList").innerHTML = `
+            <div class="contactBoxForEachLetter">
+                ${contactListHTML}
+            </div>
+        `;
+    }, 800); // setTimeout mit 800ms Verzögerung
 }
 
 function showAddContact() {
@@ -203,6 +190,32 @@ function showEditContact() {
     document.getElementById('editContactMenuContainer').style.display = 'flex';
 }
 
-function openContactInfo() {
-    document.getElementById('contactInfo').classList.toggle('d-flex');
+function openContactInfo(index) {
+    document.getElementById('contactInfo').classList.add('d-flex');
+    let contact = contacts[index];
+    console.log("Detailansicht für Kontakt:", contact);
+    document.getElementById('contactInfoContactDetails').innerHTML = /*html*/`
+                    <div class="contactInfoAvatarAndName">
+                        <div class="contactInfoAvatar">
+                            ${contact['initials']}
+                        </div>
+                        <div class="contactInfoName">
+                        ${contact['name']} ${contact['surname']}
+                        </div>
+                    </div>
+                    <div class="contactInfoEmailAndPhone">
+                        <div class="contactInfoEmail">
+                            <p>Email</p>
+                            <a href="mailto:abc@example.com">${contact['email']}</a>
+                        </div>
+                        <div class="contactInfoPhone">
+                            <p>Phone</p>
+                            <span>${contact['phone']}</span>
+                        </div>
+                    </div>   
+            `;
+}
+
+function closeContactInfo() {
+    document.getElementById('contactInfo').classList.remove('d-flex');
 }

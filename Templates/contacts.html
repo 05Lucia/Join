@@ -1,17 +1,17 @@
 <div class="contactsWrapper">
     <div class="contactsContainer">
         <div class="contactDetailsContainer" id="contactInfo">
-            <div class="contactInfoBox">
+           <div class="contactInfoBox">
                 <div class="contactInfoHeadlineAndBackButton">
                     <div class="contactInfoHeadline">
                         Contact Information
                     </div>
-                    <div class="contactInfoBackButton" onclick="openContactInfo()">
+                    <div class="contactInfoBackButton" onclick="closeContactInfo()">
                         <img src="./img/contactInfoBackButton.svg">
                     </div>
                 </div>
-                <div class="contactInfoContactDetails">
-                    <div class="contactInfoAvatarAndName">
+                <div class="contactInfoContactDetails" id="contactInfoContactDetails">
+                <!-- <div class="contactInfoAvatarAndName">
                         <div class="contactInfoAvatar">
                             AM
                         </div>
@@ -28,7 +28,7 @@
                             <p>Phone</p>
                             <span>+49 1111 111 11 1</span>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <button class="addContactButton" id="addContactButton" onclick="showContactEditDeleteMenu()">
