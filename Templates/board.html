@@ -1,15 +1,26 @@
 <div class="wraper-board">
     <div class="board-top">
-        <input class="search-input" type="text" placeholder="Find Task"><button class="search-btn">
-            <div class="search-boder"></div><img src="./img/search.svg" alt="">
-        </button>
-        <button class="blueBtn add-btn-top">Add task <img src="" alt=""></button>
+        
+        <div class="search-field">
+            <input class="search-input" type="text" placeholder="Find Task">
+            <div class="search-boder"></div>
+            <div class="search-btn-container">
+                <img class="search-btn-normal" src="./img/search btn.svg" alt="">
+                <img class="search-btn-hover" src="./img/search button hover.svg" alt="">
+                <img class="search-btn-click" src="./img/search button clicked.svg" alt="">
+            </div>
+        </div>
+        <button class="blueBtn add-btn-top">Add task <img src="./img/plus icon.svg" alt=""></button>
     </div>
     <div class="kanban-board">
         <div class="board-collum">
             <div class="board-header">
                 <h3>To do</h3>
-                <img src="./img/plus button.svg" alt="plus icon">
+                <div class="add-btn-container">
+                    <img class="add-btn-board" src="./img/plus button.svg" alt="plus icon">
+                    <img class="add-btn-board-hover" src="./img/plus buton hover.svg" alt="plus icon">
+                    <img class="add-btn-board-click" src="./img/plus button clicked.svg" alt="plus icon">
+                </div>
             </div>
             <div id="to-do-container" class="card-container">
                 <div class="no-task-div">No tasks To do</div>
@@ -18,7 +29,11 @@
         <div class="board-collum">
             <div class="board-header">
                 <h3>In progress</h3>
-                <img src="./img/plus button.svg" alt="plus icon">
+                <div class="add-btn-container">
+                    <img class="add-btn-board" src="./img/plus button.svg" alt="plus icon">
+                    <img class="add-btn-board-hover" src="./img/plus buton hover.svg" alt="plus icon">
+                    <img class="add-btn-board-click" src="./img/plus button clicked.svg" alt="plus icon">
+                </div>
             </div>
             <div id="progress-container" class="card-container">
                 <div class="no-task-div">No tasks in progress</div>
@@ -27,7 +42,11 @@
         <div class="board-collum">
             <div class="board-header">
                 <h3>Await feedback</h3>
-                <img src="./img/plus button.svg" alt="plus icon">
+                <div class="add-btn-container">
+                    <img class="add-btn-board" src="./img/plus button.svg" alt="plus icon">
+                    <img class="add-btn-board-hover" src="./img/plus buton hover.svg" alt="plus icon">
+                    <img class="add-btn-board-click" src="./img/plus button clicked.svg" alt="plus icon">
+                </div>
             </div>
             <div id="feedback-container" class="card-container">
                 <div class="no-task-div">No tasks feedback</div>
@@ -37,7 +56,6 @@
         <div class="board-collum">
             <div class="board-header">
                 <h3>Done</h3>
-                <img src="./img/plus button.svg" alt="plus icon">
             </div>
             <div id="done-container" class="card-container">
                 <div class="no-task-div">No tasks done</div>
