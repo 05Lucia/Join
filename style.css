@@ -3165,7 +3165,6 @@ h3 {
     justify-content: flex-start;
     gap: 16px;
     overflow-x: scroll;
-    padding: 16px 16px;
 }
 
 .card-container::-webkit-scrollbar {

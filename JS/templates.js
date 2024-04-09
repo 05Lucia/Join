@@ -14,10 +14,10 @@ function cardTemplate(card) {
             <p>${1}/${card.subtasks.length} Subtasks</p>
         </div>
         <div class="icons-area">
-            <div class="initial-card-container">
-                <div class="user-initals-card" id="user-initals">TD</div>
-                <div class="user-initals-card overlap" id="user-initals">G</div>
-                <div class="user-initals-card overlap" id="user-initals">AB</div>
+            <div class="initial-card-container" id="assigned-container${card.id}">
+                <div class="user-initals-card">TD</div>
+                <div class="user-initals-card overlap">G</div>
+                <div class="user-initals-card overlap">AB</div>
             </div>
             <img src="${card.priority}" alt="">
         </div>
