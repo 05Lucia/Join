@@ -31,10 +31,11 @@
                     </div> -->
                 </div>
             </div>
-
-            <button class="addContactButton" id="addContactButton" onclick="showContactEditDeleteMenu()">
+            <div class="addContactButtonContainer" id="editContactButtonContainer">
+                <!-- <button class="addContactButton" id="addContactButton" onclick="showContactEditDeleteMenu()">
                 <img src="./img/contactMenuButton.svg">
-            </button>
+            </button> -->
+            </div>
         </div>
         <div class="contactList" id="contactList">
             <!-- <div class="contactBoxForEachLetter">
@@ -137,9 +138,11 @@
                 </div>
             </div> -->
         </div>
-        <button class="addContactButton" onclick="showAddContact()">
-            <img src="./img/addContactButtonIcon.svg">
-        </button>
+        <div class="addContactButtonContainer" id="addContactButtonContainer">
+            <button class="addContactButton" onclick="showAddContact()">
+                <img src="./img/addContactButtonIcon.svg">
+            </button>
+        </div>
         <div id="addEditContact" class="addEditContactContainer">
             <div class="addEditContactCard">
                 <div class="contactCardTopSection">
@@ -162,16 +165,16 @@
                             id="editContactPhone">
                     </div>
                     <div class="addEditContactButtons" id="addEditContactButtons">
-                        <button class="createContactButton" id="createContactButton" onclick="createContact()">
+                        <!-- <button class="createContactButton" id="createContactButton" onclick="createContact()">
                             <p>Create contact</p>
                             <img src="./img/createTaskCheckIcon.svg">
-                        </button>
+                        </button> -->
                     </div>
                 </div>
             </div>
         </div>
         <div class="editContactMenuContainer" id="editContactMenuContainer" onclick="hideContactEditDeleteMenu()">
-            <div class="editContactMenu" id="editContactMenu">
+            <!-- <div class="editContactMenu" id="editContactMenu">
                 <div class="editContact" onclick="showEditContact()">
                     <img src="./img/editContactIcon.svg">
                     <span>Edit</span>
@@ -180,7 +183,7 @@
                     <img src="./img/deleteContactIcon.svg">
                     <span>Delete</span>
                 </div>
-            </div>
+            </div> -->
         </div>
 
     </div>

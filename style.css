@@ -2341,10 +2341,14 @@ h3 {
     overflow: scroll;
 }
 
-.addContactButton {
+.addContactButtonContainer{
     position: absolute;
     bottom: 24px;
     right: 24px;
+}
+
+
+.addContactButton {
     height: 64px;
     width: 64px;
     border-radius: 10px;
@@ -2692,6 +2696,11 @@ h3 {
 
 .createContactButton:hover {
     cursor: pointer;
+}
+
+.createContactButton:active {
+    background-color: rgba(0, 93, 255, 1);
+    border: none;
 }
 
 .contactList {

@@ -58,17 +58,17 @@ let contacts = [
 ]
 
 
-function init(){
-// Sortieren der Kontakte nach Vornamen
-console.log('Kontakte vor Sortierung', contacts);
-sortByFirstName(contacts);
+function init() {
+    // Sortieren der Kontakte nach Vornamen
+    console.log('Kontakte vor Sortierung', contacts);
+    sortByFirstName(contacts);
 
-// Erstellen der Kategorien
-let categorizedContacts = createCategories(contacts);
-console.log('categorized Contacts', categorizedContacts);
+    // Erstellen der Kategorien
+    let categorizedContacts = createCategories(contacts);
+    console.log('categorized Contacts', categorizedContacts);
 
-// Anzeigen der Kontaktliste nach Kategorien
-renderContacts(categorizedContacts);
+    // Anzeigen der Kontaktliste nach Kategorien
+    renderContacts(categorizedContacts);
 
 }
 
@@ -142,6 +142,12 @@ function showAddContact() {
     document.getElementById('editContactName').value = '';
     document.getElementById('editContactEmail').value = '';
     document.getElementById('editContactPhone').value = '';
+    document.getElementById('addEditContactButtons').innerHTML = /*html*/`
+                        <button class="createContactButton" id="createContactButton" onclick="createContact()">
+                            <p>Create contact</p>
+                            <img src="./img/createTaskCheckIcon.svg">
+                        </button>
+`;
 }
 
 function hideAddContact() {
@@ -153,16 +159,16 @@ function createContact() {
     let name = document.getElementById("editContactName").value;
     let email = document.getElementById("editContactEmail").value;
     let phone = document.getElementById("editContactPhone").value;
-    
+
     // Überprüfen Sie, ob alle Felder ausgefüllt sind
     if (name && email && phone) {
         // Extrahieren Sie den Vornamen und Nachnamen
         let [firstName, lastName] = name.split(" ");
-        
+
         // Formatieren Sie den Vornamen und Nachnamen mit großem Anfangsbuchstaben
         firstName = capitalizeFirstLetter(firstName);
         lastName = capitalizeFirstLetter(lastName);
-        
+
         // Erstellen Sie das Objekt für den neuen Kontakt
         let newContact = {
             "name": firstName,
@@ -172,7 +178,7 @@ function createContact() {
             "phone": phone,
             "category": firstName.charAt(0).toUpperCase()
         };
-        
+
         // Fügen Sie den neuen Kontakt zum Array hinzu
         contacts.push(newContact);
 
@@ -180,10 +186,10 @@ function createContact() {
         openContactInfo(index);
 
         showContactCreatedPopUp();
-        
+
         // Optional: Aktualisieren Sie die Kontaktliste auf der Seite
         init();
-        
+
         // Optional: Leeren Sie die Eingabefelder
         document.getElementById("editContactName").value = "";
         document.getElementById("editContactEmail").value = "";
@@ -203,8 +209,23 @@ function capitalizeFirstLetter(string) {
 }
 
 
-function showContactEditDeleteMenu() {
+function showContactEditDeleteMenu(index) {
     document.getElementById('editContactMenuContainer').classList.add('showEditContactMenu');
+
+    document.getElementById('editContactMenuContainer').innerHTML = /*html*/`
+                                                                                <div class="editContactMenu" id="editContactMenu">
+                                                                                    <div class="editContact" onclick="showEditContact(${index})">
+                                                                                        <img src="./img/editContactIcon.svg">
+                                                                                        <span>Edit</span>
+                                                                                    </div>
+                                                                                    <div class="deleteContact">
+                                                                                        <img src="./img/deleteContactIcon.svg">
+                                                                                        <span>Delete</span>
+                                                                                    </div>
+                                                                                </div>
+
+    `;
+
     document.getElementById('editContactMenu').onclick = function (event) {
         event.stopPropagation();
     };
@@ -215,24 +236,24 @@ function hideContactEditDeleteMenu() {
     document.getElementById('editContactMenuContainer').classList.remove('showEditContactMenu');
 }
 
-function showEditContact() {
+function showEditContact(index) {
     document.getElementById('editContactMenuContainer').style.display = 'none';
     hideContactEditDeleteMenu();
     document.getElementById('addEditContact').classList.add('showAddEditContactContainer');
     document.getElementById('addAndEditContactHeadline').innerHTML = 'Edit contact';
     document.getElementById('avatarIcon').style.backgroundColor = 'rgba(255, 122, 0, 1)';
-    document.getElementById('avatarIcon').innerHTML = 'AM';
+    document.getElementById('avatarIcon').innerHTML = `${contacts[index]['initials']}`;
     var inputNameField = document.getElementById('editContactName');
-    var nameToShow = "Anton Mayer";
-    inputNameField.value = 'Anton Mayer';
+    var nameToShow = `${contacts[index]['name']} ${contacts[index]['surname']}`;
+    inputNameField.value = nameToShow;
     inputNameField.setSelectionRange(nameToShow.length, nameToShow.length);
-    document.getElementById('editContactEmail').value = 'anton@gmail.com';
-    document.getElementById('editContactPhone').value = '+49 1111 11 111 1';
+    document.getElementById('editContactEmail').value = contacts[index]['email'];
+    document.getElementById('editContactPhone').value = contacts[index]['phone'];
     document.getElementById('addEditContactButtons').innerHTML = /*html*/`
                                                                             <button class="deleteEditContactButton">
                                                                                 <p>Delete</p>
                                                                             </button>
-                                                                            <button class="saveEditContactButton">
+                                                                            <button class="saveEditContactButton" onclick="updateContact(${index})">
                                                                                 <p>Save</p>
                                                                                 <img src="./img/createTaskCheckIcon.svg">
                                                                             </button>
@@ -242,6 +263,46 @@ function showEditContact() {
         inputNameField.focus();
     }, 125);
     document.getElementById('editContactMenuContainer').style.display = 'flex';
+}
+
+function updateContact(index) {
+    // Erfassen Sie die aktualisierten Werte aus den Eingabefeldern
+    let name = document.getElementById("editContactName").value;
+    let email = document.getElementById("editContactEmail").value;
+    let phone = document.getElementById("editContactPhone").value;
+
+    // Überprüfen Sie, ob alle Felder ausgefüllt sind
+    if (name && email && phone) {
+        // Extrahieren Sie den Vornamen und Nachnamen
+        let [firstName, lastName] = name.split(" ");
+
+        // Formatieren Sie den Vornamen und Nachnamen mit großem Anfangsbuchstaben
+        firstName = capitalizeFirstLetter(firstName);
+        lastName = capitalizeFirstLetter(lastName);
+
+        // Aktualisieren Sie den ausgewählten Kontakt im Array
+        contacts[index].name = firstName;
+        contacts[index].surname = lastName;
+        contacts[index].initials = firstName.charAt(0).toUpperCase() + lastName.charAt(0).toUpperCase();
+        contacts[index].email = email;
+        contacts[index].phone = phone;
+        contacts[index].category = firstName.charAt(0).toUpperCase();
+
+        openContactInfo(index);
+
+        // Optional: Aktualisieren Sie die Kontaktliste auf der Seite
+        init();
+
+        // Optional: Leeren Sie die Eingabefelder
+        document.getElementById("editContactName").value = "";
+        document.getElementById("editContactEmail").value = "";
+        document.getElementById("editContactPhone").value = "";
+
+        hideAddContact();
+    } else {
+        // Geben Sie eine Fehlermeldung aus, wenn nicht alle Felder ausgefüllt sind
+        alert("Bitte füllen Sie alle Felder aus.");
+    }
 }
 
 function openContactInfo(index) {
@@ -268,15 +329,21 @@ function openContactInfo(index) {
                         </div>
                     </div>   
             `;
+
+    document.getElementById('editContactButtonContainer').innerHTML = /*html*/`
+             <button class="addContactButton" id="addContactButton" onclick="showContactEditDeleteMenu(${index})">
+                <img src="./img/contactMenuButton.svg">
+            </button>
+                                                                `;
 }
 
 function closeContactInfo() {
     document.getElementById('contactInfo').classList.remove('d-flex');
 }
 
-function showContactCreatedPopUp(){
+function showContactCreatedPopUp() {
     document.getElementById('contactCreatedButtonContainer').classList.add('showContactCreatedButtonContainer');
     setTimeout(() => {
         document.getElementById('contactCreatedButtonContainer').classList.remove('showContactCreatedButtonContainer');
-    }, 800); 
+    }, 800);
 }
