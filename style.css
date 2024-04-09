@@ -3002,6 +3002,12 @@ h3 {
     width: 24px;
 }
 
+.board-header h3 {
+    font-size: 23px;
+    font-weight: 700;
+    color: var(--menue-text);
+}
+
 .search-input {
     width: 100%;
     height: 46px;
