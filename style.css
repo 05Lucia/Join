@@ -723,8 +723,7 @@ input::placeholder {
         gap: 20px;
     }
 }
-
-/* sign up -------------------------------------------------------------- */
+ 
 /* sign up -------------------------------------------------------------- */
 .signupContainer {
     position: relative;
@@ -886,6 +885,11 @@ input::placeholder {
     font-size: 16px;
     font-weight: 400;
     line-height: 19px;
+}
+
+.checkbox {
+    border: unset;
+    background-color: white;
 }
 
 @media (max-width: 820px) {
