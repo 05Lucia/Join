@@ -62,29 +62,40 @@ function toggleCheckbox() {
 }
 
 // check if Privacy Policy was accepted// 
+function toggleCheckbox() {
+    let realCheckbox = document.getElementById("realCheckbox");
+    let checkboxImage = document.getElementById("checkboxImage");
+    
+    realCheckbox.checked = !realCheckbox.checked;  
+    checkboxImage.src = realCheckbox.checked ? '../img/img/checked.svg' : '../img/Rectangle5.svg'; // Update the image based on the checkbox state
+}
+
 function checkPrivacyPolicy() { 
     let realCheckbox = document.getElementById("realCheckbox");
     if (!realCheckbox.checked) {
         alert("Please accept the Privacy Policy conditions");
         return false;
     } 
+    return true;
 }
 
-function checkPrivacyPolicy() { 
-    let checkboxImage = document.getElementById("checkboxImage").checked; 
-    if (!checkboxImage) {
-        alert("Please accept the Privacy Policy conditions");
+function validateForm() {
+    let name = document.getElementById("name").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let password = document.getElementById("password").value.trim();
+    let confirmPassword = document.getElementById("confirm_password").value.trim();
+    
+    if (!name || !email || !password || !confirmPassword || !checkPrivacyPolicy()) {
+        alert("Please fill in all fields and accept the Privacy Policy");
         return false;
     }
-    return true;  
-}
 
-
-function validateForm() {      
-    if (!checkPasswordStrength() || !validateConfirmedPassword() || !checkPrivacyPolicy()) {
+    if (!checkPasswordStrength() || !validateConfirmedPassword()) {         
         return false;
+    } else { 
+        successfulSignup();
+        return true;
     }
-    successfulSignup();
 }
 
  
