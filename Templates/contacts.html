@@ -1,7 +1,7 @@
 <div class="contactsWrapper">
     <div class="contactsContainer">
         <div class="contactDetailsContainer" id="contactInfo">
-           <div class="contactInfoBox">
+            <div class="contactInfoBox">
                 <div class="contactInfoHeadlineAndBackButton">
                     <div class="contactInfoHeadline">
                         Contact Information
@@ -11,7 +11,7 @@
                     </div>
                 </div>
                 <div class="contactInfoContactDetails" id="contactInfoContactDetails">
-                <!-- <div class="contactInfoAvatarAndName">
+                    <!-- <div class="contactInfoAvatarAndName">
                         <div class="contactInfoAvatar">
                             AM
                         </div>
@@ -31,6 +31,7 @@
                     </div> -->
                 </div>
             </div>
+
             <button class="addContactButton" id="addContactButton" onclick="showContactEditDeleteMenu()">
                 <img src="./img/contactMenuButton.svg">
             </button>
@@ -161,7 +162,7 @@
                             id="editContactPhone">
                     </div>
                     <div class="addEditContactButtons" id="addEditContactButtons">
-                        <button class="createContactButton">
+                        <button class="createContactButton" id="createContactButton" onclick="createContact()">
                             <p>Create contact</p>
                             <img src="./img/createTaskCheckIcon.svg">
                         </button>
@@ -180,6 +181,12 @@
                     <span>Delete</span>
                 </div>
             </div>
+        </div>
+
+    </div>
+    <div class="contactCreatedButtonContainer" id="contactCreatedButtonContainer">
+        <div class="contactCreatedButton">
+            <p>Contact successfully created</p>
         </div>
     </div>
 </div>

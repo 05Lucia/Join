@@ -146,8 +146,62 @@ function showAddContact() {
 
 function hideAddContact() {
     document.getElementById('addEditContact').classList.remove('showAddEditContactContainer');
-
 }
+
+function createContact() {
+    // Erfassen Sie die Werte aus den Eingabefeldern
+    let name = document.getElementById("editContactName").value;
+    let email = document.getElementById("editContactEmail").value;
+    let phone = document.getElementById("editContactPhone").value;
+    
+    // Überprüfen Sie, ob alle Felder ausgefüllt sind
+    if (name && email && phone) {
+        // Extrahieren Sie den Vornamen und Nachnamen
+        let [firstName, lastName] = name.split(" ");
+        
+        // Formatieren Sie den Vornamen und Nachnamen mit großem Anfangsbuchstaben
+        firstName = capitalizeFirstLetter(firstName);
+        lastName = capitalizeFirstLetter(lastName);
+        
+        // Erstellen Sie das Objekt für den neuen Kontakt
+        let newContact = {
+            "name": firstName,
+            "surname": lastName,
+            "initials": firstName.charAt(0).toUpperCase() + lastName.charAt(0).toUpperCase(),
+            "email": email,
+            "phone": phone,
+            "category": firstName.charAt(0).toUpperCase()
+        };
+        
+        // Fügen Sie den neuen Kontakt zum Array hinzu
+        contacts.push(newContact);
+
+        let index = contacts.length - 1;
+        openContactInfo(index);
+
+        showContactCreatedPopUp();
+        
+        // Optional: Aktualisieren Sie die Kontaktliste auf der Seite
+        init();
+        
+        // Optional: Leeren Sie die Eingabefelder
+        document.getElementById("editContactName").value = "";
+        document.getElementById("editContactEmail").value = "";
+        document.getElementById("editContactPhone").value = "";
+
+        hideAddContact();
+
+    } else {
+        // Geben Sie eine Fehlermeldung aus, wenn nicht alle Felder ausgefüllt sind
+        alert("Bitte füllen Sie alle Felder aus.");
+    }
+}
+
+// Funktion zum Formatieren des ersten Buchstabens eines Strings in Großbuchstaben
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 
 function showContactEditDeleteMenu() {
     document.getElementById('editContactMenuContainer').classList.add('showEditContactMenu');
@@ -218,4 +272,11 @@ function openContactInfo(index) {
 
 function closeContactInfo() {
     document.getElementById('contactInfo').classList.remove('d-flex');
+}
+
+function showContactCreatedPopUp(){
+    document.getElementById('contactCreatedButtonContainer').classList.add('showContactCreatedButtonContainer');
+    setTimeout(() => {
+        document.getElementById('contactCreatedButtonContainer').classList.remove('showContactCreatedButtonContainer');
+    }, 800); 
 }
