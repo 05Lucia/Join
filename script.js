@@ -84,6 +84,17 @@ let cards = [
         ],
         "assigned": ['Alice Buchholz', 'Guest'],
         "priority": './img/priorityHighInactive.svg'
+    },
+    {
+        "id": 2,
+        "place": 'progress',
+        "category": 'CSS',
+        "titel": 'test ohne Subtask',
+        "description": 'test test 0 von 0!',
+        "dueDate": '',
+        "subtasks": [],
+        "assigned": ['Alice Buchholz', 'Test Dummy', 'Someone Else'],
+        "priority": './img/priorityHighInactive.svg'
     }
 ]
 
@@ -206,6 +217,12 @@ function assignedInitals(card) {
     }
 }
 
+/**
+ * Pecentage for the progressbar.
+ * 
+ * @param {array} card the arry of the card for the needet task
+ * @returns to the progress bat in oder to get the right prcenteg to fill it.
+ */
 function progressbarComplitaionRate(card) {
     let allSubtasks = card.subtasks.length
     let compleatSubtask = card.subtasks.reduce((acc, subtask) => acc + subtask.done, 0);
