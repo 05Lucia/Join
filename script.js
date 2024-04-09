@@ -76,6 +76,10 @@ let cards = [
             {
                 "name": 'sonmthing',
                 "done": false
+            },
+            {
+                "name": 'todo',
+                "done": true
             }
         ],
         "assigned": ['Alice Buchholz', 'Guest'],
@@ -200,6 +204,14 @@ function assignedInitals(card) {
             container.innerHTML += `<div class="user-initals-card overlap">${initials} </div>`;
         } 
     }
+}
+
+function progressbarComplitaionRate(card) {
+    let allSubtasks = card.subtasks.length
+    let compleatSubtask = card.subtasks.reduce((acc, subtask) => acc + subtask.done, 0);
+
+    let precentProgress = Math.floor((compleatSubtask / allSubtasks) * 100);
+    return precentProgress
 }
 
 let currentDraggedElement;
