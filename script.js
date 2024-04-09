@@ -46,7 +46,7 @@ let cards = [
         "place": 'todo',
         "category": 'js',
         "titel": 'Test',
-        "description": 'irgend was ....',
+        "description": 'irgend was ganz langes zu scheiben ist nervig so ich hofe ich habe langsam 2 zeilen ericht und bin jetzt auch langas mal drüber und schon bei der dritten die man hoffentlich nicht sieh!',
         "dueDate": '',
         "subtasks":[
             {
@@ -59,7 +59,7 @@ let cards = [
             }
         ],
         "assigned": ['Alice Buchholz', 'Guest', 'Test Dummy'],
-        "priority": ''
+        "priority": './img/priorityMediumInactive.svg'
     },
     {
         "id": 1,
@@ -79,7 +79,7 @@ let cards = [
             }
         ],
         "assigned": ['Alice Buchholz', 'Guest'],
-        "priority": ''
+        "priority": './img/priorityHighInactive.svg'
     }
 ]
 

@@ -3096,6 +3096,11 @@ h3 {
 .card-text p {
     color: var(--icon);
     font-size: 16px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 .progressbar-area {
@@ -3123,7 +3128,10 @@ h3 {
 }
 
 .icons-area {
+    width: 100%;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .initial-card-container {
