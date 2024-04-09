@@ -42,27 +42,44 @@ async function Templates(template) {
  */
 let cards = [
     {
-        id: 0,
-        place: 'todo',
-        category: 'js',
-        titel: 'Test',
-        description: 'irgend was ....',
-        dueDate: '',
-        subtasks: {
-            1: {
-                name: 'testing',
-                done: true
+        "id": 0,
+        "place": 'todo',
+        "category": 'js',
+        "titel": 'Test',
+        "description": 'irgend was ....',
+        "dueDate": '',
+        "subtasks":[
+            {
+                "name": 'testing',
+                "done": true
             },
-            2: {
-                name: 'sonmthing',
-                done: false
+            {
+                "name": 'sonmthing',
+                "done": false
             }
-        },
-        assigned: {
-            users: ['Alice Buchholz', 'Guest', 'Test Dummy']
-        },
-        priority: ''
-
+        ],
+        "assigned": ['Alice Buchholz', 'Guest', 'Test Dummy'],
+        "priority": ''
+    },
+    {
+        "id": 1,
+        "place": 'feedback',
+        "category": 'HTML',
+        "titel": 'Hallo Hallo',
+        "description": 'irgend was ....',
+        "dueDate": '',
+        "subtasks": [
+            {
+                "name": 'testing',
+                "done": true
+            },
+            {
+                "name": 'sonmthing',
+                "done": false
+            }
+        ],
+        "assigned": ['Alice Buchholz', 'Guest'],
+        "priority": ''
     }
 ]
 
@@ -73,8 +90,6 @@ async function lodeBoard() {
     await Templates('board');
     updateCads()
 }
-
-let currentDraggedElement;
 
 /**
  * a function to update/lode alle the cards on the board for eacht section!!
@@ -100,6 +115,7 @@ function todoCardUpdate() {
         for (let index = 0; index < todo.length; index++) {
             const card = todo[index];
             document.getElementById('todo').innerHTML += cardTemplate(card);
+            assignedInitals(card);
         }
     }
 }
@@ -118,6 +134,7 @@ function progressCardUpdate() {
         for (let index = 0; index < progress.length; index++) {
             const card = progress[index];
             document.getElementById('progress').innerHTML += cardTemplate(card);
+            assignedInitals(card)
         }
     }
 }
@@ -136,6 +153,7 @@ function feedbackCardUpdate() {
         for (let index = 0; index < feedback.length; index++) {
             const card = feedback[index];
             document.getElementById('feedback').innerHTML += cardTemplate(card);
+            assignedInitals(card)
         }
     }
 }
@@ -154,9 +172,37 @@ function doneCardUpdate() {
         for (let index = 0; index < done.length; index++) {done
             const card = done[index];
             document.getElementById('done').innerHTML += cardTemplate(card);
+            assignedInitals(card)
         }
     }
 }
+
+/**
+ * It is to add the initals of the people that are assinged to the task.
+ * 
+ * @param {Array} card is the array part that belongst to the certen task.
+ */
+function assignedInitals(card) {
+    let container = document.getElementById(`assigned-container${card.id}`)
+    container.innerHTML ='';
+    for (let i = 0; i < card.assigned.length; i++) {
+        const user = card.assigned[i];
+        let names = user.split(' ');
+        let initials = names[0].substring(0, 1).toUpperCase();
+
+        if (names.length > 1) {
+            initials += names[names.length - 1].substring(0, 1).toUpperCase();
+        }
+
+        if (i === 0) {
+           container.innerHTML += `<div class="user-initals-card">${initials} </div>`; 
+        } else {
+            container.innerHTML += `<div class="user-initals-card overlap">${initials} </div>`;
+        } 
+    }
+}
+
+let currentDraggedElement;
 
 // drag an drop not funtions not done jet!!
 function startDraging(id) {
