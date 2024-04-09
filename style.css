@@ -2909,7 +2909,7 @@ h3 {
     }
 }
 
-/*  Board ----------------------------------------------------- */
+/*  Board ----------------------------------------------------------- */
 
 .wraper-board {
     width: 100vw;
@@ -3084,6 +3084,33 @@ h3 {
     height: 8px;
     border-radius: 8px;
     background-color: var(--maincolor);
+}
+
+.icons-area {
+    display: flex;
+}
+
+.initial-card-container {
+    display: flex;
+    align-items: flex-start;
+}
+
+.user-initals-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: orange;
+    height: 32px;
+    width: 32px;
+    border-radius: 100%;
+    border: white solid 1px;
+    color: white;
+    font-weight: 400;
+    font-size: 12px;
+}
+
+.overlap {
+    margin-left: -10px;
 }
 
 .card-container {
