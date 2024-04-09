@@ -37,11 +37,14 @@ async function Templates(template) {
     await includeHTML();
 }
 
-let cards =[
+/**
+ * Array to test card implement!!
+ */
+let cards = [
     {
         id: 0,
         place: 'todo',
-        category : 'js',
+        category: 'js',
         titel: 'Test',
         description: 'irgend was ....',
         dueDate: '',
@@ -58,56 +61,104 @@ let cards =[
         assigned: {
             users: ['Alice Buchholz', 'Guest', 'Test Dummy']
         },
-        priority : ''
+        priority: ''
 
     }
 ]
 
-async function lodeBoard (){
+/**
+ * to lode all the needet funktion for the bord in oder!
+ */
+async function lodeBoard() {
     await Templates('board');
     updateCads()
 }
 
 let currentDraggedElement;
 
+/**
+ * a function to update/lode alle the cards on the board for eacht section!!
+ */
 function updateCads() {
+    todoCardUpdate();
+    progressCardUpdate();
+    feedbackCardUpdate();
+    doneCardUpdate();
+}
+
+/**
+ * lode / update the cards for the todo section of the board
+ */
+function todoCardUpdate() {
     let todo = cards.filter(t => t['place'] == 'todo');
 
-    document.getElementById('todo').innerHTML = '';
+    if (todo.length > 0) {
+        let todoContainer =document.getElementById('todo');
+        todoContainer.innerHTML = ''
+        todoContainer.style.padding = '16px';
 
-    for (let index = 0; index < todo.length; index++) {
-        const card = todo[index];
-        document.getElementById('todo').innerHTML += cardTemplate(card);
-    }
-
-    let progress = cards.filter(t => t['place'] == 'progress');
-
-    document.getElementById('progress').innerHTML = '';
-
-    for (let index = 0; index < progress.length; index++) {
-        const card = progress[index];
-        document.getElementById('progress').innerHTML += cardTemplate(card);
-    }
-
-    let feedback = cards.filter(t => t['place'] == 'feedback');
-
-    document.getElementById('feedback').innerHTML = '';
-
-    for (let index = 0; index < feedback.length; index++) {
-        const card = feedback[index];
-        document.getElementById('feedback').innerHTML += cardTemplate(card);
-    }
-
-    let done = cards.filter(t => t['place'] == 'done');
-
-    document.getElementById('feedback').innerHTML = '';
-
-    for (let index = 0; index < done.length; index++) {
-        const card = done[index];
-        document.getElementById('done').innerHTML += cardTemplate(card);
+        for (let index = 0; index < todo.length; index++) {
+            const card = todo[index];
+            document.getElementById('todo').innerHTML += cardTemplate(card);
+        }
     }
 }
 
+/**
+ * lode / update the cards for the progress section of the board
+ */
+function progressCardUpdate() {
+    let progress = cards.filter(t => t['place'] == 'progress');
+
+    if (progress.length > 0) {
+        let progressContainer = document.getElementById('progress');
+        progressContainer.innerHTML = '';
+        progressContainer.style.padding = '16px';
+
+        for (let index = 0; index < progress.length; index++) {
+            const card = progress[index];
+            document.getElementById('progress').innerHTML += cardTemplate(card);
+        }
+    }
+}
+
+/**
+ * lode / update the cards for the feedback section of the board
+ */
+function feedbackCardUpdate() {
+    let feedback = cards.filter(t => t['place'] == 'feedback');
+
+    if (feedback.length > 0) {
+        let feedbackContainer = document.getElementById('feedback');
+        feedbackContainer.innerHTML = '';
+        feedbackContainer.style.padding ='16px';
+
+        for (let index = 0; index < feedback.length; index++) {
+            const card = feedback[index];
+            document.getElementById('feedback').innerHTML += cardTemplate(card);
+        }
+    }
+}
+
+/**
+ * lode / update the cards for the done section of the board
+ */
+function doneCardUpdate() {
+    let done = cards.filter(t => t['place'] == 'done');
+
+    if (done.length > 0) {
+        let doneContainer = document.getElementById('done');
+        doneContainer.innerHTML = '';
+        doneContainer.style.padding ='16px';
+
+        for (let index = 0; index < done.length; index++) {done
+            const card = done[index];
+            document.getElementById('done').innerHTML += cardTemplate(card);
+        }
+    }
+}
+
+// drag an drop not funtions not done jet!!
 function startDraging(id) {
     currentDraggedElement = id;
 }
