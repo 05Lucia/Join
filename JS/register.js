@@ -7,9 +7,11 @@ function checkPasswordStrength() {
     if (!pattern.test(password)) {
         strengthIndicator.innerHTML = "Your password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, and one number";
         strengthIndicator.style.color = "red";
+        return false;
     } else {
         strengthIndicator.innerHTML = "Your password strength is ok";
         strengthIndicator.style.color = "green";
+        return true;
     }
 }
 
@@ -22,9 +24,11 @@ function validateConfirmedPassword() {
     if (password !== confirmPassword) {
         message.textContent = "Your passwords do not match";
         message.style.color = "red";
+        return false;
     } else {
         message.textContent = "Your password is confirmed";
         message.style.color = "green";
+        return true;
     }
 }
 
@@ -46,19 +50,6 @@ function togglePassword(fieldId) {
             inputImage.style.display = "block";
     }
 }
-}
-
-function toggleCheckbox() {
-    let checkboxImage = document.getElementById("checkboxImage");
-    let realCheckbox = document.getElementById("realCheckbox");
-
-    if (realCheckbox.checked) {
-        checkboxImage.src = "../img/Rectangle5.svg";  
-        realCheckbox.checked = false;
-    } else {
-        checkboxImage.src = "../img/img/checked.svg";  
-        realCheckbox.checked = true;
-    }
 }
 
 // check if Privacy Policy was accepted// 
@@ -85,23 +76,25 @@ function validateForm() {
     let password = document.getElementById("password").value.trim();
     let confirmPassword = document.getElementById("confirm_password").value.trim();
     
-    if (!name || !email || !password || !confirmPassword || !checkPrivacyPolicy()) {
-        alert("Please fill in all fields and accept the Privacy Policy");
+    if (!name || !email || !password || !confirmPassword) {
+        alert("Please fill in all fields");
         return false;
     }
-
-    if (!checkPasswordStrength() || !validateConfirmedPassword()) {         
-        return false;
-    } else { 
-        successfulSignup();
-        return true;
+    
+    if (!checkPrivacyPolicy()) {
+        return;
     }
+    
+    if (!checkPasswordStrength() || !validateConfirmedPassword()) {
+        return;
+    }
+    successfulSignup(); 
 }
 
- 
+
 // message for successful signup//
 function successfulSignup() {
-    document.getElementById("signupModal").style.display = "block";
+    document.getElementById("signupModal").style.display = "block";   
 }
 
 function closeModal() {

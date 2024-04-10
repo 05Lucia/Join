@@ -2179,10 +2179,20 @@ h3 {
 }
 
 .light-task-btn:hover img {
-    object-fit: cover;
+    height: 76px;
+    width: 76px;
+    overflow: hidden;
+    margin: -9px;
+}
+
+.light-task-btn:hover .summary-boarder-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 67px;
+    width: 67px;
     border: 3px solid white;
     border-radius: 100%;
-    /* maybe png? */
 }
 
 .light-task-btn:hover .btn-text {
@@ -3208,7 +3218,7 @@ h3 {
     font-size: 16px;
 }
 
-.card {
+.board-card-small {
     width: 250px;
     height: auto;
     padding: 16px;
@@ -3219,6 +3229,13 @@ h3 {
     justify-content: center;
     align-items: flex-start;
     gap: 24px;
+    cursor: pointer;
+}
+
+.board-card-small:active {
+    transform: rotate(5deg);
+    -webkit-transform: rotate(5deg);
+    -ms-transform: rotate(5deg);
 }
 
 .category-card {
@@ -3394,7 +3411,85 @@ h3 {
     display: none;
 }
 
+.borad-card-overlay {
+    position:absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgb(255, 255, 255, 0.6);
+    z-index: 1;
+}
 
+.borad-card-popup {
+    width: 396px;
+    height: auto;
+    background-color: white;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 32px 24px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+}
+
+.board-card-big-top {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.borad-card-popup h1 {
+    width: 100%;
+    text-align: left;
+}
+
+.board-card-big-description {
+    width: 100%;
+}
+
+.borad-card-popup p {
+    text-align: left;
+}
+
+.borad-card-popup h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--menue-text);
+}
+
+.board-card-big-info {
+    width: 100%;
+    display: flex;
+    gap: 24px;
+    align-items: center;
+}
+
+.task-assigend-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.board-card-big-assingend-user {
+    width: 100%;
+    display: flex;
+}
+
+.board-card-big-subtask {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.board-card-big-bottom {
+    width: 100%;
+    display: flex;
+}
 
 @media (min-width: 800px) {
     .wraper-board {
@@ -3426,7 +3521,9 @@ h3 {
         flex-direction: column;
     }
 
-
+    .board-collum {
+        height: 100%;
+    }
 
 }
 

@@ -1,10 +1,14 @@
 function init() {
     //login page after start animation//
+    startAnimation()
+    includeHTML();
+}
+
+function startAnimation() {
     setTimeout(() => {
         window.location.href = 'login.html';
     }, 1200);
-    includeHTML();
-}
+} 
 
 /**
  * this funktion ist to open a certain Template.
@@ -48,7 +52,7 @@ let cards = [
         "titel": 'Test',
         "description": 'irgend was ganz langes zu scheiben ist nervig so ich hofe ich habe langsam 2 zeilen ericht und bin jetzt auch langas mal drüber und schon bei der dritten die man hoffentlich nicht sieh!',
         "dueDate": '',
-        "subtasks":[
+        "subtasks": [
             {
                 "name": 'testing',
                 "done": true
@@ -121,10 +125,10 @@ function updateCads() {
  */
 function todoCardUpdate() {
     let todo = cards.filter(t => t['place'] == 'todo');
+    let todoContainer = document.getElementById('todo');
+    todoContainer.innerHTML = '';
 
     if (todo.length > 0) {
-        let todoContainer =document.getElementById('todo');
-        todoContainer.innerHTML = ''
         todoContainer.style.padding = '16px';
 
         for (let index = 0; index < todo.length; index++) {
@@ -132,6 +136,9 @@ function todoCardUpdate() {
             document.getElementById('todo').innerHTML += cardTemplate(card);
             assignedInitals(card);
         }
+    }else {
+        todoContainer.style.padding = '0px';
+        todoContainer.innerHTML = '<div class="no-task-div">No tasks To do</div>';
     }
 }
 
@@ -140,10 +147,10 @@ function todoCardUpdate() {
  */
 function progressCardUpdate() {
     let progress = cards.filter(t => t['place'] == 'progress');
+    let progressContainer = document.getElementById('progress');
+    progressContainer.innerHTML = '';
 
     if (progress.length > 0) {
-        let progressContainer = document.getElementById('progress');
-        progressContainer.innerHTML = '';
         progressContainer.style.padding = '16px';
 
         for (let index = 0; index < progress.length; index++) {
@@ -151,6 +158,9 @@ function progressCardUpdate() {
             document.getElementById('progress').innerHTML += cardTemplate(card);
             assignedInitals(card)
         }
+    }else {
+        progressContainer.style.padding = '0px';
+        progressContainer.innerHTML = '<div class="no-task-div">No tasks in progress</div>';
     }
 }
 
@@ -159,17 +169,20 @@ function progressCardUpdate() {
  */
 function feedbackCardUpdate() {
     let feedback = cards.filter(t => t['place'] == 'feedback');
+    let feedbackContainer = document.getElementById('feedback');
+    feedbackContainer.innerHTML = '';
 
     if (feedback.length > 0) {
-        let feedbackContainer = document.getElementById('feedback');
-        feedbackContainer.innerHTML = '';
-        feedbackContainer.style.padding ='16px';
+        feedbackContainer.style.padding = '16px';
 
         for (let index = 0; index < feedback.length; index++) {
             const card = feedback[index];
             document.getElementById('feedback').innerHTML += cardTemplate(card);
             assignedInitals(card)
         }
+    } else {
+        feedbackContainer.style.padding = '0px';
+        feedbackContainer.innerHTML = '<div class="no-task-div">No tasks feedback</div>';
     }
 }
 
@@ -178,17 +191,21 @@ function feedbackCardUpdate() {
  */
 function doneCardUpdate() {
     let done = cards.filter(t => t['place'] == 'done');
+    let doneContainer = document.getElementById('done');
+    doneContainer.innerHTML = '';
 
     if (done.length > 0) {
-        let doneContainer = document.getElementById('done');
-        doneContainer.innerHTML = '';
-        doneContainer.style.padding ='16px';
+        doneContainer.style.padding = '16px';
 
-        for (let index = 0; index < done.length; index++) {done
+        for (let index = 0; index < done.length; index++) {
+            done
             const card = done[index];
             document.getElementById('done').innerHTML += cardTemplate(card);
             assignedInitals(card)
         }
+    } else {
+        doneContainer.style.padding = '0px';
+        doneContainer.innerHTML = '<div class="no-task-div">No tasks done</div>';
     }
 }
 
@@ -199,7 +216,7 @@ function doneCardUpdate() {
  */
 function assignedInitals(card) {
     let container = document.getElementById(`assigned-container${card.id}`)
-    container.innerHTML ='';
+    container.innerHTML = '';
     for (let i = 0; i < card.assigned.length; i++) {
         const user = card.assigned[i];
         let names = user.split(' ');
@@ -210,10 +227,10 @@ function assignedInitals(card) {
         }
 
         if (i === 0) {
-           container.innerHTML += `<div class="user-initals-card">${initials} </div>`; 
+            container.innerHTML += `<div class="user-initals-card">${initials} </div>`;
         } else {
             container.innerHTML += `<div class="user-initals-card overlap">${initials} </div>`;
-        } 
+        }
     }
 }
 
@@ -242,6 +259,12 @@ function allowDrop(ev) {
     ev.preventDefault();
 }
 
-function drop(event) {
+function drop(place) {
+    cards[currentDraggedElement]['place'] = '';
+    cards[currentDraggedElement]['place'] = place;
+    updateCads();
+}
+
+function bigCard(id) { 
 
 }

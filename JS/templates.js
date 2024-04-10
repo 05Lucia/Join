@@ -1,14 +1,14 @@
 function cardTemplate(card) {
 
     return `
-    <div draggable="true" ondragstart="startDraging(${card.id})" class="card">
+    <div draggable="true" ondragstart="startDraging(${card.id})" class="board-card-small" onclick="bigCard(${card.id})">
         <div class="category-card">${card.category}</div>
         <div class="card-text">
             <h3>${card.titel}</h3>
             <p>${card.description}</p>
             <!-- dont show more than 2 lines? JS? -->
         </div>
-        ${subtaskProgressbar(card)}
+        ${TemplateSubtaskProgressbar(card)}
         <div class="icons-area">
             <div class="initial-card-container" id="assigned-container${card.id}">
                 <div class="user-initals-card">TD</div>
@@ -27,7 +27,7 @@ function cardTemplate(card) {
  * @param {*} card the arry of the card for the needet task
  * @returns the Subtask section on the bord task card.
  */
-function subtaskProgressbar(card) {
+function TemplateSubtaskProgressbar(card) {
     if (card.subtasks.length > 0) {
         let compleatSubtask = card.subtasks.reduce((acc, subtask) => acc + subtask.done, 0);
 

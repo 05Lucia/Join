@@ -25,24 +25,24 @@
                 <div class="seperator"></div>
             </div>   
         </div>
-        <form class="loginForm" onsubmit="event.preventDefault(); validateForm();">
+        <form class="loginForm">
             <div class="inputField">
-                <input class="input" type="name" required id="name" placeholder="Name">
+                <input class="input" type="name" required id="name" placeholder="Name" autocomplete="name">
                 <img class="inputImage" src="./img/img/person.svg">
             </div>
             <div class="inputField">
-                <input class="input" type="email" required id="email" placeholder="Email">
+                <input class="input" type="email" required id="email" placeholder="Email" autocomplete="email">
                 <img class="inputImage" src="./img/img/mail.svg">
             </div>
             <div class="inputField">
-                <input class="input" type="password" required id="password"placeholder="Password" minlength="8" 
+                <input class="input" type="password" required id="password"placeholder="Password" minlength="8" autocomplete="new-password"
                     onclick="togglePassword('password')"       
                     oninput="checkPasswordStrength()" 
                     pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
                 <img class="inputImage" id="passwordIcon" src="./img/img/lock.svg">
             </div>
             <div class="inputField">
-                <input class="input" type="password" required id="confirm_password" placeholder="Confirm Password" 
+                <input class="input" type="password" required id="confirm_password" placeholder="Confirm Password" autocomplete="new-password"
                     onclick="togglePassword('confirm_password')"       
                     onkeyup="validateConfirmedPassword()">
                 <img class="inputImage" id="confirmPasswordIcon" src="./img/img/lock.svg">
@@ -61,7 +61,7 @@
             <input type="checkbox" id="realCheckbox" hidden>
         </div>
         <div class="buttonContainer">
-            <button onclick="successfulSignup()" class="blueBtn" style="width: 200px;">Sign up</button>
+            <button onclick="validateForm()" class="blueBtn" style="width: 200px;">Sign up</button>
         </div> 
     </div>
 
