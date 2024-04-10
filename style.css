@@ -2821,6 +2821,13 @@ h3 {
     z-index: 11
 }
 
+.editContactMenuDesktop {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    display: none;
+}
+
 .editContactMenu {
     display: flex;
     flex-direction: column;
@@ -2965,7 +2972,7 @@ h3 {
         overflow: auto;
     }
 
-    
+
     /* Width of Scroll Bar*/
     .contactsContainer::-webkit-scrollbar {
         width: 8px;
@@ -3009,10 +3016,10 @@ h3 {
         height: 100%;
         left: 100%;
         padding-left: 56px;
-        background-color: white;
+        background-color: transparent;
         transition: right 0.8s ease;
         display: flex;
-        z-index: -1;
+        z-index: 0;
     }
 
     .showContactDetailsContainer {
@@ -3028,6 +3035,7 @@ h3 {
         display: flex;
         height: 120px;
         gap: 54px;
+        align-items: center;
     }
 
     .contactInfoAvatar {
@@ -3102,6 +3110,76 @@ h3 {
 
     .addContactButton p {
         display: flex;
+    }
+
+    .editContactMenu {
+        display: none;
+    }
+
+    .editContactMenuDesktop {
+        display: flex;
+        gap: 12px;
+    }
+
+    .editContactMenuContainer {
+        display: none;
+    }
+
+    #editContactButtonContainer {
+        display: none;
+    }
+
+    .editContact {
+        display: flex;
+        align-items: center;
+        height: 24px;
+        width: 61px;
+        justify-content: flex-start;
+        padding: 0px;
+        gap: 8px;
+    }
+
+    .editContact:hover {
+        cursor: pointer;
+        font-weight: 700;
+        color: rgba(0, 93, 255, 1)
+    }
+
+    .editContact:active {
+        background-color: transparent;
+        color: rgba(0, 93, 255, 1);
+        font-weight: 700;
+        border-radius: 0px;
+        padding: 0px;
+    }
+
+    .deleteContact {
+        display: flex;
+        height: 24px;
+        width: 81px;
+        justify-content: flex-start;
+        padding: 0px;
+        gap: 8px;
+    }
+
+    .deleteContact:hover {
+        cursor: pointer;
+        font-weight: 700;
+        color: rgba(0, 93, 255, 1)
+    }
+    
+    .deleteContact:active {
+        background-color: transparent;
+        color: rgba(0, 93, 255, 1);
+        font-weight: 700;
+        border-radius: 0px;
+        padding: 0px;
+    }
+
+    .contact:hover {
+        cursor: pointer;
+        background-color: rgba(210, 227, 255, 1);
+        border-radius: 10px;
     }
 }
 
@@ -3413,7 +3491,7 @@ h3 {
 }
 
 .borad-card-overlay {
-    position:absolute;
+    position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;

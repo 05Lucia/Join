@@ -362,8 +362,20 @@ function openContactInfo(index) {
                         <div class="contactInfoAvatar" style="background-color: ${contact.avatarColor};">
                             ${contact['initials']}
                         </div>
-                        <div class="contactInfoName">
-                        ${contact['name']} ${contact['surname']}
+                        <div>
+                            <div class="contactInfoName">
+                                ${contact['name']} ${contact['surname']}
+                            </div>
+                            <div class="editContactMenuDesktop">
+                                <div class="editContact" onclick="showEditContact(${index})">
+                                    <img src="./img/editContactIcon.svg">
+                                    <span>Edit</span>
+                                </div>
+                                <div class="deleteContact" onclick="deleteContact(${index})">
+                                    <img src="./img/deleteContactIcon.svg">
+                                    <span>Delete</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="contactInfoHeadlineDesktop">
