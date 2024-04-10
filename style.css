@@ -2179,10 +2179,20 @@ h3 {
 }
 
 .light-task-btn:hover img {
-    object-fit: cover;
+    height: 76px;
+    width: 76px;
+    overflow: hidden;
+    margin: -9px;
+}
+
+.light-task-btn:hover .summary-boarder-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 67px;
+    width: 67px;
     border: 3px solid white;
     border-radius: 100%;
-    /* maybe png? */
 }
 
 .light-task-btn:hover .btn-text {
