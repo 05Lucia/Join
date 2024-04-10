@@ -260,3 +260,7 @@ function drop(place) {
     cards[currentDraggedElement]['place'] = place;
     updateCads();
 }
+
+function bigCard(id) { 
+
+}
