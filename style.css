@@ -3290,7 +3290,9 @@ h3 {
         flex-direction: column;
     }
 
-
+    .board-collum {
+        height: 100%;
+    }
 
 }
 
