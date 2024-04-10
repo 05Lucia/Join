@@ -1,7 +1,7 @@
 function cardTemplate(card) {
 
     return `
-    <div draggable="true" ondragstart="startDraging(${card.id})" class="card">
+    <div draggable="true" ondragstart="startDraging(${card.id})" class="board-card-small">
         <div class="category-card">${card.category}</div>
         <div class="card-text">
             <h3>${card.titel}</h3>

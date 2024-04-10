@@ -3072,7 +3072,7 @@ h3 {
     font-size: 16px;
 }
 
-.card {
+.board-card-small {
     width: 250px;
     height: auto;
     padding: 16px;
@@ -3086,7 +3086,7 @@ h3 {
     cursor: pointer;
 }
 
-.card:active {
+.board-card-small:active {
     transform: rotate(5deg);
     -webkit-transform: rotate(5deg);
     -ms-transform: rotate(5deg);
