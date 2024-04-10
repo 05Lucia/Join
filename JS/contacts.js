@@ -79,6 +79,7 @@ function findIndexByNameSurname(contacts, firstName, lastName) {
 
 
 function init() {
+    
     // Sortieren der Kontakte nach Vornamen
     console.log('Kontakte vor Sortierung', contacts);
     sortByFirstName(contacts);

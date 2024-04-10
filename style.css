@@ -723,7 +723,7 @@ input::placeholder {
         gap: 20px;
     }
 }
- 
+
 /* sign up -------------------------------------------------------------- */
 .signupContainer {
     position: relative;
@@ -2345,7 +2345,7 @@ h3 {
     overflow: scroll;
 }
 
-.addContactButtonContainer{
+.addContactButtonContainer {
     position: absolute;
     bottom: 24px;
     right: 24px;
@@ -2475,7 +2475,7 @@ h3 {
     font-weight: 700;
 }
 
-.contactCreatedButtonContainer{
+.contactCreatedButtonContainer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -2505,7 +2505,7 @@ h3 {
     color: rgba(255, 255, 255, 1);
 }
 
-.showContactCreatedButtonContainer{
+.showContactCreatedButtonContainer {
     bottom: 0;
 }
 
@@ -3083,6 +3083,13 @@ h3 {
     justify-content: center;
     align-items: flex-start;
     gap: 24px;
+    cursor: pointer;
+}
+
+.card:active {
+    transform: rotate(5deg);
+    -webkit-transform: rotate(5deg);
+    -ms-transform: rotate(5deg);
 }
 
 .category-card {
