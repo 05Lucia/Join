@@ -35,31 +35,31 @@
                 <img class="inputImage" src="./img/img/mail.svg">
             </div>
             <div class="inputField">
-                <input class="input" type="password" required id="password"placeholder="Password" minlength="8" autocomplete="new-password"
-                    onclick="togglePassword('password')"       
+                <input class="input" type="password" required id="password" placeholder="Password" minlength="8" autocomplete="new-password"
+                    onfocus="changeLockIcon(this)"
                     oninput="checkPasswordStrength()" 
                     pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
-                <img class="inputImage" id="passwordIcon" src="./img/img/lock.svg">
+                <img onclick="togglePassword('password')" class="inputImage" id="passwordIcon" src="./img/img/lock.svg">
             </div>
             <div class="inputField">
-                <input class="input" type="password" required id="confirm_password" placeholder="Confirm Password" autocomplete="new-password"
-                    onclick="togglePassword('confirm_password')"       
+                <input class="input" type="password" required id="confirm_password" placeholder="Confirm Password" autocomplete="new-password"  
+                    onfocus="changeLockIcon(this)"   
                     onkeyup="validateConfirmedPassword()">
-                <img class="inputImage" id="confirmPasswordIcon" src="./img/img/lock.svg">
+                <img onclick="togglePassword('confirm_password')" class="inputImage" id="confirmPasswordIcon" src="./img/img/lock.svg">
             </div>
                                        
         </form>
-        <div id="passwordStrengthMessage"></div>
+        <div style="margin-left: 20px;" id="passwordStrengthMessage"></div>
         <div id="passwordMatchMessage"></div>
 
         <div id="msgBox"></div>
-        <div class="acceptPolicy">
-            <button class="checkbox" id="checkboxButton" onclick="toggleCheckbox();">
-                <img id="checkboxImage" src="../img/Rectangle5.svg">
+        <div class="checkboxContainer">
+            <button class="checkbox" onclick="toggleCheckbox(this);">
+                <img class="checkboxImage" src="./img/Rectangle5.svg" data-checked="./img/img/checked.svg" data-unchecked="./img/Rectangle5.svg">
             </button>
-            <span class="acceptance">I accept the <span class="privacy-policy-link" onclick="window.location.href='./templates/privacy_policy.html'">Privacy Policy</span>
-            <input type="checkbox" id="realCheckbox" hidden>
-        </div>
+            <span>I accept the <a href="./templates/privacy_policy.html">Privacy Policy</a></span>
+            <input type="checkbox" class="realCheckbox" hidden>
+        </div>      
         <div class="buttonContainer">
             <button onclick="validateForm()" class="blueBtn" style="width: 200px;">Sign up</button>
         </div> 

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JOIN</title>
+    <title>Log in</title>
     <link rel="icon" type="image/vnd.icon" href="../img/img/join.ico">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="./fonts/fonts.css">
@@ -24,22 +24,26 @@
             </div>
             <form class="loginForm" onsubmit="login">
                 <div class="inputField">
-                    <input class="input" type="email" required id="email" placeholder="Email">
+                    <input class="input" type="email" required id="email" placeholder="Email" autocomplete="email">
                     <img class="inputImage" src="./img/img/mail.svg">
                 </div>
                 <div class="inputField">
-                    <input class="input" type="password" required id="password" placeholder="Password" minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
-                    <img class="inputImage" src="./img/lock.svg">
+                    <input class="input" type="password" required id="password" placeholder="Password" autocomplete="email" 
+                    onfocus="changeLockIcon(this)">   
+                    <img onclick="togglePassword('password')"class="inputImage" id="passwordIcon" src="./img/img/lock.svg">
                 </div>
             </form>
             <div id="msgBox"></div>
-            <div class="rememberMe">
-                <img class="underlinedTextButton" src="./img/Rectangle5.svg">
-                <span class="textRemember">Remember me</span>
-            </div>
+            <div class="checkboxContainer">
+                <button class="checkbox" onclick="toggleCheckbox(this);">
+                    <img class="checkboxImage" src="./img/Rectangle5.svg" data-checked="./img/img/checked.svg" data-unchecked="./img/Rectangle5.svg">
+                </button>
+                <span>Remember me</span>
+                <input type="checkbox" class="realCheckbox" hidden>
+            </div>       
             <div class="buttonContainer">
                 <button onclick="login()" class="blueBtn" style="width: 200px;">Log in</button>
-                <button class="greyBorderBtn">Guest log in</button>
+                <button onclick="window.location.href='../Templates/summary.html'" class="greyBorderBtn">Guest log in</button>
             </div>
         </div>
         <div class="noJoinUser">

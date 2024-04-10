@@ -861,7 +861,7 @@ input::placeholder {
     color: var(--hoverBlue);
 }
 
-.acceptPolicy {
+.checkboxContainer {
     width: 90%;
     height: 23px;
     cursor: pointer;
@@ -888,6 +888,7 @@ input::placeholder {
 }
 
 .checkbox {
+    cursor: pointer;
     border: unset;
     background-color: white;
 }

@@ -36,8 +36,7 @@ function validateConfirmedPassword() {
 function togglePassword(fieldId) {
     let input = document.getElementById(fieldId);
     let iconId = fieldId === "password" ? "passwordIcon" : "confirmPasswordIcon";
-    let icon = document.getElementById(iconId);
-    let inputImage = src="./img/img/lock.svg";
+    let icon = document.getElementById(iconId); 
 
     if (input.type === "password") {
         input.type = "text";
@@ -45,28 +44,34 @@ function togglePassword(fieldId) {
     } else {
         input.type = "password";
         icon.src = "./img/img/visibility.svg";  
+    }  
+}
 
-        if(input.value === "") {  
-            inputImage.style.display = "block";
-    }
-}
-}
+function changeLockIcon(inputElement) {
+    inputElement.nextElementSibling.src = "./img/img/visibility_off.svg";
+} 
+
+
+
 
 // check if Privacy Policy was accepted// 
-function toggleCheckbox() {
-    let realCheckbox = document.getElementById("realCheckbox");
-    let checkboxImage = document.getElementById("checkboxImage");
-    
-    realCheckbox.checked = !realCheckbox.checked;  
-    checkboxImage.src = realCheckbox.checked ? '../img/img/checked.svg' : '../img/Rectangle5.svg'; // Update the image based on the checkbox state
+function toggleCheckbox(buttonElement) {
+    let container = buttonElement.closest('.checkboxContainer');
+ 
+    let realCheckbox = container.querySelector(".realCheckbox");
+    let checkboxImage = container.querySelector(".checkboxImage");
+ 
+    realCheckbox.checked = !realCheckbox.checked; 
+    checkboxImage.src = realCheckbox.checked ? checkboxImage.getAttribute('data-checked') : checkboxImage.getAttribute('data-unchecked');
 }
 
-function checkPrivacyPolicy() { 
-    let realCheckbox = document.getElementById("realCheckbox");
+
+function checkPrivacyPolicy() {  
+    let realCheckbox = document.querySelector(".realCheckbox");
     if (!realCheckbox.checked) {
         alert("Please accept the Privacy Policy conditions");
         return false;
-    } 
+    }
     return true;
 }
 
