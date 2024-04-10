@@ -265,6 +265,8 @@ function deleteContact(index) {
     // Lösche den Kontakt aus dem Array
     contacts.splice(index, 1);
 
+    hideAddContact();
+
     // Aktualisiere die Anzeige
     init();
     // renderContacts(categorizedContacts);
@@ -292,7 +294,7 @@ function showEditContact(index) {
     document.getElementById('editContactEmail').value = contacts[index]['email'];
     document.getElementById('editContactPhone').value = contacts[index]['phone'];
     document.getElementById('addEditContactButtons').innerHTML = /*html*/`
-                                                                            <button class="deleteEditContactButton">
+                                                                            <button class="deleteEditContactButton" onclick="deleteContact(${index})">
                                                                                 <p>Delete</p>
                                                                             </button>
                                                                             <button class="saveEditContactButton" onclick="updateContact(${index})">
@@ -351,7 +353,7 @@ function updateContact(index) {
 }
 
 function openContactInfo(index) {
-    document.getElementById('contactInfo').classList.add('d-flex');
+    document.getElementById('contactInfo').classList.add('showContactDetailsContainer');
     let contact = contacts[index];
     console.log("Detailansicht für Kontakt:", contact);
     document.getElementById('contactInfoContactDetails').innerHTML = /*html*/`
@@ -363,6 +365,9 @@ function openContactInfo(index) {
                         ${contact['name']} ${contact['surname']}
                         </div>
                     </div>
+                    <div class="contactInfoHeadlineDesktop">
+                Contact Information
+            </div>
                     <div class="contactInfoEmailAndPhone">
                         <div class="contactInfoEmail">
                             <p>Email</p>
@@ -383,7 +388,7 @@ function openContactInfo(index) {
 }
 
 function closeContactInfo() {
-    document.getElementById('contactInfo').classList.remove('d-flex');
+    document.getElementById('contactInfo').classList.remove('showContactDetailsContainer');
 }
 
 function showContactCreatedPopUp() {

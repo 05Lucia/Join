@@ -1,42 +1,6 @@
 <div class="contactsWrapper">
     <div class="contactsContainer">
-        <div class="contactDetailsContainer" id="contactInfo">
-            <div class="contactInfoBox">
-                <div class="contactInfoHeadlineAndBackButton">
-                    <div class="contactInfoHeadline">
-                        Contact Information
-                    </div>
-                    <div class="contactInfoBackButton" onclick="closeContactInfo()">
-                        <img src="./img/contactInfoBackButton.svg">
-                    </div>
-                </div>
-                <div class="contactInfoContactDetails" id="contactInfoContactDetails">
-                    <!-- <div class="contactInfoAvatarAndName">
-                        <div class="contactInfoAvatar">
-                            AM
-                        </div>
-                        <div class="contactInfoName">
-                            Anton Mayer
-                        </div>
-                    </div>
-                    <div class="contactInfoEmailAndPhone">
-                        <div class="contactInfoEmail">
-                            <p>Email</p>
-                            <a href="mailto:abc@example.com">anton@gmail.com</a>
-                        </div>
-                        <div class="contactInfoPhone">
-                            <p>Phone</p>
-                            <span>+49 1111 111 11 1</span>
-                        </div>
-                    </div> -->
-                </div>
-            </div>
-            <div class="addContactButtonContainer" id="editContactButtonContainer">
-                <!-- <button class="addContactButton" id="addContactButton" onclick="showContactEditDeleteMenu()">
-                <img src="./img/contactMenuButton.svg">
-            </button> -->
-            </div>
-        </div>
+        
         <div class="contactList" id="contactList">
             <!-- <div class="contactBoxForEachLetter">
                 <div class="sectionByFirstLetter">
@@ -140,39 +104,11 @@
         </div>
         <div class="addContactButtonContainer" id="addContactButtonContainer">
             <button class="addContactButton" onclick="showAddContact()">
+                <p>Add new contact</p>
                 <img src="./img/addContactButtonIcon.svg">
             </button>
         </div>
-        <div id="addEditContact" class="addEditContactContainer">
-            <div class="addEditContactCard">
-                <div class="contactCardTopSection">
-                    <div class="closeAddEditContactCard" onclick="hideAddContact()">
-                        <img src="./img/addEditContactCard.svg">
-                    </div>
-                    <div class="addAndEditContactHeadline" id="addAndEditContactHeadline">Add contact</div>
-                    <div class="addContactSubheadline">Tasks are better with a team!</div>
-                </div>
-                <div class="avatarIcon" id="avatarIcon">
-                    <img src="./img/addContactAvatar.svg">
-                </div>
-                <div class="contactCardBottomSection">
-                    <div class="addContactContactDetails">
-                        <input class="addContactDetailsInput addContactDetailsNameInput" type="text" placeholder="Name"
-                            id="editContactName">
-                        <input class="addContactDetailsInput addContactDetailsEmailInput" type="email"
-                            placeholder="Email" id="editContactEmail">
-                        <input class="addContactDetailsInput addContactDetailsPhoneInput" type="tel" placeholder="Phone"
-                            id="editContactPhone">
-                    </div>
-                    <div class="addEditContactButtons" id="addEditContactButtons">
-                        <!-- <button class="createContactButton" id="createContactButton" onclick="createContact()">
-                            <p>Create contact</p>
-                            <img src="./img/createTaskCheckIcon.svg">
-                        </button> -->
-                    </div>
-                </div>
-            </div>
-        </div>
+
         <div class="editContactMenuContainer" id="editContactMenuContainer" onclick="hideContactEditDeleteMenu()">
             <!-- <div class="editContactMenu" id="editContactMenu">
                 <div class="editContact" onclick="showEditContact()">
@@ -186,6 +122,74 @@
             </div> -->
         </div>
 
+    </div>
+    <div id="addEditContact" class="addEditContactContainer">
+        <div class="addEditContactCard">
+            <div class="contactCardTopSection">
+                <div class="closeAddEditContactCard" onclick="hideAddContact()">
+                    <img src="./img/addEditContactCard.svg">
+                </div>
+                <div class="addAndEditContactHeadline" id="addAndEditContactHeadline">Add contact</div>
+                <div class="addContactSubheadline">Tasks are better with a team!</div>
+            </div>
+            <div class="avatarIcon" id="avatarIcon">
+                <img src="./img/addContactAvatar.svg">
+            </div>
+            <div class="contactCardBottomSection">
+                <div class="addContactContactDetails">
+                    <input class="addContactDetailsInput addContactDetailsNameInput" type="text" placeholder="Name"
+                        id="editContactName">
+                    <input class="addContactDetailsInput addContactDetailsEmailInput" type="email"
+                        placeholder="Email" id="editContactEmail">
+                    <input class="addContactDetailsInput addContactDetailsPhoneInput" type="tel" placeholder="Phone"
+                        id="editContactPhone">
+                </div>
+                <div class="addEditContactButtons" id="addEditContactButtons">
+                    <!-- <button class="createContactButton" id="createContactButton" onclick="createContact()">
+                        <p>Create contact</p>
+                        <img src="./img/createTaskCheckIcon.svg">
+                    </button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="contactDetailsContainer" id="contactInfo">
+        <div class="contactInfoBox">
+            <div class="contactInfoHeadlineAndBackButton">
+                <div class="contactInfoHeadlineMobile">
+                    Contact Information
+                </div>
+                <div class="contactInfoBackButton" onclick="closeContactInfo()">
+                    <img src="./img/contactInfoBackButton.svg">
+                </div>
+            </div>
+
+            <div class="contactInfoContactDetails" id="contactInfoContactDetails">
+                <!-- <div class="contactInfoAvatarAndName">
+                    <div class="contactInfoAvatar">
+                        AM
+                    </div>
+                    <div class="contactInfoName">
+                        Anton Mayer
+                    </div>
+                </div>
+                <div class="contactInfoEmailAndPhone">
+                    <div class="contactInfoEmail">
+                        <p>Email</p>
+                        <a href="mailto:abc@example.com">anton@gmail.com</a>
+                    </div>
+                    <div class="contactInfoPhone">
+                        <p>Phone</p>
+                        <span>+49 1111 111 11 1</span>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        <div class="addContactButtonContainer" id="editContactButtonContainer">
+            <!-- <button class="addContactButton" id="addContactButton" onclick="showContactEditDeleteMenu()">
+            <img src="./img/contactMenuButton.svg">
+        </button> -->
+        </div>
     </div>
     <div class="contactCreatedButtonContainer" id="contactCreatedButtonContainer">
         <div class="contactCreatedButton">
