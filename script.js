@@ -1,10 +1,14 @@
 function init() {
     //login page after start animation//
+    startAnimation()
+    includeHTML();
+}
+
+function startAnimation() {
     setTimeout(() => {
         window.location.href = 'login.html';
     }, 1200);
-    includeHTML();
-}
+} 
 
 /**
  * this funktion ist to open a certain Template.
