@@ -266,5 +266,22 @@ function drop(place) {
 }
 
 function bigCard(id) { 
+let card = cards[id]
+let container = document.getElementById('borad-card-popup');
 
+document.getElementById('borad-card-overlay').classList.remove('d-none')
+document.getElementById('borad-card-popup').classList.remove('d-none')
+document.body.classList.add('body-noscroll-class')
+
+container.innerHTML = TaskCadBigTemplate();
 }
+
+function closeCard() {
+    document.getElementById('borad-card-overlay').classList.add('d-none')
+    document.getElementById('borad-card-popup').classList.add('d-none')
+    document.body.classList.remove('body-noscroll-class') 
+}
+
+function doNotClose(event) {
+    event.stopPropagation();
+  }

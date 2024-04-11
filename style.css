@@ -5,6 +5,7 @@
     --style: #D1D1D1;
     --botongradient: #F4F4F4;
     --lightBlue: #D2E3FF;
+    --lightBlueHover: #E3EEFF;
     --red: #FF3D00;
     --green: #7AE229;
     --orange: #FFA800;
@@ -33,6 +34,10 @@ body {
 }
 
 /*general button design - siehe 00 General elements.pdf*/
+
+.d-none {
+    display: none !important;
+}
 
 /*design von buttons*/
 
@@ -3651,8 +3656,12 @@ h3 {
     justify-content: center;
     height: 100vh;
     width: 100vw;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     background-color: rgb(255, 255, 255, 0.6);
-    z-index: 1;
+    z-index: 2;
 }
 
 .borad-card-popup {
@@ -3667,6 +3676,7 @@ h3 {
     gap: 16px;
     padding: 32px 24px;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+    z-index: 3;
 }
 
 .board-card-big-top {
@@ -3676,9 +3686,47 @@ h3 {
     align-items: center;
 }
 
+.category-card-big {
+    padding: 4px 16px;
+    background-color: var(--hoverBlue);
+    border-radius: 8px;
+    color: white;
+}
+
+.board-card-close-container {
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: ease-out;
+    transition-duration: 300ms;
+}
+
+.board-card-close-hover {
+    display: none;
+}
+
+.board-card-close-container:hover {
+    background-color: var(--lightBlueHover);
+    border-radius: 100%;
+}
+
+.board-card-close-container:hover > .board-card-close {
+    display: none;
+}
+
+.board-card-close-container:hover > .board-card-close-hover {
+    display: flex;
+}
+
 .borad-card-popup h1 {
     width: 100%;
     text-align: left;
+    font-size: 36px;
+    font-weight: 700;
+    font-family: "Inter", sans-serif;
 }
 
 .board-card-big-description {
@@ -3687,6 +3735,9 @@ h3 {
 
 .borad-card-popup p {
     text-align: left;
+    font-size: 16px;
+    font-weight: 400;
+    color: #000;
 }
 
 .borad-card-popup h2 {
@@ -3698,30 +3749,127 @@ h3 {
 .board-card-big-info {
     width: 100%;
     display: flex;
-    gap: 24px;
+    gap: 25px;
     align-items: center;
+    justify-content: flex-start;
+}
+
+.board-card-big-priority {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 4px 13px;
 }
 
 .task-assigend-container {
     width: 100%;
     display: flex;
     flex-direction: column;
+    gap: 8px;
 }
 
 .board-card-big-assingend-user {
-    width: 100%;
+    min-width: 50%;
+    max-width: 100%;
     display: flex;
+    padding: 7px 16px;
+    justify-content: flex-start;
+    gap: 16px;
+    align-items: center;
 }
 
-.board-card-big-subtask {
+.user-initals-card-big-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(58, 211, 76);
+    height: 42px;
+    width: 42px;
+    border-radius: 100%;
+    border: white solid 1px;
+    color: white;
+    font-weight: 400;
+    font-size: 12px;
+}
+
+.board-card-big-subtasks-arear {
     width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 8px;
+}
+
+.board-task-subtasks-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.board-task-subtask {
+    width: auto;
+    height: 32px;
+    display: flex;
+    display: flex;
+    padding: 4px 0px;
+    align-items: center;
+}
+
+.board-task-subtask p {
+    display: flex;
+    align-items: center;
+    padding: 4px 16px;
+    gap: 16px;
+}
+
+.board-task-subtask:hover > img {
+    background-color: var(--lightBlueHover);
+    border-radius: 10px;
+}
+
+.board-task-subtask:hover > p {
+    background-color: var(--lightBlueHover);
+    border-radius: 10px;
 }
 
 .board-card-big-bottom {
     width: 100%;
     display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    align-items: center;
+}
+
+.board-card-icons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.board-card-icons:hover {
+    font-weight: 700;
+    color: var(--hoverBlue);
+}
+
+.board-card-icons:hover > .board-card-big-bottom-icon {
+    display: none;
+}
+
+.board-card-icons:hover > .board-card-big-bottom-icon-hover {
+    display: block;
+}
+
+.board-card-big-bottom-icon-hover {
+    display: none;
+}
+
+.board-card-big-bottom-seperation {
+    width: 1px;
+    height: 24px;
+    background-color: var(--style);
 }
 
 @media (min-width: 800px) {
@@ -3737,6 +3885,32 @@ h3 {
         justify-content: center;
         width: 200px;
     }
+
+    .borad-card-popup h1 {
+        font-size: 61px;
+        font-style: 'Open Sans', sans-serif;
+    }
+
+    .borad-card-popup {
+        width: 525px;
+        gap: 24px;
+        padding: 48px 40px;
+    }
+
+    .borad-card-popup p {
+        font-size: 19px;
+    }    
+
+    .borad-card-popup h2 {
+        font-size: 21px;
+    }
+
+    .category-card-big {
+        padding: 4px 24px;
+        background-color: orange;
+        font-size: 23px;
+    }
+
 }
 
 @media (min-width: 1128px) {
