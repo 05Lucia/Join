@@ -862,7 +862,7 @@ input::placeholder {
     color: var(--hoverBlue);
 }
 
-.acceptPolicy {
+.checkboxContainer {
     width: 90%;
     height: 23px;
     cursor: pointer;
@@ -889,6 +889,7 @@ input::placeholder {
 }
 
 .checkbox {
+    cursor: pointer;
     border: unset;
     background-color: white;
 }
@@ -2364,12 +2365,28 @@ h3 {
 
 
 .addContactButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 64px;
     width: 64px;
     border-radius: 10px;
     border: 1px solid rgba(69, 137, 255, 1);
     background-color: rgba(69, 137, 255, 1);
     filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+.addContactButton p {
+    display: none;
+    font-size: 23px;
+    line-height: 28px;
+    color: white;
+    font-weight: 400;
+}
+
+.addContactButton img {
+    height: 32px;
+    width: 32px;
 }
 
 .addContactButton:active {
@@ -2389,7 +2406,9 @@ h3 {
     padding: 64px 24px 0px 24px;
 }
 
-
+.showContactDetailsContainer {
+    display: flex;
+}
 
 .contactInfoBox {
     display: flex;
@@ -2405,11 +2424,15 @@ h3 {
     width: 100%;
 }
 
-.contactInfoHeadline {
+.contactInfoHeadlineMobile {
     display: flex;
     font-size: 19px;
     line-height: 23px;
     font-weight: 700;
+}
+
+.contactInfoHeadlineDesktop {
+    display: none;
 }
 
 .contactInfoBackButton {
@@ -2757,7 +2780,6 @@ h3 {
     height: 42px;
     width: 42px;
     background-color: rgba(255, 122, 0, 1);
-    background-color: hsl(hue-rotate(random(60deg, 300deg))), rgba(255, 255, 255, 0.3);
     border-radius: 50%;
     border: 2px solid rgba(255, 255, 255, 1);
     font-size: 12px;
@@ -2798,6 +2820,13 @@ h3 {
     right: -100%;
     transition: right 0.125s ease;
     z-index: 11
+}
+
+.editContactMenuDesktop {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    display: none;
 }
 
 .editContactMenu {
@@ -2905,7 +2934,7 @@ h3 {
 
 
 
-
+/* 
 .kategorie {
     margin-bottom: 20px;
 }
@@ -2914,7 +2943,7 @@ h3 {
     border: 1px solid #ccc;
     padding: 10px;
     margin-bottom: 5px;
-}
+} */
 
 
 
@@ -2930,21 +2959,117 @@ h3 {
         display: flex;
         position: relative;
         width: calc(100vw - 200px);
-        height: 100vh;
+        height: calc(100vh - 80px);
         overflow: hidden;
     }
 
     .contactsContainer {
-        width: 30%;
+        display: flex;
+        position: relative;
+        width: 456px;
         height: 100%;
-        background-color: lightblue;
+        background-color: white;
+        filter: drop-shadow(4px 0px 6px rgba(0, 0, 0, 0.08));
+        overflow: auto;
+    }
+
+
+    /* Width of Scroll Bar*/
+    .contactsContainer::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    /* Color of Scroll Bar Thumb */
+    .contactsContainer::-webkit-scrollbar-thumb {
+        background-color: rgba(168, 168, 168, 1);
+    }
+
+    /* Arrow-Icon for Scroll Bar */
+    .contactsContainer::-webkit-scrollbar-button {
+        height: 8px;
+        background-repeat: no-repeat;
+        background-position: center;
+
+    }
+
+    .contactsContainer::-webkit-scrollbar-button:start {
+        background-image: url('./img/scrollButtonUp.svg');
+    }
+
+    .contactsContainer::-webkit-scrollbar-button:end {
+        background-image: url('./img/scrollButtonDown.svg');
+    }
+
+    .contactsContainer::-webkit-scrollbar-button:decrement {
+        display: flex;
+    }
+
+    .contactsContainer::-webkit-scrollbar-button:increment {
+        display: flex;
+    }
+
+    .contactList {
+        padding-top: 64px;
     }
 
     .contactDetailsContainer {
         width: 70%;
         height: 100%;
-        background-color: lightgreen;
+        left: 100%;
+        padding-left: 56px;
+        background-color: transparent;
+        transition: right 0.8s ease;
+        display: flex;
+        z-index: 0;
     }
+
+    .showContactDetailsContainer {
+        left: calc(200px + 480px);
+        transition: right 0.8s ease;
+    }
+
+    .contactInfoHeadlineAndBackButton {
+        display: none;
+    }
+
+    .contactInfoAvatarAndName {
+        display: flex;
+        height: 120px;
+        gap: 54px;
+        align-items: center;
+    }
+
+    .contactInfoAvatar {
+        height: 120px;
+        width: 120px;
+        font-size: 47px;
+        line-height: 56px;
+    }
+
+    .contactInfoName {
+        font-size: 47px;
+        line-height: 56px;
+        font-weight: 500;
+    }
+
+    .contactInfoHeadlineDesktop {
+        display: flex;
+        font-weight: 700;
+        font-size: 23px;
+        line-height: 28px;
+    }
+
+    /* .contactDetailsContainer {
+        position: fixed;
+        top: 80px;
+        right: 0px;
+        height: calc(100% - 160px);
+        width: 100%;
+        background-color: white;
+        display: none;
+        z-index: 6;
+        padding: 64px 24px 0px 24px;
+    } */
 
     .addEditContactContainer {
         width: 40%;
@@ -2960,12 +3085,102 @@ h3 {
         right: 0;
     }
 
-
+    .addContactButtonContainer {
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        top: 24px;
+        left: 24px;
+        height: 56px;
+    }
 
     .addContactButton {
         position: unset;
-        height: 80px;
-        width: 160px;
+        height: 56px;
+        width: 357px;
+        padding: 16px 10px 16px 10px;
+        gap: 10px;
+        filter: none;
+    }
+
+    .addContactButton:hover {
+        cursor: pointer;
+        background-color: rgba(0, 93, 255, 1);
+        filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.2));
+    }
+
+    .addContactButton p {
+        display: flex;
+    }
+
+    .editContactMenu {
+        display: none;
+    }
+
+    .editContactMenuDesktop {
+        display: flex;
+        gap: 12px;
+    }
+
+    .editContactMenuContainer {
+        display: none;
+    }
+
+    #editContactButtonContainer {
+        display: none;
+    }
+
+    .editContact {
+        display: flex;
+        align-items: center;
+        height: 24px;
+        width: 61px;
+        justify-content: flex-start;
+        padding: 0px;
+        gap: 8px;
+    }
+
+    .editContact:hover {
+        cursor: pointer;
+        font-weight: 700;
+        color: rgba(0, 93, 255, 1)
+    }
+
+    .editContact:active {
+        background-color: transparent;
+        color: rgba(0, 93, 255, 1);
+        font-weight: 700;
+        border-radius: 0px;
+        padding: 0px;
+    }
+
+    .deleteContact {
+        display: flex;
+        height: 24px;
+        width: 81px;
+        justify-content: flex-start;
+        padding: 0px;
+        gap: 8px;
+    }
+
+    .deleteContact:hover {
+        cursor: pointer;
+        font-weight: 700;
+        color: rgba(0, 93, 255, 1)
+    }
+    
+    .deleteContact:active {
+        background-color: transparent;
+        color: rgba(0, 93, 255, 1);
+        font-weight: 700;
+        border-radius: 0px;
+        padding: 0px;
+    }
+
+    .contact:hover {
+        cursor: pointer;
+        background-color: rgba(210, 227, 255, 1);
+        border-radius: 10px;
     }
 }
 

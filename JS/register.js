@@ -7,9 +7,11 @@ function checkPasswordStrength() {
     if (!pattern.test(password)) {
         strengthIndicator.innerHTML = "Your password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, and one number";
         strengthIndicator.style.color = "red";
+        return false;
     } else {
         strengthIndicator.innerHTML = "Your password strength is ok";
         strengthIndicator.style.color = "green";
+        return true;
     }
 }
 
@@ -22,9 +24,11 @@ function validateConfirmedPassword() {
     if (password !== confirmPassword) {
         message.textContent = "Your passwords do not match";
         message.style.color = "red";
+        return false;
     } else {
         message.textContent = "Your password is confirmed";
         message.style.color = "green";
+        return true;
     }
 }
 
@@ -32,8 +36,7 @@ function validateConfirmedPassword() {
 function togglePassword(fieldId) {
     let input = document.getElementById(fieldId);
     let iconId = fieldId === "password" ? "passwordIcon" : "confirmPasswordIcon";
-    let icon = document.getElementById(iconId);
-    let inputImage = src="./img/img/lock.svg";
+    let icon = document.getElementById(iconId); 
 
     if (input.type === "password") {
         input.type = "text";
@@ -41,41 +44,34 @@ function togglePassword(fieldId) {
     } else {
         input.type = "password";
         icon.src = "./img/img/visibility.svg";  
-
-        if(input.value === "") {  
-            inputImage.style.display = "block";
-    }
-}
+    }  
 }
 
-function toggleCheckbox() {
-    let checkboxImage = document.getElementById("checkboxImage");
-    let realCheckbox = document.getElementById("realCheckbox");
+function changeLockIcon(inputElement) {
+    inputElement.nextElementSibling.src = "./img/img/visibility_off.svg";
+} 
 
-    if (realCheckbox.checked) {
-        checkboxImage.src = "../img/Rectangle5.svg";  
-        realCheckbox.checked = false;
-    } else {
-        checkboxImage.src = "../img/img/checked.svg";  
-        realCheckbox.checked = true;
-    }
-}
+
+
 
 // check if Privacy Policy was accepted// 
-function toggleCheckbox() {
-    let realCheckbox = document.getElementById("realCheckbox");
-    let checkboxImage = document.getElementById("checkboxImage");
-    
-    realCheckbox.checked = !realCheckbox.checked;  
-    checkboxImage.src = realCheckbox.checked ? '../img/img/checked.svg' : '../img/Rectangle5.svg'; // Update the image based on the checkbox state
+function toggleCheckbox(buttonElement) {
+    let container = buttonElement.closest('.checkboxContainer');
+ 
+    let realCheckbox = container.querySelector(".realCheckbox");
+    let checkboxImage = container.querySelector(".checkboxImage");
+ 
+    realCheckbox.checked = !realCheckbox.checked; 
+    checkboxImage.src = realCheckbox.checked ? checkboxImage.getAttribute('data-checked') : checkboxImage.getAttribute('data-unchecked');
 }
 
-function checkPrivacyPolicy() { 
-    let realCheckbox = document.getElementById("realCheckbox");
+
+function checkPrivacyPolicy() {  
+    let realCheckbox = document.querySelector(".realCheckbox");
     if (!realCheckbox.checked) {
         alert("Please accept the Privacy Policy conditions");
         return false;
-    } 
+    }
     return true;
 }
 
@@ -85,23 +81,25 @@ function validateForm() {
     let password = document.getElementById("password").value.trim();
     let confirmPassword = document.getElementById("confirm_password").value.trim();
     
-    if (!name || !email || !password || !confirmPassword || !checkPrivacyPolicy()) {
-        alert("Please fill in all fields and accept the Privacy Policy");
+    if (!name || !email || !password || !confirmPassword) {
+        alert("Please fill in all fields");
         return false;
     }
-
-    if (!checkPasswordStrength() || !validateConfirmedPassword()) {         
-        return false;
-    } else { 
-        successfulSignup();
-        return true;
+    
+    if (!checkPrivacyPolicy()) {
+        return;
     }
+    
+    if (!checkPasswordStrength() || !validateConfirmedPassword()) {
+        return;
+    }
+    successfulSignup(); 
 }
 
- 
+
 // message for successful signup//
 function successfulSignup() {
-    document.getElementById("signupModal").style.display = "block";
+    document.getElementById("signupModal").style.display = "block";   
 }
 
 function closeModal() {
