@@ -79,7 +79,7 @@ function findIndexByNameSurname(contacts, firstName, lastName) {
 
 
 function init() {
-    
+
     // Sortieren der Kontakte nach Vornamen
     console.log('Kontakte vor Sortierung', contacts);
     sortByFirstName(contacts);
@@ -156,7 +156,10 @@ function renderContacts(categories) {
 }
 
 function showAddContact() {
-    document.getElementById('addEditContact').classList.add('showAddEditContactContainer');
+    document.getElementById('addEditContact').style.display = 'flex';
+    setTimeout(() => {
+    document.getElementById('addEditContactCard').classList.add('showAddEditContactContainer');
+}, 25);
     document.getElementById('addAndEditContactHeadline').innerHTML = 'Add contact';
     document.getElementById('avatarIcon').style.backgroundColor = 'rgba(209, 209, 209, 1)';
     document.getElementById('avatarIcon').innerHTML = '<img src="./img/addContactAvatar.svg">';
@@ -164,15 +167,25 @@ function showAddContact() {
     document.getElementById('editContactEmail').value = '';
     document.getElementById('editContactPhone').value = '';
     document.getElementById('addEditContactButtons').innerHTML = /*html*/`
+                        <button class="cancelCreateContactButton" id="cancelCreateContactButton" onclick="hideAddContact()">
+                            <p>Cancel</p>
+                            <img src="./img/clearTaskX.svg">
+                        </button>
                         <button class="createContactButton" id="createContactButton" onclick="createContact()">
                             <p>Create contact</p>
                             <img src="./img/createTaskCheckIcon.svg">
                         </button>
 `;
+document.getElementById('addEditContactCard').onclick = function (event) {
+    event.stopPropagation();
+};
 }
 
 function hideAddContact() {
-    document.getElementById('addEditContact').classList.remove('showAddEditContactContainer');
+    document.getElementById('addEditContactCard').classList.remove('showAddEditContactContainer');
+    setTimeout(() => {
+        document.getElementById('addEditContact').style.display = 'none';
+    }, 125);
 }
 
 function createContact() {

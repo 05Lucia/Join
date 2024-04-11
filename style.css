@@ -2542,7 +2542,7 @@ h3 {
     bottom: 0;
 }
 
-.addEditContactContainer {
+/* .addEditContactContainer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -2555,22 +2555,61 @@ h3 {
     transition: right 0.125s ease;
     padding: 8px 16px 8px 16px;
     z-index: 10;
+} */
+
+/* .showAddEditContactContainer {
+    right: 0;
+} */
+
+.addEditContactContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.6);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    padding: 8px 16px 8px 16px;
+    display: none;
 }
 
 .showAddEditContactContainer {
-    right: 0;
+    right: 15px !important;
+    transition: right 0.125s ease;
+}
+
+.addEditContactCard {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: -100%;
+    height: calc(100% - 168px);
+    width: calc(100% - 30px);
+    border-radius: 30px;
+    filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.16));
+    transition: right 0.125s ease;
 }
 
 
 
-.addEditContactCard {
+
+
+
+
+
+
+
+/* .addEditContactCard {
     display: flex;
     flex-direction: column;
     height: 100%;
     width: 100%;
     border-radius: 30px;
     filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.16));
-}
+} */
 
 .contactCardTopSection {
     position: relative;
@@ -2583,6 +2622,10 @@ h3 {
     height: 40%;
     width: 100%;
     border-radius: 30px 30px 0px 0px;
+}
+
+.addContactLogo {
+    display: none;
 }
 
 .closeAddEditContactCard {
@@ -2931,6 +2974,34 @@ h3 {
     filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.2));
 }
 
+.cancelCreateContactButton {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    width: 136px;
+    padding: 16px 10px 16px 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(100, 113, 136, 1);
+    background-color: white;
+    gap: 10px;
+}
+
+.cancelCreateContactButton p {
+    font-size: 23px;
+    font-weight: 400;
+    color: rgba(100, 113, 136, 1);
+}
+
+.cancelCreateContactButton img {
+    height: 24px
+}
+
+.cancelCreateContactButton:hover {
+    cursor: pointer;
+    border: 2px solid rgba(69, 137, 255, 1);
+    filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.2));
+}
 
 
 /* 
@@ -3071,17 +3142,41 @@ h3 {
     } */
 
     .addEditContactContainer {
-        width: 40%;
+        width: 100%;
         height: 100%;
-        background-color: lightcoral;
-        position: absolute;
+        position: fixed;
+        padding: 0;
         top: 0;
-        right: -40%;
-        transition: right 0.3s ease;
+        right: 0;
+        justify-content: flex-end;
+        display: none;
     }
 
     .showAddEditContactContainer {
-        right: 0;
+        right: 0 !important;
+        transition: right 0.3s ease;
+    }
+
+    .addEditContactCard {
+        width: 584px;
+        border-radius: 30px 0px 30px 30px;
+        position: absolute;
+        right: -100%;
+        height: 100%;
+        transition: right 0.3s ease;
+    }
+
+    .contactCardTopSection {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        background-color: rgba(0, 93, 255, 1);
+        height: 35%;
+        width: 100%;
+        border-radius: 30px 0px 0px 0px;
     }
 
     .addContactButtonContainer {
@@ -3167,7 +3262,7 @@ h3 {
         font-weight: 700;
         color: rgba(0, 93, 255, 1)
     }
-    
+
     .deleteContact:active {
         background-color: transparent;
         color: rgba(0, 93, 255, 1);
@@ -3181,6 +3276,65 @@ h3 {
         background-color: rgba(210, 227, 255, 1);
         border-radius: 10px;
     }
+
+    .addContactLogo {
+        display: flex;
+    }
+
+    .addAndEditContactHeadline {
+        font-size: 48px;
+        line-height: 58px;
+    }
+
+    .addContactSubheadline {
+        font-size: 27px;
+        line-height: 32px;
+    }
+
+    .avatarIcon {
+        top: calc(50% - 80px);
+    }
+
+    .contactCardBottomSection {
+        padding-top: 40px;
+        height: 65%;
+    }
+
+    .addContactContactDetails {
+        justify-content: center;
+        height: 40%;
+        padding-left: 80px;
+        padding-right: 80px;
+        gap: 24px;
+    }
+
+    .cancelCreateContactButton {
+        display: flex;
+    }
+
+
+    .createContactButton {
+        height: 60px;
+        width: 204px;
+        padding: 16px 10px 16px 10px;
+        filter: none;
+    }
+
+    .createContactButton p {
+        font-size: 23px;
+    }
+
+    .contactCreatedButtonContainer {
+        padding-top: 0;
+        transition: bottom 0.450s ease;
+    }
+
+    .contactCreatedButton p {
+        font-size: 23px;
+        line-height: 28px;
+    }
+
+
 }
 
 /*  Board ----------------------------------------------------------- */
