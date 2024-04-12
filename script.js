@@ -297,22 +297,22 @@ function drop(place) {
  */
 function bigCard(id) {
     // Find the card object by ID in the cards array
-  const card = cards.find(card => card.id === id);
+    const card = cards.find(card => card.id === id);
 
-  if (card) {
-    // Card found, proceed with big card logic
-    let container = document.getElementById('borad-card-popup');
+    if (card) {
+        // Card found, proceed with big card logic
+        let container = document.getElementById('borad-card-popup');
 
-    document.getElementById('borad-card-overlay').classList.remove('d-none');
-    document.getElementById('borad-card-popup').classList.remove('d-none');
-    document.body.classList.add('body-noscroll-class');
+        document.getElementById('borad-card-overlay').classList.remove('d-none');
+        document.getElementById('borad-card-popup').classList.remove('d-none');
+        document.body.classList.add('body-noscroll-class');
 
-    container.innerHTML = TaskCadBigTemplate(card, id);
-    bigCardAssigned(card);
-    bigCardSubtasksCheck(card);
-  } else {
-    console.error("Card with ID", id, "not found in the cards array");
-  }
+        container.innerHTML = TaskCadBigTemplate(card, id);
+        bigCardAssigned(card);
+        bigCardSubtasksCheck(card);
+    } else {
+        console.error("Card with ID", id, "not found in the cards array");
+    }
 }
 
 /**
@@ -373,6 +373,7 @@ function bigCardSubtasksCheck(card) {
  */
 function bigCardSubtasks(card) {
     let container = document.getElementById('board-task-subtasks-container');
+    let id = card.id
     for (let i = 0; i < card.subtasks.length; i++) {
         const subtask = card.subtasks[i];
 
@@ -385,7 +386,7 @@ function bigCardSubtasks(card) {
         } else {
             img = './img/Check button unchecked.svg';
         }
-        container.innerHTML += bigCardSubtaskTemplate(taskText, img);
+        container.innerHTML += bigCardSubtaskTemplate(taskText, img, done, i, id);
     }
 }
 
@@ -395,12 +396,64 @@ function bigCardSubtasks(card) {
  */
 function deleteTask(cardId) {
     for (let i = cards.length - 1; i >= 0; i--) {
-      if (cards[i].id === cardId) {
-        cards.splice(i, 1);
-        updateCads()
-        closeCard();
-        return;
-      }
+        if (cards[i].id === cardId) {
+            cards.splice(i, 1);
+            updateCads()
+            closeCard();
+            return;
+        }
     }
     console.error("Card with ID", cardId, "not found in the cards array");
-  }
+}
+
+/**
+ * Updates the visual state (image) and internal completion status of a subtask.
+ * Triggers UI updates and opens the big card modal for the associated card.
+ *
+ * @param {boolean} done - Indicates whether the subtask is marked as completed.
+ * @param {number} i - The index of the subtask within the card's subtasks array.
+ * @param {number} id - The ID of the card containing the subtask.
+ */
+function SubtaskStatus(done, i, id) {
+    if (done === true) {
+        subtaskNotCompleted(i, id);
+    } else {
+        subtaskCompleted(i, id);
+    }
+    updateCads();
+    bigCard(id);
+}
+
+/**
+ * Updates the image of a subtask to show incompletion and marks it as incomplete internally.
+ *
+ * @param {number} index - The index of the subtask within the card's subtasks array.
+ * @param {number} cardId - The ID of the card containing the subtask.
+ */
+function subtaskNotCompleted(i, id) {
+    document.getElementById(`subtask${i}`).src = "./img/Check button unchecked.svg";
+    const card = cards.find(card => card.id === id)
+    for (let index = 0; index < card.subtasks.length; index++) {
+        const task = card.subtasks[index];
+        if (index === i) {
+            task.done = false;
+        }
+    }
+}
+
+/**
+ * Updates the image of a subtask to show completion and marks it as completed internally.
+ *
+ * @param {number} index - The index of the subtask within the card's subtasks array.
+ * @param {number} cardId - The ID of the card containing the subtask.
+ */
+function subtaskCompleted(i, id) {
+    document.getElementById(`subtask${i}`).src = "./img/Check button.svg";
+    const card = cards.find(card => card.id === id)
+    for (let index = 0; index < card.subtasks.length; index++) {
+        const task = card.subtasks[index];
+        if (index === i) {
+            task.done = true;
+        }
+    }
+}

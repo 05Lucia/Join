@@ -3817,6 +3817,10 @@ h3 {
     align-items: center;
 }
 
+.board-task-subtask img {
+    cursor: pointer;
+}
+
 .board-task-subtask p {
     display: flex;
     align-items: center;

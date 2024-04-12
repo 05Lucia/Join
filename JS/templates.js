@@ -115,15 +115,19 @@ function bigCardAssignedTemplate(user, initials) {
 }
 
 /**
- * Generates the HTML structure for a single subtask within the subtasks section of the big card modal.
- * @param {string} taskText The text content of the subtask.
- * @param {string} img The path to the image representing the subtask completion status.
- * @returns {string} The HTML string representing a subtask entry.
+ * Generates the HTML template for a single subtask within the big card modal.
+ *
+ * @param {string} taskText - The text content of the subtask.
+ * @param {string} img - The path to the image representing the subtask state.
+ * @param {boolean} done - Indicates whether the subtask is marked as completed.
+ * @param {number} i - The index of the subtask within the card's subtasks array.
+ * @param {number} id - The ID of the card containing the subtask.
+ * @returns {string} The HTML string representing the subtask template.
  */
-function bigCardSubtaskTemplate(taskText, img) {
+function bigCardSubtaskTemplate(taskText, img, done, i, id) {
     return `
         <div class="board-task-subtask">
-                <p><img src="${img}">${taskText}</p>
+                <p><img id="subtask${i}" onclick="SubtaskStatus(${done},${i},${id})" src="${img}">${taskText}</p>
         </div>
     `;
 }
