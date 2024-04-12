@@ -103,7 +103,7 @@
             </div> -->
         </div>
         <div class="addContactButtonContainer" id="addContactButtonContainer">
-            <button class="addContactButton" onclick="showAddContact()">
+            <button class="addContactButton" onclick="showAddContactCard()">
                 <p>Add new contact</p>
                 <img src="./img/addContactButtonIcon.svg">
             </button>
@@ -123,15 +123,15 @@
         </div>
 
     </div>
-    <div id="addEditContact" class="addEditContactContainer" onclick="hideAddContact()">
+    <div id="addEditContact" class="addEditContactContainer" onclick="hideAddContactCard()">
         <div class="addEditContactCard" id="addEditContactCard">
             <div class="contactCardTopSection">
-                <div class="closeAddEditContactCard" onclick="hideAddContact()">
+                <div class="closeAddEditContactCard" onclick="hideAddContactCard()">
                     <img src="./img/addEditContactCard.svg">
                 </div>
                 <div class="addContactLogo"><img src="./img/logo white.svg"></div>
                 <div class="addAndEditContactHeadline" id="addAndEditContactHeadline">Add contact</div>
-                <div class="addContactSubheadline">Tasks are better with a team!</div>
+                <div class="addContactSubheadline" id="addContactSubheadline">Tasks are better with a team!</div>
             </div>
             <div class="avatarIcon" id="avatarIcon">
                 <img src="./img/addContactAvatar.svg">

@@ -285,3 +285,11 @@ function closeCard() {
 function doNotClose(event) {
     event.stopPropagation();
   }
+
+
+// Contacts  ------------------------------------------------------------------------------------------------------------
+
+async function loadContacts() {
+    await Templates('contacts');
+    initContacts();
+}
