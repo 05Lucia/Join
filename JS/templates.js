@@ -1,3 +1,8 @@
+/**
+ * Generates the HTML structure for a single card on the board.
+ * @param {object} card The card object containing details to populate the template.
+ * @returns {string} The HTML string representing a card on the board.
+ */
 function cardTemplate(card) {
 
     return `
@@ -15,7 +20,7 @@ function cardTemplate(card) {
                 <div class="user-initals-card overlap">G</div>
                 <div class="user-initals-card overlap">AB</div>
             </div>
-            <img src="${card.priority}" alt="">
+            <img src="${card.priority.img}" alt="">
         </div>
     </div>
     `;
@@ -44,58 +49,42 @@ function TemplateSubtaskProgressbar(card) {
     }
 }
 
-function TaskCadBigTemplate() {
+/**
+ * Generates the HTML structure for the big card modal content based on a card object.
+ * @param {object} card The card object containing details to populate the template.
+ * @returns {string} The HTML string representing the big card modal content.
+ */
+function TaskCadBigTemplate(card, id) {
     return `
         <div class="board-card-big-top">
-            <div class="category-card-big">catogery</div>
+            <div class="category-card-big">${card.category} </div>
             <div class="board-card-close-container" onclick="closeCard()">
                 <img class="board-card-close" src="./img/Close.svg" alt="close">
                 <img class="board-card-close-hover" src="./img/close hover.svg" alt="close hover">
             </div>
         </div>
-        <h1>Titel</h1>
-        <p class="board-card-big-description">description</p>
+        <h1>${card.titel} </h1>
+        <p class="board-card-big-description">${card.description} </p>
         <div class="board-card-big-info">
             <h2>Due date:</h2>
-            <p>Date</p>
+            <p>${card.dueDate} </p>
         </div>
         <div class="board-card-big-info">
             <h2>Priority: </h2>
             <div class="board-card-big-priority">
-                <p> low </p>
-                <img src="./img/priorityLowInactive.svg" alt="Priority">
+                <p> ${card.priority.urgency} </p>
+                <img src="${card.priority.img} " alt="Priority">
             </div>
         </div>
-        <div class="task-assigend-container">
-            <h2>Assigned To:</h2>
-            <div class="board-card-big-assingend-user">
-                <div class="user-initals-card-big-card">TD</div>
-                <p>Name Nachname</p>
-            </div>
-            <div class="board-card-big-assingend-user">
-                <div class="user-initals-card-big-card">G</div>
-                <p>Guest</p>
-            </div>
-            <div class="board-card-big-assingend-user">
-                <div class="user-initals-card-big-card">AB</div>
-                <p>name</p>
-            </div>
+        <div class="task-assigend-container" id="assigned-container">
         </div>
-        <div class="board-card-big-subtasks-arear">
-            <h2>Subtasks</h2>
-            <div class="board-task-subtasks-container">
-                <div class="board-task-subtask">
-
-                    <p><img src="./img/Check button.svg" alt="checkbox">irgendwas etwas längners</p>
-                </div>
-                <div class="board-task-subtask">
-
-                    <p><img src="./img/Check button unchecked.svg" alt="checkbox">Aufgabe</p>
-                </div>
-            </div>
-        </div>
-        <div class="board-card-big-bottom">
-            <div class="board-card-icons">
+        <div class="board-card-big-subtasks-arear" id="board-card-big-subtasks-arear">
+            <h2>Subtasks</h2> 
+            <div class="board-task-subtasks-container" id="board-task-subtasks-container">
+        </div> 
+    </div>
+        <div class="board-card-big-bottom" >
+            <div class="board-card-icons" onclick="deleteTask(${id})">
                 <img class="board-card-big-bottom-icon" src="./img/delete.svg" alt="Delete">
                 <img class="board-card-big-bottom-icon-hover" src="./img/delete hover.svg" alt="delete hover">
                 Delete
@@ -108,5 +97,62 @@ function TaskCadBigTemplate() {
             </div>
         </div>
 `;
-    
+}
+
+/**
+ * Generates the HTML structure for an individual user within the "Assigned To" section of the big card modal.
+ * @param {string} user The username to display.
+ * @param {string} initials The user's initials.
+ * @returns {string} The HTML string representing an assigned user entry.
+ */
+function bigCardAssignedTemplate(user, initials) {
+    return `
+    <div class="board-card-big-assingend-user">
+        <div class="user-initals-card-big-card">${initials}</div>
+        <p>${user}</p>
+    </div>
+    `;
+}
+
+/**
+ * Generates the HTML template for a single subtask within the big card modal.
+ *
+ * @param {string} taskText - The text content of the subtask.
+ * @param {string} img - The path to the image representing the subtask state.
+ * @param {boolean} done - Indicates whether the subtask is marked as completed.
+ * @param {number} i - The index of the subtask within the card's subtasks array.
+ * @param {number} id - The ID of the card containing the subtask.
+ * @returns {string} The HTML string representing the subtask template.
+ */
+function bigCardSubtaskTemplate(taskText, img, done, i, id) {
+    return `
+        <div class="board-task-subtask">
+                <p><img id="subtask${i}" onclick="SubtaskStatus(${done},${i},${id})" src="${img}">${taskText}</p>
+        </div>
+    `;
+}
+
+/**
+ * Generates the HTML template for the "Add Task" popup window.
+ *
+ * @returns {string} The HTML string representing the popup window structure.
+ */
+function boardPopupAddTaskWindow() {
+    return `
+    <div class="borad-card-popup-addTask" id="borad-card-popup-addTask">
+       <div class="board-addTask-popup-top">
+            <div class="add-task-titel-popup">
+                <h1>Add Task</h1>
+            </div>
+            <div class="board-popup-close-area">
+                <div class="board-card-close-container" onclick="closeCard()">
+                    <img class="board-card-close" src="./img/Close.svg" alt="close">
+                    <img class="board-card-close-hover" src="./img/close hover.svg" alt="close hover">
+                </div>
+            </div>            
+        </div>
+        <div class="addTask-popup-container" id="addTask-popup-container">
+        </div>
+    </div> 
+    `;
 }

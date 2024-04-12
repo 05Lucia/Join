@@ -3421,13 +3421,17 @@ h3 {
     height: 46px;
     border: none;
     border-radius: 10px;
+    padding-left: 16px;
+}
+
+.search-input:focus {
+    outline: none;
 }
 
 .search-input::placeholder {
     font-size: 16px;
     font-weight: 400;
-    color: var(--style);
-    padding-left: 16px;
+    color: var(--style);  
 }
 
 .search-field {
@@ -3828,6 +3832,10 @@ h3 {
     align-items: center;
 }
 
+.board-task-subtask img {
+    cursor: pointer;
+}
+
 .board-task-subtask p {
     display: flex;
     align-items: center;
@@ -3883,6 +3891,7 @@ h3 {
     background-color: var(--style);
 }
 
+
 @media (min-width: 800px) {
     .wraper-board {
         width: calc(100vw - 200px);
@@ -3895,6 +3904,18 @@ h3 {
         align-items: center;
         justify-content: center;
         width: 200px;
+    }
+
+    .search-field {
+        width: 312px;
+    }
+
+    .board-top {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0px 16px;
     }
 
     .borad-card-popup h1 {
@@ -3922,6 +3943,40 @@ h3 {
         font-size: 23px;
     }
 
+    .borad-card-popup-addTask {
+        height: 1024px;
+        width: 518px;
+        background: white;
+        border-radius: 30px 0px 30px 30px;
+        box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .board-addTask-popup-top {
+        height: 156px;
+        width: 100%;
+        padding: 72px 24px 72px 40px;
+        display: flex;
+        gap: 49px;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .add-task-titel-popup h1 {
+        font-size: 48px;
+        font-weight: 700;
+    }
+
+    .board-popup-close-area {
+        height: 156px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+        padding-top: 24px
+    }
 }
 
 @media (min-width: 1128px) {
