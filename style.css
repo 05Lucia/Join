@@ -3410,13 +3410,17 @@ h3 {
     height: 46px;
     border: none;
     border-radius: 10px;
+    padding-left: 16px;
+}
+
+.search-input:focus {
+    outline: none;
 }
 
 .search-input::placeholder {
     font-size: 16px;
     font-weight: 400;
-    color: var(--style);
-    padding-left: 16px;
+    color: var(--style);  
 }
 
 .search-field {
@@ -3877,7 +3881,6 @@ h3 {
 }
 
 
-
 @media (min-width: 800px) {
     .wraper-board {
         width: calc(100vw - 200px);
@@ -3890,6 +3893,18 @@ h3 {
         align-items: center;
         justify-content: center;
         width: 200px;
+    }
+
+    .search-field {
+        width: 312px;
+    }
+
+    .board-top {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0px 16px;
     }
 
     .borad-card-popup h1 {
