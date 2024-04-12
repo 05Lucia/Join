@@ -8,7 +8,7 @@ function startAnimation() {
     setTimeout(() => {
         window.location.href = 'login.html';
     }, 1200);
-} 
+}
 
 /**
  * this funktion ist to open a certain Template.
@@ -50,20 +50,23 @@ let cards = [
         "place": 'todo',
         "category": 'js',
         "titel": 'Test',
-        "description": 'irgend was ganz langes zu scheiben ist nervig so ich hofe ich habe langsam 2 zeilen ericht und bin jetzt auch langas mal drüber und schon bei der dritten die man hoffentlich nicht sieh!',
-        "dueDate": '',
+        "description": 'irgend was ganz langes zu scheiben ist nervig so ich hofe ich habe langsam 2 zeilen ericht und bin jetzt auch langas mal drüber und schon bei der dritten die man hoffentlich nicht sieh! Auser das ist die Große Karte.',
+        "dueDate": '01.01.2024',
         "subtasks": [
             {
-                "name": 'testing',
+                "text": 'testing extra lang',
                 "done": true
             },
             {
-                "name": 'sonmthing',
+                "text": 'sonmthing',
                 "done": false
             }
         ],
         "assigned": ['Alice Buchholz', 'Guest', 'Test Dummy'],
-        "priority": './img/priorityMediumInactive.svg'
+        "priority": {
+            "urgency": 'Medium',
+            "img": './img/priorityMediumInactive.svg'
+        }
     },
     {
         "id": 1,
@@ -74,20 +77,23 @@ let cards = [
         "dueDate": '',
         "subtasks": [
             {
-                "name": 'testing',
+                "text": 'testing',
                 "done": true
             },
             {
-                "name": 'sonmthing',
+                "text": 'sonmthing',
                 "done": false
             },
             {
-                "name": 'todo',
+                "text": 'todo',
                 "done": true
             }
         ],
-        "assigned": ['Alice Buchholz', 'Guest'],
-        "priority": './img/priorityHighInactive.svg'
+        "assigned": [],
+        "priority": {
+            "urgency": 'High',
+            "img": './img/priorityHighInactive.svg'
+        }
     },
     {
         "id": 2,
@@ -98,12 +104,15 @@ let cards = [
         "dueDate": '',
         "subtasks": [],
         "assigned": ['Alice Buchholz', 'Test Dummy', 'Someone Else'],
-        "priority": './img/priorityHighInactive.svg'
+        "priority": {
+            "urgency": 'Low',
+            "img": './img/priorityLowInactive.svg'
+        }
     }
 ]
 
 /**
- * to lode all the needet funktion for the bord in oder!
+ * Asynchronously loads all necessary functions for the board in the correct order.
  */
 async function lodeBoard() {
     await Templates('board');
@@ -111,7 +120,7 @@ async function lodeBoard() {
 }
 
 /**
- * a function to update/lode alle the cards on the board for eacht section!!
+ * Updates all card sections on the board by calling individual update functions for each section ("todo", "progress", etc.).
  */
 function updateCads() {
     todoCardUpdate();
@@ -121,7 +130,8 @@ function updateCads() {
 }
 
 /**
- * lode / update the cards for the todo section of the board
+ * Updates the cards in the specified section of the board ("todo", "progress", etc.).
+ * @param {string} todo The name of the board section to update.
  */
 function todoCardUpdate() {
     let todo = cards.filter(t => t['place'] == 'todo');
@@ -136,14 +146,15 @@ function todoCardUpdate() {
             document.getElementById('todo').innerHTML += cardTemplate(card);
             assignedInitals(card);
         }
-    }else {
+    } else {
         todoContainer.style.padding = '0px';
         todoContainer.innerHTML = '<div class="no-task-div">No tasks To do</div>';
     }
 }
 
 /**
- * lode / update the cards for the progress section of the board
+ * Updates the cards in the specified section of the board ("todo", "progress", etc.).
+ * @param {string} progress The name of the board section to update.
  */
 function progressCardUpdate() {
     let progress = cards.filter(t => t['place'] == 'progress');
@@ -158,14 +169,15 @@ function progressCardUpdate() {
             document.getElementById('progress').innerHTML += cardTemplate(card);
             assignedInitals(card)
         }
-    }else {
+    } else {
         progressContainer.style.padding = '0px';
         progressContainer.innerHTML = '<div class="no-task-div">No tasks in progress</div>';
     }
 }
 
 /**
- * lode / update the cards for the feedback section of the board
+ * Updates the cards in the specified section of the board ("todo", "progress", etc.).
+ * @param {string} feedback The name of the board section to update.
  */
 function feedbackCardUpdate() {
     let feedback = cards.filter(t => t['place'] == 'feedback');
@@ -187,7 +199,8 @@ function feedbackCardUpdate() {
 }
 
 /**
- * lode / update the cards for the done section of the board
+ * Updates the cards in the specified section of the board ("todo", "progress", etc.).
+ * @param {string} done The name of the board section to update.
  */
 function doneCardUpdate() {
     let done = cards.filter(t => t['place'] == 'done');
@@ -210,9 +223,8 @@ function doneCardUpdate() {
 }
 
 /**
- * It is to add the initals of the people that are assinged to the task.
- * 
- * @param {Array} card is the array part that belongst to the certen task.
+ * Populates the "Assigned To" section of a card with the initials of assigned users.
+ * @param {object} card The card object containing the assigned users list.
  */
 function assignedInitals(card) {
     let container = document.getElementById(`assigned-container${card.id}`)
@@ -235,53 +247,137 @@ function assignedInitals(card) {
 }
 
 /**
- * Pecentage for the progressbar.
- * 
- * @param {array} card the arry of the card for the needet task
- * @returns to the progress bat in oder to get the right prcenteg to fill it.
+ * Calculates the completion percentage for a card's progress bar based on the number of completed subtasks.
+ * @param {object} card The card object containing the subtasks list.
+ * @returns {number} The percentage of completed subtasks (0-100).
  */
 function progressbarComplitaionRate(card) {
-    let allSubtasks = card.subtasks.length
+    let allSubtasks = card.subtasks.length;
     let compleatSubtask = card.subtasks.reduce((acc, subtask) => acc + subtask.done, 0);
 
     let precentProgress = Math.floor((compleatSubtask / allSubtasks) * 100);
-    return precentProgress
+    return precentProgress;
 }
 
+/**
+ * A global variable to store the ID of the currently dragged card element.
+ * @type {number}
+ */
 let currentDraggedElement;
 
-// drag an drop not funtions not done jet!!
+/**
+ * Sets the `currentDraggedElement` variable to the ID of the card being dragged.
+ * @param {number} id The ID of the dragged card element.
+ */
 function startDraging(id) {
     currentDraggedElement = id;
 }
 
+/**
+ * Allows dropping an element onto a designated target.
+ * @param {DragEvent} ev The drag event object.
+ */
 function allowDrop(ev) {
     ev.preventDefault();
 }
 
+/**
+ * Updates the card's "place" property in the cards array based on the drop target.
+ * @param {string} place The name of the drop target area (e.g., "todo", "progress").
+ */
 function drop(place) {
     cards[currentDraggedElement]['place'] = '';
     cards[currentDraggedElement]['place'] = place;
     updateCads();
 }
 
-function bigCard(id) { 
-let card = cards[id]
-let container = document.getElementById('borad-card-popup');
+/**
+ * Opens a big card modal for a specific card based on its ID.
+ * @param {number} id The ID of the card to display.
+ */
+function bigCard(id) {
+    let card = cards[id]
+    let container = document.getElementById('borad-card-popup');
 
-document.getElementById('borad-card-overlay').classList.remove('d-none')
-document.getElementById('borad-card-popup').classList.remove('d-none')
-document.body.classList.add('body-noscroll-class')
+    document.getElementById('borad-card-overlay').classList.remove('d-none')
+    document.getElementById('borad-card-popup').classList.remove('d-none')
+    document.body.classList.add('body-noscroll-class')
 
-container.innerHTML = TaskCadBigTemplate();
+    container.innerHTML = TaskCadBigTemplate(card);
+    bigCardAssigned(card);
+    bigCardSubtasksCheck(card);
 }
 
+/**
+ * Closes the big card modal.
+ */
 function closeCard() {
     document.getElementById('borad-card-overlay').classList.add('d-none')
     document.getElementById('borad-card-popup').classList.add('d-none')
-    document.body.classList.remove('body-noscroll-class') 
+    document.body.classList.remove('body-noscroll-class')
 }
 
+/**
+ * Prevents the close event from bubbling up when clicking inside the big card modal.
+ * @param {Event} event The event object.
+ */
 function doNotClose(event) {
     event.stopPropagation();
-  }
+}
+
+/**
+ * Populates the "Assigned To" section of the big card modal with user initials.
+ * @param {object} card The card object containing the assigned users list.
+ */
+function bigCardAssigned(card) {
+    if (card.assigned.length > 0) {
+        let container = document.getElementById(`assigned-container`)
+        container.innerHTML = '<h2>Assigned To:</h2>';
+        for (let i = 0; i < card.assigned.length; i++) {
+            const user = card.assigned[i];
+            let names = user.split(' ');
+            let initials = names[0].substring(0, 1).toUpperCase();
+
+            if (names.length > 1) {
+                initials += names[names.length - 1].substring(0, 1).toUpperCase();
+            }
+            container.innerHTML += bigCardAssignedTemplate(user, initials);
+        }
+    } else {
+        document.getElementById(`assigned-container${card.id}`).classList.add('d-none')
+    }
+}
+
+/**
+ * Checks for subtasks and conditionally hides the subtasks area of the big card modal.
+ * @param {object} card The card object containing the subtasks array.
+ */
+function bigCardSubtasksCheck(card) {
+    if (card.subtasks.length > 0) { 
+        bigCardSubtasks(card); 
+    } else {
+        document.getElementById('board-card-big-subtasks-arear').classList.add('d-none');
+    }
+}
+
+/**
+ * Populates the subtasks section of the big card modal with individual subtask details.
+ * @param {object} card The card object containing the subtasks array.
+ */
+function bigCardSubtasks(card) {
+    let container = document.getElementById('board-task-subtasks-container');
+    for (let i = 0; i < card.subtasks.length; i++) {
+        const subtask = card.subtasks[i];
+
+        let taskText = subtask.text;
+        let done = subtask.done;
+        let img;
+
+        if (done === true) {
+            img = './img/Check button.svg';
+        } else {
+            img = './img/Check button unchecked.svg';
+        }
+        container.innerHTML += bigCardSubtaskTemplate(taskText, img);
+    }
+}
