@@ -132,6 +132,11 @@ function bigCardSubtaskTemplate(taskText, img, done, i, id) {
     `;
 }
 
+/**
+ * Generates the HTML template for the "Add Task" popup window.
+ *
+ * @returns {string} The HTML string representing the popup window structure.
+ */
 function boardPopupAddTaskWindow() {
     return `
     <div class="borad-card-popup-addTask" id="borad-card-popup-addTask">

@@ -461,6 +461,10 @@ function subtaskCompleted(i, id) {
     }
 } 
 
+/**
+ * Opens the modal for adding a new task to the board.
+ * Fetches the add task template using the 'include-AddTask' attribute and injects it into the modal content.
+ */
 function boardPopupAddTask() {
     let container = document.getElementById('borad-card-overlay');
 
@@ -475,6 +479,11 @@ function boardPopupAddTask() {
     includeAddTask()
 }
 
+/**
+ * Fetches and includes the content of external HTML templates marked with the 'include-AddTask' attribute.
+ *
+ * @async
+ */
 async function includeAddTask() {
     let includeElements = document.querySelectorAll('[include-AddTask]');
     for (let i = 0; i < includeElements.length; i++) {
