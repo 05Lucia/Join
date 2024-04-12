@@ -319,9 +319,12 @@ function bigCard(id) {
  * Closes the big card modal.
  */
 function closeCard() {
-    document.getElementById('borad-card-overlay').classList.add('d-none')
-    document.getElementById('borad-card-popup').classList.add('d-none')
-    document.body.classList.remove('body-noscroll-class')
+    let container = document.getElementById('borad-card-overlay');
+    container.classList.add('d-none');
+    container.style.justifyContent = "center";
+    container.innerHTML = `<div class="borad-card-popup d-none" id="borad-card-popup" onclick="doNotClose(event)"></div>`
+    document.body.classList.remove('body-noscroll-class');
+    
 }
 
 /**
@@ -457,3 +460,31 @@ function subtaskCompleted(i, id) {
         }
     }
 } 
+
+function boardPopupAddTask() {
+    let container = document.getElementById('borad-card-overlay');
+
+    container.innerHTML = boardPopupAddTaskWindow();
+
+    document.getElementById('borad-card-overlay').classList.remove('d-none');
+    document.body.classList.add('body-noscroll-class');
+    container.style.justifyContent = "flex-end"
+    container.style.alignItems = "flex-start"
+
+    document.getElementById('addTask-popup-container').innerHTML = '<div include-AddTask="./Templates/add_task.html"> </div>';
+    includeAddTask()
+}
+
+async function includeAddTask() {
+    let includeElements = document.querySelectorAll('[include-AddTask]');
+    for (let i = 0; i < includeElements.length; i++) {
+        const element = includeElements[i];
+        file = element.getAttribute("include-AddTask"); // "includes/template.html"
+        let resp = await fetch(file);
+        if (resp.ok) {
+            element.innerHTML = await resp.text();
+        } else {
+            element.innerHTML = 'Page not found';
+        }
+    }
+}

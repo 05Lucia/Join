@@ -131,3 +131,23 @@ function bigCardSubtaskTemplate(taskText, img, done, i, id) {
         </div>
     `;
 }
+
+function boardPopupAddTaskWindow() {
+    return `
+    <div class="borad-card-popup-addTask" id="borad-card-popup-addTask">
+       <div class="board-addTask-popup-top">
+            <div class="add-task-titel-popup">
+                <h1>Add Task</h1>
+            </div>
+            <div class="board-popup-close-area">
+                <div class="board-card-close-container" onclick="closeCard()">
+                    <img class="board-card-close" src="./img/Close.svg" alt="close">
+                    <img class="board-card-close-hover" src="./img/close hover.svg" alt="close hover">
+                </div>
+            </div>            
+        </div>
+        <div class="addTask-popup-container" id="addTask-popup-container">
+        </div>
+    </div> 
+    `;
+}
