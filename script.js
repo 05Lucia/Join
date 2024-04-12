@@ -456,4 +456,4 @@ function subtaskCompleted(i, id) {
             task.done = true;
         }
     }
-}
+} 
