@@ -296,16 +296,23 @@ function drop(place) {
  * @param {number} id The ID of the card to display.
  */
 function bigCard(id) {
-    let card = cards[id]
+    // Find the card object by ID in the cards array
+  const card = cards.find(card => card.id === id);
+
+  if (card) {
+    // Card found, proceed with big card logic
     let container = document.getElementById('borad-card-popup');
 
-    document.getElementById('borad-card-overlay').classList.remove('d-none')
-    document.getElementById('borad-card-popup').classList.remove('d-none')
-    document.body.classList.add('body-noscroll-class')
+    document.getElementById('borad-card-overlay').classList.remove('d-none');
+    document.getElementById('borad-card-popup').classList.remove('d-none');
+    document.body.classList.add('body-noscroll-class');
 
-    container.innerHTML = TaskCadBigTemplate(card);
+    container.innerHTML = TaskCadBigTemplate(card, id);
     bigCardAssigned(card);
     bigCardSubtasksCheck(card);
+  } else {
+    console.error("Card with ID", id, "not found in the cards array");
+  }
 }
 
 /**
@@ -344,7 +351,7 @@ function bigCardAssigned(card) {
             container.innerHTML += bigCardAssignedTemplate(user, initials);
         }
     } else {
-        document.getElementById(`assigned-container${card.id}`).classList.add('d-none')
+        document.getElementById(`assigned-container`).classList.add('d-none')
     }
 }
 
@@ -353,8 +360,8 @@ function bigCardAssigned(card) {
  * @param {object} card The card object containing the subtasks array.
  */
 function bigCardSubtasksCheck(card) {
-    if (card.subtasks.length > 0) { 
-        bigCardSubtasks(card); 
+    if (card.subtasks.length > 0) {
+        bigCardSubtasks(card);
     } else {
         document.getElementById('board-card-big-subtasks-arear').classList.add('d-none');
     }
@@ -381,3 +388,19 @@ function bigCardSubtasks(card) {
         container.innerHTML += bigCardSubtaskTemplate(taskText, img);
     }
 }
+
+/**
+ * Removes a card from the cards array and the board based on its ID.
+ * @param {number} cardId The ID of the card to be deleted.
+ */
+function deleteTask(cardId) {
+    for (let i = cards.length - 1; i >= 0; i--) {
+      if (cards[i].id === cardId) {
+        cards.splice(i, 1);
+        updateCads()
+        closeCard();
+        return;
+      }
+    }
+    console.error("Card with ID", cardId, "not found in the cards array");
+  }

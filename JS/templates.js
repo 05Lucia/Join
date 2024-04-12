@@ -54,7 +54,7 @@ function TemplateSubtaskProgressbar(card) {
  * @param {object} card The card object containing details to populate the template.
  * @returns {string} The HTML string representing the big card modal content.
  */
-function TaskCadBigTemplate(card) {
+function TaskCadBigTemplate(card, id) {
     return `
         <div class="board-card-big-top">
             <div class="category-card-big">${card.category} </div>
@@ -83,8 +83,8 @@ function TaskCadBigTemplate(card) {
             <div class="board-task-subtasks-container" id="board-task-subtasks-container">
         </div> 
     </div>
-        <div class="board-card-big-bottom">
-            <div class="board-card-icons">
+        <div class="board-card-big-bottom" >
+            <div class="board-card-icons" onclick="deleteTask(${id})">
                 <img class="board-card-big-bottom-icon" src="./img/delete.svg" alt="Delete">
                 <img class="board-card-big-bottom-icon-hover" src="./img/delete hover.svg" alt="delete hover">
                 Delete
@@ -97,7 +97,6 @@ function TaskCadBigTemplate(card) {
             </div>
         </div>
 `;
-
 }
 
 /**
