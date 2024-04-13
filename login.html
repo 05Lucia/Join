@@ -39,10 +39,10 @@
                     <img class="checkboxImage" src="./img/Rectangle5.svg" data-checked="./img/img/checked.svg" data-unchecked="./img/Rectangle5.svg">
                 </button>
                 <span>Remember me</span>
-                <input type="checkbox" class="realCheckbox" hidden>
+                <input type="checkbox" class="realCheckbox" onclick="rememberLogin(document.getElementById('email').value, document.getElementById('password').value);" hidden>
             </div>       
             <div class="buttonContainer">
-                <button onclick="login()" class="blueBtn" style="width: 200px;">Log in</button>
+                <button onclick="login(); return false;" class="blueBtn" style="width: 200px;">Log in</button>
                 <button onclick="window.location.href='../Templates/summary.html'" class="greyBorderBtn">Guest log in</button>
             </div>
         </div>

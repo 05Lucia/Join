@@ -1,6 +1,6 @@
 function init() {
     //login page after start animation//
-    startAnimation()
+    startAnimation();
     includeHTML();
 }
 

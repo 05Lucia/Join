@@ -1,3 +1,11 @@
+let users = [
+    {
+        "name": "Caro Willers",
+        "email": "caro@gmail.com",
+        "password": "Pommes123"
+    }
+]
+
 /**
  * Checks the strength of the password entered by the user.
  * @returns {boolean} Returns true if the password meets the strength criteria, otherwise rturns false.
@@ -120,6 +128,7 @@ function validateForm() {
     if (!checkPasswordStrength() || !validateConfirmedPassword()) {
         return;
     }
+    addUser();
     successfulSignup(); 
 }
 
@@ -138,7 +147,7 @@ function successfulSignup() {
  */
 function closeModal() {
     document.getElementById("signupModal").style.display = "none";
-    window.location.href = '../index.html';
+    window.location.href = '../login.html';
 }
 
 /**
@@ -151,10 +160,26 @@ window.onclick = function (event) {
     let modal = document.getElementById("signupModal");
     if (event.target == modal) {
         modal.style.display = "none";
-        window.location.href = '../index.html';
+        window.location.href = '../login.html';
+    }
+}
+
+function addUser() { 
+    let email = document.getElementById('email').value;
+    let password = document.getElementById('password').value;
+
+    users.push({email: email, password: password});
+}
+
+function login() {
+    let email = document.getElementById('email');
+    let password = document.getElementById('password');
+    let user = users.find(u => u.email === email.value && u.password === password.value);
+
+    if (user) {
+        alert("Login Successful");
+        window.location.href = "../index.html";
     }
 }
 
 
-
- 
