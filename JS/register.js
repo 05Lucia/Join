@@ -1,4 +1,7 @@
-//check password Strength//
+/**
+ * Checks the strength of the password entered by the user.
+ * @returns {boolean} Returns true if the password meets the strength criteria, otherwise rturns false.
+ */
 function checkPasswordStrength() {
     let password = document.getElementById("password").value;
     let strengthIndicator = document.getElementById("passwordStrengthMessage");
@@ -15,7 +18,10 @@ function checkPasswordStrength() {
     }
 }
 
-//check confirmed password match//
+/**
+ * Validates the input to confirm the password entered by the user.
+ * @returns {boolean} Returns true if the confirmed password matches the original password, otherwise returns false.
+ */
 function validateConfirmedPassword() {
     let password = document.getElementById("password").value;
     let confirmPassword = document.getElementById("confirm_password").value;
@@ -32,7 +38,10 @@ function validateConfirmedPassword() {
     }
 }
 
-//toggle password visibility//
+/**
+ * Toggles the visibility of the password input field and changes the visibility icon accordingly.
+ * @param {string} fieldId - The ID of the password input field.
+ */
 function togglePassword(fieldId) {
     let input = document.getElementById(fieldId);
     let iconId = fieldId === "password" ? "passwordIcon" : "confirmPasswordIcon";
@@ -47,14 +56,21 @@ function togglePassword(fieldId) {
     }  
 }
 
+/**
+ * Changes the visibility icon of the password input field.
+ * @param {HTMLElement} inputElement - The password input field element.
+ */
 function changeLockIcon(inputElement) {
     inputElement.nextElementSibling.src = "./img/img/visibility_off.svg";
 } 
 
-
-
-
-// check if Privacy Policy was accepted// 
+/**
+ * Toggles the checkbox that states if the Privacy Policy was accepted or not and updatates the checkbox image.
+ * Toggles the state of a checkbox and updates the image icon to checked or not checked
+ * This function is used on login and signup pages to handle user interaction with the checkboxes,
+ * such as remembering passwords and accepting privacy policies. 
+* @param {HTMLElement} buttonElement - On click of this button, the state of the checkbox will be toggled.
+ */
 function toggleCheckbox(buttonElement) {
     let container = buttonElement.closest('.checkboxContainer');
  
@@ -65,7 +81,11 @@ function toggleCheckbox(buttonElement) {
     checkboxImage.src = realCheckbox.checked ? checkboxImage.getAttribute('data-checked') : checkboxImage.getAttribute('data-unchecked');
 }
 
-
+/**
+ * Checks if the Privacy Policy checkbox is checked before final signup is possible
+ * If the checkbox is not checked, displays an alert message prompting the user to accept the Privacy Policy.
+ * @returns {boolean} Returns true if the Privacy Policy checkbox is checked, otherwise returns false.
+ */
 function checkPrivacyPolicy() {  
     let realCheckbox = document.querySelector(".realCheckbox");
     if (!realCheckbox.checked) {
@@ -75,6 +95,13 @@ function checkPrivacyPolicy() {
     return true;
 }
 
+/**
+ * Validates the signup form before submission.
+ * Checks if all required fields are filled, if the privacy policy is accepted,
+ * and if the password meets the strength criteria and matches the confirmed password.
+ * Displays alert messages for any validation errors.
+ * @returns {boolean} Returns true if the form validation is successful, otherwise returns false.
+ */
 function validateForm() {
     let name = document.getElementById("name").value.trim();
     let email = document.getElementById("email").value.trim();
@@ -96,22 +123,35 @@ function validateForm() {
     successfulSignup(); 
 }
 
-
-// message for successful signup//
+/**
+ * Displays a modal to give notice for a successful signup.
+ * Sets the display style of the signup modal to "block".
+ */ 
 function successfulSignup() {
     document.getElementById("signupModal").style.display = "block";   
 }
 
+/**
+ * Closes the signup modal and redirects the user to the start page of the task management tool.
+ * Sets the display style of the signup modal to "none" to hide it
+ * and redirects the user to the index.html which is the main page.
+ */
 function closeModal() {
     document.getElementById("signupModal").style.display = "none";
-    window.location.href = '../Templates/summary.html';
+    window.location.href = '../index.html';
 }
 
-// closes window on click//
+/**
+ * Closes the signup modal when the user clicks outside of it and redirects the user to the start page of the task management tool.
+ * If the user clicks outside the signup modal, it sets the display style of the modal to "none" to hide it
+ * and redirects the user to the index.html which is the main page.
+ * @param {MouseEvent} event - The mouse event object representing the click event.
+ */
 window.onclick = function (event) {
     let modal = document.getElementById("signupModal");
     if (event.target == modal) {
         modal.style.display = "none";
+        window.location.href = '../index.html';
     }
 }
 
