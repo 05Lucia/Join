@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="./fonts/fonts.css">
     <script src="script.js"></script> 
+    <script src="./JS/storage.js"></script>
     <script src="./JS/register.js"></script>
 </head>
 <!-- login page (after start animation) -->
@@ -22,7 +23,7 @@
                 <h1 class="h1Login">Log in</h1>
                 <div class="seperator"></div>
             </div>
-            <form class="loginForm" onsubmit="login">
+            <form class="loginForm" onsubmit="login()">
                 <div class="inputField">
                     <input class="input" type="email" required id="email" placeholder="Email" autocomplete="email">
                     <img class="inputImage" src="./img/img/mail.svg">

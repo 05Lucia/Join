@@ -3,6 +3,11 @@ let users = [
         "name": "Caro Willers",
         "email": "caro@gmail.com",
         "password": "Pommes123"
+    },
+    {
+        "name": "Alice Buchholz",
+        "email": "alice@gmail.com",
+        "password": "Test123"
     }
 ]
 
@@ -164,13 +169,24 @@ window.onclick = function (event) {
     }
 }
 
+/**
+ * Adds a new user to the user array.
+ * @function
+ * @name addUser
+ */
 function addUser() { 
+    let name = document.getElementById('name').value;
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;
 
-    users.push({email: email, password: password});
+    users.push({name: name, email: email, password: password});
 }
 
+/**
+ * Logs in the user based on the provided email and password.
+ * @function
+ * @name login
+ */
 function login() {
     let email = document.getElementById('email');
     let password = document.getElementById('password');
