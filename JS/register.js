@@ -9,7 +9,7 @@ let users = [
         "email": "alice@gmail.com",
         "password": "Test123"
     }
-]
+];
 
 /**
  * Checks the strength of the password entered by the user.
@@ -107,95 +107,59 @@ function checkPrivacyPolicy() {
     }
     return true;
 }
-
-/**
- * Validates the signup form before submission.
- * Checks if all required fields are filled, if the privacy policy is accepted,
- * and if the password meets the strength criteria and matches the confirmed password.
- * Displays alert messages for any validation errors.
- * @returns {boolean} Returns true if the form validation is successful, otherwise returns false.
- */
-function validateForm() {
-    let name = document.getElementById("name").value.trim();
-    let email = document.getElementById("email").value.trim();
-    let password = document.getElementById("password").value.trim();
-    let confirmPassword = document.getElementById("confirm_password").value.trim();
-    
-    if (!name || !email || !password || !confirmPassword) {
-        alert("Please fill in all fields");
-        return false;
-    }
-    
-    if (!checkPrivacyPolicy()) {
-        return;
-    }
-    
-    if (!checkPasswordStrength() || !validateConfirmedPassword()) {
-        return;
-    }
-    addUser();
-    successfulSignup(); 
-}
-
-/**
- * Displays a modal to give notice for a successful signup.
- * Sets the display style of the signup modal to "block".
- */ 
-function successfulSignup() {
-    document.getElementById("signupModal").style.display = "block";   
-}
-
-/**
- * Closes the signup modal and redirects the user to the start page of the task management tool.
- * Sets the display style of the signup modal to "none" to hide it
- * and redirects the user to the index.html which is the main page.
- */
-function closeModal() {
-    document.getElementById("signupModal").style.display = "none";
-    window.location.href = '../login.html';
-}
-
-/**
- * Closes the signup modal when the user clicks outside of it and redirects the user to the start page of the task management tool.
- * If the user clicks outside the signup modal, it sets the display style of the modal to "none" to hide it
- * and redirects the user to the index.html which is the main page.
- * @param {MouseEvent} event - The mouse event object representing the click event.
- */
-window.onclick = function (event) {
-    let modal = document.getElementById("signupModal");
-    if (event.target == modal) {
-        modal.style.display = "none";
-        window.location.href = '../login.html';
+ 
+async function loadUsers() {
+    try {
+        let result = await getItem('users');
+        return JSON.parse(result) || [];   
+    } catch(e) {
+        console.error('Loading error:', e);
+        return [];   
     }
 }
 
-/**
- * Adds a new user to the user array.
- * @function
- * @name addUser
- */
-function addUser() { 
-    let name = document.getElementById('name').value;
+async function addUser() {
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;
+    let name = document.getElementById('name').value; 
 
-    users.push({name: name, email: email, password: password});
+    if (email === "" || password === "" || name === "") {
+        alert("Please fill in all fields");
+        return;
+    }
+
+    users.push({
+        name: name,
+        email: email,
+        password: password
+    });
+ 
+    await setItem('users', JSON.stringify(users));
+    console.log("Users saved to storage", users);
+    window.location.href = '../login.html?msg=Your signup is successful';
 }
 
-/**
- * Logs in the user based on the provided email and password.
- * @function
- * @name login
- */
-function login() {
-    let email = document.getElementById('email');
-    let password = document.getElementById('password');
-    let user = users.find(u => u.email === email.value && u.password === password.value);
+async function login() {
+    let email = document.getElementById('email').value;
+    let password = document.getElementById('password').value;
+    let users = await loadUsers();
+    let user = users.find(u => u.email === email && u.password === password);
 
-    if (user) {
+    if (user) { 
         alert("Login Successful");
         window.location.href = "../index.html";
+    } else {
+        alert("Invalid email or password");
     }
 }
 
-
+document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const msg = urlParams.get('msg');
+    if(msg) {
+        document.getElementById('msgBox').innerHTML = msg;
+    }
+});
+    
+ 
+ 

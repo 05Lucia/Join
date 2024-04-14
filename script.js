@@ -1,6 +1,7 @@
-function init() {
+async function init() {
     //login page after start animation//
     startAnimation();
+    loadUsers();
     includeHTML();
 }
 
