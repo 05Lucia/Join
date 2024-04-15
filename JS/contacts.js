@@ -66,21 +66,33 @@ let contacts = [
     }
 ]
 
+/**
+ * This function is used to load the contact list, performing the following steps:
+ * 1. Sorts all contacts alphabetically by first name.
+ * 2. Creates categories for contacts based on the first letter of their first names.
+ * 3. Renders the contact list HTML based on the categorized contacts.
+ */
 function initContacts() {
-    // Sortieren der Kontakte nach Vornamen
-    sortByFirstName(contacts);
-    // Erstellen der Kategorien
-    let categorizedContacts = createCategories(contacts);
-    // Anzeigen der Kontaktliste nach Kategorien
+    sortByFirstName();
+    let categorizedContacts = createCategories();
     renderContactList(categorizedContacts);
 }
 
-function sortByFirstName(contacts) {
+/**
+ * This function sorts all contacts in the `contacts` array alphabetically according to their first names.
+ */
+function sortByFirstName() {
     contacts.sort((a, b) => a.name.localeCompare(b.name));
-    console.log('Sortierte Kontakte', contacts);
 }
 
-function createCategories(contacts) {
+/**
+ * This function creates categories for contacts based on the first letter of their first names.
+ * It returns a new object where each property is a category letter (uppercase) and its value is an array
+ * of `Contact` objects belonging to that category.
+ *
+ * @returns {CategoryContacts} An object containing categories and their associated contacts.
+ */
+function createCategories() {
     let categories = {};
     contacts.forEach(contact => {
         let initial = contact.name.charAt(0).toUpperCase();
@@ -92,11 +104,15 @@ function createCategories(contacts) {
     return categories;
 }
 
+/**
+ * This function renders the HTML for the contact list based on the provided categorized contacts.
+ *
+ * @param {CategoryContacts} categories - An object containing categories and their associated contacts.
+ */
 function renderContactList(categories) {
-    let contactListHTML = ''; // Variable zum Sammeln des HTML-Codes für die Kontaktliste
-    let index = 0; // Initialisieren des Index für die Kontakte
+    let contactListHTML = '';
+    let index = 0;
     contactListHTML = renderContactCategoryAndEachContact(categories, contactListHTML, index);
-    // Kontaktliste in das HTML einfügen
     document.getElementById("contactList").innerHTML = `
             <div class="contactBoxForEachLetter">
                 ${contactListHTML}
@@ -104,19 +120,31 @@ function renderContactList(categories) {
         `;
 }
 
+/**
+ * This function renders the HTML for a category heading and its associated contacts within the contact list.
+ *
+ * @param {CategoryContacts} categories - An object containing categories and their associated contacts.
+ * @param {string} contactListHTML - The accumulated HTML for the contact list so far.
+ * @param {number} index - The current index for tracking contacts.
+ * @returns {string} The updated `contactListHTML` string with the rendered category and contacts.
+ */
 function renderContactCategoryAndEachContact(categories, contactListHTML, index) {
     for (let initial in categories) {
-        // Kategorie-Überschrift hinzufügen
         contactListHTML += renderContactCategory(initial);
-        // Kontakte für die aktuelle Kategorie hinzufügen
         categories[initial].forEach(contact => {
             contactListHTML += renderEachContact(contact, index);
-            index++; // Inkrementieren des Index für den nächsten Kontakt
+            index++;
         });
     }
     return contactListHTML;
 }
 
+/**
+ * This function renders the HTML structure for a category heading in the contact list.
+ *
+ * @param {string} initial - The first letter of the contact names in the category (uppercase).
+ * @returns {string} The HTML string representing the category heading.
+ */
 function renderContactCategory(initial) {
     return `
             <div class="sectionByFirstLetter">
@@ -127,6 +155,13 @@ function renderContactCategory(initial) {
         `;
 }
 
+/**
+ * This function renders the HTML structure for an individual contact in the contact list.
+ *
+ * @param {contact} contact - An object containing the contact information (refer to the `Contact` type definition).
+ * @param {number} index - The index of the contact within the contacts array.
+ * @returns {string} The HTML string representing the individual contact.
+ */
 function renderEachContact(contact, index) {
     return `
     <div class="contact" id="contact(${index})" onclick="changeContactButtonColorAsClicked(${index})"> <!-- Index übergeben -->
@@ -145,6 +180,9 @@ function renderEachContact(contact, index) {
 `;
 }
 
+/**
+ * This function shows the card for adding a new contact.
+ */
 function showAddContactCard() {
     document.getElementById('addEditContact').style.display = 'flex';
     setTimeout(() => {
@@ -156,6 +194,9 @@ function showAddContactCard() {
     };
 }
 
+/**
+ * This function renders the layout for adding a new contact.
+ */
 function renderAddContactLayout() {
     document.getElementById('addAndEditContactHeadline').innerHTML = 'Add contact';
     document.getElementById('addContactSubheadline').style.display = 'flex';
@@ -167,6 +208,10 @@ function renderAddContactLayout() {
     document.getElementById('addEditContactButtons').innerHTML = addContactButtonsCancelAndCreateButtonsHTMLTemplate();
 }
 
+/**
+ * This function generates the HTML template for the cancel and create contact buttons.
+ * @returns {string} The HTML string representing the buttons.
+ */
 function addContactButtonsCancelAndCreateButtonsHTMLTemplate() {
     return /*html*/`
             <button class="cancelCreateContactButton" id="cancelCreateContactButton" onclick="hideAddContactCard()">
@@ -180,6 +225,9 @@ function addContactButtonsCancelAndCreateButtonsHTMLTemplate() {
             `;
 }
 
+/**
+ * This function hides the card for adding a new contact.
+ */
 function hideAddContactCard() {
     document.getElementById('addEditContactCard').classList.remove('showAddEditContactContainer');
     setTimeout(() => {
@@ -187,6 +235,9 @@ function hideAddContactCard() {
     }, 125);
 }
 
+/**
+ * This function creates a new contact and adds it to the contacts list.
+ */
 function createContact() {
     let dataSet = newContactDataSetForArray();
     if (dataSet.contactData.name && dataSet.contactData.email && dataSet.contactData.phone) {
@@ -203,6 +254,10 @@ function createContact() {
     }
 }
 
+/**
+ * This function retrieves contact data from the input fields and formats it.
+ * @returns {object} An object containing the contact data and formatted name.
+ */
 function newContactDataSetForArray() {
     let contactData = getContactData();
     let formattedName = formatContactName(contactData);
@@ -214,8 +269,11 @@ function newContactDataSetForArray() {
     };
 }
 
+/**
+ * This function retrieves the entered contact name, email, and phone number.
+ * @returns {object} An object containing the contact data.
+ */
 function getContactData() {
-    // Erfassen Sie die Werte aus den Eingabefeldern
     const name = document.getElementById("editContactName").value;
     const email = document.getElementById("editContactEmail").value;
     const phone = document.getElementById("editContactPhone").value;
@@ -226,10 +284,13 @@ function getContactData() {
     };
 }
 
+/**
+ * This function formats the contact name by extracting first and last name and capitalizing the first letter of each.
+ * @param {object} contactData - An object containing the contact data.
+ * @returns {object} An object containing the formatted first and last names.
+ */
 function formatContactName(contactData) {
-    // Extrahieren Sie den Vornamen und Nachnamen
     let [firstName, lastName] = contactData.name.split(" ");
-    // Formatieren Sie den Vornamen und Nachnamen mit großem Anfangsbuchstaben
     firstName = capitalizeFirstLetter(firstName);
     lastName = capitalizeFirstLetter(lastName);
     return {
@@ -238,25 +299,31 @@ function formatContactName(contactData) {
     };
 }
 
-// Funktion zum Formatieren des ersten Buchstabens eines Strings in Großbuchstaben
+/**
+ * This function converts the first letter of a string to uppercase.
+ * @param {string} name - The input string whose first letter to be converted.
+ * @returns {string} A string with the first letter capitalized and the remaining letters unchanged.
+ */
 function capitalizeFirstLetter(name) {
     return name.charAt(0).toUpperCase() + name.slice(1);
 }
 
+/**
+ * This function creates a new contact object with the provided data and formatted name.
+ * @param {object} contactData - An object containing the contact data.
+ * @param {object} formattedName - An object containing the formatted first and last names.
+ * @param {object} existingContact - An optional parameter for an existing contact object (used for editing).
+ * @returns {object} The new contact object.
+ */
 function createNewContactDataSet(contactData, formattedName, existingContact = null) {
     let avatarColor;
     if (existingContact) {
-        // Wenn ein vorhandener Kontakt übergeben wurde, behalten Sie dessen Farbe bei
         avatarColor = existingContact.avatarColor;
     } else {
-        // Andernfalls wählen Sie eine zufällige Farbe aus dem avatarColors-Array aus
         avatarColor = avatarColors[Math.floor(Math.random() * avatarColors.length)];
     }
-    
     const initials = formattedName.firstName.charAt(0).toUpperCase() + formattedName.lastName.charAt(0).toUpperCase();
     const category = formattedName.firstName.charAt(0).toUpperCase();
-
-    // Erstellen Sie das Objekt für den neuen Kontakt
     return {
         name: formattedName.firstName,
         surname: formattedName.lastName,
@@ -268,15 +335,25 @@ function createNewContactDataSet(contactData, formattedName, existingContact = n
     };
 }
 
+/**
+ * This function finds the index of a contact in the `contacts` array based on name and surname.
+ * @param {array} contacts - The array of contact objects.
+ * @param {string} firstName - The first name of the contact to find.
+ * @param {string} lastName - The last name of the contact to find.
+ * @returns {number} The index of the found contact, or -1 if not found.
+ */
 function getIndexByNameSurname(contacts, firstName, lastName) {
     for (let i = 0; i < contacts.length; i++) {
         if (contacts[i].name === firstName && contacts[i].surname === lastName) {
-            return i; // Index des gefundenen Eintrags
+            return i;
         }
     }
-    return -1; // Falls kein Eintrag gefunden wurde
+    return -1;
 }
 
+/**
+ * This function shows a pop-up indicating a contact has been created.
+ */
 function showContactCreatedPopUp() {
     document.getElementById('contactCreatedButtonContainer').classList.add('showContactCreatedButtonContainer');
     setTimeout(() => {
@@ -284,27 +361,57 @@ function showContactCreatedPopUp() {
     }, 800);
 }
 
+/**
+ * This function clears the input fields for adding a new contact.
+ */
 function clearAddContactForm() {
     document.getElementById("editContactName").value = "";
     document.getElementById("editContactEmail").value = "";
     document.getElementById("editContactPhone").value = "";
 }
 
+/**
+ * Scrolls the page to the specified anchor element with smooth behavior.
+ * 
+ * @param {string} anchorId - The ID of the anchor element to scroll to.
+ */
 function scrollToAnchor(anchorId) {
     const anchorElement = document.getElementById(anchorId);
-
     if (anchorElement) {
         anchorElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
     }
 }
 
+/**
+* This variable stores an array of IDs for buttons that have been clicked on the contact list.
+* Used to keep track of clicked contacts for styling purposes.
+* @type {string[]}
+*/
 let clickedButtons = [];
+
+/**
+ * This variable stores an array of IDs for email elements within clicked contacts.
+ * Used to keep track of clicked contact email colors for styling purposes.
+ * @type {string[]}
+ */
 let clickedButtonEmailColors = [];
 
+/**
+ * This function handles clicks on contact buttons in the contact list.
+ * It checks the screen size and performs different actions based on the width.
+ *   - For screens wider than 800px:
+ *     - Unclicks any previously clicked contact.
+     - Gets the ID of the clicked button and its DOM element.
+     - Toggles the clicked button's color and style.
+     - Changes the email color of the clicked contact to white.
+   - For screens smaller than 800px:
+     - Opens the contact info for the clicked contact.
+ * @param {number} index - The index of the clicked contact in the `contacts` array.
+ */
 function changeContactButtonColorAsClicked(index) {
     if (window.innerWidth >= 800) {
         unclickCreatedContact(toggleIndex);
-        const buttonId = `contact(${index})`; // ID der angeklickten Button
+        const buttonId = `contact(${index})`;
         const buttonElement = document.getElementById(buttonId);
         toggleContactButtonColor(buttonId, buttonElement, index);
         changeContactButtonEmailColorToWhite(index);
@@ -313,8 +420,22 @@ function changeContactButtonColorAsClicked(index) {
     }
 }
 
+/**
+ * This function toggles the color and style of a clicked contact button.
+ * It checks if the button has already been clicked.
+ *   - If clicked:
+ *     - Resets the button's color and style to its original state.
+     - Closes the contact info.
+   - If not clicked:
+ *     - Sets the button's color and style to indicate it's clicked.
+     - Opens the contact info.
+     - Adds the button's ID to the `clickedButtons` array.
+     - Resets the color of the previously clicked contact button (if any).
+ * @param {string} buttonId - The ID of the clicked button.
+ * @param {HTMLElement} buttonElement - The DOM element of the clicked button.
+ * @param {number} index - The index of the clicked contact in the `contacts` array.
+ */
 function toggleContactButtonColor(buttonId, buttonElement, index) {
-    // Prüfen, ob der Button bereits angeklickt wurde
     if (clickedButtons.includes(buttonId)) {
         resetContactButtonColor(buttonElement, buttonId);
         closeContactInfo();
@@ -322,33 +443,54 @@ function toggleContactButtonColor(buttonId, buttonElement, index) {
         setButtonColorAsClicked(buttonElement);
         openContactInfo(index);
         clickedButtons.push(buttonId);
-        // Hintergrundfarbe des zuletzt angeklickten Buttons zurücksetzen
         resetLastClickedContactButtonColor();
     }
 }
 
+/**
+ * This function resets the color and style of a clicked contact button to its original state.
+ * It also removes the button's ID from the `clickedButtons` array.
+ * @param {HTMLElement} buttonElement - The DOM element of the button to reset.
+ * @param {string} buttonId - The ID of the button to reset.
+ */
 function resetContactButtonColor(buttonElement, buttonId) {
-    buttonElement.classList.remove('contactClicked'); // Ursprüngliche Hintergrundfarbe
+    buttonElement.classList.remove('contactClicked');
     clickedButtons = clickedButtons.filter(id => id !== buttonId);
 }
 
+/**
+ * This function sets the color and style of a contact button to indicate it's clicked.
+ * @param {HTMLElement} buttonElement - The DOM element of the button to style.
+ */
 function setButtonColorAsClicked(buttonElement) {
-    // Button wurde noch nicht angeklickt, Hintergrundfarbe ändern und in Array speichern
-    buttonElement.classList.add('contactClicked'); // Beispiel: Rote Hintergrundfarbe
+    buttonElement.classList.add('contactClicked');
 }
 
+/**
+ * This function resets the color of the previously clicked contact button (if any).
+ * It retrieves the ID of the last clicked button from the `clickedButtons` array and removes it from the DOM styles.
+ */
 function resetLastClickedContactButtonColor() {
-    const lastClickedButtonId = clickedButtons[clickedButtons.length - 2]; // ID des zuletzt angeklickten Buttons
+    const lastClickedButtonId = clickedButtons[clickedButtons.length - 2];
     if (lastClickedButtonId) {
-        document.getElementById(lastClickedButtonId).classList.remove('contactClicked'); // Ursprüngliche Hintergrundfarbe
+        document.getElementById(lastClickedButtonId).classList.remove('contactClicked');
         clickedButtons = clickedButtons.filter(id => id !== lastClickedButtonId);
     }
 }
 
-function closeContactInfo(index) {
+/**
+ * This function closes the contact info panel by removing the corresponding class from the DOM element.
+ */
+function closeContactInfo() {
     document.getElementById('contactInfo').classList.remove('showContactDetailsContainer');
 }
 
+/**
+ * This function changes the email color of a clicked contact to white (for screens wider than 800px).
+ * It retrieves the email element's ID and DOM element based on the clicked contact index.
+ * Then, it calls the `toggleContactButtonEmailColor` function to handle the color change logic.
+ * @param {number} index - The index of the clicked contact in the `contacts` array.
+ */
 function changeContactButtonEmailColorToWhite(index) {
     if (window.innerWidth >= 800) {
         const emailId = `contactEmail(${index})`;
@@ -357,37 +499,75 @@ function changeContactButtonEmailColorToWhite(index) {
     }
 }
 
+/**
+ * This function toggles the color of the email element within a clicked contact button.
+ * It checks if the email element has already been clicked.
+ *   - If clicked:
+ *     - Resets the email element's color to its original state.
+   - If not clicked:
+ *     - Sets the email element's color to white.
+     - Adds the email element's ID to the `clickedButtonEmailColors` array.
+     - Resets the color of the previously clicked contact's email element (if any).
+ * @param {string} emailId - The ID of the email element within the clicked contact button.
+ * @param {HTMLElement} emailElement - The DOM element of the email element.
+ * @param {number} index - The index of the clicked contact in the `contacts` array.
+ */
 function toggleContactButtonEmailColor(emailId, emailElement, index) {
-    // Prüfen, ob der Button bereits angeklickt wurde
     if (clickedButtonEmailColors.includes(emailId)) {
         resetContactButtonEmailColor(emailElement, emailId);
     } else {
-        // Button wurde noch nicht angeklickt, Hintergrundfarbe ändern und in Array speichern
         setEmailColorAsClicked(emailElement);
         clickedButtonEmailColors.push(emailId);
         resetLastClickedContactButtonEmailColor();
     }
 }
 
+/**
+ * This function resets the color of a clicked contact's email element to its original state.
+ * It also removes the email element's ID from the `clickedButtonEmailColors` array.
+ * @param {HTMLElement} emailElement - The DOM element of the email element to reset.
+ * @param {string} emailId - The ID of the email element to reset.
+ */
 function resetContactButtonEmailColor(emailElement, emailId) {
     emailElement.style.color = "rgba(69, 137, 255, 1)";
     clickedButtonEmailColors = clickedButtonEmailColors.filter(id => id !== emailId);
 }
 
+/**
+ * This function sets the color of a contact's email element to white.
+ * @param {HTMLElement} emailElement - The DOM element of the email element to style.
+ */
 function setEmailColorAsClicked(emailElement) {
-    emailElement.style.color = "white"; // Beispiel: Rote Hintergrundfarbe
+    emailElement.style.color = "white";
 }
 
+/**
+ * This function resets the color of the previously clicked contact's email element (if any).
+ * It retrieves the ID of the last clicked email element from the `clickedButtonEmailColors` array and removes it from the DOM styles.
+ */
 function resetLastClickedContactButtonEmailColor() {
-    const lastClickedEmailId = clickedButtonEmailColors[clickedButtonEmailColors.length - 2]; // ID des zuletzt angeklickten Buttons
+    const lastClickedEmailId = clickedButtonEmailColors[clickedButtonEmailColors.length - 2];
     if (lastClickedEmailId) {
-        document.getElementById(lastClickedEmailId).style.color = "rgba(69, 137, 255, 1)"; // Ursprüngliche Hintergrundfarbe
+        document.getElementById(lastClickedEmailId).style.color = "rgba(69, 137, 255, 1)";
         clickedButtonEmailColors = clickedButtonEmailColors.filter(id => id !== lastClickedEmailId);
     }
 }
 
+/**
+* This variable stores the index of the currently highlighted contact (for screens wider than 800px).
+* Used to keep track of which contact is visually selected.
+* @type {number}
+*/
 let toggleIndex = 0;
 
+/**
+ * This function opens the contact info panel and populates it with the details of the clicked contact.
+ *   - For screens wider than 800px:
+ *     - Calls the `highlightCreatedContact` function to visually highlight the clicked contact.
+   - Shows the contact info panel by adding the corresponding class to the DOM element.
+   - Calls the `openContactInfoHTMLTemplate` function to populate the panel with contact details.
+ * @param {number} index - The index of the clicked contact in the `contacts` array.
+ */
 function openContactInfo(index) {
     if (window.innerWidth >= 800) {
         highlightCreatedContact(index);
@@ -396,12 +576,25 @@ function openContactInfo(index) {
     openContactInfoHTMLTemplate(index);
 }
 
+/**
+ * This function visually highlights the clicked contact on the contact list (for screens wider than 800px).
+ * It sets the clicked contact button's style class to indicate it's selected and changes the email color to white.
+ * It also updates the `toggleIndex` variable to store the index of the highlighted contact.
+ * @param {number} index - The index of the clicked contact in the `contacts` array.
+ */
 function highlightCreatedContact(index) {
     document.getElementById(`contact(${index})`).classList.add('contactClicked');
     document.getElementById(`contactEmail(${index})`).style.color = "white";
     toggleIndex = index;
 }
 
+/**
+ * This function populates the contact info panel with the details of the clicked contact.
+ * It retrieves the contact data from the `contacts` array using the provided index.
+ * Then, it updates the HTML content of specific DOM elements with the contact's name, initials, avatar color, email, and phone number.
+ * Finally, it updates the "Edit Contact" and "Delete Contact" buttons with the clicked contact's index for proper functionality.
+ * @param {number} index - The index of the clicked contact in the `contacts` array.
+ */
 function openContactInfoHTMLTemplate(index) {
     let contact = contacts[index];
     document.getElementById('contactInfoContactDetails').innerHTML = /*html*/`
@@ -447,11 +640,22 @@ function openContactInfoHTMLTemplate(index) {
                                                                 `;
 }
 
+/**
+* This function removes the visual highlight from the previously highlighted contact (for screens wider than 800px).
+* It uses the `toggleIndex` variable to identify the contact that was previously highlighted.
+* It removes the "contactClicked" class from the button and resets the email color to its original state.
+* @param {number} toggleIndex - The index of the previously highlighted contact (should be the same value stored in the `toggleIndex` variable).
+*/
 function unclickCreatedContact(toggleIndex) {
     document.getElementById(`contact(${toggleIndex})`).classList.remove('contactClicked');
     document.getElementById(`contactEmail(${toggleIndex})`).style.color = "rgba(69, 137, 255, 1)";
 }
 
+/**
+* This function shows the edit and delete menu for the clicked contact on mobile screens (less than 800px wide).
+* It populates the menu container with the "Edit" and "Delete" buttons and adds an event listener to prevent event bubbling.
+* @param {number} index - The index of the clicked contact in the `contacts` array.
+*/
 function showContactEditDeleteMenu(index) {
     document.getElementById('editContactMenuContainer').classList.add('showEditContactMenu');
     document.getElementById('editContactMenuContainer').innerHTML = /*html*/`
@@ -472,6 +676,11 @@ function showContactEditDeleteMenu(index) {
     };
 }
 
+/**
+ * This function opens the edit contact card to modify the details of the clicked contact.
+ * It shows the card container, sets a timeout to add the "show" class with animation, and calls other functions to handle additional functionalities.
+ * @param {number} index - The index of the clicked contact in the `contacts` array.
+ */
 function showEditContact(index) {
     document.getElementById('addEditContact').style.display = 'flex';
     setTimeout(() => {
@@ -489,6 +698,9 @@ function showEditContact(index) {
     };
 }
 
+/**
+ * This function hides the edit and delete menu on mobile screens (less than 800px wide) when the edit contact card is opened.
+ */
 function showEditAndDeleteMenuOnMobile() {
     if (window.innerWidth < 800) {
         document.getElementById('editContactMenuContainer').style.display = 'none';
@@ -496,12 +708,22 @@ function showEditAndDeleteMenuOnMobile() {
     }
 }
 
+/**
+ * This function visually changes the add contact card to the edit contact card layout.
+ * It adds the "show" class for animation, changes the title to "Edit contact", and hides the subtitle.
+ */
 function redesignAddContactCardToEditContactCard() {
     document.getElementById('addEditContact').classList.add('showAddEditContactContainer');
     document.getElementById('addAndEditContactHeadline').innerHTML = 'Edit contact';
     document.getElementById('addContactSubheadline').style.display = 'none';
 }
 
+/**
+ * This function populates the edit contact card with the details of the clicked contact.
+ * It sets the avatar background color and initials, fills the name, email, and phone input fields with the contact's data, 
+ * and sets focus on the name field after a short delay.
+ * @param {number} index - The index of the clicked contact in the `contacts` array.
+ */
 function showCurrentContactDetails(index) {
     document.getElementById('avatarIcon').style.backgroundColor = `${contacts[index]['avatarColor']}`;
     document.getElementById('avatarIcon').innerHTML = `${contacts[index]['initials']}`;
@@ -516,6 +738,11 @@ function showCurrentContactDetails(index) {
     }, 125);
 }
 
+/**
+ * This function populates the edit contact card with the details of the clicked contact.
+ * It sets the avatar background color and initials, fills the name, email, and phone input fields with the contact's data, and sets focus on the name field after a short delay.
+ * @param {number} index - The index of the clicked contact in the `contacts` array.
+ */
 function editContactDeleteAndSaveButtonLayoutHTMLTemplate(index) {
     document.getElementById('addEditContactButtons').innerHTML = /*html*/`
                                                                             <button class="deleteEditContactButton" onclick="deleteContact(${index})">
@@ -528,6 +755,11 @@ function editContactDeleteAndSaveButtonLayoutHTMLTemplate(index) {
                                                                         `;
 }
 
+/**
+ * This function removes the clicked contact from the `contacts` array and performs other actions after deletion is confirmed.
+ * It removes the contact data at the specified index, hides the add contact card, refreshes the contact list, hides the edit/delete menu, and closes the contact info panel.
+ * @param {number} index - The index of the contact to be deleted from the `contacts` array.
+ */
 function deleteContact(index) {
     contacts.splice(index, 1);
     hideAddContactCard();
@@ -536,10 +768,19 @@ function deleteContact(index) {
     closeContactInfo();
 }
 
+/**
+ * This function hides the edit and delete menu container by removing the corresponding class.
+ */
 function hideContactEditDeleteMenu() {
     document.getElementById('editContactMenuContainer').classList.remove('showEditContactMenu');
 }
 
+/**
+ * This function handles updating the contact details based on the user's edits in the edit contact card.
+ * It retrieves the updated values from the input fields, validates if all fields are filled, formats the name if necessary, and updates the contact data in the `contacts` array.
+ * It then optionally refreshes the contact list and opens the contact info panel for the updated contact. Finally, it optionally clears the input fields and hides the add contact card.
+ * @param {number} index - The index of the contact to be updated in the `contacts` array.
+ */
 function updateContact(index) {
     // Erfassen Sie die aktualisierten Werte aus den Eingabefeldern
     let contactData = getContactData();
