@@ -2770,7 +2770,7 @@ h3 {
     padding-top: 24px;
 }
 
-.addEditInputForm{
+.addEditInputForm {
     display: flex;
     flex-direction: column;
     height: 66%;
@@ -3073,15 +3073,15 @@ h3 {
         position: absolute;
         top: 0px;
         background-color: white;
-        left: 24px;
+        left: 15px;
         height: 85px;
-        padding: 32px 24px 16px 24px;
+        padding: 32px 12px 16px 12px;
     }
 
     .addContactButton {
         position: unset;
         height: 56px;
-        width: 357px;
+        width: 378px;
         padding: 16px 10px 16px 10px;
         gap: 10px;
         filter: none;
@@ -3253,7 +3253,7 @@ h3 {
         height: 65%;
     }
 
-    .addEditInputForm{
+    .addEditInputForm {
         justify-content: center;
         height: 40%;
         padding-left: 80px;
