@@ -158,6 +158,7 @@ function showAddContactCard() {
 
 function renderAddContactLayout() {
     document.getElementById('addAndEditContactHeadline').innerHTML = 'Add contact';
+    document.getElementById('addContactSubheadline').style.display = 'flex';
     document.getElementById('avatarIcon').style.backgroundColor = 'rgba(209, 209, 209, 1)';
     document.getElementById('avatarIcon').innerHTML = '<img src="./img/addContactAvatar.svg">';
     document.getElementById('editContactName').value = '';
@@ -242,11 +243,18 @@ function capitalizeFirstLetter(name) {
     return name.charAt(0).toUpperCase() + name.slice(1);
 }
 
-function createNewContactDataSet(contactData, formattedName) {
+function createNewContactDataSet(contactData, formattedName, existingContact = null) {
+    let avatarColor;
+    if (existingContact) {
+        // Wenn ein vorhandener Kontakt übergeben wurde, behalten Sie dessen Farbe bei
+        avatarColor = existingContact.avatarColor;
+    } else {
+        // Andernfalls wählen Sie eine zufällige Farbe aus dem avatarColors-Array aus
+        avatarColor = avatarColors[Math.floor(Math.random() * avatarColors.length)];
+    }
+    
     const initials = formattedName.firstName.charAt(0).toUpperCase() + formattedName.lastName.charAt(0).toUpperCase();
     const category = formattedName.firstName.charAt(0).toUpperCase();
-    // Wählen Sie eine zufällige Farbe aus dem avatarColors-Array aus
-    let randomColor = avatarColors[Math.floor(Math.random() * avatarColors.length)];
 
     // Erstellen Sie das Objekt für den neuen Kontakt
     return {
@@ -256,7 +264,7 @@ function createNewContactDataSet(contactData, formattedName) {
         email: contactData.email,
         phone: contactData.phone,
         category,
-        avatarColor: randomColor,
+        avatarColor,
     };
 }
 
@@ -292,10 +300,6 @@ function scrollToAnchor(anchorId) {
 
 let clickedButtons = [];
 let clickedButtonEmailColors = [];
-
-function getScreenWidth() {
-    return window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-}
 
 function changeContactButtonColorAsClicked(index) {
     if (window.innerWidth >= 800) {
@@ -468,8 +472,22 @@ function showContactEditDeleteMenu(index) {
     };
 }
 
-
-
+function showEditContact(index) {
+    document.getElementById('addEditContact').style.display = 'flex';
+    setTimeout(() => {
+        document.getElementById('addEditContactCard').classList.add('showAddEditContactContainer');
+    }, 25);
+    showEditAndDeleteMenuOnMobile();
+    redesignAddContactCardToEditContactCard();
+    showCurrentContactDetails(index);
+    editContactDeleteAndSaveButtonLayoutHTMLTemplate(index);
+    if (window.innerWidth < 800) {
+        document.getElementById('editContactMenuContainer').style.display = 'flex';
+    }
+    document.getElementById('addEditContactCard').onclick = function (event) {
+        event.stopPropagation();
+    };
+}
 
 function showEditAndDeleteMenuOnMobile() {
     if (window.innerWidth < 800) {
@@ -498,7 +516,7 @@ function showCurrentContactDetails(index) {
     }, 125);
 }
 
-function editContactDeleteAndSaveButtonLayoutHTMLTemplate(index){
+function editContactDeleteAndSaveButtonLayoutHTMLTemplate(index) {
     document.getElementById('addEditContactButtons').innerHTML = /*html*/`
                                                                             <button class="deleteEditContactButton" onclick="deleteContact(${index})">
                                                                                 <p>Delete</p>
@@ -510,54 +528,10 @@ function editContactDeleteAndSaveButtonLayoutHTMLTemplate(index){
                                                                         `;
 }
 
-function showEditContact(index) {
-
-    document.getElementById('addEditContact').style.display = 'flex';
-    setTimeout(() => {
-        document.getElementById('addEditContactCard').classList.add('showAddEditContactContainer');
-    }, 25);
-    showEditAndDeleteMenuOnMobile();
-    redesignAddContactCardToEditContactCard();
-    showCurrentContactDetails(index);
-    editContactDeleteAndSaveButtonLayoutHTMLTemplate(index);
-
-    if (window.innerWidth < 800) {
-        document.getElementById('editContactMenuContainer').style.display = 'flex';
-    }
-    document.getElementById('addEditContactCard').onclick = function (event) {
-        event.stopPropagation();
-    };
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function deleteContact(index) {
-    // Lösche den Kontakt aus dem Array
     contacts.splice(index, 1);
-
     hideAddContactCard();
-
-    // Aktualisiere die Anzeige
     initContacts();
-    // renderContacts(categorizedContacts);
-
-    // Verstecke das Bearbeitungsmenü
     hideContactEditDeleteMenu();
     closeContactInfo();
 }
@@ -566,52 +540,32 @@ function hideContactEditDeleteMenu() {
     document.getElementById('editContactMenuContainer').classList.remove('showEditContactMenu');
 }
 
-
-
 function updateContact(index) {
     // Erfassen Sie die aktualisierten Werte aus den Eingabefeldern
-    let name = document.getElementById("editContactName").value;
-    let email = document.getElementById("editContactEmail").value;
-    let phone = document.getElementById("editContactPhone").value;
+    let contactData = getContactData();
 
     // Überprüfen Sie, ob alle Felder ausgefüllt sind
-    if (name && email && phone) {
-        // Extrahieren Sie den Vornamen und Nachnamen
-        let [firstName, lastName] = name.split(" ");
+    if (contactData.name && contactData.email && contactData.phone) {
+        // Formatieren Sie den Namen
+        let formattedName = formatContactName(contactData);
 
-        // Formatieren Sie den Vornamen und Nachnamen mit großem Anfangsbuchstaben
-        firstName = capitalizeFirstLetter(firstName);
-        lastName = capitalizeFirstLetter(lastName);
+        // Übergeben Sie den vorhandenen Kontakt, um dessen Farbe beizubehalten
+        let existingContact = contacts[index];
 
         // Aktualisieren Sie den ausgewählten Kontakt im Array
-        contacts[index].name = firstName;
-        contacts[index].surname = lastName;
-        contacts[index].initials = firstName.charAt(0).toUpperCase() + lastName.charAt(0).toUpperCase();
-        contacts[index].email = email;
-        contacts[index].phone = phone;
-        contacts[index].category = firstName.charAt(0).toUpperCase();
-
-        // openContactInfo(index);
+        contacts[index] = createNewContactDataSet(contactData, formattedName, existingContact);
 
         // Optional: Aktualisieren Sie die Kontaktliste auf der Seite
         initContacts();
 
-        let contactIndex = getIndexByNameSurname(contacts, firstName, lastName);
+        let contactIndex = getIndexByNameSurname(contacts, formattedName.firstName, formattedName.lastName);
         openContactInfo(contactIndex);
 
         // Optional: Leeren Sie die Eingabefelder
-        document.getElementById("editContactName").value = "";
-        document.getElementById("editContactEmail").value = "";
-        document.getElementById("editContactPhone").value = "";
-
+        clearAddContactForm();
         hideAddContactCard();
     } else {
         // Geben Sie eine Fehlermeldung aus, wenn nicht alle Felder ausgefüllt sind
         alert("Bitte füllen Sie alle Felder aus.");
     }
 }
-
-
-
-
-
