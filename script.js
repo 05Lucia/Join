@@ -672,6 +672,10 @@ function boradTaskNumber() {
     container.textContent = cards.length;
 }
 
+/**
+ * Calculates and displays the number of tasks marked as "Urgent" based on the 'priority.urgency' property within each card object.
+ * Performs error handling if the container element with ID 'urgent-number' is not found.
+ */
 function urgentNumber() {
     let urgentCount = 0;
     const container = document.getElementById('urgent-number');
@@ -682,10 +686,10 @@ function urgentNumber() {
     }
 
     for (const card of cards) {
-        if (card.priority.urgency === 'Urgent') {
-            urgentCount++;
+        if (card.priority && card.priority.urgency === 'Urgent') {
+          urgentCount++;
         }
-    }
+      }
     container.textContent = urgentCount;
 }
 
