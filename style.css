@@ -14,7 +14,7 @@
     --greeting-text: #2A3647;
     --light-gray-backround: #E7E7E7;
 }
- 
+
 * {
     margin: 0;
     box-sizing: border-box;
@@ -3000,41 +3000,49 @@ h3 {
         height: 100%;
         background-color: white;
         filter: drop-shadow(4px 0px 6px rgba(0, 0, 0, 0.08));
-        overflow: auto;
+        overflow: unset;
+        padding: 0px;
+        padding-left: 4px;
+        padding-right: 4px;
+
     }
 
-    .contactsContainer::-webkit-scrollbar {
+    .contactList {
+        padding-top: 90px;
+        overflow-y: scroll;
+        padding-bottom: 12px;
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+
+    .contactList::-webkit-scrollbar {
         width: 8px;
     }
 
-    .contactsContainer::-webkit-scrollbar-thumb {
+    .contactList::-webkit-scrollbar-thumb {
         background-color: rgba(168, 168, 168, 1);
     }
 
-    .contactsContainer::-webkit-scrollbar-button {
-        height: 8px;
+    .contactList::-webkit-scrollbar-button {
+        height: 24px;
         background-repeat: no-repeat;
         background-position: center;
     }
 
-    .contactsContainer::-webkit-scrollbar-button:start {
+    .contactList::-webkit-scrollbar-button:start {
         background-image: url('./img/scrollButtonUp.svg');
     }
 
-    .contactsContainer::-webkit-scrollbar-button:end {
+    .contactList::-webkit-scrollbar-button:end {
         background-image: url('./img/scrollButtonDown.svg');
     }
 
-    .contactsContainer::-webkit-scrollbar-button:decrement {
+    .contactList::-webkit-scrollbar-button:decrement {
         display: flex;
     }
 
-    .contactsContainer::-webkit-scrollbar-button:increment {
+    .contactList::-webkit-scrollbar-button:increment {
         display: flex;
-    }
-
-    .contactList {
-        padding-top: 64px;
     }
 
     .contact:hover:not(.contactClicked) {
@@ -3053,10 +3061,13 @@ h3 {
     .addContactButtonContainer {
         display: flex;
         justify-content: center;
+        align-items: center;
         position: absolute;
-        top: 24px;
+        top: 0px;
+        background-color: white;
         left: 24px;
-        height: 56px;
+        height: 85px;
+        padding: 32px 24px 16px 24px;
     }
 
     .addContactButton {
