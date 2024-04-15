@@ -43,7 +43,7 @@ async function Templates(template) {
     <div include-html="./Templates/${template}.html"> </div>
     `;
     await includeHTML();
-} 
+}
 
 /**
  * Array to test card implement!!
@@ -512,29 +512,148 @@ async function includeAddTask() {
 function search() {
     let query = document.getElementById('search').value.toLowerCase();
     let hasMatch = false; // Flag to track if any match is found 
-    const containers = [document.getElementById('todo'), document.getElementById('progress'), document.getElementById('feedback'), document.getElementById('done') ];
-    
-      for (const container of containers) {
+    const containers = [document.getElementById('todo'), document.getElementById('progress'), document.getElementById('feedback'), document.getElementById('done')];
+
+    for (const container of containers) {
         for (const card of container.querySelectorAll('.board-card-small')) {
-          const titleText = card.querySelector('.card-title').textContent.toLowerCase();
-          const descriptionText = card.querySelector('.card-description')?.textContent.toLowerCase() || ""; // Optional description handling
-    
-          const combinedText = `${titleText} ${descriptionText}`;
-    
-          if (combinedText.includes(query)) {
-            card.classList.remove('d-none'); // Show matching card
-            hasMatch = true;
-          } else {
-            card.classList.add('d-none'); // Hide non-matching card
-          }
+            const titleText = card.querySelector('.card-title').textContent.toLowerCase();
+            const descriptionText = card.querySelector('.card-description')?.textContent.toLowerCase() || ""; // Optional description handling
+
+            const combinedText = `${titleText} ${descriptionText}`;
+
+            if (combinedText.includes(query)) {
+                card.classList.remove('d-none'); // Show matching card
+                hasMatch = true;
+            } else {
+                card.classList.add('d-none'); // Hide non-matching card
+            }
         }
-      }
-      // Handle no matches scenario 
-      if (!hasMatch) {
+    }
+    // Handle no matches scenario 
+    if (!hasMatch) {
         console.log("No task cards found matching the search query.");
-      }
+    }
 }
 
+// summary -------------------------------------------------------------------------------------------------------
+/**
+ * Loads and displays the summary template and then retrieves task counts for each list.
+ *
+ * @async
+ */
+async function summaryLode() {
+    await Templates('summary');
+    summaryLodeNumbers();
+}
+
+/**
+ * Calls functions to retrieve and display the number of tasks in each list ("todo", "progress", "feedback", "done").
+ */
+function summaryLodeNumbers() {
+    todoNumber();
+    progressNumber();
+    feedbackNumber();
+    doneNumber();
+    boradTaskNumber();
+}
+
+/**
+ * Calculates and displays the number of tasks in the "todo" list.
+ * Performs error handling if the container element with ID 'to-do-number' is not found.
+ */
+function todoNumber() {
+    let todoCount = 0;
+    const container = document.getElementById('to-do-number');
+
+    if (!container) {
+        console.error("Element with ID 'to-do-number' not found!");
+        return;
+    }
+
+    for (const card of cards) {
+        if (card.place === 'todo') {
+            todoCount++;
+        }
+    }
+    container.textContent = todoCount;
+}
+
+/**
+* Calculates and displays the number of tasks in the "progress" list.
+* Performs error handling if the container element with ID 'progress-task-number' is not found.
+*/
+function progressNumber() {
+    let progressCount = 0;
+    const container = document.getElementById('progess-task-number');
+
+    if (!container) {
+        console.error("Element with ID 'progress-task-number' not found!");
+        return;
+    }
+
+    for (const card of cards) {
+        if (card.place === 'progress') {
+            progressCount++;
+        }
+    }
+    container.textContent = progressCount;
+}
+
+/**
+* Calculates and displays the number of tasks in the "feedback" list.
+* Performs error handling if the container element with ID 'feedback-number' is not found.
+*/
+function feedbackNumber() {
+    let feedbackCount = 0;
+    const container = document.getElementById('feedback-number');
+
+    if (!container) {
+        console.error("Element with ID 'feedback-number' not found!");
+        return;
+    }
+
+    for (const card of cards) {
+        if (card.place === 'feedback') {
+            feedbackCount++;
+        }
+    }
+    container.textContent = feedbackCount;
+}
+
+/**
+ * Calculates and displays the number of tasks in the "done" list.
+ * Performs error handling if the container element with ID 'done-number' is not found.
+ */
+function doneNumber() {
+    let doneCount = 0;
+    const container = document.getElementById('done-number');
+
+    if (!container) {
+        console.error("Element with ID 'done-number' not found!");
+        return;
+    }
+
+    for (const card of cards) {
+        if (card.place === 'done') {
+            doneCount++;
+        }
+    }
+    container.textContent = doneCount;
+}
+
+/**
+ * Calculates and displays the total number of tasks in the board using the 'cards' array length.
+ * Performs error handling if the container element with ID 'bord-tasks-number' is not found.
+ */
+function boradTaskNumber() {
+    const container = document.getElementById('bord-tasks-number');
+
+    if (!container) {
+        console.error("Element with ID 'bord-tasks-number' not found!");
+        return;
+    }
+    container.textContent = cards.length;
+}
 // Contacts  ------------------------------------------------------------------------------------------------------------
 
 async function loadContacts() {
