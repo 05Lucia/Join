@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,8 +8,8 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="./fonts/fonts.css">
     <script src="script.js"></script> 
-    <script src="./JS/register.js"></script>
-    <script src="script.js"></script>
+    <script src="./JS/storage.js"></script>
+    <script src="./JS/register.js"></script> 
 </head> 
 <main class="signupContainer"> 
 <div id="signinPage" class="signinPage">
@@ -25,46 +24,43 @@
                 <div class="seperator"></div>
             </div>   
         </div>
-        <form class="loginForm">
+        <form class="loginForm" onsubmit="addUser(); return false">
             <div class="inputField">
                 <input class="input" type="name" required id="name" placeholder="Name" autocomplete="name">
                 <img class="inputImage" src="./img/img/person.svg">
             </div>
             <div class="inputField">
-                <input class="input" type="email" required id="email" placeholder="Email" autocomplete="email">
+                <input class="input" type="email" required id="email" placeholder="Email" autocomplete="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}">
                 <img class="inputImage" src="./img/img/mail.svg">
             </div>
             <div class="inputField">
                 <input class="input" type="password" required id="password" placeholder="Password" minlength="8" autocomplete="new-password"
-                    onfocus="changeLockIcon(this)"
-                    oninput="checkPasswordStrength()" 
-                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                       onfocus="changeLockIcon(this)"
+                       oninput="checkPasswordStrength()">
                 <img onclick="togglePassword('password')" class="inputImage" id="passwordIcon" src="./img/img/lock.svg">
-            </div>
+            </div>            
             <div class="inputField">
                 <input class="input" type="password" required id="confirm_password" placeholder="Confirm Password" autocomplete="new-password"  
                     onfocus="changeLockIcon(this)"   
                     onkeyup="validateConfirmedPassword()">
                 <img onclick="togglePassword('confirm_password')" class="inputImage" id="confirmPasswordIcon" src="./img/img/lock.svg">
             </div>
-                                       
+            <div id="passwordStrengthMessage"></div>
+            <div id="passwordMatchMessage"></div>
+        
+            <div id="msgBox"></div>
+            <div class="checkboxContainer">
+                <button type="button" class="checkbox" onclick="toggleCheckbox(this);">
+                    <img class="checkboxImage" src="./img/Rectangle5.svg" data-checked="./img/img/checked.svg" data-unchecked="./img/Rectangle5.svg">
+                </button>
+                <span>I accept the <a href="./templates/privacy_policy.html">Privacy Policy</a></span>
+                <input type="checkbox" class="realCheckbox" hidden>
+            </div>                         
+            <div class="buttonContainer">
+                <button type="submit" class="blueBtn" style="width: 200px;">Sign up</button>
+            </div> 
         </form>
-        <div style="margin-left: 20px;" id="passwordStrengthMessage"></div>
-        <div id="passwordMatchMessage"></div>
-
-        <div id="msgBox"></div>
-        <div class="checkboxContainer">
-            <button class="checkbox" onclick="toggleCheckbox(this);">
-                <img class="checkboxImage" src="./img/Rectangle5.svg" data-checked="./img/img/checked.svg" data-unchecked="./img/Rectangle5.svg">
-            </button>
-            <span>I accept the <a href="./templates/privacy_policy.html">Privacy Policy</a></span>
-            <input type="checkbox" class="realCheckbox" hidden>
-        </div>      
-        <div class="buttonContainer">
-            <button onclick="validateForm()" class="blueBtn" style="width: 200px;">Sign up</button>
-        </div> 
-    </div>
-
+    </div> 
     <div class="legalNotesNegative">
         <button onclick="window.location.href='./templates/privacy_policy.html'">Privacy Policy</button>
         <button onclick="window.location.href='./templates/legal_notice.html'">Legal Notice</button>

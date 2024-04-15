@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="./fonts/fonts.css">
     <script src="script.js"></script> 
+    <script src="./JS/storage.js"></script>
     <script src="./JS/register.js"></script>
 </head>
 <!-- login page (after start animation) -->
@@ -22,35 +23,34 @@
                 <h1 class="h1Login">Log in</h1>
                 <div class="seperator"></div>
             </div>
-            <form class="loginForm" onsubmit="login">
+            <form class="loginForm" onsubmit="login(); return false;">
                 <div class="inputField">
                     <input class="input" type="email" required id="email" placeholder="Email" autocomplete="email">
                     <img class="inputImage" src="./img/img/mail.svg">
                 </div>
                 <div class="inputField">
-                    <input class="input" type="password" required id="password" placeholder="Password" autocomplete="email" 
-                    onfocus="changeLockIcon(this)">   
-                    <img onclick="togglePassword('password')"class="inputImage" id="passwordIcon" src="./img/img/lock.svg">
+                    <input class="input" type="password" required id="password" placeholder="Password" autocomplete="current-password" onfocus="changeLockIcon(this)">
+                    <img class="inputImage" id="passwordIcon" src="./img/img/lock.svg" onclick="togglePassword('password')">
+                </div>
+                <div id="msgBox"></div>
+                <div class="checkboxContainer">
+                    <button class="checkbox" onclick="toggleCheckbox(this);">
+                        <img class="checkboxImage" src="./img/Rectangle5.svg" data-checked="./img/img/checked.svg" data-unchecked="./img/Rectangle5.svg">
+                    </button>
+                    <span>Remember me</span>
+                    <input type="checkbox" class="realCheckbox" onclick="rememberLogin(document.getElementById('email').value, document.getElementById('password').value);" hidden>
+                </div>       
+                <div class="buttonContainer">
+                    <button type="submit" class="blueBtn" style="width: 200px;">Log in</button>
+                    <button type="button" onclick="window.location.href='../Templates/summary.html'" class="greyBorderBtn">Guest log in</button>
                 </div>
             </form>
-            <div id="msgBox"></div>
-            <div class="checkboxContainer">
-                <button class="checkbox" onclick="toggleCheckbox(this);">
-                    <img class="checkboxImage" src="./img/Rectangle5.svg" data-checked="./img/img/checked.svg" data-unchecked="./img/Rectangle5.svg">
-                </button>
-                <span>Remember me</span>
-                <input type="checkbox" class="realCheckbox" hidden>
-            </div>       
-            <div class="buttonContainer">
-                <button onclick="login()" class="blueBtn" style="width: 200px;">Log in</button>
-                <button onclick="window.location.href='../Templates/summary.html'" class="greyBorderBtn">Guest log in</button>
-            </div>
+        </div>
         </div>
         <div class="noJoinUser">
             <span>Not a Join User?</span>
             <button class="blueBtn" onclick="window.location.href='../signup.html'">Sign up</button>
         </div>
-   
         <div class="legalNotes">
             <button onclick="window.location.href='./templates/privacy_policy.html'">Privacy Policy</button>
             <button onclick="window.location.href='./templates/legal_notice.html'">Legal Notice</button>

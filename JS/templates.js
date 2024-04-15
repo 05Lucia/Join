@@ -9,8 +9,8 @@ function cardTemplate(card) {
     <div draggable="true" onclick="bigCard(${card.id})" ondragstart="startDraging(${card.id})" class="board-card-small" >
         <div class="category-card">${card.category}</div>
         <div class="card-text">
-            <h3>${card.titel}</h3>
-            <p>${card.description}</p>
+            <h3 class="card-title">${card.titel}</h3>
+            <p class="card-description">${card.description}</p>
             <!-- dont show more than 2 lines? JS? -->
         </div>
         ${TemplateSubtaskProgressbar(card)}

@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../Akademi"
+		},
+		{
+			"path": "../Pokedex"
+		},
+		{
+			"path": "../quizapp"
+		},
+		{
+			"path": "../Test"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Join"
+	}
+}

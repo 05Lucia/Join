@@ -1,4 +1,20 @@
-//check password Strength//
+let users = [
+    {
+        "name": "Caro Willers",
+        "email": "caro@gmail.com",
+        "password": "Pommes123"
+    },
+    {
+        "name": "Alice Buchholz",
+        "email": "alice@gmail.com",
+        "password": "Test123"
+    }
+];
+
+/**
+ * Checks the strength of the password entered by the user.
+ * @returns {boolean} Returns true if the password meets the strength criteria, otherwise rturns false.
+ */
 function checkPasswordStrength() {
     let password = document.getElementById("password").value;
     let strengthIndicator = document.getElementById("passwordStrengthMessage");
@@ -15,7 +31,10 @@ function checkPasswordStrength() {
     }
 }
 
-//check confirmed password match//
+/**
+ * Validates the input to confirm the password entered by the user.
+ * @returns {boolean} Returns true if the confirmed password matches the original password, otherwise returns false.
+ */
 function validateConfirmedPassword() {
     let password = document.getElementById("password").value;
     let confirmPassword = document.getElementById("confirm_password").value;
@@ -32,7 +51,10 @@ function validateConfirmedPassword() {
     }
 }
 
-//toggle password visibility//
+/**
+ * Toggles the visibility of the password input field and changes the visibility icon accordingly.
+ * @param {string} fieldId - The ID of the password input field.
+ */
 function togglePassword(fieldId) {
     let input = document.getElementById(fieldId);
     let iconId = fieldId === "password" ? "passwordIcon" : "confirmPasswordIcon";
@@ -47,14 +69,21 @@ function togglePassword(fieldId) {
     }  
 }
 
+/**
+ * Changes the visibility icon of the password input field.
+ * @param {HTMLElement} inputElement - The password input field element.
+ */
 function changeLockIcon(inputElement) {
     inputElement.nextElementSibling.src = "./img/img/visibility_off.svg";
 } 
 
-
-
-
-// check if Privacy Policy was accepted// 
+/**
+ * Toggles the checkbox that states if the Privacy Policy was accepted or not and updatates the checkbox image.
+ * Toggles the state of a checkbox and updates the image icon to checked or not checked
+ * This function is used on login and signup pages to handle user interaction with the checkboxes,
+ * such as remembering passwords and accepting privacy policies. 
+* @param {HTMLElement} buttonElement - On click of this button, the state of the checkbox will be toggled.
+ */
 function toggleCheckbox(buttonElement) {
     let container = buttonElement.closest('.checkboxContainer');
  
@@ -65,7 +94,11 @@ function toggleCheckbox(buttonElement) {
     checkboxImage.src = realCheckbox.checked ? checkboxImage.getAttribute('data-checked') : checkboxImage.getAttribute('data-unchecked');
 }
 
-
+/**
+ * Checks if the Privacy Policy checkbox is checked before final signup is possible
+ * If the checkbox is not checked, displays an alert message prompting the user to accept the Privacy Policy.
+ * @returns {boolean} Returns true if the Privacy Policy checkbox is checked, otherwise returns false.
+ */
 function checkPrivacyPolicy() {  
     let realCheckbox = document.querySelector(".realCheckbox");
     if (!realCheckbox.checked) {
@@ -74,47 +107,59 @@ function checkPrivacyPolicy() {
     }
     return true;
 }
+ 
+async function loadUsers() {
+    try {
+        let result = await getItem('users');
+        return JSON.parse(result) || [];   
+    } catch(e) {
+        console.error('Loading error:', e);
+        return [];   
+    }
+}
 
-function validateForm() {
-    let name = document.getElementById("name").value.trim();
-    let email = document.getElementById("email").value.trim();
-    let password = document.getElementById("password").value.trim();
-    let confirmPassword = document.getElementById("confirm_password").value.trim();
-    
-    if (!name || !email || !password || !confirmPassword) {
+async function addUser() {
+    let email = document.getElementById('email').value;
+    let password = document.getElementById('password').value;
+    let name = document.getElementById('name').value; 
+
+    if (email === "" || password === "" || name === "") {
         alert("Please fill in all fields");
-        return false;
-    }
-    
-    if (!checkPrivacyPolicy()) {
         return;
     }
+
+    users.push({
+        name: name,
+        email: email,
+        password: password
+    });
+ 
+    await setItem('users', JSON.stringify(users));
+    console.log("Users saved to storage", users);
+    window.location.href = '../login.html?msg=Your signup is successful';
+}
+
+async function login() {
+    let email = document.getElementById('email').value;
+    let password = document.getElementById('password').value;
+    let users = await loadUsers();
+    let user = users.find(u => u.email === email && u.password === password);
+
+    if (user) { 
+        alert("Login Successful");
+        window.location.href = "../index.html";
+    } else {
+        alert("Invalid email or password");
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const msg = urlParams.get('msg');
+    if(msg) {
+        document.getElementById('msgBox').innerHTML = msg;
+    }
+});
     
-    if (!checkPasswordStrength() || !validateConfirmedPassword()) {
-        return;
-    }
-    successfulSignup(); 
-}
-
-
-// message for successful signup//
-function successfulSignup() {
-    document.getElementById("signupModal").style.display = "block";   
-}
-
-function closeModal() {
-    document.getElementById("signupModal").style.display = "none";
-    window.location.href = '../Templates/summary.html';
-}
-
-// closes window on click//
-window.onclick = function (event) {
-    let modal = document.getElementById("signupModal");
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-
-
-
+ 
  
