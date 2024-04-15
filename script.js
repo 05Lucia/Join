@@ -95,7 +95,7 @@ let cards = [
         ],
         "assigned": [],
         "priority": {
-            "urgency": 'High',
+            "urgency": 'Urgent',
             "img": './img/priorityHighInactive.svg'
         }
     },
@@ -109,7 +109,7 @@ let cards = [
         "subtasks": [],
         "assigned": ['Alice Buchholz', 'Test Dummy', 'Someone Else'],
         "priority": {
-            "urgency": 'Low',
+            "urgency": 'Urgent',
             "img": './img/priorityLowInactive.svg'
         }
     }
@@ -555,6 +555,7 @@ function summaryLodeNumbers() {
     feedbackNumber();
     doneNumber();
     boradTaskNumber();
+    urgentNumber();
 }
 
 /**
@@ -654,6 +655,24 @@ function boradTaskNumber() {
     }
     container.textContent = cards.length;
 }
+
+function urgentNumber() {
+    let urgentCount = 0;
+    const container = document.getElementById('urgent-number');
+
+    if (!container) {
+        console.error("Element with ID 'urgent-number' not found!");
+        return;
+    }
+
+    for (const card of cards) {
+        if (card.priority.urgency === 'Urgent') {
+            urgentCount++;
+        }
+    }
+    container.textContent = urgentCount;
+}
+
 // Contacts  ------------------------------------------------------------------------------------------------------------
 
 async function loadContacts() {
