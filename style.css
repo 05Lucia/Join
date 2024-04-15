@@ -2770,13 +2770,21 @@ h3 {
     padding-top: 24px;
 }
 
-.addContactContactDetails {
+.addEditInputForm{
     display: flex;
     flex-direction: column;
-    height: 54%;
+    height: 66%;
     width: 100%;
     padding-left: 16px;
     padding-right: 16px;
+    gap: 60px;
+}
+
+.addContactContactDetails {
+    display: flex;
+    flex-direction: column;
+    height: 60%;
+    width: 100%;
     gap: 8px;
 }
 
@@ -2989,7 +2997,7 @@ h3 {
         display: flex;
         position: relative;
         width: calc(100vw - 200px);
-        height: calc(100vh - 80px);
+        height: calc(100vh - 68px);
         overflow: hidden;
     }
 
@@ -3009,7 +3017,7 @@ h3 {
 
     .contactList {
         padding-top: 90px;
-        overflow-y: scroll;
+        overflow-y: auto;
         padding-bottom: 12px;
         padding-left: 32px;
         padding-right: 32px;
@@ -3245,11 +3253,24 @@ h3 {
         height: 65%;
     }
 
-    .addContactContactDetails {
+    .addEditInputForm{
         justify-content: center;
         height: 40%;
         padding-left: 80px;
         padding-right: 80px;
+        gap: 24px;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding-top: 24px;
+        height: 100%;
+    }
+
+    .addContactContactDetails {
+        justify-content: center;
+        height: 36%;
+        padding-left: 0px;
+        padding-right: 0px;
         gap: 24px;
     }
 

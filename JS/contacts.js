@@ -214,11 +214,11 @@ function renderAddContactLayout() {
  */
 function addContactButtonsCancelAndCreateButtonsHTMLTemplate() {
     return /*html*/`
-            <button class="cancelCreateContactButton" id="cancelCreateContactButton" onclick="hideAddContactCard()">
+            <button type="button" class="cancelCreateContactButton" id="cancelCreateContactButton" onclick="hideAddContactCard()">
                 <p>Cancel</p>
                 <img src="./img/clearTaskX.svg">
             </button>
-            <button class="createContactButton" id="createContactButton" onclick="createContact()">
+            <button type="submit" class="createContactButton" id="createContactButton">
                 <p>Create contact</p>
                 <img src="./img/createTaskCheckIcon.svg">
             </button>
@@ -240,7 +240,7 @@ function hideAddContactCard() {
  */
 function createContact() {
     let dataSet = newContactDataSetForArray();
-    if (dataSet.contactData.name && dataSet.contactData.email && dataSet.contactData.phone) {
+    // if (dataSet.contactData.name && dataSet.contactData.email && dataSet.contactData.phone) {
         contacts.push(dataSet.newContact);
         initContacts();
         let contactIndex = getIndexByNameSurname(contacts, dataSet.formattedName.firstName, dataSet.formattedName.lastName);
@@ -249,9 +249,9 @@ function createContact() {
         clearAddContactForm();
         hideAddContactCard();
         scrollToAnchor(`contact(${toggleIndex})`);
-    } else {
-        alert("Bitte füllen Sie alle Felder aus.");
-    }
+    // } else {
+    //     alert("Bitte füllen Sie alle Felder aus.");
+    // }
 }
 
 /**
@@ -291,6 +291,12 @@ function getContactData() {
  */
 function formatContactName(contactData) {
     let [firstName, lastName] = contactData.name.split(" ");
+    if (!firstName) {
+        firstName = "";
+    }
+    if (!lastName) {
+        lastName = "";
+    }
     firstName = capitalizeFirstLetter(firstName);
     lastName = capitalizeFirstLetter(lastName);
     return {
@@ -745,10 +751,10 @@ function showCurrentContactDetails(index) {
  */
 function editContactDeleteAndSaveButtonLayoutHTMLTemplate(index) {
     document.getElementById('addEditContactButtons').innerHTML = /*html*/`
-                                                                            <button class="deleteEditContactButton" onclick="deleteContact(${index})">
+                                                                            <button type="button" class="deleteEditContactButton" onclick="deleteContact(${index})">
                                                                                 <p>Delete</p>
                                                                             </button>
-                                                                            <button class="saveEditContactButton" onclick="updateContact(${index})">
+                                                                            <button type="submit"class="saveEditContactButton" onclick="updateContact(${index})">
                                                                                 <p>Save</p>
                                                                                 <img src="./img/createTaskCheckIcon.svg">
                                                                             </button>
