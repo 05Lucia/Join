@@ -10,9 +10,11 @@ function startAnimation() {
         window.location.href = 'login.html';
     }, 1200);
 }
- 
+
 /**
- * this funktion ist to open a certain Template.
+ * Fetches and includes the content of external HTML templates marked with the 'include-html' attribute.
+ *
+ * @async
  */
 async function includeHTML() {
     let includeElements = document.querySelectorAll('[include-html]');
@@ -29,9 +31,10 @@ async function includeHTML() {
 }
 
 /**
- * This funktion is to choes the right template for a certain button
- * 
- * @param {string} template - name of the template that should be used
+ * Loads the specified template file and includes its content in the designated container.
+ *
+ * @param {string} template - The name of the template file to load (without the extension).
+ * @async
  */
 async function Templates(template) {
     const content = document.getElementById('content');
@@ -40,7 +43,7 @@ async function Templates(template) {
     <div include-html="./Templates/${template}.html"> </div>
     `;
     await includeHTML();
-}
+} 
 
 /**
  * Array to test card implement!!
@@ -325,7 +328,7 @@ function closeCard() {
     container.style.justifyContent = "center";
     container.innerHTML = `<div class="borad-card-popup d-none" id="borad-card-popup" onclick="doNotClose(event)"></div>`
     document.body.classList.remove('body-noscroll-class');
-    
+
 }
 
 /**
@@ -333,7 +336,8 @@ function closeCard() {
  * @param {Event} event The event object.
  */
 function doNotClose(event) {
-    event.stopPropagation();}
+    event.stopPropagation();
+}
 
 
 /**
@@ -460,7 +464,7 @@ function subtaskCompleted(i, id) {
             task.done = true;
         }
     }
-} 
+}
 
 /**
  * Opens the modal for adding a new task to the board.
@@ -499,6 +503,37 @@ async function includeAddTask() {
     }
 }
 
+/**
+ * Filters and displays cards within designated containers based on a search query.
+ * Searches for matches in both the card title and description (optional).
+ *
+ * Handles scenarios where no cards match the search criteria.
+ */
+function search() {
+    let query = document.getElementById('search').value.toLowerCase();
+    let hasMatch = false; // Flag to track if any match is found 
+    const containers = [document.getElementById('todo'), document.getElementById('progress'), document.getElementById('feedback'), document.getElementById('done') ];
+    
+      for (const container of containers) {
+        for (const card of container.querySelectorAll('.board-card-small')) {
+          const titleText = card.querySelector('.card-title').textContent.toLowerCase();
+          const descriptionText = card.querySelector('.card-description')?.textContent.toLowerCase() || ""; // Optional description handling
+    
+          const combinedText = `${titleText} ${descriptionText}`;
+    
+          if (combinedText.includes(query)) {
+            card.classList.remove('d-none'); // Show matching card
+            hasMatch = true;
+          } else {
+            card.classList.add('d-none'); // Hide non-matching card
+          }
+        }
+      }
+      // Handle no matches scenario 
+      if (!hasMatch) {
+        console.log("No task cards found matching the search query.");
+      }
+}
 
 // Contacts  ------------------------------------------------------------------------------------------------------------
 
