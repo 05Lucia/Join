@@ -102,12 +102,28 @@ let cards = [
     {
         "id": 2,
         "place": 'progress',
-        "category": 'CSS',
+        "category": {
+            "name": 'CSS',
+            "color": '#00000'
+        },
         "titel": 'test ohne Subtask',
         "description": 'test test 0 von 0!',
         "dueDate": '',
         "subtasks": [],
-        "assigned": ['Alice Buchholz', 'Test Dummy', 'Someone Else'],
+        "assigned": [
+            {
+                "name": 'Alice Buchholz',
+                "color": '#00000'
+            },
+            {
+                "name": 'Test Dummy',
+                "color": '#00000'
+            },
+            {
+                "name": 'Someone Else',
+                "color": '#00000'
+            }
+        ],
         "priority": {
             "urgency": 'Urgent',
             "img": './img/priorityLowInactive.svg'
