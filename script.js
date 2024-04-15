@@ -505,7 +505,7 @@ async function includeAddTask() {
 
 /**
  * Filters and displays cards within designated containers based on a search query.
- * Searches for matches in both the card title and description (optional).
+ * Searches for matches in both the card title and description.
  *
  * Handles scenarios where no cards match the search criteria.
  */
