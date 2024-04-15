@@ -3093,14 +3093,13 @@ h3 {
         left: 100%;
         padding-left: 56px;
         background-color: transparent;
-        transition: right 0.8s ease;
+        transition: left 0.4s ease;
         display: flex;
         z-index: 0;
     }
 
     .showContactDetailsContainer {
         left: calc(200px + 480px);
-        transition: right 0.8s ease;
     }
 
     .contactInfoHeadlineAndBackButton {
@@ -3276,10 +3275,17 @@ h3 {
         padding: 0px;
     }
 
-    .contact:hover {
+    .contact:hover:not(.contactClicked) {
         cursor: pointer;
         background-color: rgba(210, 227, 255, 1);
         border-radius: 10px;
+    }
+
+    .contactClicked {
+        background-color: rgba(69, 137, 255, 1);
+        color: white !important;
+        border-radius: 10px;
+        cursor: pointer;
     }
 
     .addContactLogo {
@@ -3325,6 +3331,10 @@ h3 {
         filter: none;
     }
 
+    .createContactButton:hover {
+        background-color: rgba(0, 93, 255, 1);
+    }
+
     .createContactButton p {
         font-size: 23px;
     }
@@ -3338,6 +3348,7 @@ h3 {
         font-size: 23px;
         line-height: 28px;
     }
+
 
 
 }

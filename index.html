@@ -9,12 +9,13 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
     <script src="./JS/contacts.js"></script>
+    <script src="./JS/storage.js"></script>
     <script src="./JS/register.js"></script>
     <script src="./JS/templates.js"></script>
     <link rel="stylesheet" href="./fonts/fonts.css">
 </head>
 
-<body onload="includeHTML()" id="body">
+<body onload="init()" id="body">
     <!--overlay for start animation -->
     <!-- <div id="overlay" class="overlay">
     <img src="./img/logoNegative.png" alt="Negative Logo" class="overlay-logo">
@@ -57,7 +58,7 @@
                         <img src="./img/task icon gray.svg" alt="task icon">
                         <p>Add Task</p>
                     </div>
-                    <div class="navigation-item" onclick="Templates('contacts'), init()"><!-- js noch nötig -->
+                    <div class="navigation-item" onclick="loadContacts()"><!-- js noch nötig -->
                         <img src="./img/contacts icon gray.svg" alt="contacts icon">
                         <p>contacts</p>
                     </div>

@@ -1,6 +1,7 @@
-function init() {
+async function init() {
     //login page after start animation//
-    startAnimation()
+    startAnimation();
+    loadUsers();
     includeHTML();
 }
 
@@ -332,8 +333,8 @@ function closeCard() {
  * @param {Event} event The event object.
  */
 function doNotClose(event) {
-    event.stopPropagation();
-}
+    event.stopPropagation();}
+
 
 /**
  * Populates the "Assigned To" section of the big card modal with user initials.
@@ -496,4 +497,12 @@ async function includeAddTask() {
             element.innerHTML = 'Page not found';
         }
     }
+}
+
+
+// Contacts  ------------------------------------------------------------------------------------------------------------
+
+async function loadContacts() {
+    await Templates('contacts');
+    initContacts();
 }
