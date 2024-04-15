@@ -9,7 +9,7 @@ function startAnimation() {
         window.location.href = 'login.html';
     }, 1200);
 }
-
+ 
 /**
  * this funktion ist to open a certain Template.
  */
@@ -316,7 +316,7 @@ function bigCard(id) {
 }
 
 /**
- * Closes the big card modal.
+ * Closes the Popup modal.
  */
 function closeCard() {
     let container = document.getElementById('borad-card-overlay');
