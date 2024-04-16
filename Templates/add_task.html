@@ -1,7 +1,7 @@
 <div class="addTaskWrapper">
     <div class="addTaskContainer">
         <div class="enterTitleBox">
-            <input class="addTaskInputTitle" type="text" placeholder="Enter a title" required>
+            <input class="addTaskInputTitle" id="addTaskInputTitle" onfocusout="errorMessageIfEmptyTitle()" type="text" placeholder="Enter a title" required>
             <p class="errorMessageIfEmptyTitle">This field is required</p>
         </div>
         <div class="descriptionBox">
@@ -15,7 +15,7 @@
             <span class="addTaskTopics">
                 <h3>Due date</h3>
             </span>
-            <input class="addTaskDueDateInput" type="date" placeholder="dd/mm/yyyy">
+            <input class="addTaskDueDateInput" id="addTaskDueDateInput" onfocusout="errorMessageIfEmptyDueDate()" type="date" placeholder="dd/mm/yyyy">
             <p class="errorMessageIfEmptyDueDate">This field is required</p>
         </div>
         <div class="priorityBox">
@@ -23,21 +23,20 @@
                 <h3>Priority</h3>
             </span>
             <div class="priorityButtons">
-                <button class="urgentPriorityButton">Urgent <img src="./img/priorityHighInactive.svg"></button>
-                <button class="mediumPriorityButton">Medium <img src="./img/priorityMediumInactive.svg"></button>
-                <button class="lowPriorityButton">Low <img src="./img/priorityLowInactive.svg"></button>
+                <button id="urgentPriorityButton" class="urgentPriorityButton" data-priority="urgent" onclick="changePriorityColor('urgentPriorityButton')">Urgent <img id="urgentIcon" class="urgentIcon" src="./img/priorityHighInactive.svg"></button>
+                <button id="mediumPriorityButton"class="mediumPriorityButton" data-priority="medium" onclick="changePriorityColor('mediumPriorityButton')">Medium <img id="mediumIcon" class="mediumIcon" src="./img/priorityMediumInactive.svg"></button>
+                <button id="lowPriorityButton" class="lowPriorityButton" data-priority="low" onclick="changePriorityColor('lowPriorityButton')">Low <img id="lowIcon" class="lowIcon" src="./img/priorityLowInactive.svg"></button>
             </div>
         </div>
         <div class="assignedToBox">
             <span class="addTaskTopics">
                 <h3>Assigned to</h3>(optional)
             </span>
-            <select class="assignContactsDropdown">
-                <option disabled selected hidden>Select contacts to assign</option>
-                <option value="contact1">Kontakt 1</option>
-                <option value="contact2">Kontakt 2</option>
-                <option value="contact3">Kontakt 3</option>
-            </select>
+            <div class="assignContactsDropdown" id="assignContactsDropdown" onclick="toggleAssignToDropdown()">
+                <span>Select contacts to assign</span>
+            </div>
+            <div class="dropdowncontacts" id="dropdowncontacts" style="display: none">
+            </div>
         </div>
         <div class="taskCategoryBox">
             <span class="addTaskTopics">

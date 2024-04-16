@@ -1395,7 +1395,7 @@ input::placeholder {
     padding-top: 64px;
     padding-left: 16px;
     padding-right: 16px;
-    gap: 28px;
+    gap: 36px;
     overflow-y: scroll;
 }
 
@@ -1570,7 +1570,7 @@ h3 {
     height: 50px;
 }
 
-.priorityButtons button {
+.urgentPriorityButton {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1584,6 +1584,94 @@ h3 {
     background-color: white;
     border: none;
     filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.16));
+}
+
+.clickedUrgentButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    height: 48px;
+    width: 100%;
+    border-radius: 10px;
+    padding: 18px 10px 18px 10px;
+    font-size: 16px;
+    line-height: 19px;
+    background-color: rgba(255, 61, 0, 1);
+    border: none;
+    filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.16));
+    color: white;
+}
+
+.mediumPriorityButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    height: 48px;
+    width: 100%;
+    border-radius: 10px;
+    padding: 18px 10px 18px 10px;
+    font-size: 16px;
+    line-height: 19px;
+    background-color: white;
+    border: none;
+    filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.16));
+}
+
+.clickedMediumButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    height: 48px;
+    width: 100%;
+    border-radius: 10px;
+    padding: 18px 10px 18px 10px;
+    font-size: 16px;
+    line-height: 19px;
+    background-color: rgba(255, 168, 0, 1);
+    border: none;
+    filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.16));
+    color: white;
+}
+
+
+.lowPriorityButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    height: 48px;
+    width: 100%;
+    border-radius: 10px;
+    padding: 18px 10px 18px 10px;
+    font-size: 16px;
+    line-height: 19px;
+    background-color: white;
+    border: none;
+    filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.16));
+}
+
+.clickedLowButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    height: 48px;
+    width: 100%;
+    border-radius: 10px;
+    padding: 18px 10px 18px 10px;
+    font-size: 16px;
+    line-height: 19px;
+    background-color: rgba(122, 226, 41, 1);
+    border: none;
+    filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.16));
+    color: white;
+}
+
+.clickedButtonIcon {
+    filter: brightness(0) invert(1);
 }
 
 .priorityButtons button:hover {
@@ -1621,6 +1709,90 @@ h3 {
 .assignContactsDropdown:focus {
     border-bottom-color: rgba(0, 93, 255, 1);
     outline: none;
+}
+
+.dropdowncontacts {
+    margin-top: -8px;
+    display: flex;
+    flex-direction: column;
+    height: 280px;
+    width: 100%;
+    background-color: lightgreen;
+    gap: 8px;
+    border-radius: 0 0 10px 10px;
+    background-color: white;
+    overflow-y: auto;
+    border-bottom: 1px solid rgb(209, 209, 209);
+}
+
+.dropdowncontacts::-webkit-scrollbar {
+    width: 8px;
+}
+
+.dropdowncontacts::-webkit-scrollbar-thumb {
+    background-color: rgba(168, 168, 168, 1);
+}
+
+.dropdowncontacts::-webkit-scrollbar-button {
+    height: 24px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.dropdowncontacts::-webkit-scrollbar-button:start {
+    background-image: url('./img/scrollButtonUp.svg');
+}
+
+.dropdowncontacts::-webkit-scrollbar-button:end {
+    background-image: url('./img/scrollButtonDown.svg');
+}
+
+.dropdowncontacts::-webkit-scrollbar-button:decrement {
+    display: flex;
+}
+
+.dropdowncontacts::-webkit-scrollbar-button:increment {
+    display: flex;
+}
+
+.dropdownEachContact {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 16px 7px 16px;
+    border-radius: 10px;
+    height: 56px;
+}
+
+.assignToContactAvatarAndName {
+    display: flex;
+    align-items: center;
+    height: 42px;
+    gap: 16px;
+}
+
+.assignToContactAvatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 42px;
+    width: 42px;
+    border-radius: 50%;
+    color: white;
+    font-size: 12px;
+    line-height: 14px;
+    border: 2px solid white;
+}
+
+.assignToContactName {
+    font-size: 16px;
+    line-height: 19px;
+}
+
+.assignToCheckBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .taskCategoryBox {
@@ -1834,6 +2006,11 @@ h3 {
         line-height: 38px;
         padding: 13px 16px 13px 16px;
         font-size: 32px;
+        font-weight: 600;
+    }
+
+    .addTaskInputTitle::placeholder {
+        font-weight: 400;
     }
 
     .addTaskInputTitle:hover {
@@ -1922,6 +2099,11 @@ h3 {
     .assignContactsDropdown:hover {
         border-bottom-color: rgba(0, 93, 255, 1);
         outline: none;
+    }
+
+    .dropdownEachContact:hover {
+        cursor: pointer;
+        background-color: rgba(210, 227, 255, 1);
     }
 
     .taskCategoryBox {
