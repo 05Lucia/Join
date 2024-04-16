@@ -100,10 +100,11 @@ function TaskCadBigTemplate(card, id) {
 }
 
 /**
- * Generates the HTML structure for an individual user within the "Assigned To" section of the big card modal.
- * @param {string} user The username to display.
- * @param {string} initials The user's initials.
- * @returns {string} The HTML string representing an assigned user entry.
+ * Generates the HTML template for a single assigned user within the big card view.
+ *
+ * @param {object} user - A user object containing a `name` property (string) and a `color` property (string).
+ * @param {string} initials - The user's initials (uppercase) generated from their name.
+ * @returns {string} The HTML template string representing a single assigned user.
  */
 function bigCardAssignedTemplate(user, initials) {
     return `

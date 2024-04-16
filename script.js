@@ -58,7 +58,7 @@ let cards = [
         },
         "titel": 'Test',
         "description": 'irgend was ganz langes zu scheiben ist nervig so ich hofe ich habe langsam 2 zeilen ericht und bin jetzt auch langas mal drüber und schon bei der dritten die man hoffentlich nicht sieh! Auser das ist die Große Karte.',
-        "dueDate": '01.01.2024',
+        "dueDate": '17.04.2024',
         "subtasks": [
             {
                 "text": 'testing extra lang',
@@ -93,7 +93,7 @@ let cards = [
         },
         "titel": 'Hallo Hallo',
         "description": 'irgend was ....',
-        "dueDate": '',
+        "dueDate": '20.04.2024',
         "subtasks": [
             {
                 "text": 'testing',
@@ -258,8 +258,11 @@ function doneCardUpdate() {
 }
 
 /**
- * Populates the "Assigned To" section of a card with the initials of assigned users.
- * @param {object} card The card object containing the assigned users list.
+ * Initializes the assigned user initials display for a given card.
+ *
+ * @param {object} card - A card object containing an `assigned` array with user information.
+ *        - The card object is expected to have an `assigned` property which is an array of objects.
+ *        - Each object in the `assigned` array should have a `name` property (string) and a `color` property (string).
  */
 function assignedInitals(card) {
     let container = document.getElementById(`assigned-container${card.id}`)
@@ -281,7 +284,6 @@ function assignedInitals(card) {
             }
         }
     }
-
 }
 
 /**
@@ -375,8 +377,12 @@ function doNotClose(event) {
 
 
 /**
- * Populates the "Assigned To" section of the big card modal with user initials.
- * @param {object} card The card object containing the assigned users list.
+ * Initializes the assigned user list display for the big card view based on the provided card data.
+ * If the card has no assigned users, hides the container.
+ *
+ * @param {object} card - A card object containing an `assigned` array with user information.
+ *        - The card object is expected to have an `assigned` property which is an array of objects.
+ *        - Each object in the `assigned` array should have a `name` property (string) and a `color` property (string).
  */
 function bigCardAssigned(card) {
     if (card.assigned.length > 0) {
@@ -590,6 +596,7 @@ function summaryLodeNumbers() {
     doneNumber();
     boradTaskNumber();
     urgentNumber();
+    Deadline();
 }
 
 /**
@@ -710,6 +717,40 @@ function urgentNumber() {
     }
     container.textContent = urgentCount;
 }
+
+//not functioning just jet may have to do with date in array.
+function Deadline() {
+    let container = document.getElementById('due-date');
+    let closestDeadline = null;
+  
+    // Iterate through cards
+    for (const card of cards) {
+      const dueDate = card.dueDate;
+  
+      // Convert dueDate to a Date object
+      const dueDateObject = new Date(dueDate);
+  
+      // Check if dueDate is valid and in the future
+      if (dueDateObject && !isNaN(dueDateObject.getTime()) && dueDateObject > new Date()) {
+        // Update closestDeadline if earlier
+        if (!closestDeadline || dueDateObject < closestDeadline) {
+          closestDeadline = dueDateObject;
+        }
+      }
+    }
+  
+    // Format and display deadline (if found)
+    if (closestDeadline) {
+      const formattedDate = closestDeadline.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      });
+      container.textContent = formattedDate;
+    } else {
+      container.textContent = 'No upcoming deadlines';
+    }
+  }
 
 // Contacts  ------------------------------------------------------------------------------------------------------------
 
