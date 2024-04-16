@@ -7,7 +7,7 @@ function cardTemplate(card) {
 
     return `
     <div draggable="true" onclick="bigCard(${card.id})" ondragstart="startDraging(${card.id})" class="board-card-small" >
-        <div class="category-card">${card.category}</div>
+        <div style="background-color:${card.category.color};" class="category-card">${card.category.name}</div>
         <div class="card-text">
             <h3 class="card-title">${card.titel}</h3>
             <p class="card-description">${card.description}</p>
@@ -57,7 +57,7 @@ function TemplateSubtaskProgressbar(card) {
 function TaskCadBigTemplate(card, id) {
     return `
         <div class="board-card-big-top">
-            <div class="category-card-big">${card.category} </div>
+            <div style="background-color:${card.category.color};" class="category-card-big">${card.category.name} </div>
             <div class="board-card-close-container" onclick="closeCard()">
                 <img class="board-card-close" src="./img/Close.svg" alt="close">
                 <img class="board-card-close-hover" src="./img/close hover.svg" alt="close hover">
@@ -108,8 +108,8 @@ function TaskCadBigTemplate(card, id) {
 function bigCardAssignedTemplate(user, initials) {
     return `
     <div class="board-card-big-assingend-user">
-        <div class="user-initals-card-big-card">${initials}</div>
-        <p>${user}</p>
+        <div style="background-color:${user.color};" class="user-initals-card-big-card">${initials}</div>
+        <p>${user.name}</p>
     </div>
     `;
 }

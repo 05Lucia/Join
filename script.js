@@ -52,7 +52,10 @@ let cards = [
     {
         "id": 0,
         "place": 'todo',
-        "category": 'js',
+        "category": {
+            "name": 'JS',
+            "color": '#FFA800'
+        },
         "titel": 'Test',
         "description": 'irgend was ganz langes zu scheiben ist nervig so ich hofe ich habe langsam 2 zeilen ericht und bin jetzt auch langas mal drüber und schon bei der dritten die man hoffentlich nicht sieh! Auser das ist die Große Karte.',
         "dueDate": '01.01.2024',
@@ -66,7 +69,16 @@ let cards = [
                 "done": false
             }
         ],
-        "assigned": ['Alice Buchholz', 'Guest', 'Test Dummy'],
+        "assigned": [
+            {
+                "name": 'Alice Buchholz',
+                "color": '#7AE229'
+            },
+            {
+                "name": 'guest',
+                "color": '#FFA800'
+            },
+        ],
         "priority": {
             "urgency": 'Medium',
             "img": './img/priorityMediumInactive.svg'
@@ -75,7 +87,10 @@ let cards = [
     {
         "id": 1,
         "place": 'feedback',
-        "category": 'HTML',
+        "category": {
+            "name": 'HTML',
+            "color": '#FF3D00'
+        },
         "titel": 'Hallo Hallo',
         "description": 'irgend was ....',
         "dueDate": '',
@@ -104,7 +119,7 @@ let cards = [
         "place": 'progress',
         "category": {
             "name": 'CSS',
-            "color": '#00000'
+            "color": '#005DFF'
         },
         "titel": 'test ohne Subtask',
         "description": 'test test 0 von 0!',
@@ -113,15 +128,15 @@ let cards = [
         "assigned": [
             {
                 "name": 'Alice Buchholz',
-                "color": '#00000'
+                "color": '#7AE229'
             },
             {
                 "name": 'Test Dummy',
-                "color": '#00000'
+                "color": '#005DFF'
             },
             {
                 "name": 'Someone Else',
-                "color": '#00000'
+                "color": '#005DFF'
             }
         ],
         "priority": {
@@ -249,21 +264,24 @@ function doneCardUpdate() {
 function assignedInitals(card) {
     let container = document.getElementById(`assigned-container${card.id}`)
     container.innerHTML = '';
-    for (let i = 0; i < card.assigned.length; i++) {
-        const user = card.assigned[i];
-        let names = user.split(' ');
-        let initials = names[0].substring(0, 1).toUpperCase();
+    if (card.assigned.length != 0) {
+        for (let i = 0; i < card.assigned.length; i++) {
+            const user = card.assigned[i];
+            let names = user.name.split(' ');
+            let initials = names[0].substring(0, 1).toUpperCase();
 
-        if (names.length > 1) {
-            initials += names[names.length - 1].substring(0, 1).toUpperCase();
-        }
+            if (names.length > 1) {
+                initials += names[names.length - 1].substring(0, 1).toUpperCase();
+            }
 
-        if (i === 0) {
-            container.innerHTML += `<div class="user-initals-card">${initials} </div>`;
-        } else {
-            container.innerHTML += `<div class="user-initals-card overlap">${initials} </div>`;
+            if (i === 0) {
+                container.innerHTML += `<div style="background-color:${user.color};" class="user-initals-card">${initials} </div>`;
+            } else {
+                container.innerHTML += `<div style="background-color:${user.color};" class="user-initals-card overlap">${initials} </div>`;
+            }
         }
     }
+
 }
 
 /**
@@ -366,7 +384,7 @@ function bigCardAssigned(card) {
         container.innerHTML = '<h2>Assigned To:</h2>';
         for (let i = 0; i < card.assigned.length; i++) {
             const user = card.assigned[i];
-            let names = user.split(' ');
+            let names = user.name.split(' ');
             let initials = names[0].substring(0, 1).toUpperCase();
 
             if (names.length > 1) {
@@ -687,9 +705,9 @@ function urgentNumber() {
 
     for (const card of cards) {
         if (card.priority && card.priority.urgency === 'Urgent') {
-          urgentCount++;
+            urgentCount++;
         }
-      }
+    }
     container.textContent = urgentCount;
 }
 
