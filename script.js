@@ -52,10 +52,13 @@ let cards = [
     {
         "id": 0,
         "place": 'todo',
-        "category": 'js',
+        "category": {
+            "name": 'JS',
+            "color": '#FFA800'
+        },
         "titel": 'Test',
         "description": 'irgend was ganz langes zu scheiben ist nervig so ich hofe ich habe langsam 2 zeilen ericht und bin jetzt auch langas mal drüber und schon bei der dritten die man hoffentlich nicht sieh! Auser das ist die Große Karte.',
-        "dueDate": '01.01.2024',
+        "dueDate": '17.04.2024',
         "subtasks": [
             {
                 "text": 'testing extra lang',
@@ -66,7 +69,16 @@ let cards = [
                 "done": false
             }
         ],
-        "assigned": ['Alice Buchholz', 'Guest', 'Test Dummy'],
+        "assigned": [
+            {
+                "name": 'Alice Buchholz',
+                "color": '#7AE229'
+            },
+            {
+                "name": 'guest',
+                "color": '#FFA800'
+            },
+        ],
         "priority": {
             "urgency": 'Medium',
             "img": './img/priorityMediumInactive.svg'
@@ -75,10 +87,13 @@ let cards = [
     {
         "id": 1,
         "place": 'feedback',
-        "category": 'HTML',
+        "category": {
+            "name": 'HTML',
+            "color": '#FF3D00'
+        },
         "titel": 'Hallo Hallo',
         "description": 'irgend was ....',
-        "dueDate": '',
+        "dueDate": '20.04.2024',
         "subtasks": [
             {
                 "text": 'testing',
@@ -104,7 +119,7 @@ let cards = [
         "place": 'progress',
         "category": {
             "name": 'CSS',
-            "color": '#00000'
+            "color": '#005DFF'
         },
         "titel": 'test ohne Subtask',
         "description": 'test test 0 von 0!',
@@ -113,15 +128,15 @@ let cards = [
         "assigned": [
             {
                 "name": 'Alice Buchholz',
-                "color": '#00000'
+                "color": '#7AE229'
             },
             {
                 "name": 'Test Dummy',
-                "color": '#00000'
+                "color": '#005DFF'
             },
             {
                 "name": 'Someone Else',
-                "color": '#00000'
+                "color": '#005DFF'
             }
         ],
         "priority": {
@@ -243,25 +258,30 @@ function doneCardUpdate() {
 }
 
 /**
- * Populates the "Assigned To" section of a card with the initials of assigned users.
- * @param {object} card The card object containing the assigned users list.
+ * Initializes the assigned user initials display for a given card.
+ *
+ * @param {object} card - A card object containing an `assigned` array with user information.
+ *        - The card object is expected to have an `assigned` property which is an array of objects.
+ *        - Each object in the `assigned` array should have a `name` property (string) and a `color` property (string).
  */
 function assignedInitals(card) {
     let container = document.getElementById(`assigned-container${card.id}`)
     container.innerHTML = '';
-    for (let i = 0; i < card.assigned.length; i++) {
-        const user = card.assigned[i];
-        let names = user.split(' ');
-        let initials = names[0].substring(0, 1).toUpperCase();
+    if (card.assigned.length != 0) {
+        for (let i = 0; i < card.assigned.length; i++) {
+            const user = card.assigned[i];
+            let names = user.name.split(' ');
+            let initials = names[0].substring(0, 1).toUpperCase();
 
-        if (names.length > 1) {
-            initials += names[names.length - 1].substring(0, 1).toUpperCase();
-        }
+            if (names.length > 1) {
+                initials += names[names.length - 1].substring(0, 1).toUpperCase();
+            }
 
-        if (i === 0) {
-            container.innerHTML += `<div class="user-initals-card">${initials} </div>`;
-        } else {
-            container.innerHTML += `<div class="user-initals-card overlap">${initials} </div>`;
+            if (i === 0) {
+                container.innerHTML += `<div style="background-color:${user.color};" class="user-initals-card">${initials} </div>`;
+            } else {
+                container.innerHTML += `<div style="background-color:${user.color};" class="user-initals-card overlap">${initials} </div>`;
+            }
         }
     }
 }
@@ -357,8 +377,12 @@ function doNotClose(event) {
 
 
 /**
- * Populates the "Assigned To" section of the big card modal with user initials.
- * @param {object} card The card object containing the assigned users list.
+ * Initializes the assigned user list display for the big card view based on the provided card data.
+ * If the card has no assigned users, hides the container.
+ *
+ * @param {object} card - A card object containing an `assigned` array with user information.
+ *        - The card object is expected to have an `assigned` property which is an array of objects.
+ *        - Each object in the `assigned` array should have a `name` property (string) and a `color` property (string).
  */
 function bigCardAssigned(card) {
     if (card.assigned.length > 0) {
@@ -366,7 +390,7 @@ function bigCardAssigned(card) {
         container.innerHTML = '<h2>Assigned To:</h2>';
         for (let i = 0; i < card.assigned.length; i++) {
             const user = card.assigned[i];
-            let names = user.split(' ');
+            let names = user.name.split(' ');
             let initials = names[0].substring(0, 1).toUpperCase();
 
             if (names.length > 1) {
@@ -572,6 +596,7 @@ function summaryLodeNumbers() {
     doneNumber();
     boradTaskNumber();
     urgentNumber();
+    Deadline();
 }
 
 /**
@@ -687,11 +712,45 @@ function urgentNumber() {
 
     for (const card of cards) {
         if (card.priority && card.priority.urgency === 'Urgent') {
-          urgentCount++;
+            urgentCount++;
         }
-      }
+    }
     container.textContent = urgentCount;
 }
+
+//not functioning just jet may have to do with date in array.
+function Deadline() {
+    let container = document.getElementById('due-date');
+    let closestDeadline = null;
+  
+    // Iterate through cards
+    for (const card of cards) {
+      const dueDate = card.dueDate;
+  
+      // Convert dueDate to a Date object
+      const dueDateObject = new Date(dueDate);
+  
+      // Check if dueDate is valid and in the future
+      if (dueDateObject && !isNaN(dueDateObject.getTime()) && dueDateObject > new Date()) {
+        // Update closestDeadline if earlier
+        if (!closestDeadline || dueDateObject < closestDeadline) {
+          closestDeadline = dueDateObject;
+        }
+      }
+    }
+  
+    // Format and display deadline (if found)
+    if (closestDeadline) {
+      const formattedDate = closestDeadline.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      });
+      container.textContent = formattedDate;
+    } else {
+      container.textContent = 'No upcoming deadlines';
+    }
+  }
 
 // Contacts  ------------------------------------------------------------------------------------------------------------
 
