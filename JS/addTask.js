@@ -22,6 +22,8 @@ function errorMessageIfEmptyDueDate() {
     }
 }
 
+let priorities = [];
+
 function changePriorityColor(buttonId) {
     const button = document.getElementById(buttonId);
     const priority = button.getAttribute('data-priority');
@@ -33,6 +35,7 @@ function changePriorityColor(buttonId) {
         lowPriorityButtonStylingWhenClicked(button);
     }
     console.log('Selected priority:', priority);
+    priorities.push(priority);
 }
 
 function urgentPriorityButtonStylingWhenClicked(button) {
@@ -74,16 +77,13 @@ function lowPriorityButtonStylingWhenClicked(button) {
 let selectedAssignedContacts = []
 
 function toggleAssignToDropdown() {
-    console.log('Schritt1');
     var content = document.getElementById("dropdowncontacts");
     if (content.style.display == "none") {
-        console.log('Schritt2');
         openAssignToDropdown();
     } else {
-        console.log('Schritt3');
         closeAssignToDropdown();
     }
-  }
+}
 
 function openAssignToDropdown() {
     document.getElementById('dropdowncontacts').style.display = 'flex';
@@ -109,18 +109,16 @@ function openAssignToDropdown() {
     }
 }
 
-function closeAssignToDropdown(){
+function closeAssignToDropdown() {
     document.getElementById('dropdowncontacts').style.display = 'none';
 }
 
 function changeCheckBoxStyle(i) {
     document.getElementById(`assignContactCheckBox(${i})`).src = "./img/assignContactCheckChecked.svg";
-    console.log('test1');
 }
 
 function changeBackCheckBoxStyle(i) {
     document.getElementById(`assignContactCheckBox(${i})`).src = "./img/assingContactCheckUnchecked.svg";
-    console.log('test2');
 }
 
 
@@ -143,17 +141,149 @@ function assingContact(i) {
     console.log(selectedAssignedContacts); // Zur Überprüfung in der Konsole ausgeben
 }
 
-function checkAssignContact(i){
+function checkAssignContact(i) {
     document.getElementById(`dropdownEachContact(${i})`).style.backgroundColor = "rgba(69, 137, 255, 1)";
     document.getElementById(`assignToContactName(${i})`).style.color = "white";
     changeCheckBoxStyle(i);
-    console.log('test3');
 }
 
-function uncheckAssignContact(i){
+function uncheckAssignContact(i) {
     document.getElementById(`dropdownEachContact(${i})`).style.backgroundColor = "white";
     document.getElementById(`assignToContactName(${i})`).style.color = "black";
     changeBackCheckBoxStyle(i);
-    console.log('test4');
 }
+
+let taskCategories = ['Technical Task', 'User Story'];
+
+function toggleSelectTaskCategoryDropdown() {
+    var content = document.getElementById("dropdownSelectTasksCategory");
+    if (content.style.display == "none") {
+        openTaskCategoryDropdown();
+    } else {
+        closeTaskCategoryDropdown();
+    }
+}
+
+function openTaskCategoryDropdown() {
+    document.getElementById('dropdownSelectTasksCategory').style.display = 'flex';
+    document.getElementById('dropdownSelectTasksCategory').innerHTML = '';
+    for (let i = 0; i < taskCategories.length; i++) {
+        const taskCategory = taskCategories[i];
+        document.getElementById('dropdownSelectTasksCategory').innerHTML += /*html*/`
+        <div class="dropdownEachTaskCategory" id="dropdownEachTaskCategory(${i})" onclick="selectTaskCategory(${i})">
+            ${taskCategory}
+        </div>
+    `;
+    }
+}
+
+function closeTaskCategoryDropdown() {
+    document.getElementById('dropdownSelectTasksCategory').style.display = 'none';
+}
+
+function selectTaskCategory(i) {
+    let taskCategory = taskCategories[i];
+    document.getElementById('selectTaskCategoryTextField').innerHTML = taskCategory;
+    closeTaskCategoryDropdown();
+}
+
+let createdSubtasks = [];
+
+function showSubtaskInputMenu(){
+document.getElementById('addTaskSubtasksIcons').innerHTML = `
+<img src="./img/cancelCreateSubtask.svg" onclick="clearSubtaskInputField()">
+<div class="addTaskSubtasksIconsSeperator"></div>
+<img src="./img/saveCreateSubtask.svg" onclick="saveSubtaskInput()">
+`;
+}
+
+function clearSubtaskInputField(){
+document.getElementById('addTaskSubtasksInput').value = '';
+}
+
+function saveSubtaskInput(){
+    let createdSubtask = document.getElementById('addTaskSubtasksInput');
+    createdSubtask = createdSubtask.value;
+    createdSubtasks.push(createdSubtask)
+    openCreatedSubtaskBox();
+}
+
+function openCreatedSubtaskBox() {
+    document.getElementById('createdSubTasksBox').style.display = 'flex';
+    document.getElementById('createdSubTasksBox').innerHTML = '';
+    for (let i = 0; i < createdSubtasks.length; i++) {
+        const subtask = createdSubtasks[i];
+        document.getElementById('createdSubTasksBox').innerHTML += /*html*/`
+        <div class="eachSubtask" id="eachSubtask(${i})" onclick="">
+           <li>${subtask}</li>
+         
+           <div class="createdSubtasksIcons" id="createdSubtasksIcons">
+                <img src="./img/edit.svg" onclick="clearSubtaskInputField()">
+                <div class="addTaskSubtasksIconsSeperator"></div>
+                <img src="./img/deleteContactIcon.svg" onclick="deleteCreatedSubtask(${i})">
+            </div>
+        </div>
+    `;
+    }
+    console.log('array', createdSubtasks);
+    clearSubtaskInputField();
+}
+
+function deleteCreatedSubtask(subTastIndex){
+    createdSubtasks.splice(subTastIndex, 1);
+    openCreatedSubtaskBox();
+}
+
+function createTask() {
+    let title = errorMessageIfEmptyTitle(); // Titel überprüfen und abrufen
+    let dueDate = errorMessageIfEmptyDueDate(); // Fälligkeitsdatum überprüfen und abrufen
+    let priority = priorities[0]; // Priorität abrufen
+    let category = document.getElementById('selectTaskCategoryTextField').innerText.trim(); // Kategorie abrufen
+    let assigned = selectedAssignedContacts; // Zugeordnete Personen abrufen
+    let description = document.getElementById('addTaskDescriptionInput').value.trim(); // Beschreibung abrufen
+    let subtasks = createdSubtasks.map(subtask => ({ text: subtask, done: false })); // Subtasks erstellen
+    let id = cards.length > 0 ? cards[cards.length - 1].id + 1 : 0; // ID erstellen
+    let place = 'todo'; // Place festlegen
+
+    // Priorität Bildpfad festlegen
+    let priorityImg;
+    if (priority == 'Urgent') {
+        priorityImg = './img/priorityHighInactive.svg';
+    } else if (priority == 'Medium') {
+        priorityImg = './img/priorityMediumInactive.svg';
+    } else {
+        priorityImg = './img/priorityLowInactive.svg';
+    }
+
+    // Neues Kartenobjekt erstellen
+    let newCard = {
+        id: id,
+        place: place,
+        category: {
+            name: category,
+            color: '' 
+        },
+        titel: title,
+        description: description,
+        dueDate: dueDate,
+        subtasks: subtasks,
+        assigned: assigned,
+        priority: {
+            urgency: priority,
+            img: priorityImg
+        }
+    };
+
+    // Karte zum Array hinzufügen
+    cards.push(newCard);
+
+    // Zur Überprüfung in der Konsole ausgeben
+    console.log('Neue Karte erstellt:', newCard);
+
+    priorities = [];
+}
+
+// Funktion aufrufen, wenn z. B. ein "Speichern" - Button geklickt wird
+// Beispiel: <button onclick="createTask()">Speichern</button>
+
 

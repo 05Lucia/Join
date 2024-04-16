@@ -1717,7 +1717,6 @@ h3 {
     flex-direction: column;
     height: 280px;
     width: 100%;
-    background-color: lightgreen;
     gap: 8px;
     border-radius: 0 0 10px 10px;
     background-color: white;
@@ -1828,6 +1827,59 @@ h3 {
     outline: none;
 }
 
+.dropdownSelectTasksCategory {
+    margin-top: -8px;
+    flex-direction: column;
+    max-height: 280px;
+    width: 100%;
+    gap: 8px;
+    border-radius: 0 0 10px 10px;
+    background-color: white;
+    overflow-y: auto;
+    border-bottom: 1px solid rgb(209, 209, 209);
+}
+
+.dropdownSelectTasksCategory::-webkit-scrollbar {
+    width: 8px;
+}
+
+.dropdownSelectTasksCategory::-webkit-scrollbar-thumb {
+    background-color: rgba(168, 168, 168, 1);
+}
+
+.dropdownSelectTasksCategory::-webkit-scrollbar-button {
+    height: 24px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.dropdownSelectTasksCategory::-webkit-scrollbar-button:start {
+    background-image: url('./img/scrollButtonUp.svg');
+}
+
+.dropdownSelectTasksCategory::-webkit-scrollbar-button:end {
+    background-image: url('./img/scrollButtonDown.svg');
+}
+
+.dropdownSelectTasksCategory::-webkit-scrollbar-button:decrement {
+    display: flex;
+}
+
+.dropdownSelectTasksCategory::-webkit-scrollbar-button:increment {
+    display: flex;
+}
+
+.dropdownEachTaskCategory {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 12px 16px 12px 16px;
+    border-radius: 10px;
+    height: 43px;
+    font-size: 16px;
+    line-height: 19px;
+}
+
 .subtasksBox {
     display: flex;
     flex-direction: column;
@@ -1836,34 +1888,86 @@ h3 {
     margin-top: -12px;
 }
 
-.addTaskSubtasksInput {
+.addTaskSubtasksInputContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 48px;
+    width: 100%;
+    padding: 12px 16px 12px 16px;
     border: none;
     border-bottom: 1px solid rgb(209, 209, 209);
-    height: 48px;
-    padding: 12px 16px 12px 16px;
+}
+
+.addTaskSubtasksInputContainer:hover {
+    cursor: pointer;
+}
+
+.addTaskSubtasksInputContainer:focus {
+    border-bottom-color: rgba(0, 93, 255, 1);
+    outline: none;
+}
+
+.addTaskSubtasksInput:focus {
+    outline: none;
+}
+
+.addTaskSubtasksInput {
     font-size: 16px;
     line-height: 19px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-image: url('./img/addSubtaskPlusIcon.svg');
-    background-repeat: no-repeat;
-    background-position: right center;
-    background-origin: content-box;
+    border: none;
+    height: 48px;
+    width: 100%;
+    background-color: transparent;
 }
 
 .addTaskSubtasksInput::placeholder {
     color: rgb(209, 209, 209);
 }
 
-.addTaskSubtasksInput:hover {
-    cursor: pointer;
+.addTaskSubtasksIcons {
+    display: flex;
+    gap: 4px;
 }
 
-.addTaskSubtasksInput:focus {
+.addTaskSubtasksIconsSeperator {
+    height: 24px;
+    width: 1px;
+    background-color: rgba(209, 209, 209, 1);
+}
+
+.createdSubTasksBox {
+    margin-top: -8px;
+    flex-direction: column;
+    max-height: 280px;
+    width: 100%;
+    background-color: white;
+    overflow-y: auto;
+}
+
+.eachSubtask {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 16px 4px 16px;
+    border-radius: 10px;
+    height: 48px;
+}
+
+.createdSubtasksIcons {
+    display: flex;
+    gap: 4px;
+}
+
+/* 
+.addTaskSubtasksInput:hover {
+    cursor: pointer;
+} */
+
+/* .addTaskSubtasksInput:focus {
     border-bottom-color: rgba(0, 93, 255, 1);
     outline: none;
-}
+} */
 
 .createTaskContainer {
     position: sticky;
@@ -2118,6 +2222,17 @@ h3 {
     .selectTaskDropdown:hover {
         border-bottom-color: rgba(0, 93, 255, 1);
         outline: none;
+    }
+
+    .dropdownEachTaskCategory {
+        height: 47px;
+        font-size: 19px;
+        line-height: 23px;
+    }
+
+    .dropdownEachTaskCategory:hover {
+        cursor: pointer;
+        background-color: rgba(210, 227, 255, 1);
     }
 
     .subtasksBox {
