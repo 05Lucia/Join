@@ -47,17 +47,48 @@ async function Templates(template) {
     await includeHTML();
 }
 
+/**
+ * Opens the navigation overlay dropdown menu.
+ *
+ * This function removes the 'd-none' class from the container element, likely making it visible.
+ */
 function openDropdowen() {
     let container = document.getElementById('navigation-overlay');
     container.classList.remove('d-none');
 }
 
 /**
- * Closes the Popup modal.
+ * Closes the navigation overlay dropdown menu.
+ *
+ * This function adds the 'd-none' class to the container element, likely hiding it.
  */
 function closeDropdowen() {
     let container = document.getElementById('navigation-overlay');
     container.classList.add('d-none');
+} 
+
+/**
+ * Loads the legal notice template and closes the navigation overlay dropdown menu.
+ */
+function dropdowenLegalNotice() {
+    Templates('legal_notice');
+    closeDropdowen();
+}
+
+/**
+ * Loads the privacy policy template and closes the navigation overlay dropdown menu.
+ */
+function dropdowenPrivacyPolicy() {
+    Templates('privacy_policy');
+    closeDropdowen();
+}
+
+/**
+ * Loads the help template and closes the navigation overlay dropdown menu.
+ */
+function dropdowenHelp() {
+    Templates('help');
+    closeDropdowen();
 }
 
 // board -------------------------------------------------------------------------------------------------
