@@ -47,10 +47,10 @@ async function Templates(template) {
     await includeHTML();
 }
 
-// function openDropdowen() {
-//     let container = document.getElementById('navigation-overlay');
-//     container.classList.remove('d-none');
-// }
+function openDropdowen() {
+    let container = document.getElementById('navigation-overlay');
+    container.classList.remove('d-none');
+}
 
 /**
  * Closes the Popup modal.
@@ -157,7 +157,7 @@ let cards = [
             }
         ],
         "priority": {
-            "urgency": 'Urgent',
+            "urgency": 'low',
             "img": './img/priorityLowInactive.svg'
         }
     }
