@@ -2,7 +2,104 @@ let users = [
     {
         "name": "Caro Willers",
         "email": "caro@gmail.com",
-        "password": "Pommes123"
+        "password": "Pommes123",
+        "contacts": [
+            {
+                "name": "Leyla",
+                "surname": "Blume",
+                "initials": "LB",
+                "avatarColor": "rgb(255,122,0)",
+                "email": "leyla@gmail.com",
+                "phone": "+49 9999 888 77 6",
+                "category": "A"
+            },
+            {
+                "name": "Albert",
+                "surname": "Gerdes",
+                "initials": "AG",
+                "avatarColor": "rgb(255,70,70)",
+                "email": "albert@gmail.com",
+                "phone": "+49 2222 222 22 2",
+                "category": "A"
+            },
+            {
+                "name": "Sabine",
+                "surname": "Becker",
+                "initials": "SB",
+                "avatarColor": "rgb(147,39,255)",
+                "email": "sabine@gmail.com",
+                "phone": "+49 5555 555 55 5",
+                "category": "A"
+            }
+        ]
+    },
+    {
+        "name": "Alice Buchholz",
+        "email": "alice@gmail.com",
+        "password": "Currywurst345",
+        "contacts": [
+            {
+                "name": "Anton",
+                "surname": "Mayer",
+                "initials": "AM",
+                "avatarColor": "rgb(255,122,0)",
+                "email": "anton@gmail.com",
+                "phone": "+49 1111 111 11 1",
+                "category": "A"
+            },
+            {
+                "name": "Chantal",
+                "surname": "Müller",
+                "initials": "CM",
+                "avatarColor": "rgb(255,70,70)",
+                "email": "chantal@gmail.com",
+                "phone": "+49 2233 444 55 6",
+                "category": "A"
+            },
+            {
+                "name": "Aaron",
+                "surname": "Brier",
+                "initials": "AB",
+                "avatarColor": "rgb(147,39,255)",
+                "email": "aaron@gmail.com",
+                "phone": "+49 3333 333 33 3",
+                "category": "A"
+            }
+        ]
+    },
+    {
+        "name": "Vitali Rudi",
+        "email": "vitali@gmail.com",
+        "password": "Mayo6789",
+        "contacts": [
+            {
+                "name": "Carsten",
+                "surname": "Schmidt",
+                "initials": "CS",
+                "avatarColor": "rgb(252,113,255)",
+                "email": "carsten.schmidt@gmail.com",
+                "phone": "+49 5555 555 55 5",
+                "category": "C"
+            },
+            {
+                "name": "Bernt",
+                "surname": "Saathoff",
+                "initials": "BS",
+                "avatarColor": "rgb(255,187,43)",
+                "email": "bernt.s@gmail.com",
+                "phone": "+49 6666 666 66 6",
+                "category": "B"
+            },
+            {
+                "name": "Caroline",
+                "surname": "Tabeling",
+                "initials": "CT",
+                "avatarColor": "rgb(31,215,193)",
+                "email": "caroline@gmail.com",
+                "phone": "+49 7777 777 77 7",
+                "category": "C"
+            }
+        ]
     }
 ];
 
