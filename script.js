@@ -91,6 +91,16 @@ function dropdowenHelp() {
     closeDropdowen();
 }
 
+/**
+ * Sets up event listeners for navigation functionality after the DOM content is loaded.
+ *
+ * This code snippet waits for the DOM content to be fully loaded using the `DOMContentLoaded` event.
+ * Once loaded, it calls the following functions to establish the navigation behavior:
+ *  - `naviagtionClick`: Attaches click event listeners to all main navigation items.
+ *  - `clickedLegalPart`: Attaches click event listeners to legal section navigation elements within the ".navigation-legal" container.
+ *  - `removeNaviagtionClick`: Attempts to remove click event listeners from all main navigation items (might not always be successful).
+ *  - `removeClickedLegalPart`: Attaches click listeners to main navigation items to remove the "navigation-legal-clicked" class from any legal section element when clicked.
+ */
 document.addEventListener('DOMContentLoaded', () => {
     naviagtionClick(); // Call your function to set up event listeners
     clickedLegalPart();
@@ -160,6 +170,15 @@ function navigationClickImg() {
     }
 }
 
+/**
+ * Attaches click event listeners to all legal section navigation elements within the ".navigation-legal" container.
+ *
+ * When a legal section navigation element is clicked:
+ *  - The previously clicked legal section element (if any) loses the "navigation-legal-clicked" class.
+ *  - The clicked element gains the "navigation-legal-clicked" class for visual selection.
+ *  - **Additionally:** The function calls `removeNaviagtionClick` to potentially remove click listeners from the main navigation items.
+ *  (This behavior might need adjustment depending on your specific requirements.)
+ */
 function clickedLegalPart() {
     const btnElList = document.querySelectorAll('.navigation-legal div');
 
@@ -172,6 +191,12 @@ function clickedLegalPart() {
     })
 }
 
+/**
+ * Attempts to remove click event listeners from all navigation items (.navigation-item class).
+ *
+ * This function loops through all elements with the class ".navigation-item". It attempts to remove any existing click event listeners from these elements.
+ *  - Note that this function might not always successfully remove listeners depending on how they were previously attached.
+ */
 function removeNaviagtionClick() {
     const btnElList = document.querySelectorAll('.navigation-legal div');
 
@@ -182,6 +207,12 @@ function removeNaviagtionClick() {
     })
 }
 
+/**
+ * Attaches click event listeners to all navigation items (.navigation-item class).
+ *
+ * When a navigation item is clicked, this function removes the "navigation-legal-clicked" class from any legal section element that might have it.
+ *  - This ensures clicking a main navigation item clears the "clicked" state for legal section elements.
+ */
 function removeClickedLegalPart() {
     const btnElList = document.querySelectorAll('.navigation-item');
 

@@ -108,7 +108,6 @@ async function lodeBoard() {
     updateCads();
 }
 
-
 /**
  * Updates all card sections on the board by calling individual update functions for each section ("todo", "progress", etc.).
  */
