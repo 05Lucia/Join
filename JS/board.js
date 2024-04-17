@@ -105,8 +105,9 @@ let cards = [
  */
 async function lodeBoard() {
     await Templates('board');
-    updateCads()
+    updateCads();
 }
+
 
 /**
  * Updates all card sections on the board by calling individual update functions for each section ("todo", "progress", etc.).

@@ -270,8 +270,6 @@ body {
     display: none;
 }
 
-
-
 .hadline {
     background-color: var(--maincolor);
     height: 80px;
@@ -436,6 +434,11 @@ body {
         color: var(--menue-text);
     }
 
+    .navigation-legal div{
+        padding: 8px;
+        border-radius: 8px;
+    }
+
     .navigation-legal div:hover {
         cursor: pointer;
         color: var(--hoverBlue);
@@ -508,6 +511,10 @@ body {
     .navigation-item-clicked p{
         color: var(--menue-text);
     }
+
+    .navigation-legal-clicked {
+        color: white;
+        background-color: var(--maincolor);
+    }
 }
 
-/*  nächter container ----------------------------------------------------- */

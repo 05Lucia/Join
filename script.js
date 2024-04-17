@@ -91,6 +91,13 @@ function dropdowenHelp() {
     closeDropdowen();
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    naviagtionClick(); // Call your function to set up event listeners
+    clickedLegalPart();
+    removeNaviagtionClick();
+    removeClickedLegalPart();
+});
+
 /**
  * Attaches click event listeners to all navigation items (.navigation-item class).
  *
@@ -109,6 +116,7 @@ function naviagtionClick() {
             btnEl.classList.add('navigation-item-clicked');
             resetNavigationItems();
             navigationClickImg();
+            removeClickedLegalPart();
         })
     })
 }
@@ -150,6 +158,38 @@ function navigationClickImg() {
             clickedImage.classList.remove('d-none'); // Show clicked image
         }
     }
+}
+
+function clickedLegalPart() {
+    const btnElList = document.querySelectorAll('.navigation-legal div');
+
+    btnElList.forEach(btnEl => {
+        btnEl.addEventListener('click', () => {
+            document.querySelector('.navigation-legal-clicked')?.classList.remove('navigation-legal-clicked');
+            btnEl.classList.add('navigation-legal-clicked');
+            removeNaviagtionClick();
+        })
+    })
+}
+
+function removeNaviagtionClick() {
+    const btnElList = document.querySelectorAll('.navigation-legal div');
+
+    btnElList.forEach(btnEl => {
+        btnEl.addEventListener('click', () => {
+            document.querySelector('.navigation-item-clicked')?.classList.remove('navigation-item-clicked');
+        })
+    })
+}
+
+function removeClickedLegalPart() {
+    const btnElList = document.querySelectorAll('.navigation-item');
+
+    btnElList.forEach(btnEl => {
+        btnEl.addEventListener('click', () => {
+            document.querySelector('.navigation-legal-clicked')?.classList.remove('navigation-legal-clicked');
+        })
+    })
 }
 
 // summary -------------------------------------------------------------------------------------------------------
