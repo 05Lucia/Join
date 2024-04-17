@@ -736,36 +736,7 @@ function urgentNumber() {
 
 //not functioning just jet may have to do with date in array.
 function Deadline() {
-    let container = document.getElementById('due-date');
-    let closestDeadline = null;
-  
-    // Iterate through cards
-    for (const card of cards) {
-      const dueDate = card.dueDate;
-  
-      // Convert dueDate to a Date object
-      const dueDateObject = new Date(dueDate);
-  
-      // Check if dueDate is valid and in the future
-      if (dueDateObject && !isNaN(dueDateObject.getTime()) && dueDateObject > new Date()) {
-        // Update closestDeadline if earlier
-        if (!closestDeadline || dueDateObject < closestDeadline) {
-          closestDeadline = dueDateObject;
-        }
-      }
-    }
-  
-    // Format and display deadline (if found)
-    if (closestDeadline) {
-      const formattedDate = closestDeadline.toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-      });
-      container.textContent = formattedDate;
-    } else {
-      container.textContent = 'No upcoming deadlines';
-    }
+
   }
 
 // Contacts  ------------------------------------------------------------------------------------------------------------
