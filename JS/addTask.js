@@ -1,3 +1,8 @@
+async function loadAddTasks() {
+    await Templates('add_task');
+    addTaskInit();
+}
+
 function addTaskInit(){
     changePriorityColor('mediumPriorityButton');
 }

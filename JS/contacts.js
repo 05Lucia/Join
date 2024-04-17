@@ -66,6 +66,12 @@ let contacts = [
     }
 ]
 
+
+async function loadContacts() {
+    await Templates('contacts');
+    initContacts();
+}
+
 /**
  * This function is used to load the contact list, performing the following steps:
  * 1. Sorts all contacts alphabetically by first name.
