@@ -417,6 +417,11 @@ h3 {
     align-items: center;
 }
 
+.avatarsOfSelectedContacts{
+    display:flex;
+    gap: 8px;
+}
+
 .taskCategoryBox {
     display: flex;
     flex-direction: column;

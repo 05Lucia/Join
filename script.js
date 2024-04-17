@@ -745,3 +745,11 @@ async function loadContacts() {
     await Templates('contacts');
     initContacts();
 }
+
+// Add Tasks  ------------------------------------------------------------------------------------------------------------
+
+async function loadAddTasks() {
+    await Templates('add_task');
+    addTaskInit();
+}
+
