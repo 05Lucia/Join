@@ -240,7 +240,6 @@ function hideAddContactCard() {
  */
 function createContact() {
     let dataSet = newContactDataSetForArray();
-    // if (dataSet.contactData.name && dataSet.contactData.email && dataSet.contactData.phone) {
         contacts.push(dataSet.newContact);
         initContacts();
         let contactIndex = getIndexByNameSurname(contacts, dataSet.formattedName.firstName, dataSet.formattedName.lastName);
@@ -249,9 +248,6 @@ function createContact() {
         clearAddContactForm();
         hideAddContactCard();
         scrollToAnchor(`contact(${toggleIndex})`);
-    // } else {
-    //     alert("Bitte füllen Sie alle Felder aus.");
-    // }
 }
 
 /**
