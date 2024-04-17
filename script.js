@@ -47,9 +47,10 @@ async function Templates(template) {
     await includeHTML();
 }
 
-function openDropdowen() {
-
-}
+// function openDropdowen() {
+//     let container = document.getElementById('navigation-overlay');
+//     container.classList.remove('d-none');
+// }
 
 /**
  * Closes the Popup modal.
@@ -57,7 +58,6 @@ function openDropdowen() {
 function closeDropdowen() {
     let container = document.getElementById('navigation-overlay');
     container.classList.add('d-none');
-    document.body.classList.remove('body-noscroll-class');
 }
 
 // board -------------------------------------------------------------------------------------------------
