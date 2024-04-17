@@ -25,26 +25,30 @@
     <!--overlay for start animation -->
     <!-- <div id="overlay" class="overlay">
     <img src="./img/logoNegative.png" alt="Negative Logo" class="overlay-logo">
-</div> --> 
+</div> -->
 
-<div class="borad-card-overlay d-none" id="borad-card-overlay"  onclick="closeCard()">
-    <div class="borad-card-popup d-none" id="borad-card-popup" onclick="doNotClose(event)">
+    <div class="borad-card-overlay d-none" id="borad-card-overlay" onclick="closeCard()">
+        <div class="borad-card-popup d-none" id="borad-card-popup" onclick="doNotClose(event)">
+        </div>
     </div>
-</div>
 
-    <div>
-        <div class="hadline">
-            <img src="./img/logo white.svg" alt="logo">
-            <div class="hadline-user-info">
-                <p>Kanban Project Management Tool</p>
-                <img class="help" src="./img/help icon.svg" alt="help icon" onclick="Templates('help')">
-                <div class="dropdowen-hader">
-                    <div class="user-initals" id="user-initals">TD</div>
-                    <div class="dropdowen-container">
-                        <a class="help-dropdowen" href="">Help</a>
-                        <a href="">Legal notice</a>
-                        <a href="">Privacy Policy</a>
-                        <a href="">Log out</a>
+    <div class="navigation-overlay d-none" id="navigation-overlay" onclick="closeDropdowen()">
+        <div class="dropdowen-container" id="navigation-dropdowen" onclick="doNotClose(event)">
+            <a class="help-dropdowen">Help</a>
+            <a >Legal notice</a>
+            <a >Privacy Policy</a>
+            <a >Log out</a>
+        </div>
+    </div>
+
+        <div>
+            <div class="hadline">
+                <img src="./img/logo white.svg" alt="logo">
+                <div class="hadline-user-info">
+                    <p>Kanban Project Management Tool</p>
+                    <img class="help" src="./img/help icon.svg" alt="help icon" onclick="Templates('help')">
+                    <div class="dropdowen-hader">
+                        <div class="user-initals" id="user-initals" onclick="openDropdowen()">TD</div>
                     </div>
                 </div>
             </div>
@@ -81,7 +85,7 @@
         </div>
     </div>
 
-    
+
 </body>
 
 </html>

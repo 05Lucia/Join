@@ -11,6 +11,8 @@ function startAnimation() {
     }, 1200);
 }
 
+// naviagtion ---------------------------------------------------------------------------------------------------
+
 /**
  * Fetches and includes the content of external HTML templates marked with the 'include-html' attribute.
  *
@@ -44,6 +46,21 @@ async function Templates(template) {
     `;
     await includeHTML();
 }
+
+function openDropdowen() {
+    let container = document.getElementById('navigation-overlay');
+    container.classList.remove('d-none');
+}
+
+/**
+ * Closes the Popup modal.
+ */
+function closeDropdowen() {
+    let container = document.getElementById('navigation-overlay');
+    container.classList.add('d-none');
+}
+
+// board -------------------------------------------------------------------------------------------------
 
 /**
  * Array to test card implement!!
@@ -140,7 +157,7 @@ let cards = [
             }
         ],
         "priority": {
-            "urgency": 'Urgent',
+            "urgency": 'low',
             "img": './img/priorityLowInactive.svg'
         }
     }
@@ -364,7 +381,6 @@ function closeCard() {
     container.style.justifyContent = "center";
     container.innerHTML = `<div class="borad-card-popup d-none" id="borad-card-popup" onclick="doNotClose(event)"></div>`
     document.body.classList.remove('body-noscroll-class');
-
 }
 
 /**
