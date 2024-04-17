@@ -1,3 +1,7 @@
+function addTaskInit(){
+    changePriorityColor('mediumPriorityButton');
+}
+
 function errorMessageIfEmptyTitle() {
     let titleInput = document.getElementById('addTaskInputTitle');
     let errorMessage = document.querySelector('.errorMessageIfEmptyTitle');
@@ -25,6 +29,7 @@ function errorMessageIfEmptyDueDate() {
 let priorities = [];
 
 function changePriorityColor(buttonId) {
+    priorities = [];
     const button = document.getElementById(buttonId);
     const priority = button.getAttribute('data-priority');
     if (buttonId === 'urgentPriorityButton') {
@@ -91,18 +96,23 @@ function openAssignToDropdown() {
     sortByFirstName();
     for (let i = 0; i < contacts.length; i++) {
         const contact = contacts[i];
+        let isAssigned = selectedAssignedContacts.some(item => item.name === `${contact.name} ${contact.surname}`);
+        let backgroundColor = isAssigned ? "rgba(69, 137, 255, 1)" : "white";
+        let textColor = isAssigned ? "white" : "black";
+        let checkBoxSrc = isAssigned ? "./img/assignContactCheckChecked.svg" : "./img/assingContactCheckUnchecked.svg";
+
         document.getElementById('dropdowncontacts').innerHTML += /*html*/`
-        <div class="dropdownEachContact" id="dropdownEachContact(${i})" style="background-color: white" onclick="assingContact(${i})">
+        <div class="dropdownEachContact" id="dropdownEachContact(${i})" style="background-color: ${backgroundColor}" onclick="assingContact(${i})">
             <div class="assignToContactAvatarAndName">
                 <div class="assignToContactAvatar" style="background-color: ${contact['avatarColor']};">
                 ${contact['initials']}
                 </div>
-                <div class="assignToContactName" id="assignToContactName(${i})">
+                <div class="assignToContactName" id="assignToContactName(${i})" style="color: ${textColor}">
                 ${contact.name} ${contact.surname}
                 </div>
             </div>
             <div class="assignToCheckBox">
-                <img id="assignContactCheckBox(${i})" src="./img/assingContactCheckUnchecked.svg">
+                <img id="assignContactCheckBox(${i})" src="${checkBoxSrc}">
             </div>
         </div>
     `;
@@ -125,12 +135,13 @@ function changeBackCheckBoxStyle(i) {
 function assingContact(i) {
     let contact = contacts[i]; // Den ausgewählten Kontakt erhalten
     let fullName = `${contact.name} ${contact.surname}`; // Den kompletten Namen des Kontakts erstellen
+    let initials = `${contact.name.charAt(0).toUpperCase()}${contact.surname.charAt(0).toUpperCase()}`; // Die Initialen erstellen
     let avatarColor = contact.avatarColor; // Die Avatarfarbe des Kontakts erhalten
 
     let contactIndex = selectedAssignedContacts.findIndex(item => item.name === fullName); // Überprüfen, ob der Kontakt bereits ausgewählt wurde
 
     if (contactIndex === -1) { // Wenn nicht ausgewählt wurde
-        let selectedContact = { name: fullName, avatarColor: avatarColor }; // Ein Objekt mit Namen und Avatarfarbe erstellen
+        let selectedContact = { name: fullName, initials: initials, avatarColor: avatarColor }; // Ein Objekt mit Namen, Initialen und Avatarfarbe erstellen
         selectedAssignedContacts.push(selectedContact); // Kontakt zum Array hinzufügen
         checkAssignContact(i); // Die Darstellung aktualisieren
     } else { // Wenn bereits ausgewählt wurde
@@ -145,12 +156,30 @@ function checkAssignContact(i) {
     document.getElementById(`dropdownEachContact(${i})`).style.backgroundColor = "rgba(69, 137, 255, 1)";
     document.getElementById(`assignToContactName(${i})`).style.color = "white";
     changeCheckBoxStyle(i);
+    showAvatarsOfSelectedContacts();
 }
 
 function uncheckAssignContact(i) {
     document.getElementById(`dropdownEachContact(${i})`).style.backgroundColor = "white";
     document.getElementById(`assignToContactName(${i})`).style.color = "black";
     changeBackCheckBoxStyle(i);
+    showAvatarsOfSelectedContacts();
+}
+
+function showAvatarsOfSelectedContacts() {
+    selectedAssignedContacts.sort((a, b) => {
+        return a.name.localeCompare(b.name);
+    });
+    document.getElementById('avatarsOfSelectedContacts').style.display = "flex";
+    document.getElementById('avatarsOfSelectedContacts').innerHTML = "";
+    for (let i = 0; i < selectedAssignedContacts.length; i++) {
+        const contact = selectedAssignedContacts[i];
+        document.getElementById('avatarsOfSelectedContacts').innerHTML += `
+    <div class="assignToContactAvatar" style="background-color: ${contact['avatarColor']};">
+    ${contact['initials']}
+    </div>
+    `;
+    }
 }
 
 let taskCategories = ['Technical Task', 'User Story'];
@@ -218,7 +247,7 @@ function openCreatedSubtaskBox() {
            <li>${subtask}</li>
          
            <div class="createdSubtasksIcons" id="createdSubtasksIcons">
-                <img src="./img/edit.svg" onclick="clearSubtaskInputField()">
+                <img src="./img/edit.svg" onclick="">
                 <div class="addTaskSubtasksIconsSeperator"></div>
                 <img src="./img/deleteContactIcon.svg" onclick="deleteCreatedSubtask(${i})">
             </div>
@@ -232,6 +261,14 @@ function openCreatedSubtaskBox() {
 function deleteCreatedSubtask(subTastIndex) {
     createdSubtasks.splice(subTastIndex, 1);
     openCreatedSubtaskBox();
+}
+
+
+function resetAddTastForm(){
+    document.getElementById('addTaskInputTitle').value = '';
+    document.getElementById('addTaskDescriptionInput').value = '';
+    document.getElementById('addTaskDueDateInput').value = '';
+    
 }
 
 function createTask() {
@@ -285,7 +322,5 @@ function createTask() {
     createdSubtasks = [];
 }
 
-// Funktion aufrufen, wenn z. B. ein "Speichern" - Button geklickt wird
-// Beispiel: <button onclick="createTask()">Speichern</button>
 
 
