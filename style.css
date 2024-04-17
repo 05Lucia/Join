@@ -1199,11 +1199,18 @@ input::placeholder {
     height: 40px;
 }
 
+.navigation-overlay {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: transparent;
+}
+
 .hadline-user-info {
     display: flex;
     gap: 16px;
     align-items: center;
-
 }
 
 .user-initals {
@@ -1245,7 +1252,6 @@ input::placeholder {
     box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.20);
     border-radius: 10px 0px 10px 10px;
     gap: 16px;
-    display: none;
     z-index: 1;
 }
 
@@ -1257,7 +1263,6 @@ input::placeholder {
 
 .dropdowen-hader:hover .dropdowen-container {
     cursor: pointer;
-    display: flex;
 }
 
 .content {
@@ -1360,7 +1365,17 @@ input::placeholder {
     }
 
     .dropdowen-container a {
+        width: 100%;
+        text-align: right;
         color: var(--menue-text);
+        padding: 8px 16px;
+        font-size: 19px;
+        font-weight: 400;
+        border-radius: 8px;
+    }
+
+    .dropdowen-container:hover a {
+       background-color: var(--lightBlueHover); 
     }
 
     .main-container {
@@ -1371,6 +1386,25 @@ input::placeholder {
     .content {
         width: calc(100vh - 200px);
         height: calc(100vh - 5rem);
+    }
+
+    .dropdowen-hader:focus .dropdowen-container {
+        cursor: pointer;
+    }
+
+    .dropdowen-container {
+        position: absolute;
+        background-color: white;
+        width: 172px;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+        padding: 10px;
+        right: 32px;
+        box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.20);
+        border-radius: 20px 0px 20px 20px;
+        
+        margin-top: 20px;
     }
 
 }
