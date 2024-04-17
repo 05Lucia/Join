@@ -434,6 +434,7 @@ body {
 
     .hadline-user-info p {
         display: flex;
+        color: white;
     }
 
     .help {
@@ -452,6 +453,7 @@ body {
 
     .dropdowen-container a {
         color: var(--menue-text);
+        border-radius: 8px;
     }
 
     .main-container {
