@@ -189,19 +189,19 @@ function selectTaskCategory(i) {
 
 let createdSubtasks = [];
 
-function showSubtaskInputMenu(){
-document.getElementById('addTaskSubtasksIcons').innerHTML = `
+function showSubtaskInputMenu() {
+    document.getElementById('addTaskSubtasksIcons').innerHTML = `
 <img src="./img/cancelCreateSubtask.svg" onclick="clearSubtaskInputField()">
 <div class="addTaskSubtasksIconsSeperator"></div>
 <img src="./img/saveCreateSubtask.svg" onclick="saveSubtaskInput()">
 `;
 }
 
-function clearSubtaskInputField(){
-document.getElementById('addTaskSubtasksInput').value = '';
+function clearSubtaskInputField() {
+    document.getElementById('addTaskSubtasksInput').value = '';
 }
 
-function saveSubtaskInput(){
+function saveSubtaskInput() {
     let createdSubtask = document.getElementById('addTaskSubtasksInput');
     createdSubtask = createdSubtask.value;
     createdSubtasks.push(createdSubtask)
@@ -229,7 +229,7 @@ function openCreatedSubtaskBox() {
     clearSubtaskInputField();
 }
 
-function deleteCreatedSubtask(subTastIndex){
+function deleteCreatedSubtask(subTastIndex) {
     createdSubtasks.splice(subTastIndex, 1);
     openCreatedSubtaskBox();
 }
@@ -261,7 +261,7 @@ function createTask() {
         place: place,
         category: {
             name: category,
-            color: '' 
+            color: ''
         },
         titel: title,
         description: description,
@@ -281,6 +281,8 @@ function createTask() {
     console.log('Neue Karte erstellt:', newCard);
 
     priorities = [];
+    selectedAssignedContacts = [];
+    createdSubtasks = [];
 }
 
 // Funktion aufrufen, wenn z. B. ein "Speichern" - Button geklickt wird
