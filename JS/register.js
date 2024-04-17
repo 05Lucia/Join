@@ -53,8 +53,8 @@ function validateConfirmedPassword() {
  * @param {string} fieldId - The ID of the password input field.
  */
 function togglePassword(fieldId) {
-    let input = document.getElementById(fieldId);
-    let iconId = fieldId === "password" ? "passwordIcon" : "confirmPasswordIcon";
+    let input = document.getElementById(fieldId); 
+    let iconId = (fieldId === "password") ? "passwordIcon" : (fieldId === "newPassword") ? "newPasswordIcon" : "confirmPasswordIcon";
     let icon = document.getElementById(iconId); 
 
     if (input.type === "password") {
@@ -176,7 +176,6 @@ async function login() {
     } else {
         alert("Invalid email or password");
     }
-   
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -197,32 +196,47 @@ function closeModal() {
     window.location.href = '../index.html'; //redirect to Join board//
 }
 
-window.onclick = function(event) {
-    console.log("window.onclick called, event.target:", event.target);
-    let modal = document.getElementById("signupModal");
-    if (event.target === modal) {
-        closeModal();
-    }
+/* Reset Password*/
+function resetPassword() { 
+    document.getElementById("resetPasswordPopup").style.display = "block";
 }
 
-async function resetPassword() {
-    let email = document.getElementById('resetEmail').value;
+async function changePassword() {
+    let newPassword = document.getElementById('newPassword').value;
+    if (!newPassword) {
+        alert('Please enter a new password.');
+        return;
+    }
+
+    let email = document.querySelector('.user-email').value; 
     let users = await loadUsers();
-    let user = users.find(u => u.email === email);
+    let user = users.find(user => user.email === email);
+    if (!user) {
+        alert('No user found with this email.');
+        return;
+    }
 
-    if (user) {
-        let newPassword = prompt("Please enter your new password:");
-        if (newPassword) {
-            // Hier solltest du die Logik implementieren, um das Passwort im System zu aktualisieren
-            alert("Your password has been successfully reset.");
-        } else {
-            alert("No password entered. Please try again.");
-        }
-    } else {
-        alert("No account found with that email address.");
+    user.password = newPassword;
+    try {
+        await setItem('users', JSON.stringify(users));
+        alert('Your password has been successfully updated.');
+    } catch (error) {
+        console.error('Error updating password:', error);
+        alert('Failed to update password.');
     }
 }
 
+function closeReset() { 
+    document.getElementById("resetPasswordPopup").style.display = "none";
+    window.location.href = '../login.html'; 
+}
+
+function closeReset() { 
+    document.getElementById("resetPasswordPopup").style.display = "none";
+    window.location.href = '../login.html'; 
+}
+
+/*greet user*/
 document.addEventListener('DOMContentLoaded', function() {
     if (!localStorage.getItem('isLoggedIn')) { 
         window.location.href = '../login.html';

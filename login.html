@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log in</title>
     <link rel="icon" type="image/vnd.icon" href="../img/img/join.ico">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./Stylesheets/style.css">
+    <link rel="stylesheet" href="./Stylesheets/board.css">
+    <link rel="stylesheet" href="./Stylesheets/summary.css">
+    <link rel="stylesheet" href="./Stylesheets/register.css">
     <link rel="stylesheet" href="./fonts/fonts.css">
     <script src="script.js"></script> 
     <script src="./JS/storage.js"></script>
@@ -25,7 +28,7 @@
             </div>
             <form class="loginForm" onsubmit="login(); return false;">
                 <div class="inputField">
-                    <input class="input" type="email" required id="email" placeholder="Email" autocomplete="email">
+                    <input class="input user-email" type="email" required id="email" placeholder="Email" autocomplete="email">
                     <img class="inputImage" src="./img/img/mail.svg">
                 </div>
                 <div class="inputField">
@@ -33,10 +36,8 @@
                     <img class="inputImage" id="passwordIcon" src="./img/img/lock.svg" onclick="togglePassword('password')">
                 </div>
                 <div class="resetPassword">
-                    <span>Reset Your Password</span>
-                    <input class="inputResetPassword" type="email" id="resetEmail" placeholder="Enter your email">
-                    <button class="blueBtnSmall" onclick="resetPassword()">Reset Password</button>
-                </div>
+                    <button onclick="resetPassword(event)">Reset your password</button>
+                </div>                
                 <div class="msgBoxSuccess" id="msgBox"></div>
                 <div class="checkboxContainer">
                     <button class="checkbox" onclick="toggleCheckbox(this);">
@@ -67,6 +68,19 @@
               <p>Welcome! You're logged in.</p>
             </div>
           </div> 
+
+          <div id="resetPasswordPopup" class="modal">
+            <div class="ResetPasswordPopupContent">
+                <span class="changeYourPassword">Change your password</span>
+                <div class="inputFieldReset">  
+                    <input class="inputReset" type="password" id="newPassword" placeholder="Enter new Password" onfocus="changeLockIcon(this)">
+                    <img class="inputImageReset" id="newPasswordIcon" src="./img/img/lock.svg" onclick="togglePassword('newPassword')">
+                </div>                  
+                <button class="greyBorderBtnSmall" onclick="changePassword()">Change password</button>
+                <span class="closeReset" onclick="closeReset()">×</span>      
+            </div>   
+        </div>
+        
 </div>
 </main>
 </html>
