@@ -462,15 +462,15 @@
 }
 
 .addContactDetailsNameInput {
-    background-image: url('./img/addContactNameIcon.svg');
+    background-image: url('../img/addContactNameIcon.svg');
 }
 
 .addContactDetailsEmailInput {
-    background-image: url('./img/addContactEmailIcon.svg');
+    background-image: url('../img/addContactEmailIcon.svg');
 }
 
 .addContactDetailsPhoneInput {
-    background-image: url('./img/addContactPhoneIcon.svg');
+    background-image: url('../img/addContactPhoneIcon.svg');
 }
 
 .addContactDetailsInput::placeholder {
@@ -695,11 +695,11 @@
     }
 
     .contactList::-webkit-scrollbar-button:start {
-        background-image: url('./img/scrollButtonUp.svg');
+        background-image: url('../img/scrollButtonUp.svg');
     }
 
     .contactList::-webkit-scrollbar-button:end {
-        background-image: url('./img/scrollButtonDown.svg');
+        background-image: url('../img/scrollButtonDown.svg');
     }
 
     .contactList::-webkit-scrollbar-button:decrement {
