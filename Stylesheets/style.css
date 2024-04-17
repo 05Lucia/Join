@@ -262,6 +262,16 @@ body {
     display: none;
 }
 
+.navigation-item-clicked p {
+    color: var(--maincolor);
+}
+
+.d-none-navigation-img-unclicked {
+    display: none;
+}
+
+
+
 .hadline {
     background-color: var(--maincolor);
     height: 80px;
@@ -488,9 +498,16 @@ body {
 
     .dropdowen-container a:hover {
         cursor: pointer;
-        background-color: var(--lightBlueHover); 
-     }
+        background-color: var(--lightBlueHover);
+    }
 
+    .navigation-item-clicked {
+        background-color: var(--lightBlueHover);
+    }
+
+    .navigation-item-clicked p{
+        color: var(--menue-text);
+    }
 }
 
 /*  nächter container ----------------------------------------------------- */

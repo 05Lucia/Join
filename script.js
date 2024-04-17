@@ -65,7 +65,7 @@ function openDropdowen() {
 function closeDropdowen() {
     let container = document.getElementById('navigation-overlay');
     container.classList.add('d-none');
-} 
+}
 
 /**
  * Loads the legal notice template and closes the navigation overlay dropdown menu.
@@ -89,6 +89,67 @@ function dropdowenPrivacyPolicy() {
 function dropdowenHelp() {
     Templates('help');
     closeDropdowen();
+}
+
+/**
+ * Attaches click event listeners to all navigation items (.navigation-item class).
+ *
+ * When a navigation item is clicked:
+ *  - The previously clicked item (if any) loses the "navigation-item-clicked" class.
+ *  - The clicked item gains the "navigation-item-clicked" class for visual selection.
+ *  - All navigation items are reset (hidden clicked images, shown unclicked images).
+ *  - The `navigationClickImg` function is called to potentially change the clicked item's image (if screen is below 800px).
+ */
+function naviagtionClick() {
+    const btnElList = document.querySelectorAll('.navigation-item');
+
+    btnElList.forEach(btnEl => {
+        btnEl.addEventListener('click', () => {
+            document.querySelector('.navigation-item-clicked')?.classList.remove('navigation-item-clicked');
+            btnEl.classList.add('navigation-item-clicked');
+            resetNavigationItems();
+            navigationClickImg();
+        })
+    })
+}
+
+/**
+ * Resets all navigation items to their initial state.
+ *
+ * This function loops through all elements with the class ".navigation-item".
+ * Within each item, it:
+ *  - Hides any previously shown "clicked" image (adds the "d-none" class).
+ *  - Shows any previously hidden "unclicked" image (removes the "d-none" class).
+ */
+function resetNavigationItems() {
+    document.querySelectorAll('.navigation-item').forEach(item => {
+        item.querySelector('.clicked')?.classList.add('d-none');
+        item.querySelector('.unclicked')?.classList.remove('d-none');
+    });
+}
+
+/**
+* Handles potential image change for the currently clicked navigation item (if screen is below 800px).
+*
+* This function retrieves the element with the class "navigation-item-clicked" (the clicked item).
+* If the clicked item exists and the screen width is less than 800px:
+*  - It finds the "unclicked" and "clicked.d-none" images within the clicked item.
+*  - It hides the "unclicked" image using `classList.add('d-none')`.
+*  - It shows the "clicked" image using `classList.remove('d-none')`.
+*/
+function navigationClickImg() {
+    const clickedItem = document.querySelector('.navigation-item-clicked');
+
+    // Then handle image change for the clicked item (if screen is below 800px)
+    if (window.innerWidth < 800) {
+        const unclickedImage = clickedItem.querySelector('.unclicked');
+        const clickedImage = clickedItem.querySelector('.clicked.d-none');
+
+        if (unclickedImage && clickedImage) {
+            unclickedImage.classList.add('d-none'); // Hide unclicked image
+            clickedImage.classList.remove('d-none'); // Show clicked image
+        }
+    }
 }
 
 // board -------------------------------------------------------------------------------------------------
@@ -768,7 +829,7 @@ function urgentNumber() {
 //not functioning just jet may have to do with date in array.
 function Deadline() {
 
-  }
+}
 
 // Contacts  ------------------------------------------------------------------------------------------------------------
 

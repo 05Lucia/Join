@@ -55,21 +55,25 @@
         </div> <!--noch fertig machen richtig!!-->
         <div class="main-container">
             <div class="navigation">
-                <div class="navigation-row">
+                <div class="navigation-row" onclick="naviagtionClick()">
                     <div class="navigation-item" onclick="summaryLode()"><!-- js noch nötig -->
-                        <img src="./img/summary icon gray.svg" alt="summary icon">
+                        <img class="unclicked" src="./img/summary icon gray.svg" alt="summary icon">
+                        <img class="clicked d-none" src="./img/summary icon blue.svg" alt="summary icon">
                         <p>Summary</p>
                     </div>
                     <div class="navigation-item" onclick="lodeBoard ()"><!-- js noch nötig -->
-                        <img src="./img/bord icon gray.svg" alt="board icon">
+                        <img class="unclicked"src="./img/bord icon gray.svg" alt="board icon">
+                        <img class="clicked d-none" src="./img/board icon blue.svg" alt="board icon">
                         <p>Board</p>
                     </div>
                     <div class="navigation-item" onclick="Templates('add_task')"><!-- js noch nötig -->
-                        <img src="./img/task icon gray.svg" alt="task icon">
+                        <img class="unclicked"src="./img/task icon gray.svg" alt="task icon">
+                        <img class="clicked d-none" src="./img/task icon blue.svg" alt="task icon">
                         <p>Add Task</p>
                     </div>
                     <div class="navigation-item" onclick="loadContacts()"><!-- js noch nötig -->
-                        <img src="./img/contacts icon gray.svg" alt="contacts icon">
+                        <img class="unclicked"src="./img/contacts icon gray.svg" alt="contacts icon">
+                        <img class="clicked d-none" src="./img/contacts icon blue.svg" alt="contacts icon">
                         <p>Contacts</p>
                     </div>
                 </div>
