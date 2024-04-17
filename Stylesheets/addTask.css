@@ -166,7 +166,7 @@ h3 {
 }
 
 .addTaskDueDateInput::-webkit-calendar-picker-indicator {
-    background-image: url('./img/event.svg');
+    background-image: url('../img/event.svg');
     width: 18px;
     height: 20px;
 }
@@ -319,7 +319,7 @@ h3 {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background-image: url('./img/arrow_drop_down.svg');
+    background-image: url('../img/arrow_drop_down.svg');
     background-repeat: no-repeat;
     background-position: right center;
     background-origin: content-box;
@@ -362,11 +362,11 @@ h3 {
 }
 
 .dropdowncontacts::-webkit-scrollbar-button:start {
-    background-image: url('./img/scrollButtonUp.svg');
+    background-image: url('../img/scrollButtonUp.svg');
 }
 
 .dropdowncontacts::-webkit-scrollbar-button:end {
-    background-image: url('./img/scrollButtonDown.svg');
+    background-image: url('../img/scrollButtonDown.svg');
 }
 
 .dropdowncontacts::-webkit-scrollbar-button:decrement {
@@ -435,7 +435,7 @@ h3 {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background-image: url('./img/arrow_drop_down.svg');
+    background-image: url('../img/arrow_drop_down.svg');
     background-repeat: no-repeat;
     background-position: right center;
     background-origin: content-box;
@@ -477,11 +477,11 @@ h3 {
 }
 
 .dropdownSelectTasksCategory::-webkit-scrollbar-button:start {
-    background-image: url('./img/scrollButtonUp.svg');
+    background-image: url('../img/scrollButtonUp.svg');
 }
 
 .dropdownSelectTasksCategory::-webkit-scrollbar-button:end {
-    background-image: url('./img/scrollButtonDown.svg');
+    background-image: url('../img/scrollButtonDown.svg');
 }
 
 .dropdownSelectTasksCategory::-webkit-scrollbar-button:decrement {
@@ -699,11 +699,11 @@ h3 {
     }
 
     .addTaskContainer::-webkit-scrollbar-button:start {
-        background-image: url('./img/scrollButtonUp.svg');
+        background-image: url('../img/scrollButtonUp.svg');
     }
 
     .addTaskContainer::-webkit-scrollbar-button:end {
-        background-image: url('./img/scrollButtonDown.svg');
+        background-image: url('../img/scrollButtonDown.svg');
     }
 
     .addTaskContainer::-webkit-scrollbar-button:decrement {
