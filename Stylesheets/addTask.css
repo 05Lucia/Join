@@ -430,6 +430,25 @@ h3 {
     margin-top: -12px;
 }
 
+.errorMessageIfEmptyCategory{
+    font-size: 13px;
+    color: rgba(255, 129, 144, 1);
+    line-height: 16px;
+    visibility: hidden;
+}
+
+@keyframes highlight {
+    0% {
+        font-weight: bold;
+    }
+    50% {
+        font-weight: normal;
+    }
+    100% {
+        font-weight: bold;
+    }
+}
+
 .selectTaskDropdown {
     border: none;
     border-bottom: 1px solid rgb(209, 209, 209);
