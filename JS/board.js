@@ -12,7 +12,7 @@ let cards = [
         },
         "titel": 'Test',
         "description": 'irgend was ganz langes zu scheiben ist nervig so ich hofe ich habe langsam 2 zeilen ericht und bin jetzt auch langas mal drüber und schon bei der dritten die man hoffentlich nicht sieh! Auser das ist die Große Karte.',
-        "dueDate": '17.04.2024',
+        "dueDate": '17-04-2024',
         "subtasks": [
             {
                 "text": 'testing extra lang',
@@ -47,7 +47,7 @@ let cards = [
         },
         "titel": 'Hallo Hallo',
         "description": 'irgend was ....',
-        "dueDate": '20.04.2024',
+        "dueDate": '20-04-2024',
         "subtasks": [
             {
                 "text": 'testing',
