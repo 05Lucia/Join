@@ -344,6 +344,7 @@ function closeCard() {
     let container = document.getElementById('borad-card-overlay');
     container.classList.add('d-none');
     container.style.justifyContent = "center";
+    container.style.alignItems = "center"
     container.innerHTML = `<div class="borad-card-popup d-none" id="borad-card-popup" onclick="doNotClose(event)"></div>`
     document.body.classList.remove('body-noscroll-class');
 }
@@ -496,6 +497,7 @@ function boardPopupAddTask() {
 
     container.innerHTML = boardPopupAddTaskWindow();
 
+    
     document.getElementById('borad-card-overlay').classList.remove('d-none');
     document.body.classList.add('body-noscroll-class');
     container.style.justifyContent = "flex-end"
