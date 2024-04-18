@@ -288,11 +288,11 @@
     display: none;
 }
 
-.search-btn-normal:hover~.search-btn-hover {
+.search-btn-container:hover>.search-btn-hover {
     display: flex;
 }
 
-.search-btn-normal:hover {
+.search-btn-container:hover>.search-btn-normal {
     display: none;
 }
 
