@@ -656,6 +656,10 @@
         align-items: flex-start;
         padding-top: 24px
     }
+
+    .addTask-popup-container {
+        overflow-y: scroll;
+    }
 }
 
 @media (min-width: 1127px) {
