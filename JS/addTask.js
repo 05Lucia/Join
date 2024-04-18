@@ -15,7 +15,7 @@ async function loadAddTasks() {
 /**
  * Initializes functionalities related to adding tasks.
  *
- * This function likely performs actions to prepare the "add task" functionality. 
+ * This function likely performs actions to prepare the "add task" functionality.
  * It calls `changePriorityColor` (not provided) for potential default priority color setting.
  */
 function addTaskInit() {
@@ -326,7 +326,7 @@ function openCreatedSubtaskBox() {
         document.getElementById('createdSubTasksBox').innerHTML += /*html*/`
         <div class="eachSubtask" id="eachSubtask(${i})" onclick="">
            <li>${subtask}</li>
-         
+
            <div class="createdSubtasksIcons" id="createdSubtasksIcons">
                 <img src="./img/edit.svg" onclick="">
                 <div class="addTaskSubtasksIconsSeperator"></div>
@@ -430,8 +430,20 @@ function createTask() {
         priorities = [];
         selectedAssignedContacts = [];
         createdSubtasks = [];
+        showTaskCreatedPopUp();
     }
 }
 
-
-
+function showTaskCreatedPopUp() {
+    document.getElementById('taskCreatedButtonContainer').style.display = "flex";
+    setTimeout(() => {
+        document.getElementById('taskCreatedButton').classList.add('showTaskCreatedButtonContainer');
+    }, 20);
+    setTimeout(() => {
+        document.getElementById('taskCreatedButton').classList.remove('showTaskCreatedButtonContainer');
+        document.getElementById('taskCreatedButtonContainer').style.display = "none";
+    }, 800);
+    setTimeout(() => {
+        lodeBoard();
+    }, 820);
+}
