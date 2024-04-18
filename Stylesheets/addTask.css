@@ -334,6 +334,10 @@ h3 {
     outline: none;
 }
 
+.assignContactsDropdown::placeholder{
+    color: black;
+}
+
 .dropdowncontacts {
     margin-top: -8px;
     display: flex;

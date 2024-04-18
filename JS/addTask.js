@@ -135,9 +135,15 @@ function toggleAssignToDropdown() {
 }
 
 function openAssignToDropdown() {
+    document.getElementById("assignContactsDropdown").placeholder = "";
     document.getElementById('dropdowncontacts').style.display = 'flex';
     document.getElementById('dropdowncontacts').innerHTML = '';
+    renderAllContacts();    
+}
+
+function renderAllContacts(){
     sortByFirstName();
+    document.getElementById('dropdowncontacts').innerHTML = "";
     for (let i = 0; i < contacts.length; i++) {
         const contact = contacts[i];
         let isAssigned = selectedAssignedContacts.some(item => item.name === `${contact.name} ${contact.surname}`);
@@ -164,6 +170,7 @@ function openAssignToDropdown() {
 }
 
 function closeAssignToDropdown() {
+    document.getElementById("assignContactsDropdown").placeholder = "Select contacts to assign";
     document.getElementById('dropdowncontacts').style.display = 'none';
 }
 
@@ -175,6 +182,52 @@ function changeBackCheckBoxStyle(i) {
     document.getElementById(`assignContactCheckBox(${i})`).src = "./img/assingContactCheckUnchecked.svg";
 }
 
+function searchContactToAssign() {
+    let search = document.getElementById('assignContactsDropdown').value.toLowerCase(); // Suche in Kleinbuchstaben umwandeln
+
+    // Leeres Suchfeld -> zeige alle Kontakte
+    if (search === '') {
+        renderAllContacts();
+        return;
+    }
+
+    // Filtern und nur passende Kontakte anzeigen
+    const filteredContacts = contacts.filter(contact =>
+        contact.name.toLowerCase().startsWith(search) || // nach Vorname filtern
+        contact.surname.toLowerCase().startsWith(search) // nach Nachname filtern
+    );
+
+    renderFilteredContacts(filteredContacts);
+}
+
+function renderFilteredContacts(filteredContacts) {
+    const dropdownContainer = document.getElementById('dropdowncontacts');
+    dropdownContainer.style.display = 'flex';
+    dropdownContainer.innerHTML = ''; // Leeren des Dropdown-Menüs
+
+    filteredContacts.forEach((contact, i) => {
+        let isAssigned = selectedAssignedContacts.some(item => item.name === `${contact.name} ${contact.surname}`);
+        let backgroundColor = isAssigned ? "rgba(69, 137, 255, 1)" : "white";
+        let textColor = isAssigned ? "white" : "black";
+        let checkBoxSrc = isAssigned ? "./img/assignContactCheckChecked.svg" : "./img/assingContactCheckUnchecked.svg";
+
+        dropdownContainer.innerHTML += /*html*/`
+            <div class="dropdownEachContact" id="dropdownEachContact(${i})" style="background-color: ${backgroundColor}" onclick="assingContact(${i})">
+                <div class="assignToContactAvatarAndName">
+                    <div class="assignToContactAvatar" style="background-color: ${contact['avatarColor']};">
+                    ${contact['initials']}
+                    </div>
+                    <div class="assignToContactName" id="assignToContactName(${i})" style="color: ${textColor}">
+                    ${contact.name} ${contact.surname}
+                    </div>
+                </div>
+                <div class="assignToCheckBox">
+                    <img id="assignContactCheckBox(${i})" src="${checkBoxSrc}">
+                </div>
+            </div>
+        `;
+    });
+}
 
 function assingContact(i) {
     let contact = contacts[i]; // Den ausgewählten Kontakt erhalten
