@@ -39,6 +39,10 @@ body {
     display: none !important;
 }
 
+.fullHeight {
+    height: 100%;
+}
+
 /*design von buttons*/
 
 .blueBtn {

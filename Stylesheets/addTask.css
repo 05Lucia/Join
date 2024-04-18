@@ -970,3 +970,47 @@ h3 {
         transition: bottom 0.125s ease-out;
     }
 }
+
+/* Popup ---------------------------------------------------------------------------------------------------------------------- */
+
+.addTaskWrapperPopup {
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    max-height: calc(100vh - 5rem);
+    padding-top: 0;
+    padding-bottom: 0px;
+}
+
+.addTaskContainerPopup {
+    width: 488px;
+    min-width: 400px;
+    height: 769px;
+    padding-top: 0;
+    gap: 24px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.createTaskContainerPopup {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    margin-top: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 70px;
+    padding-top: 16px;
+    gap: 24px;
+}
+
+.clearTaskButtonPopup{
+    display: none;
+}
