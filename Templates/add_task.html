@@ -55,6 +55,7 @@
             <div class="selectTaskDropdown" id="selectTaskDropdown" onclick="toggleSelectTaskCategoryDropdown()">
                 <span id="selectTaskCategoryTextField">Select task category</span>
             </div>
+            <p class="errorMessageIfEmptyCategory">This field is required</p>
             <div class="dropdownSelectTasksCategory" id="dropdownSelectTasksCategory" style="display: none">
             </div>
         </div>
@@ -73,7 +74,7 @@
         </div>
     </div>
     <div class="createTaskContainer">
-        <button class="clearTaskButton" onclick="resetAddTastForm()">
+        <button class="clearTaskButton" onclick="resetAddTaskForm()">
             <p>Clear</p>
             <img src="./img/clearTaskX.svg">
         </button>

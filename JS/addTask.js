@@ -18,7 +18,7 @@ async function loadAddTasks() {
  * This function likely performs actions to prepare the "add task" functionality. 
  * It calls `changePriorityColor` (not provided) for potential default priority color setting.
  */
-function addTaskInit() {
+function addTaskInit()  {
     changePriorityColor('mediumPriorityButton');
 }
 
@@ -50,6 +50,7 @@ function errorMessageIfEmptyTitle() {
     if (titleInput.value == "") {
         console.log('Fehler');
         errorMessage.style.visibility = 'visible';
+        highlightErrorMessage(errorMessage);
     } else {
         errorMessage.style.visibility = 'hidden';
         return titleInput.value;
@@ -62,6 +63,7 @@ function errorMessageIfEmptyDueDate() {
     if (dueDateInput.value == "") {
         console.log('Fehler');
         errorMessage.style.visibility = 'visible';
+        highlightErrorMessage(errorMessage);
     } else {
         errorMessage.style.visibility = 'hidden';
         return dueDateInput.value;
@@ -232,6 +234,7 @@ function toggleSelectTaskCategoryDropdown() {
         openTaskCategoryDropdown();
     } else {
         closeTaskCategoryDropdown();
+        errorMessageIfEmptyCategory();
     }
 }
 
@@ -256,6 +259,25 @@ function selectTaskCategory(i) {
     let taskCategory = taskCategories[i];
     document.getElementById('selectTaskCategoryTextField').innerHTML = taskCategory;
     closeTaskCategoryDropdown();
+    errorMessageIfEmptyCategory();
+}
+
+function errorMessageIfEmptyCategory() {
+    let selectedCategory = document.getElementById('selectTaskCategoryTextField').textContent;
+    let errorMessage = document.querySelector('.errorMessageIfEmptyCategory');
+    if (selectedCategory === 'Select task category') { // Überprüfe, ob eine gültige Kategorie ausgewählt wurde
+        errorMessage.style.visibility = 'visible';
+        highlightErrorMessage(errorMessage);
+    } else {
+        errorMessage.style.visibility = 'hidden';
+    }
+}
+
+function highlightErrorMessage(errorMessage) {
+    errorMessage.style.animation = 'highlight 1s';
+    setTimeout(() => {
+        errorMessage.style.animation = '';
+    }, 125);
 }
 
 let createdSubtasks = [];
@@ -306,11 +328,18 @@ function deleteCreatedSubtask(subTastIndex) {
 }
 
 
-function resetAddTastForm() {
+function resetAddTaskForm() {
     document.getElementById('addTaskInputTitle').value = '';
     document.getElementById('addTaskDescriptionInput').value = '';
     document.getElementById('addTaskDueDateInput').value = '';
-
+    changePriorityColor('mediumPriorityButton');
+    document.getElementById('avatarsOfSelectedContacts').innerHTML = "";
+    selectedAssignedContacts = [];
+    document.getElementById('selectTaskCategoryTextField').innerHTML = "Select task category";
+    createdSubtasks = [];
+    document.querySelector('.errorMessageIfEmptyTitle').style.visibility = 'hidden';
+    document.querySelector('.errorMessageIfEmptyDueDate').style.visibility = 'hidden';
+    document.querySelector('.errorMessageIfEmptyCategory').style.visibility = 'hidden';
 }
 
 function createTask() {
@@ -324,44 +353,67 @@ function createTask() {
     let id = cards.length > 0 ? cards[cards.length - 1].id + 1 : 0; // ID erstellen
     let place = 'todo'; // Place festlegen
 
-    // Priorität Bildpfad festlegen
-    let priorityImg;
-    if (priority == 'Urgent') {
-        priorityImg = './img/priorityHighInactive.svg';
-    } else if (priority == 'Medium') {
-        priorityImg = './img/priorityMediumInactive.svg';
+
+    if (title == null && dueDate == null && !taskCategories.includes(category)) {
+        errorMessageIfEmptyTitle();
+        errorMessageIfEmptyDueDate();
+        errorMessageIfEmptyCategory();
+    } else if (title == null && dueDate == null) {
+        errorMessageIfEmptyTitle();
+        errorMessageIfEmptyDueDate();
+    } else if (title == null && !taskCategories.includes(category)) {
+        errorMessageIfEmptyTitle();
+        errorMessageIfEmptyCategory();
+    } else if (dueDate == null && !taskCategories.includes(category)) {
+        errorMessageIfEmptyDueDate();
+        errorMessageIfEmptyCategory();
+    } else if (title == null) {
+        errorMessageIfEmptyTitle();
+    } else if (dueDate == null) {
+        errorMessageIfEmptyDueDate();
+    } else if (!taskCategories.includes(category)) {
+        errorMessageIfEmptyCategory();
     } else {
-        priorityImg = './img/priorityLowInactive.svg';
-    }
 
-    // Neues Kartenobjekt erstellen
-    let newCard = {
-        id: id,
-        place: place,
-        category: {
-            name: category,
-            color: ''
-        },
-        titel: title,
-        description: description,
-        dueDate: dueDate,
-        subtasks: subtasks,
-        assigned: assigned,
-        priority: {
-            urgency: priority,
-            img: priorityImg
+        // Priorität Bildpfad festlegen
+        let priorityImg;
+        if (priority == 'Urgent') {
+            priorityImg = './img/priorityHighInactive.svg';
+        } else if (priority == 'Medium') {
+            priorityImg = './img/priorityMediumInactive.svg';
+        } else {
+            priorityImg = './img/priorityLowInactive.svg';
         }
-    };
 
-    // Karte zum Array hinzufügen
-    cards.push(newCard);
+        // Neues Kartenobjekt erstellen
+        let newCard = {
+            id: id,
+            place: place,
+            category: {
+                name: category,
+                color: ''
+            },
+            titel: title,
+            description: description,
+            dueDate: dueDate,
+            subtasks: subtasks,
+            assigned: assigned,
+            priority: {
+                urgency: priority,
+                img: priorityImg
+            }
+        };
 
-    // Zur Überprüfung in der Konsole ausgeben
-    console.log('Neue Karte erstellt:', newCard);
+        // Karte zum Array hinzufügen
+        cards.push(newCard);
 
-    priorities = [];
-    selectedAssignedContacts = [];
-    createdSubtasks = [];
+        // Zur Überprüfung in der Konsole ausgeben
+        console.log('Neue Karte erstellt:', newCard);
+
+        priorities = [];
+        selectedAssignedContacts = [];
+        createdSubtasks = [];
+    }
 }
 
 
