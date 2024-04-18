@@ -155,10 +155,10 @@ function openAssignToDropdown() {
     document.getElementById("assignContactsDropdown").placeholder = "";
     document.getElementById('dropdowncontacts').style.display = 'flex';
     document.getElementById('dropdowncontacts').innerHTML = '';
-    renderAllContacts();    
+    renderAllContacts();
 }
 
-function renderAllContacts(){
+function renderAllContacts() {
     sortByFirstName();
     document.getElementById('dropdowncontacts').innerHTML = "";
     for (let i = 0; i < contacts.length; i++) {
@@ -190,6 +190,7 @@ function closeAssignToDropdown() {
     document.getElementById("assignContactsDropdown").placeholder = "Select contacts to assign";
     document.getElementById('dropdowncontacts').style.display = 'none';
 }
+
 
 function changeCheckBoxStyle(i) {
     document.getElementById(`assignContactCheckBox(${i})`).src = "./img/assignContactCheckChecked.svg";

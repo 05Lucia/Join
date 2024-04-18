@@ -202,6 +202,13 @@ function checkPrivacyPolicy() {
     return true;
 }
  
+
+/**
+ * Asynchronously loads user data from storage.
+ * @returns {Promise<Array>} A promise that resolves to an array of users if found, otherwise returns an empty array.
+ * @throws {Error} Throws an error if there is an issue loading the users.
+ */
+
 async function loadUsers() {
     try {
         let result = await getItem('users');
@@ -218,7 +225,13 @@ async function loadUsers() {
     }
 }
 
-
+/**
+ * Asynchronously adds a new user to the storage if the email does not already exist.
+ * Ensures all fields are filled and the privacy policy is checked before proceeding.
+ * Redirects to login page on successful registration or alerts the user on failure conditions.
+ * @async
+ * @returns {Promise<void>}
+ */
 async function addUser() {
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;
@@ -251,11 +264,23 @@ async function addUser() {
 }
 
 
+/**
+ * Checks if an email already exists in the user data.
+ * @param {string} email - Email address to check against the existing users.
+ * @returns {Promise<boolean>} A promise that resolves to true if the email exists, otherwise false.
+ */
 async function checkIfEmailExists(email) {
     let users = await loadUsers();
     return users.some(user => user.email === email);
 }
 
+
+/**
+ * Processes the login by checking the provided credentials against stored users.
+ * Sets local storage items if the credentials are valid, otherwise alerts the user.
+ * @async
+ * @returns {Promise<void>}
+ */
 async function login() {
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;
@@ -283,9 +308,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
  
+
+/**
+ * Displays the signup modal.
+ */
 function successfulSignup() {
    document.getElementById("signupModal").style.display = "block";   
 }
+
+
+/**
+ * Closes the signup modal and redirects to the main page.
+ */
 
 function closeModal() {
     console.log("closeModal called");
@@ -293,11 +327,21 @@ function closeModal() {
     window.location.href = '../index.html'; //redirect to Join board//
 }
 
-/* Reset Password*/
+
+/**
+ * Displays the reset password popup.
+ */
 function resetPassword() { 
     document.getElementById("resetPasswordPopup").style.display = "block";
 }
 
+
+/**
+ * Changes the user's password after validating the new password field.
+ * Alerts the user whether the change was successful or not.
+ * @async
+ * @returns {Promise<void>}
+ */
 async function changePassword() {
     let newPassword = document.getElementById('newPassword').value;
     if (!newPassword) {
@@ -323,30 +367,45 @@ async function changePassword() {
     }
 }
 
+
+/**
+ * Closes the reset password popup and redirects to the login page.
+ */
 function closeReset() { 
     document.getElementById("resetPasswordPopup").style.display = "none";
     window.location.href = '../login.html'; 
 }
 
-function closeReset() { 
-    document.getElementById("resetPasswordPopup").style.display = "none";
-    window.location.href = '../login.html'; 
+/**
+ * Handles the login for guests by setting necessary session states and redirecting.
+ */
+function guestLogin() { 
+    alert("Welcome, dear guest! Please be aware that your access is limited. To fully enjoy all the features of Join, consider registering using our sign-up form.");
+    handleGuestLogin();
+    window.location.href = '../index.html';  
 }
 
-/*greet user*/
-document.addEventListener('DOMContentLoaded', function() {
-    if (!localStorage.getItem('isLoggedIn')) { 
-        window.location.href = '../login.html';
-    } else { 
-        greetUser();
+
+/**
+ * Sets up the session for a guest user and calls greetUser to display a welcome message.
+ */
+function handleGuestLogin() {
+    if (localStorage.getItem('isLoggedIn') !== 'true') {
+        localStorage.setItem('currentUserName', 'Gast');
+        localStorage.setItem('isLoggedIn', 'true');
     }
-});
+    greetUser();
+}
 
+
+/**
+ * Displays a greeting message based on the current time of day to the logged-in user.
+ */
 function greetUser() {
     let userName = localStorage.getItem('currentUserName');  
     let greetingElement = document.getElementById('greeting');
     let currentHour = new Date().getHours();
-    let greetingText = "Welcome";  //standard//
+    let greetingText = "Welcome";
 
     if (currentHour < 12) {
         greetingText = "Good morning";
@@ -356,9 +415,15 @@ function greetUser() {
         greetingText = "Good evening";
     }
 
-    greetingElement.textContent = `${greetingText} ${userName}`;  
+    if (greetingElement) {
+        greetingElement.textContent = `${greetingText}, ${userName}.`;
+    } 
 }
 
+
+/**
+ * Logs out the current user by clearing session-related data and redirecting to the login page.
+ */
 function logout() {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('currentUserName');

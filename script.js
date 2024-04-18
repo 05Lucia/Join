@@ -1,8 +1,12 @@
 async function init() {
     //login page after start animation//
-    startAnimation();
-    loadUsers();
-    includeHTML();
+    if (!localStorage.getItem('isLoggedIn')) {  
+        startAnimation();
+    }
+    await loadUsers();
+    handleGuestLogin();
+    await includeHTML();
+    greetUser();
 }
 
 function startAnimation() {
@@ -30,6 +34,9 @@ async function includeHTML() {
             element.innerHTML = 'Page not found';
         }
     }
+    if (document.getElementById('greeting')) {
+        greetUser();
+        }
 }
 
 /**
@@ -68,51 +75,19 @@ function closeDropdowen() {
 }
 
 /**
- * Loads legal notice template and highlights the legal notice section.
- *
- * This function uses `async` to load the legal notice template via `Templates` (not provided).
- * After successful loading (assumed), it:
- *  - Closes the dropdown (implementation in `closeDropdowen` not provided).
- *  - Highlights the legal notice section with `legalNoticeHiglite`.
+ * Loads the legal notice template and closes the navigation overlay dropdown menu.
  */
-async function dropdowenLegalNotice() {
-    await Templates('legal_notice');
-    await closeDropdowen();
-    legalNoticeHiglite();  
+function dropdowenLegalNotice() {
+    Templates('legal_notice');
+    closeDropdowen();
 }
 
 /**
- * Highlights the legal notice navigation element.
- *
- * This function adds the "navigation-legal-clicked" class to the element with ID "navLegalNotice", visually marking it as selected.
+ * Loads the privacy policy template and closes the navigation overlay dropdown menu.
  */
-function legalNoticeHiglite() {
-    let legalNotice = document.getElementById('navLegalNotice');
-    legalNotice.classList.add('navigation-legal-clicked');
-}
-
-/**
- * Loads privacy policy template and highlights the privacy policy section.
- *
- * This function uses `async` to load the privacy policy template via `Templates` (not provided).
- * After successful loading (assumed), it:
- *  - Closes the dropdown (implementation in `closeDropdowen` not provided).
- *  - Highlights the privacy policy section with `privacyPolicyHiglite`.
- */
-async function dropdowenPrivacyPolicy() {
-    await Templates('privacy_policy');
-    await closeDropdowen();
-    privacyPolicyHiglite();
-}
-
-/**
- * Highlights the privacy policy navigation element.
- *
- * This function adds the "navigation-legal-clicked" class to the element with ID "navPrivacyPolicy", visually marking it as selected.
- */
-function privacyPolicyHiglite() {
-    let privacyPolicy = document.getElementById('navPrivacyPolicy');
-    privacyPolicy.classList.add('navigation-legal-clicked');
+function dropdowenPrivacyPolicy() {
+    Templates('privacy_policy');
+    closeDropdowen();
 }
 
 /**
@@ -138,8 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
     clickedLegalPart();
     removeNaviagtionClick();
     removeClickedLegalPart();
-    removeNavHigliteOnDropdowen();
-    removeNavHigliteLegalPartOnDropdowen();
 });
 
 /**
@@ -257,86 +230,15 @@ function removeClickedLegalPart() {
     })
 }
 
-/**
- * Removes highlight from the navigation summary section.
- *
- * This function removes the "navigation-item-clicked" class from the element with ID "navSummary", likely deselecting it visually.
- */
-function changeNavigationPrivacyPolicy() {
-    let summary = document.getElementById('navSummary');
-    
-    summary.classList.remove('navigation-item-clicked');
-   
-}
-
-/**
- * Removes highlight from any clicked navigation item on dropdown click.
- *
- * This function attaches click event listeners to all anchor tags within elements with the class "dropdowen-container".
- * When a dropdown anchor is clicked, it removes the "navigation-item-clicked" class from any currently highlighted navigation item (if any).
- */
-function removeNavHigliteOnDropdowen() {
-    const btnElList = document.querySelectorAll('.dropdowen-container a');
-
-    btnElList.forEach(btnEl => {
-        btnEl.addEventListener('click', () => {
-            document.querySelector('.navigation-item-clicked')?.classList.remove('navigation-item-clicked');
-            resetNavigationItems();
-        })
-    })
-}
-
-/**
- * Removes highlight from any clicked legal section element on dropdown click.
- *
- * This function is similar to `removeNavHigliteOnDropdowen` but targets elements with the "navigation-legal-clicked" class.
- * When a dropdown anchor is clicked, it removes the "navigation-legal-clicked" class from any currently highlighted legal section element (if any).
- */
-function removeNavHigliteLegalPartOnDropdowen() {
-    const btnElList = document.querySelectorAll('.dropdowen-container a');
-
-    btnElList.forEach(btnEl => {
-        btnEl.addEventListener('click', () => {
-            document.querySelector('.navigation-legal-clicked')?.classList.remove('navigation-legal-clicked');
-            resetNavigationItems();
-        })
-    })
-}
-
 // summary -------------------------------------------------------------------------------------------------------
 /**
- * Loads summary template, updates summary numbers, and highlights summary navigation.
+ * Loads and displays the summary template and then retrieves task counts for each list.
  *
- * This function uses `async` to load the summary template via `Templates` (not provided).
- * After successful loading (assumed), it:
- *  - Updates summary numbers with `summaryLodeNumbers` (implementation not provided).
- *  - Highlights the summary navigation section with `changeNavigationHigliteSummary`.
+ * @async
  */
 async function summaryLode() {
     await Templates('summary');
     summaryLodeNumbers();
-    changeNavigationHigliteSummary()
-}
-
-/**
- * Highlights the summary navigation element and removes highlights from legal sections.
- *
- * This function adds the "navigation-item-clicked" class to the element with ID "navSummary", visually marking it as selected.
- * It also removes the "navigation-legal-clicked" class from both legal notice and privacy policy elements.
- * Additionally, it adjusts element visibility based on screen size (potentially for mobile).
- */
-function changeNavigationHigliteSummary() {
-    let summary = document.getElementById('navSummary');
-    let privacyPolicy = document.getElementById('navPrivacyPolicy');
-    let legalNotice = document.getElementById('navLegalNotice');
-    summary.classList.add('navigation-item-clicked');
-    legalNotice.classList.remove('navigation-legal-clicked');
-    privacyPolicy.classList.remove('navigation-legal-clicked');
-
-    if (window.innerWidth < 800) {
-        summary.children[0].classList.add('d-none');
-        summary.children[1].classList.remove('d-none');
-    }
 }
 
 /**
