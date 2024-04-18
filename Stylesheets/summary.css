@@ -303,14 +303,14 @@
 
     .btn-container {
         width: 100%;
-        min-width: 600px;
+        min-width: 500px;
         max-width: calc(100vw - 200px);
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: 190px 220px 220px;
         justify-content: center;
         align-items: center;
-        gap: 24px;
+        gap: 10px;
         grid-template-areas:
             "first first first"
             "second thrid fourth"
@@ -328,7 +328,7 @@
 
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 1050px) {
     .btn-container {
         width: 100%;
         max-width: 1000px;

@@ -106,6 +106,34 @@ let cards = [
 async function lodeBoard() {
     await Templates('board');
     updateCads();
+    changeNavigation()
+}
+
+/**
+ * Updates navigation visuals to show the board section.
+ *
+ * This function removes the "clicked" class from summary and add task elements, 
+ * and adds it to the board element, visually marking it as selected.
+ * Additionally, it adjusts element visibility based on screen size (potentially for mobile).
+ */
+function changeNavigation() {
+    let summary = document.getElementById('navSummary');
+    let addTask = document.getElementById('navAddTask');
+    let board = document.getElementById('navBoard');
+    summary.classList.remove('navigation-item-clicked');
+    board.classList.add('navigation-item-clicked');
+    addTask.classList.remove('navigation-item-clicked');
+
+    if (window.innerWidth < 800) {
+        summary.children[1].classList.add('d-none');
+        summary.children[0].classList.remove('d-none');
+
+        board.children[0].classList.add('d-none');
+        board.children[1].classList.remove('d-none');
+
+        addTask.children[1].classList.add('d-none');
+        addTask.children[0].classList.remove('d-none');
+    }
 }
 
 /**

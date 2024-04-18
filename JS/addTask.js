@@ -1,10 +1,47 @@
+/**
+ * Asynchronously loads "add task" templates and initializes functionalities.
+ *
+ * This function uses `async` to load templates via `Templates` (not provided).
+ * After successful loading (assumed), it:
+ *  - Initializes "add task" functionalities with `addTaskInit`.
+ *  - Updates navigation to show "Add Task" with `changeNavigationAddTask`.
+ */
 async function loadAddTasks() {
     await Templates('add_task');
     addTaskInit();
+    changeNavigationAddTask()
 }
 
-function addTaskInit(){
+/**
+ * Initializes functionalities related to adding tasks.
+ *
+ * This function likely performs actions to prepare the "add task" functionality. 
+ * It calls `changePriorityColor` (not provided) for potential default priority color setting.
+ */
+function addTaskInit() {
     changePriorityColor('mediumPriorityButton');
+}
+
+/**
+ * Updates navigation visuals to show the "Add Task" section.
+ *
+ * This function switches the visual selection to the "Add Task" navigation item.
+ * Additionally, it adjusts element visibility based on screen size (potentially for mobile).
+ */
+function changeNavigationAddTask() {
+    let addTask = document.getElementById('navAddTask');
+    let board = document.getElementById('navBoard');
+
+    board.classList.remove('navigation-item-clicked');
+    addTask.classList.add('navigation-item-clicked');
+
+    if (window.innerWidth < 800) {
+        addTask.children[0].classList.add('d-none');
+        addTask.children[1].classList.remove('d-none');
+
+        board.children[1].classList.add('d-none');
+        board.children[0].classList.remove('d-none');
+    }
 }
 
 function errorMessageIfEmptyTitle() {
@@ -269,11 +306,11 @@ function deleteCreatedSubtask(subTastIndex) {
 }
 
 
-function resetAddTastForm(){
+function resetAddTastForm() {
     document.getElementById('addTaskInputTitle').value = '';
     document.getElementById('addTaskDescriptionInput').value = '';
     document.getElementById('addTaskDueDateInput').value = '';
-    
+
 }
 
 function createTask() {
