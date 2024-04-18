@@ -23,6 +23,23 @@ function addTaskInit() {
 }
 
 /**
+ * Conditionally loads "add task" functionalities based on screen size.
+ *
+ * This function checks the screen width:
+ *  - If the screen width is less than 800px (mobile view):
+ *      - It calls `loadAddTasks` to potentially load templates and initialize adding tasks (place argument might be used for specific handling).
+ *  - Otherwise (larger screens):
+ *      - It calls `boardPopupAddTask` (not provided) to potentially handle adding tasks for larger screens (place argument might be used for specific handling).
+ */
+function openAddTaskSmallBtnBoard(place) {
+    if (window.innerWidth < 800) {
+        loadAddTasks(place);
+    } else {
+        boardPopupAddTask(place);
+    }
+}
+
+/**
  * Updates navigation visuals to show the "Add Task" section.
  *
  * This function switches the visual selection to the "Add Task" navigation item.
