@@ -214,16 +214,11 @@ function separateCards(overdueCards, upcomingCards, currentDate) {
     }
 }
 
-/**
- * Sorts upcoming cards by their due date in ascending order.
- *
- * This function uses the `sort` method with a custom compare function to sort the `upcomingCards` array.
- * The compare function parses the due date strings into Date objects and returns the difference between them.
- * This effectively sorts the cards with the earliest due date first.
- *
- * @param {array} upcomingCards - The array of upcoming card objects.
- * @returns {array} - The sorted array of upcoming cards.
- */
+ /**
+   * Sorts the upcoming cards array by due date in ascending order.
+   * @param {Array} upcomingCards - An array of upcoming card objects.
+   * @returns {Array} - The sorted array of upcoming cards.
+   */
 function sortUpcomingCards(upcomingCards) {
     return upcomingCards.sort((a, b) => {
         const dateA = a.dueDate ? new Date(`${a.dueDate.split('-')[1]}/${a.dueDate.split('-')[0]}/${a.dueDate.split('-')[2]}`) : new Date(8640000000000000);
