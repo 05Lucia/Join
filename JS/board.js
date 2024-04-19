@@ -77,7 +77,7 @@ let cards = [
         },
         "titel": 'test ohne Subtask',
         "description": 'test test 0 von 0!',
-        "dueDate": '',
+        "dueDate": '30-04-2024',
         "subtasks": [],
         "assigned": [
             {
@@ -332,6 +332,7 @@ function bigCard(id) {
         container.innerHTML = TaskCadBigTemplate(card, id);
         bigCardAssigned(card);
         bigCardSubtasksCheck(card);
+        dueDateConvert(card);
     } else {
         console.error("Card with ID", id, "not found in the cards array");
     }
@@ -383,6 +384,12 @@ function bigCardAssigned(card) {
     } else {
         document.getElementById(`assigned-container`).classList.add('d-none')
     }
+}
+
+function dueDateConvert(card) {
+    let dueDateContainer = document.getElementById('due-date');
+    const formattedDueDate = card.dueDate.replace(/-/g, '.');
+    dueDateContainer.innerText = `${formattedDueDate}`;
 }
 
 /**

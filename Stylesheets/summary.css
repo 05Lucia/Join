@@ -71,6 +71,10 @@
     transition: all 0.15s ease-in-out;
 }
 
+.missed-deadline {
+    background-color: red !important;
+  }
+
 .urgent-button h2 {
     font-weight: 700px;
 }
@@ -86,6 +90,11 @@
     background-color: white;
     color: var(--hoverBlue);
 }
+
+.missed-deadline:hover {
+    background-color: white !important;
+    color: red !important;
+  }
 
 .urgent-button:hover .wiht-line {
     border: 2px solid var(--hoverBlue);

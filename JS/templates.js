@@ -67,7 +67,7 @@ function TaskCadBigTemplate(card, id) {
         <p class="board-card-big-description">${card.description} </p>
         <div class="board-card-big-info">
             <h2>Due date:</h2>
-            <p>${card.dueDate} </p>
+            <p id="due-date"> </p>
         </div>
         <div class="board-card-big-info">
             <h2>Priority: </h2>
@@ -140,7 +140,7 @@ function bigCardSubtaskTemplate(taskText, img, done, i, id) {
  */
 function boardPopupAddTaskWindow() {
     return `
-    <div class="borad-card-popup-addTask" id="borad-card-popup-addTask">
+    <div class="borad-card-popup-addTask" id="borad-card-popup-addTask" onclick="doNotClose(event)">
        <div class="board-addTask-popup-top">
             <div class="add-task-titel-popup">
                 <h1>Add Task</h1>
