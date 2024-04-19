@@ -159,9 +159,12 @@ function urgentNumber() {
         return;
     }
 
+
     for (const card of cards) {
         if (card.priority && card.priority.urgency === 'Urgent') {
-            urgentCount++;
+            if (card.place != 'done') {
+                urgentCount++;
+            }
         }
     }
     container.textContent = urgentCount;
@@ -214,11 +217,11 @@ function separateCards(overdueCards, upcomingCards, currentDate) {
     }
 }
 
- /**
-   * Sorts the upcoming cards array by due date in ascending order.
-   * @param {Array} upcomingCards - An array of upcoming card objects.
-   * @returns {Array} - The sorted array of upcoming cards.
-   */
+/**
+  * Sorts the upcoming cards array by due date in ascending order.
+  * @param {Array} upcomingCards - An array of upcoming card objects.
+  * @returns {Array} - The sorted array of upcoming cards.
+  */
 function sortUpcomingCards(upcomingCards) {
     return upcomingCards.sort((a, b) => {
         const dateA = a.dueDate ? new Date(`${a.dueDate.split('-')[1]}/${a.dueDate.split('-')[0]}/${a.dueDate.split('-')[2]}`) : new Date(8640000000000000);
