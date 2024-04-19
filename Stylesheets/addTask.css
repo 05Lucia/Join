@@ -576,6 +576,22 @@ h3 {
     color: rgb(209, 209, 209);
 }
 
+.editTaskSubtasksInput {
+    font-size: 16px;
+    line-height: 19px;
+    border: none;
+    height: 48px;
+    width: 100%;
+    background-color: transparent;
+}
+
+.editTaskSubtasksInput:focus {
+    border-bottom: 1px solid rgb(209, 209, 209);
+    border-bottom-color: rgba(0, 93, 255, 1);
+    outline: none;
+}
+
+
 .addTaskSubtasksIcons {
     display: flex;
     gap: 4px;
@@ -601,11 +617,35 @@ h3 {
     justify-content: space-between;
     align-items: center;
     padding: 4px 16px 4px 16px;
-    border-radius: 10px;
     height: 48px;
 }
 
+.eachSubtaskFocused {
+    border-bottom: 1px solid rgb(209, 209, 209);
+    border-bottom-color: rgba(0, 93, 255, 1);
+    outline: none;
+}
+
+.editEachSubtask {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+    width: 100%;
+}
+
+.editEachSubtask:focus {
+    border-bottom: 1px solid rgb(209, 209, 209);
+    border-bottom-color: rgba(0, 93, 255, 1);
+    outline: none;
+}
+
 .createdSubtasksIcons {
+    display: flex;
+    gap: 4px;
+}
+
+.editCreatedSubtasksIcons {
     display: flex;
     gap: 4px;
 }
@@ -743,6 +783,7 @@ h3 {
         height: 100%;
         padding-top: 44px;
         overflow-y: auto;
+        padding-bottom: 24px;
     }
 
     /* Width of Scroll Bar*/

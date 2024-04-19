@@ -20,6 +20,8 @@ async function loadAddTasks() {
  */
 function addTaskInit() {
     changePriorityColor('mediumPriorityButton');
+    selectedAssignedContacts = [];
+    createdSubtasks = [];
 }
 
 /**
@@ -155,8 +157,15 @@ function openAssignToDropdown() {
     document.getElementById("assignContactsDropdown").placeholder = "";
     document.getElementById('dropdowncontacts').style.display = 'flex';
     document.getElementById('dropdowncontacts').innerHTML = '';
+    scrollDown();
     renderAllContacts();
 }
+
+function scrollDown() {
+    var meineDiv = document.getElementById('addTaskContainer');
+    meineDiv.scrollTop += 120; // Hier kannst du die Anzahl der Pixel ändern, um die die Div nach unten scrollt
+}
+
 
 function renderAllContacts() {
     sortByFirstName();
@@ -320,6 +329,7 @@ function openTaskCategoryDropdown() {
         </div>
     `;
     }
+    scrollDown();
 }
 
 function closeTaskCategoryDropdown() {
@@ -361,15 +371,27 @@ function showSubtaskInputMenu() {
 `;
 }
 
+function showDefaultInputMenu() {
+    document.getElementById('addTaskSubtasksIcons').innerHTML = `
+    <div class="addTaskSubtasksIcons" id="addTaskSubtasksIcons">
+        <img src="./img/addSubtaskPlusIcon.svg">
+    </div>
+    `;
+}
+
 function clearSubtaskInputField() {
     document.getElementById('addTaskSubtasksInput').value = '';
+    showDefaultInputMenu();
 }
 
 function saveSubtaskInput() {
     let createdSubtask = document.getElementById('addTaskSubtasksInput');
     createdSubtask = createdSubtask.value;
-    createdSubtasks.push(createdSubtask)
-    openCreatedSubtaskBox();
+    if (createdSubtask != "") {
+        createdSubtasks.push(createdSubtask)
+        openCreatedSubtaskBox();
+        scrollDown();
+    }
 }
 
 function openCreatedSubtaskBox() {
@@ -378,11 +400,11 @@ function openCreatedSubtaskBox() {
     for (let i = 0; i < createdSubtasks.length; i++) {
         const subtask = createdSubtasks[i];
         document.getElementById('createdSubTasksBox').innerHTML += /*html*/`
-        <div class="eachSubtask" id="eachSubtask(${i})" onclick="">
+        <div class="eachSubtask" id="eachSubtask(${i})" onclick="" >
            <li>${subtask}</li>
 
            <div class="createdSubtasksIcons" id="createdSubtasksIcons">
-                <img src="./img/edit.svg" onclick="">
+                <img src="./img/edit.svg" onclick="editCreatedSubtask(${i})">
                 <div class="addTaskSubtasksIconsSeperator"></div>
                 <img src="./img/deleteContactIcon.svg" onclick="deleteCreatedSubtask(${i})">
             </div>
@@ -393,11 +415,56 @@ function openCreatedSubtaskBox() {
     clearSubtaskInputField();
 }
 
+function editCreatedSubtask(i) {
+    document.getElementById(`eachSubtask(${i})`).classList.add('eachSubtaskFocused');
+    let currentSubtaskText = createdSubtasks[i];
+    document.getElementById(`eachSubtask(${i})`).innerHTML = /*html*/`
+    <div class="editEachSubtask" id="editEachSubtask(${i})" onclick="" >
+        <input class="editTaskSubtasksInput" id="editTaskSubtasksInput" type="text" autocomplete="off" value="${currentSubtaskText}" >
+        <div class="editCreatedSubtasksIcons" id="editCreatedSubtasksIcons">
+        <img src="./img/deleteContactIcon.svg" onclick="deleteCreatedSubtask(${i}); event.stopPropagation();">
+            <div class="addTaskSubtasksIconsSeperator"></div>
+            <img src="./img/saveCreateSubtask.svg" onclick="saveEditSubtaskInput(${i}); event.stopPropagation();">
+        </div>
+    </div>
+`;
+
+
+
+
+
+    // Fokussiere das Input-Feld
+    let inputField = document.getElementById(`editTaskSubtasksInput`);
+    inputField.focus();
+
+    // // Füge ein Leerzeichen zum Text hinzu
+    // inputField.value += ' ';
+
+    // Setze den Cursor ans Ende des Textes
+    inputField.selectionStart = inputField.selectionEnd = inputField.value.length;
+}
+
+function saveEditSubtaskInput(i) {
+    document.getElementById(`eachSubtask(${i})`).classList.remove('eachSubtaskFocused');
+    let editedSubtask = document.getElementById('editTaskSubtasksInput').value; // Den bearbeiteten Subtask aus dem Array abrufen
+    document.getElementById(`eachSubtask(${i})`).innerHTML = /*html*/`
+           <li>${editedSubtask}</li>
+
+<div class="createdSubtasksIcons" id="createdSubtasksIcons">
+     <img src="./img/edit.svg" onclick="editCreatedSubtask(${i})">
+     <div class="addTaskSubtasksIconsSeperator"></div>
+     <img src="./img/deleteContactIcon.svg" onclick="deleteCreatedSubtask(${i})">
+ </div>
+    `;
+
+    createdSubtasks[i] = editedSubtask;
+}
+
+
 function deleteCreatedSubtask(subTastIndex) {
     createdSubtasks.splice(subTastIndex, 1);
     openCreatedSubtaskBox();
 }
-
 
 function resetAddTaskForm() {
     document.getElementById('addTaskInputTitle').value = '';
