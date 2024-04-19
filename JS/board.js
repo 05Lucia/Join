@@ -503,7 +503,7 @@ function boardPopupAddTask() {
     container.style.justifyContent = "flex-end"
     container.style.alignItems = "flex-start"
 
-    document.getElementById('addTask-popup-container').innerHTML = '<div include-AddTask="./Templates/add_task-popup.html"> </div>';
+    document.getElementById('addTask-popup-container').innerHTML = '<div class="fullHeight" include-AddTask="./Templates/add_task-popup.html"> </div>';
     includeAddTask()
 }
 

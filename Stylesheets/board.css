@@ -557,6 +557,11 @@
     background-color: var(--style);
 }
 
+.addTask-popup-container {
+    overflow-y: scroll;
+    height: 865px;
+    padding-bottom: 16px;
+}
 
 @media (min-width: 800px) {
     .wraper-board {
@@ -657,9 +662,6 @@
         padding-top: 24px
     }
 
-    .addTask-popup-container {
-        overflow-y: scroll;
-    }
 }
 
 @media (min-width: 1127px) {
