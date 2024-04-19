@@ -390,6 +390,10 @@ function guestLogin() {
  * Sets up the session for a guest user and calls greetUser to display a welcome message.
  */
 function handleGuestLogin() {
+    if (localStorage.getItem('isLoggedIn') === 'true') {
+        alert("Sie sind bereits als " + localStorage.getItem('currentUserName') + " eingeloggt. Bitte loggen Sie sich aus, bevor Sie als Gast fortfahren.");
+        return;
+    }
     if (localStorage.getItem('isLoggedIn') !== 'true') {
         localStorage.setItem('currentUserName', 'Gast');
         localStorage.setItem('isLoggedIn', 'true');

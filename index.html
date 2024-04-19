@@ -39,7 +39,7 @@
             <a class="help-dropdowen" onclick="dropdowenHelp()">Help</a>
             <a onclick="dropdowenLegalNotice()">Legal notice</a>
             <a onclick="dropdowenPrivacyPolicy()">Privacy Policy</a>
-            <a >Log out</a>
+            <a onclick="logout()">Log out</a>
         </div>
     </div>
 
@@ -50,7 +50,7 @@
                     <p>Kanban Project Management Tool</p>
                     <img class="help" src="./img/help icon.svg" alt="help icon" onclick="Templates('help')">
                     <div class="dropdowen-hader">
-                        <div class="user-initals" id="user-initals" onclick="openDropdowen()">TD</div>
+                        <div class="user-initals" id="user-initals" onclick="openDropdowen()">G</div>
                     </div>
                 </div>
             </div>
@@ -58,17 +58,17 @@
         <div class="main-container">
             <div class="navigation">
                 <div class="navigation-row" onclick="naviagtionClick()">
-                    <div class="navigation-item" onclick="summaryLode()"><!-- js noch nötig -->
+                    <div id="navSummary" class="navigation-item" onclick="summaryLode()"><!-- js noch nötig -->
                         <img class="unclicked" src="./img/summary icon gray.svg" alt="summary icon">
                         <img class="clicked d-none" src="./img/summary icon blue.svg" alt="summary icon">
                         <p>Summary</p>
                     </div>
-                    <div class="navigation-item" onclick="lodeBoard ()"><!-- js noch nötig -->
+                    <div  id="navBoard" class="navigation-item" onclick="lodeBoard ()"><!-- js noch nötig -->
                         <img class="unclicked"src="./img/bord icon gray.svg" alt="board icon">
                         <img class="clicked d-none" src="./img/board icon blue.svg" alt="board icon">
                         <p>Board</p>
                     </div>
-                    <div class="navigation-item" onclick="loadAddTasks()"><!-- js noch nötig -->
+                    <div id="navAddTask" class="navigation-item" onclick="loadAddTasks()"><!-- js noch nötig -->
                         <img class="unclicked"src="./img/task icon gray.svg" alt="task icon">
                         <img class="clicked d-none" src="./img/task icon blue.svg" alt="task icon">
                         <p>Add Task</p>
@@ -80,8 +80,8 @@
                     </div>
                 </div>
                 <div class="navigation-legal" onclick="clickedLegalPart()">
-                    <div onclick="Templates('privacy_policy')">Privacy Policy</div><!-- js noch nötig -->
-                    <div onclick="Templates('legal_notice')">Legal notice</div><!-- js noch nötig -->
+                    <div id="navPrivacyPolicy" onclick="Templates('privacy_policy')">Privacy Policy</div><!-- js noch nötig -->
+                    <div id="navLegalNotice" onclick="Templates('legal_notice')">Legal notice</div><!-- js noch nötig -->
                 </div>
             </div>
 
@@ -90,7 +90,6 @@
             </div>
         </div>
     </div>
-
 
 </body>
 
