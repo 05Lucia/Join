@@ -28,7 +28,7 @@
             </div>
             <form class="loginForm" onsubmit="login(); return false;">
                 <div class="inputField">
-                    <input class="input user-email" type="email" required id="email" placeholder="Email" autocomplete="email" onblur="loadRememberedPassword()">
+                    <input class="input user-email" type="email" required id="email" placeholder="Email" autocomplete="email" onkeyup="loadRememberedPassword()">
                     <img class="inputImage" src="./img/img/mail.svg">
                 </div>
                 <div class="inputField">

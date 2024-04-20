@@ -368,15 +368,19 @@ function toggleRememberMeCheckbox(label) {
 
 
 async function loadRememberedPassword() {
+    let inputEmail = document.getElementById('email').value.trim();
+    if (inputEmail.length === 0) return;
+    
     let users = await loadUsers();
-    let rememberedUser = users.find(u => u.rememberMe);
+    let rememberedUser = users.find(u => u.rememberMe && u.email === inputEmail);
     if (rememberedUser) {
-        document.getElementById('email').value = rememberedUser.email;
         document.getElementById('password').value = rememberedUser.password;
         document.getElementById('rememberMeCheckbox').checked = true;
+    } else {
+        document.getElementById('password').value = '';
+        document.getElementById('rememberMeCheckbox').checked = false;
     }
 }
-
 document.addEventListener('DOMContentLoaded', function() {
     loadRememberedPassword();
 });

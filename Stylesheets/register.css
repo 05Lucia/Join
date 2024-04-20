@@ -447,11 +447,10 @@ input::placeholder {
 
 @media (max-width: 375px) {
     .loginContainer {
-        min-width: 340px;
+        max-width: 300px;
         padding: 0;
         gap: 20px;
         margin: 0;
-        margin-top: 10px;
     }
 
     .loginHeadline {
@@ -465,7 +464,7 @@ input::placeholder {
     }
 
     .loginHeader img {
-        width: 60px;
+        width: 80px;
         height: auto;
         top: 20px;
         left: 30px;
@@ -496,7 +495,7 @@ input::placeholder {
     }
 
     .legalNotes {
-        bottom: 20px;
+        bottom: 25px;
     }
 }
 
