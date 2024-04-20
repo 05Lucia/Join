@@ -28,7 +28,7 @@
             </div>
             <form class="loginForm" onsubmit="login(); return false;">
                 <div class="inputField">
-                    <input class="input user-email" type="email" required id="email" placeholder="Email" autocomplete="email">
+                    <input class="input user-email" type="email" required id="email" placeholder="Email" autocomplete="email" onblur="loadRememberedPassword()">
                     <img class="inputImage" src="./img/img/mail.svg">
                 </div>
                 <div class="inputField">
@@ -40,17 +40,15 @@
                 </div>                
                 <div class="msgBoxSuccess" id="msgBox"></div>
                 <div class="checkboxContainer">
-                    <button class="checkbox" onclick="toggleCheckbox(this);">
-                        <img class="checkboxImage" src="./img/Rectangle5.svg" data-checked="./img/img/checked.svg" data-unchecked="./img/Rectangle5.svg">
-                    </button>
-                    <span>Remember me</span>
-                    <input type="checkbox" class="realCheckbox" onclick="rememberLogin(document.getElementById('email').value, document.getElementById('password').value);" hidden>
+                    <label class="checkbox">
+                        <input type="checkbox" id="rememberMeCheckbox" class="realCheckbox" onchange="handleRememberMeChange();">
+                        <span>Remember me</span>
+                    </label> 
                 </div>       
                 <div class="buttonContainer">
                     <button type="submit" class="blueBtn" style="width: 200px;">Log in</button>
                     <button type="button" onclick="guestLogin()" class="greyBorderBtn">Guest log in</button>
                 </div>
-            
             </form>
         </div>
         </div>

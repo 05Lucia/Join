@@ -3,6 +3,7 @@ let users = [
         "name": "Caro Willers",
         "email": "caro@gmail.com",
         "password": "Pommes123",
+        "rememberMe": false,
         "contacts": [
             {
                 "name": "Leyla",
@@ -37,6 +38,7 @@ let users = [
         "name": "Alice Buchholz",
         "email": "alice@gmail.com",
         "password": "Currywurst345",
+        "rememberMe": false,
         "contacts": [
             {
                 "name": "Anton",
@@ -71,6 +73,39 @@ let users = [
         "name": "Vitali Rudi",
         "email": "vitali@gmail.com",
         "password": "Mayo6789",
+        "rememberMe": false,
+        "contacts": [
+            {
+                "name": "Carsten",
+                "surname": "Schmidt",
+                "initials": "CS",
+                "avatarColor": "rgb(252,113,255)",
+                "email": "carsten.schmidt@gmail.com",
+                "phone": "+49 5555 555 55 5",
+                "category": "C"
+            },
+            {
+                "name": "Bernt",
+                "surname": "Saathoff",
+                "initials": "BS",
+                "avatarColor": "rgb(255,187,43)",
+                "email": "bernt.s@gmail.com",
+                "phone": "+49 6666 666 66 6",
+                "category": "B"
+            },
+            {
+                "name": "Caroline",
+                "surname": "Tabeling",
+                "initials": "CT",
+                "avatarColor": "rgb(31,215,193)",
+                "email": "caroline@gmail.com",
+                "phone": "+49 7777 777 77 7",
+                "category": "C"
+            }
+        ]
+    },
+    {
+        "name": "Guest",
         "contacts": [
             {
                 "name": "Carsten",
@@ -102,6 +137,7 @@ let users = [
         ]
     }
 ];
+      
 
 /**
  * Checks the strength of the password entered by the user.
@@ -178,9 +214,8 @@ function changeLockIcon(inputElement) {
  * such as remembering passwords and accepting privacy policies. 
 * @param {HTMLElement} buttonElement - On click of this button, the state of the checkbox will be toggled.
  */
-function toggleCheckbox(buttonElement) {
+function togglePrivacyPolicyCheckbox(buttonElement) {
     let container = buttonElement.closest('.checkboxContainer');
- 
     let realCheckbox = container.querySelector(".realCheckbox");
     let checkboxImage = container.querySelector(".checkboxImage");
  
@@ -208,7 +243,6 @@ function checkPrivacyPolicy() {
  * @returns {Promise<Array>} A promise that resolves to an array of users if found, otherwise returns an empty array.
  * @throws {Error} Throws an error if there is an issue loading the users.
  */
-
 async function loadUsers() {
     try {
         let result = await getItem('users');
@@ -224,6 +258,7 @@ async function loadUsers() {
         return [];   
     }
 }
+
 
 /**
  * Asynchronously adds a new user to the storage if the email does not already exist.
@@ -284,21 +319,68 @@ async function checkIfEmailExists(email) {
 async function login() {
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;
+    let rememberMe = document.getElementById('rememberMeCheckbox').checked;
     let users = await loadUsers();
     let user = users.find(u => u.email === email);
 
-    if (user) {
-        if (user.password === password) {
-            localStorage.setItem('currentUserName', user.name); // saves user name for personal greeting on Join board after login//
-            localStorage.setItem('isLoggedIn', true); // mark user as logged in
-            successfulSignup(); 
+    if (user && user.password === password) {
+        setUserLogin(user);
+        await rememberPassword(email, user.password, rememberMe);
+        successfulSignup(); 
         } else {
-            alert("Password is not correct. Please insert correct password.");
+            alert("Invalid email or password");
         }
-    } else {
-        alert("Invalid email or password");
+}
+
+function setUserLogin(user) {
+    localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('currentUserName', user.name);
+    localStorage.setItem('userType', 'regular');  
+}
+
+
+function handleRememberMeChange() {
+    let email = document.getElementById('email').value;
+    let remember = document.getElementById('rememberMeCheckbox').checked;  
+    rememberPassword(email, remember);
+}
+
+
+async function rememberPassword(email, password, remember) {
+    let users = await loadUsers();
+    let user = users.find(u => u.email === email);
+    if (user) {
+        user.rememberMe = remember;
+        if (remember) {
+            user.password = password; 
+        }
+        await setItem('users', JSON.stringify(users));
     }
 }
+
+
+function toggleRememberMeCheckbox(label) { 
+    let checkbox = label.parentElement.querySelector('.realCheckbox');
+    let checkboxImage = label.querySelector('.checkboxImage');
+    checkbox.checked = !checkbox.checked;
+    checkboxImage.src = checkbox.checked ? checkboxImage.getAttribute('data-checked') : checkboxImage.getAttribute('data-unchecked');
+}
+
+
+async function loadRememberedPassword() {
+    let users = await loadUsers();
+    let rememberedUser = users.find(u => u.rememberMe);
+    if (rememberedUser) {
+        document.getElementById('email').value = rememberedUser.email;
+        document.getElementById('password').value = rememberedUser.password;
+        document.getElementById('rememberMeCheckbox').checked = true;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadRememberedPassword();
+});
+
 
 document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -376,29 +458,29 @@ function closeReset() {
     window.location.href = '../login.html'; 
 }
 
+
 /**
- * Handles the login for guests by setting necessary session states and redirecting.
+ * /**
+ * Sets up the session for a guest user and calls greetUser to display a welcome message.
  */
 function guestLogin() { 
+    setGuestLogin();
     alert("Welcome, dear guest! Please be aware that your access is limited. To fully enjoy all the features of Join, consider registering using our sign-up form.");
-    handleGuestLogin();
+    greetUser();
     window.location.href = '../index.html';  
 }
 
+function setGuestLogin() {
+    localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('currentUserName', 'Gast');
+    localStorage.setItem('userType', 'guest');  
+}
 
-/**
- * Sets up the session for a guest user and calls greetUser to display a welcome message.
- */
-function handleGuestLogin() {
-    if (localStorage.getItem('isLoggedIn') === 'true') {
-        alert("Sie sind bereits als " + localStorage.getItem('currentUserName') + " eingeloggt. Bitte loggen Sie sich aus, bevor Sie als Gast fortfahren.");
-        return;
+function attemptGuestLogin() {
+    if (checkLoginStatus()) {
+        alert(`Sie sind bereits als ${localStorage.getItem('currentUserName')} eingeloggt. Bitte loggen Sie sich aus, bevor Sie als Gast fortfahren.`);
+        window.location.href = '../login.html';  
     }
-    if (localStorage.getItem('isLoggedIn') !== 'true') {
-        localStorage.setItem('currentUserName', 'Gast');
-        localStorage.setItem('isLoggedIn', 'true');
-    }
-    greetUser();
 }
 
 
@@ -431,5 +513,12 @@ function greetUser() {
 function logout() {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('currentUserName');
+    localStorage.removeItem('userType');
+    // Stelle sicher, dass alle Erinnerungsdaten entfernt werden
+    localStorage.removeItem('rememberedEmail');
+    localStorage.removeItem('rememberedPassword');
+    localStorage.removeItem('rememberMe');
+
+    alert('Your logout was successful');
     window.location.href = '../login.html';
 }

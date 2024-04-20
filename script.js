@@ -4,7 +4,6 @@ async function init() {
         startAnimation();
     }
     await loadUsers();
-    handleGuestLogin();
     await summaryLode();
     greetUser();
 }
