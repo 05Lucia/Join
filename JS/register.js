@@ -137,7 +137,7 @@ let users = [
         ]
     }
 ];
-      
+
 
 /**
  * Checks the strength of the password entered by the user.
@@ -168,7 +168,7 @@ function checkPasswordStrength() {
 function validateConfirmedPassword() {
     let password = document.getElementById("password").value;
     let confirmPassword = document.getElementById("confirm_password").value;
-    let message = document.getElementById("passwordMatchMessage"); 
+    let message = document.getElementById("passwordMatchMessage");
 
     if (password !== confirmPassword) {
         message.textContent = "Your passwords do not match";
@@ -186,17 +186,17 @@ function validateConfirmedPassword() {
  * @param {string} fieldId - The ID of the password input field.
  */
 function togglePassword(fieldId) {
-    let input = document.getElementById(fieldId); 
+    let input = document.getElementById(fieldId);
     let iconId = (fieldId === "password") ? "passwordIcon" : (fieldId === "newPassword") ? "newPasswordIcon" : "confirmPasswordIcon";
-    let icon = document.getElementById(iconId); 
+    let icon = document.getElementById(iconId);
 
     if (input.type === "password") {
         input.type = "text";
-        icon.src = "./img/img/visibility_off.svg";  
+        icon.src = "./img/img/visibility_off.svg";
     } else {
         input.type = "password";
-        icon.src = "./img/img/visibility.svg";  
-    }  
+        icon.src = "./img/img/visibility.svg";
+    }
 }
 
 /**
@@ -205,7 +205,7 @@ function togglePassword(fieldId) {
  */
 function changeLockIcon(inputElement) {
     inputElement.nextElementSibling.src = "./img/img/visibility_off.svg";
-} 
+}
 
 /**
  * Toggles the checkbox that states if the Privacy Policy was accepted or not and updatates the checkbox image.
@@ -218,8 +218,8 @@ function togglePrivacyPolicyCheckbox(buttonElement) {
     let container = buttonElement.closest('.checkboxContainer');
     let realCheckbox = container.querySelector(".realCheckbox");
     let checkboxImage = container.querySelector(".checkboxImage");
- 
-    realCheckbox.checked = !realCheckbox.checked; 
+
+    realCheckbox.checked = !realCheckbox.checked;
     checkboxImage.src = realCheckbox.checked ? checkboxImage.getAttribute('data-checked') : checkboxImage.getAttribute('data-unchecked');
 }
 
@@ -228,7 +228,7 @@ function togglePrivacyPolicyCheckbox(buttonElement) {
  * If the checkbox is not checked, displays an alert message prompting the user to accept the Privacy Policy.
  * @returns {boolean} Returns true if the Privacy Policy checkbox is checked, otherwise returns false.
  */
-function checkPrivacyPolicy() {  
+function checkPrivacyPolicy() {
     let realCheckbox = document.querySelector(".realCheckbox");
     if (!realCheckbox.checked) {
         alert("Please accept the Privacy Policy conditions");
@@ -236,7 +236,7 @@ function checkPrivacyPolicy() {
     }
     return true;
 }
- 
+
 
 /**
  * Asynchronously loads user data from storage.
@@ -253,9 +253,9 @@ async function loadUsers() {
             console.log("No users found in storage, returning empty array.");
             return [];
         }
-    } catch(e) {
+    } catch (e) {
         console.error('Loading error:', e);
-        return [];   
+        return [];
     }
 }
 
@@ -270,7 +270,7 @@ async function loadUsers() {
 async function addUser() {
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;
-    let name = document.getElementById('name').value; 
+    let name = document.getElementById('name').value;
 
     if (email === "" || password === "" || name === "") {
         alert("Please fill in all fields");
@@ -280,7 +280,7 @@ async function addUser() {
     if (!checkPrivacyPolicy()) {
         return;
     }
- 
+
     if (await checkIfEmailExists(email)) {
         alert("This email is already registered.");
         return;
@@ -326,22 +326,22 @@ async function login() {
     if (user && user.password === password) {
         setUserLogin(user);
         await rememberPassword(email, user.password, rememberMe);
-        successfulSignup(); 
-        } else {
-            alert("Invalid email or password");
-        }
+        successfulSignup();
+    } else {
+        alert("Invalid email or password");
+    }
 }
 
 function setUserLogin(user) {
     localStorage.setItem('isLoggedIn', 'true');
     localStorage.setItem('currentUserName', user.name);
-    localStorage.setItem('userType', 'regular');  
+    localStorage.setItem('userType', 'regular');
 }
 
 
 function handleRememberMeChange() {
     let email = document.getElementById('email').value;
-    let remember = document.getElementById('rememberMeCheckbox').checked;  
+    let remember = document.getElementById('rememberMeCheckbox').checked;
     rememberPassword(email, remember);
 }
 
@@ -352,14 +352,14 @@ async function rememberPassword(email, password, remember) {
     if (user) {
         user.rememberMe = remember;
         if (remember) {
-            user.password = password; 
+            user.password = password;
         }
         await setItem('users', JSON.stringify(users));
     }
 }
 
 
-function toggleRememberMeCheckbox(label) { 
+function toggleRememberMeCheckbox(label) {
     let checkbox = label.parentElement.querySelector('.realCheckbox');
     let checkboxImage = label.querySelector('.checkboxImage');
     checkbox.checked = !checkbox.checked;
@@ -370,7 +370,7 @@ function toggleRememberMeCheckbox(label) {
 async function loadRememberedPassword() {
     let inputEmail = document.getElementById('email').value.trim();
     if (inputEmail.length === 0) return;
-    
+
     let users = await loadUsers();
     let rememberedUser = users.find(u => u.rememberMe && u.email === inputEmail);
     if (rememberedUser) {
@@ -381,25 +381,25 @@ async function loadRememberedPassword() {
         document.getElementById('rememberMeCheckbox').checked = false;
     }
 }
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     loadRememberedPassword();
 });
 
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const urlParams = new URLSearchParams(window.location.search);
     const msg = urlParams.get('msg');
-    if(msg) {
+    if (msg) {
         document.getElementById('msgBox').innerHTML = msg;
     }
 });
- 
+
 
 /**
  * Displays the signup modal.
  */
 function successfulSignup() {
-   document.getElementById("signupModal").style.display = "block";   
+    document.getElementById("signupModal").style.display = "block";
 }
 
 
@@ -417,7 +417,7 @@ function closeModal() {
 /**
  * Displays the reset password popup.
  */
-function resetPassword() { 
+function resetPassword() {
     document.getElementById("resetPasswordPopup").style.display = "block";
 }
 
@@ -435,7 +435,7 @@ async function changePassword() {
         return;
     }
 
-    let email = document.querySelector('.user-email').value; 
+    let email = document.querySelector('.user-email').value;
     let users = await loadUsers();
     let user = users.find(user => user.email === email);
     if (!user) {
@@ -457,9 +457,9 @@ async function changePassword() {
 /**
  * Closes the reset password popup and redirects to the login page.
  */
-function closeReset() { 
+function closeReset() {
     document.getElementById("resetPasswordPopup").style.display = "none";
-    window.location.href = '../login.html'; 
+    window.location.href = '../login.html';
 }
 
 
@@ -467,23 +467,23 @@ function closeReset() {
  * /**
  * Sets up the session for a guest user and calls greetUser to display a welcome message.
  */
-function guestLogin() { 
+function guestLogin() {
     setGuestLogin();
     alert("Welcome, dear guest! Please be aware that your access is limited. To fully enjoy all the features of Join, consider registering using our sign-up form.");
     greetUser();
-    window.location.href = '../index.html';  
+    window.location.href = '../index.html';
 }
 
 function setGuestLogin() {
     localStorage.setItem('isLoggedIn', 'true');
     localStorage.setItem('currentUserName', 'Gast');
-    localStorage.setItem('userType', 'guest');  
+    localStorage.setItem('userType', 'guest');
 }
 
 function attemptGuestLogin() {
     if (checkLoginStatus()) {
         alert(`Sie sind bereits als ${localStorage.getItem('currentUserName')} eingeloggt. Bitte loggen Sie sich aus, bevor Sie als Gast fortfahren.`);
-        window.location.href = '../login.html';  
+        window.location.href = '../login.html';
     }
 }
 
@@ -492,7 +492,7 @@ function attemptGuestLogin() {
  * Displays a greeting message based on the current time of day to the logged-in user.
  */
 function greetUser() {
-    let userName = localStorage.getItem('currentUserName');  
+    let userName = localStorage.getItem('currentUserName');
     let greetingElement = document.getElementById('greeting');
     let currentHour = new Date().getHours();
     let greetingText = "Welcome";
@@ -507,7 +507,21 @@ function greetUser() {
 
     if (greetingElement) {
         greetingElement.textContent = `${greetingText}, ${userName}.`;
-    } 
+    }
+    UserInitals(userName);
+}
+
+//Fertig machen!!! 
+function UserInitals(userName) {
+    let userInitalsContainer = document.getElementById('user-initals');
+
+    let names = userName.split(' ');
+    let initials = names[0].substring(0, 1).toUpperCase();
+
+    if (names.length > 1) {
+        initials += names[names.length - 1].substring(0, 1).toUpperCase();
+    }
+    userInitalsContainer.innerText = initials;
 }
 
 
@@ -517,7 +531,7 @@ function greetUser() {
 function logout() {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('currentUserName');
-    localStorage.removeItem('userType'); 
+    localStorage.removeItem('userType');
     localStorage.removeItem('rememberedEmail');
     localStorage.removeItem('rememberedPassword');
     localStorage.removeItem('rememberMe');
