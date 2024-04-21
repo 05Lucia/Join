@@ -517,8 +517,7 @@ function greetUser() {
 function logout() {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('currentUserName');
-    localStorage.removeItem('userType');
-    // Stelle sicher, dass alle Erinnerungsdaten entfernt werden
+    localStorage.removeItem('userType'); 
     localStorage.removeItem('rememberedEmail');
     localStorage.removeItem('rememberedPassword');
     localStorage.removeItem('rememberMe');
