@@ -415,7 +415,10 @@ async function loadRememberedPassword() {
     }
 }
 document.addEventListener('DOMContentLoaded', function() {
-    loadRememberedPassword();
+    const emailElement = document.getElementById('email');
+    if (emailElement) {
+        loadRememberedPassword();
+    }
 });
 
 
@@ -444,17 +447,6 @@ function successfulSignup() {
         }, 2000);
         
     }
-}
-
-
-/**
- * Closes the signup modal and redirects to the main page.
- */
-
-function closeModal() {
-    console.log("closeModal called");
-    document.getElementById("signupModal").style.display = "none";
-    window.location.href = '../index.html'; //redirect to Join board//
 }
 
 
