@@ -181,6 +181,7 @@ function validateConfirmedPassword() {
     }
 }
 
+
 /**
  * Toggles the visibility of the password input field and changes the visibility icon accordingly.
  * @param {string} fieldId - The ID of the password input field.
@@ -199,6 +200,7 @@ function togglePassword(fieldId) {
     }
 }
 
+
 /**
  * Changes the visibility icon of the password input field.
  * @param {HTMLElement} inputElement - The password input field element.
@@ -206,6 +208,7 @@ function togglePassword(fieldId) {
 function changeLockIcon(inputElement) {
     inputElement.nextElementSibling.src = "./img/img/visibility_off.svg";
 }
+
 
 /**
  * Toggles the checkbox that states if the Privacy Policy was accepted or not and updatates the checkbox image.
@@ -222,6 +225,7 @@ function togglePrivacyPolicyCheckbox(buttonElement) {
     realCheckbox.checked = !realCheckbox.checked;
     checkboxImage.src = realCheckbox.checked ? checkboxImage.getAttribute('data-checked') : checkboxImage.getAttribute('data-unchecked');
 }
+
 
 /**
  * Checks if the Privacy Policy checkbox is checked before final signup is possible
@@ -332,6 +336,11 @@ async function login() {
     }
 }
 
+
+/**
+ * Sets up the user session in localStorage with the user's information.
+ * @param {Object} user - The user object with at least a 'name' property.
+ */
 function setUserLogin(user) {
     localStorage.setItem('isLoggedIn', 'true');
     localStorage.setItem('currentUserName', user.name);
@@ -339,6 +348,10 @@ function setUserLogin(user) {
 }
 
 
+/**
+ * Handles the change event for the "Remember Me" checkbox.
+ * Fetches email from the DOM and toggles the remember password setting based on the checkbox state.
+ */
 function handleRememberMeChange() {
     let email = document.getElementById('email').value;
     let remember = document.getElementById('rememberMeCheckbox').checked;
@@ -346,6 +359,14 @@ function handleRememberMeChange() {
 }
 
 
+/**
+ * Updates the user's password in local storage if the "Remember Me" checkbox is checked.
+ * @param {string} email - User's email address to identify the user.
+ * @param {string} password - Password to be remembered.
+ * @param {boolean} remember - Flag to determine whether to remember or forget the password.
+ * @async
+ * @returns {Promise<void>}
+ */
 async function rememberPassword(email, password, remember) {
     let users = await loadUsers();
     let user = users.find(u => u.email === email);
@@ -358,8 +379,11 @@ async function rememberPassword(email, password, remember) {
     }
 }
 
-
-function toggleRememberMeCheckbox(label) {
+/**
+ * Toggles the visibility and state of a custom checkbox UI element.
+ * @param {HTMLElement} label - The label element associated with the checkbox.
+ */
+function toggleRememberMeCheckbox(label) { 
     let checkbox = label.parentElement.querySelector('.realCheckbox');
     let checkboxImage = label.querySelector('.checkboxImage');
     checkbox.checked = !checkbox.checked;
@@ -367,7 +391,15 @@ function toggleRememberMeCheckbox(label) {
 }
 
 
+/**
+ * Automatically fills in the password field and checks the "Remember Me" checkbox if the user's email is found and remembered.
+ * @async
+ */
 async function loadRememberedPassword() {
+    if (localStorage.getItem('userType') === 'guest') {
+        console.log('Gastbenutzer erkannt; Passwortwiederherstellung übersprungen.');
+        return; 
+    }
     let inputEmail = document.getElementById('email').value.trim();
     if (inputEmail.length === 0) return;
 
@@ -381,8 +413,12 @@ async function loadRememberedPassword() {
         document.getElementById('rememberMeCheckbox').checked = false;
     }
 }
-document.addEventListener('DOMContentLoaded', function () {
-    loadRememberedPassword();
+
+document.addEventListener('DOMContentLoaded', function() {
+    const emailElement = document.getElementById('email');
+    if (emailElement) {
+        loadRememberedPassword();
+    }
 });
 
 
@@ -399,18 +435,18 @@ document.addEventListener('DOMContentLoaded', function () {
  * Displays the signup modal.
  */
 function successfulSignup() {
-    document.getElementById("signupModal").style.display = "block";
-}
+    var signupModal = document.getElementById("signupModal");
+    if (signupModal.style.display !== "block") {
+        signupModal.style.display = "block";
 
-
-/**
- * Closes the signup modal and redirects to the main page.
- */
-
-function closeModal() {
-    console.log("closeModal called");
-    document.getElementById("signupModal").style.display = "none";
-    window.location.href = '../index.html'; //redirect to Join board//
+        setTimeout(function() {
+            if (signupModal.style.display === "block") {
+                signupModal.style.display = "none";
+                window.location.href = '../index.html';
+            }
+        }, 2000);
+        
+    }
 }
 
 
@@ -467,12 +503,20 @@ function closeReset() {
  * /**
  * Sets up the session for a guest user and calls greetUser to display a welcome message.
  */
-function guestLogin() {
+async function guestLogin() { 
     setGuestLogin();
-    alert("Welcome, dear guest! Please be aware that your access is limited. To fully enjoy all the features of Join, consider registering using our sign-up form.");
-    greetUser();
-    window.location.href = '../index.html';
+    try {
+        await saveGuestUser();  
+        alert("Welcome, dear guest! Please be aware that your access is limited. To fully enjoy all the features of Join, consider registering using our sign-up form.");
+        greetUser();
+    } catch (error) {
+        console.error("Fehler beim Speichern des Gastbenutzers:", error);
+        alert("Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
+    } finally {
+        window.location.href = '../index.html';
+    }
 }
+
 
 function setGuestLogin() {
     localStorage.setItem('isLoggedIn', 'true');
@@ -480,11 +524,39 @@ function setGuestLogin() {
     localStorage.setItem('userType', 'guest');
 }
 
+
 function attemptGuestLogin() {
     if (checkLoginStatus()) {
         alert(`Sie sind bereits als ${localStorage.getItem('currentUserName')} eingeloggt. Bitte loggen Sie sich aus, bevor Sie als Gast fortfahren.`);
         window.location.href = '../login.html';
     }
+}
+
+
+async function saveGuestUser() { 
+    let users = await getItem('users');
+    users = JSON.parse(users);
+ 
+    let guestExists = users.some(user => user.name === "Guest");
+ 
+    if (!guestExists) {
+        let guestUser = {
+            "name": "Guest",
+            "contacts": [
+                {
+                    "name": "Caroline",
+                    "surname": "Tabeling",
+                    "initials": "CT",
+                    "avatarColor": "rgb(31,215,193)",
+                    "email": "caroline@gmail.com",
+                    "phone": "+49 7777 777 77 7",
+                    "category": "C"
+                }
+            ]
+        };
+        users.push(guestUser);
+    } 
+    await setItem('users', JSON.stringify(users));
 }
 
 

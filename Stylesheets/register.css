@@ -1088,7 +1088,7 @@ input::placeholder {
     cursor: pointer; 
     position: relative;
     height: auto;
-    border-radius: 15px;
+    border-radius: 20px;
     border: unset;
     background-color: var(--maincolor);
     font-family: Open Sans;
