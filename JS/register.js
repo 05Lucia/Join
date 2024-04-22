@@ -348,6 +348,22 @@ function setUserLogin(user) {
 }
 
 
+
+/**
+ * Toggles the checkbox that states if the Privacy Policy was accepted or not and updatates the checkbox image.
+ * Toggles the state of a checkbox and updates the image icon to checked or not checked
+ * This function is used on login and signup pages to handle user interaction with the checkboxes,
+ * such as remembering passwords and accepting privacy policies. 
+* @param {HTMLElement} buttonElement - On click of this button, the state of the checkbox will be toggled.
+ */
+function toggleCheckbox(inputElement) {
+    if (inputElement.type === 'checkbox') {
+        let checkboxImage = inputElement.nextElementSibling.querySelector(".checkboxImage");
+        checkboxImage.src = inputElement.checked ? checkboxImage.getAttribute('data-checked') : checkboxImage.getAttribute('data-unchecked');
+    }
+}
+  
+
 /**
  * Handles the change event for the "Remember Me" checkbox.
  * Fetches email from the DOM and toggles the remember password setting based on the checkbox state.
@@ -388,6 +404,8 @@ function toggleRememberMeCheckbox(label) {
     let checkboxImage = label.querySelector('.checkboxImage');
     checkbox.checked = !checkbox.checked;
     checkboxImage.src = checkbox.checked ? checkboxImage.getAttribute('data-checked') : checkboxImage.getAttribute('data-unchecked');
+    let checkboxImage = inputElement.parentElement.querySelector('.checkboxImage');
+    checkboxImage.src = inputElement.checked ? checkboxImage.getAttribute('data-checked') : checkboxImage.getAttribute('data-unchecked');
 }
 
 
@@ -408,9 +426,11 @@ async function loadRememberedPassword() {
     if (rememberedUser) {
         document.getElementById('password').value = rememberedUser.password;
         document.getElementById('rememberMeCheckbox').checked = true;
+        document.getElementById('rememberCheckbox').checked = true;
     } else {
         document.getElementById('password').value = '';
         document.getElementById('rememberMeCheckbox').checked = false;
+        document.getElementById('rememberCheckbox').checked = false;
     }
 }
 
