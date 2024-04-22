@@ -324,6 +324,7 @@ async function login() {
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;
     let rememberMe = document.getElementById('rememberMeCheckbox').checked;
+    let rememberMe = document.getElementById('rememberCheckbox').checked;
     let users = await loadUsers();
     let user = users.find(u => u.email === email);
 
@@ -404,6 +405,7 @@ function toggleRememberMeCheckbox(label) {
     let checkboxImage = label.querySelector('.checkboxImage');
     checkbox.checked = !checkbox.checked;
     checkboxImage.src = checkbox.checked ? checkboxImage.getAttribute('data-checked') : checkboxImage.getAttribute('data-unchecked');
+function toggleRememberMeCheckbox(inputElement) { 
     let checkboxImage = inputElement.parentElement.querySelector('.checkboxImage');
     checkboxImage.src = inputElement.checked ? checkboxImage.getAttribute('data-checked') : checkboxImage.getAttribute('data-unchecked');
 }
