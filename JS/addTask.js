@@ -367,7 +367,7 @@ function showSubtaskInputMenu() {
     document.getElementById('addTaskSubtasksIcons').innerHTML = `
 <img src="./img/cancelCreateSubtask.svg" onclick="clearSubtaskInputField()">
 <div class="addTaskSubtasksIconsSeperator"></div>
-<img src="./img/saveCreateSubtask.svg" onclick="saveSubtaskInput()">
+<img src="./img/saveCreateSubtask.svg" id="saveSubtaskInput" onclick="saveSubtaskInput()">
 `;
 }
 
@@ -379,15 +379,23 @@ function showDefaultInputMenu() {
     `;
 }
 
+function checkInputValue() {
+    const inputValue = document.getElementById('addTaskSubtasksInput').value.trim();
+    if (inputValue === "") {
+        showDefaultInputMenu();
+    } else {
+        showSubtaskInputMenu();
+    }
+}
+
 function clearSubtaskInputField() {
     document.getElementById('addTaskSubtasksInput').value = '';
     showDefaultInputMenu();
 }
 
 function saveSubtaskInput() {
-    let createdSubtask = document.getElementById('addTaskSubtasksInput');
-    createdSubtask = createdSubtask.value;
-    if (createdSubtask != "") {
+    let createdSubtask = document.getElementById('addTaskSubtasksInput').value.trim();
+    if (createdSubtask !== "") {
         createdSubtasks.push(createdSubtask)
         openCreatedSubtaskBox();
         scrollDown();
@@ -420,7 +428,7 @@ function editCreatedSubtask(i) {
     let currentSubtaskText = createdSubtasks[i];
     document.getElementById(`eachSubtask(${i})`).innerHTML = /*html*/`
     <div class="editEachSubtask" id="editEachSubtask(${i})" onclick="" >
-        <input class="editTaskSubtasksInput" id="editTaskSubtasksInput" type="text" autocomplete="off" value="${currentSubtaskText}" >
+        <input class="editTaskSubtasksInput" id="editTaskSubtasksInput" type="text" autocomplete="off" value="${currentSubtaskText}" onkeypress="if (event.keyCode === 13) saveEditSubtaskInput(${i})">
         <div class="editCreatedSubtasksIcons" id="editCreatedSubtasksIcons">
         <img src="./img/deleteContactIcon.svg" onclick="deleteCreatedSubtask(${i}); event.stopPropagation();">
             <div class="addTaskSubtasksIconsSeperator"></div>
@@ -428,10 +436,6 @@ function editCreatedSubtask(i) {
         </div>
     </div>
 `;
-
-
-
-
 
     // Fokussiere das Input-Feld
     let inputField = document.getElementById(`editTaskSubtasksInput`);
@@ -446,19 +450,24 @@ function editCreatedSubtask(i) {
 
 function saveEditSubtaskInput(i) {
     document.getElementById(`eachSubtask(${i})`).classList.remove('eachSubtaskFocused');
-    let editedSubtask = document.getElementById('editTaskSubtasksInput').value; // Den bearbeiteten Subtask aus dem Array abrufen
-    document.getElementById(`eachSubtask(${i})`).innerHTML = /*html*/`
-           <li>${editedSubtask}</li>
+    let editedSubtask = document.getElementById('editTaskSubtasksInput').value.trim(); // Trim whitespace
 
-<div class="createdSubtasksIcons" id="createdSubtasksIcons">
-     <img src="./img/edit.svg" onclick="editCreatedSubtask(${i})">
-     <div class="addTaskSubtasksIconsSeperator"></div>
-     <img src="./img/deleteContactIcon.svg" onclick="deleteCreatedSubtask(${i})">
- </div>
-    `;
-
-    createdSubtasks[i] = editedSubtask;
+    if (editedSubtask !== "") { // Check for non-empty string
+        document.getElementById(`eachSubtask(${i})`).innerHTML = /*html*/`
+        <li>${editedSubtask}</li>
+  
+        <div class="createdSubtasksIcons" id="createdSubtasksIcons">
+          <img src="./img/edit.svg" onclick="editCreatedSubtask(${i})">
+          <div class="addTaskSubtasksIconsSeperator"></div>
+          <img src="./img/deleteContactIcon.svg" onclick="deleteCreatedSubtask(${i})">
+        </div>
+      `;
+        createdSubtasks[i] = editedSubtask;
+    } else if (editedSubtask == "") {
+        deleteCreatedSubtask(i);
+    }
 }
+
 
 
 function deleteCreatedSubtask(subTastIndex) {

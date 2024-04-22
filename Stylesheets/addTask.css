@@ -552,6 +552,8 @@ h3 {
 
 .addTaskSubtasksInputContainer:hover {
     cursor: pointer;
+    border-bottom-color: rgba(0, 93, 255, 1);
+
 }
 
 .addTaskSubtasksInputContainer:focus {
@@ -570,6 +572,10 @@ h3 {
     height: 48px;
     width: 100%;
     background-color: transparent;
+}
+
+.addTaskSubtasksInput:hover {
+    cursor: pointer;
 }
 
 .addTaskSubtasksInput::placeholder {
