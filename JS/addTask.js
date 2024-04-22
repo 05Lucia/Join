@@ -427,7 +427,7 @@ function editCreatedSubtask(i) {
     document.getElementById(`eachSubtask(${i})`).classList.add('eachSubtaskFocused');
     let currentSubtaskText = createdSubtasks[i];
     document.getElementById(`eachSubtask(${i})`).innerHTML = /*html*/`
-    <div class="editEachSubtask" id="editEachSubtask(${i})" onclick="" >
+    <div class="editEachSubtask" id="editEachSubtask(${i})" onclick="" onfocusout="saveEditSubtaskInput(${i})">
         <input class="editTaskSubtasksInput" id="editTaskSubtasksInput" type="text" autocomplete="off" value="${currentSubtaskText}" onkeypress="if (event.keyCode === 13) saveEditSubtaskInput(${i})">
         <div class="editCreatedSubtasksIcons" id="editCreatedSubtasksIcons">
         <img src="./img/deleteContactIcon.svg" onclick="deleteCreatedSubtask(${i}); event.stopPropagation();">
@@ -436,6 +436,8 @@ function editCreatedSubtask(i) {
         </div>
     </div>
 `;
+
+
 
     // Fokussiere das Input-Feld
     let inputField = document.getElementById(`editTaskSubtasksInput`);
@@ -467,8 +469,6 @@ function saveEditSubtaskInput(i) {
         deleteCreatedSubtask(i);
     }
 }
-
-
 
 function deleteCreatedSubtask(subTastIndex) {
     createdSubtasks.splice(subTastIndex, 1);

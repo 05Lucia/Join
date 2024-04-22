@@ -64,7 +64,8 @@
             </span>
             <div class="addTaskSubtasksInputContainer">
                 <input class="addTaskSubtasksInput" id="addTaskSubtasksInput" type="text" placeholder="Add new subtask"
-                    oninput="showSubtaskInputMenu()" autocomplete="off">
+                    oninput="showSubtaskInputMenu(); checkInputValue()"
+                    onkeypress="if (event.keyCode === 13) saveSubtaskInput()" autocomplete="off">
                 <div class="addTaskSubtasksIcons" id="addTaskSubtasksIcons">
                     <img src="./img/addSubtaskPlusIcon.svg">
                 </div>
