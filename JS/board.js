@@ -3,7 +3,7 @@
  * Array to test card implement!!
  */
 let cards = [
-    {
+    { 
         "id": 0,
         "place": 'todo',
         "category": {
@@ -103,9 +103,9 @@ let cards = [
 /**
  * Asynchronously loads all necessary functions for the board in the correct order.
  */
-async function lodeBoard() {
+async function loadBoard() {
     await Templates('board');
-    updateCads();
+    updateCards();
     changeNavigation()
 }
 
@@ -139,7 +139,7 @@ function changeNavigation() {
 /**
  * Updates all card sections on the board by calling individual update functions for each section ("todo", "progress", etc.).
  */
-function updateCads() {
+function updateCards() {
     todoCardUpdate();
     progressCardUpdate();
     feedbackCardUpdate();
@@ -273,11 +273,11 @@ function assignedInitals(card) {
  * @param {object} card The card object containing the subtasks list.
  * @returns {number} The percentage of completed subtasks (0-100).
  */
-function progressbarComplitaionRate(card) {
+function progressbarCompetedRate(card) {
     let allSubtasks = card.subtasks.length;
-    let compleatSubtask = card.subtasks.reduce((acc, subtask) => acc + subtask.done, 0);
+    let completeSubtask = card.subtasks.reduce((acc, subtask) => acc + subtask.done, 0);
 
-    let precentProgress = Math.floor((compleatSubtask / allSubtasks) * 100);
+    let precentProgress = Math.floor((completeSubtask / allSubtasks) * 100);
     return precentProgress;
 }
 
@@ -291,7 +291,7 @@ let currentDraggedElement;
  * Sets the `currentDraggedElement` variable to the ID of the card being dragged.
  * @param {number} id The ID of the dragged card element.
  */
-function startDraging(id) {
+function startDragging(id) {
     currentDraggedElement = id;
 }
 
@@ -310,7 +310,7 @@ function allowDrop(ev) {
 function drop(place) {
     cards[currentDraggedElement]['place'] = '';
     cards[currentDraggedElement]['place'] = place;
-    updateCads();
+    updateCards();
 }
 
 /**
@@ -435,7 +435,7 @@ function deleteTask(cardId) {
     for (let i = cards.length - 1; i >= 0; i--) {
         if (cards[i].id === cardId) {
             cards.splice(i, 1);
-            updateCads()
+            updateCards()
             closeCard();
             return;
         }
@@ -457,7 +457,7 @@ function SubtaskStatus(done, i, id) {
     } else {
         subtaskCompleted(i, id);
     }
-    updateCads();
+    updateCards();
     bigCard(id);
 }
 

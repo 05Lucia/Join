@@ -6,7 +6,7 @@
 function cardTemplate(card) {
 
     return `
-    <div draggable="true" onclick="bigCard(${card.id})" ondragstart="startDraging(${card.id})" class="board-card-small" >
+    <div draggable="true" onclick="bigCard(${card.id})" ondragstart="startDragging(${card.id})" class="board-card-small" >
         <div style="background-color:${card.category.color};" class="category-card">${card.category.name}</div>
         <div class="card-text">
             <h3 class="card-title">${card.titel}</h3>
@@ -34,14 +34,14 @@ function cardTemplate(card) {
  */
 function TemplateSubtaskProgressbar(card) {
     if (card.subtasks.length > 0) {
-        let compleatSubtask = card.subtasks.reduce((acc, subtask) => acc + subtask.done, 0);
+        let completeSubtask = card.subtasks.reduce((acc, subtask) => acc + subtask.done, 0);
 
         return `
         <div class="progressbar-area">
             <div class="progressbar">
-                <div class="progress-color" style="width:${progressbarComplitaionRate(card)}%;"></div>
+                <div class="progress-color" style="width:${progressbarCompetedRate(card)}%;"></div>
             </div>
-            <p>${compleatSubtask}/${card.subtasks.length} Subtasks</p>
+            <p>${completeSubtask}/${card.subtasks.length} Subtasks</p>
         </div>
         `;
     } else {

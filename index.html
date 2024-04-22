@@ -35,36 +35,36 @@
         </div>
     </div>
 
-    <div class="navigation-overlay d-none" id="navigation-overlay" onclick="closeDropdowen()">
-        <div class="dropdowen-container" id="navigation-dropdowen" onclick="doNotClose(event)">
-            <a class="help-dropdowen" onclick="dropdowenHelp()">Help</a>
-            <a onclick="dropdowenLegalNotice()">Legal notice</a>
-            <a onclick="dropdowenPrivacyPolicy()">Privacy Policy</a>
+    <div class="navigation-overlay d-none" id="navigation-overlay" onclick="closeDropdown()">
+        <div class="dropdown-container" id="navigation-dropdown" onclick="doNotClose(event)">
+            <a class="help-dropdown" onclick="dropdownHelp()">Help</a>
+            <a onclick="dropdownLegalNotice()">Legal notice</a>
+            <a onclick="dropdownPrivacyPolicy()">Privacy Policy</a>
             <a onclick="logout()">Log out</a>
         </div>
     </div>
 
         <div>
-            <div class="hadline">
+            <div class="headline">
                 <img src="./img/logo white.svg" alt="logo">
-                <div class="hadline-user-info">
+                <div class="headline-user-info">
                     <p>Kanban Project Management Tool</p>
                     <img class="help" src="./img/help icon.svg" alt="help icon" onclick="Templates('help')">
                     <div class="dropdowen-hader">
-                        <div class="user-initals" id="user-initals" onclick="openDropdowen()">TD</div>
+                        <div class="user-initals" id="user-initals" onclick="openDropdown()">TD</div>
                     </div>
                 </div>
             </div>
         </div> <!--noch fertig machen richtig!!-->
         <div class="main-container">
             <div class="navigation">
-                <div class="navigation-row" onclick="naviagtionClick()">
-                    <div id="navSummary" class="navigation-item" onclick="summaryLode()"><!-- js noch nötig -->
+                <div class="navigation-row" onclick="navigationClick()">
+                    <div id="navSummary" class="navigation-item" onclick="summaryLoad()"><!-- js noch nötig -->
                         <img class="unclicked" src="./img/summary icon gray.svg" alt="summary icon">
                         <img class="clicked d-none" src="./img/summary icon blue.svg" alt="summary icon">
                         <p>Summary</p>
                     </div>
-                    <div  id="navBoard" class="navigation-item" onclick="lodeBoard ()"><!-- js noch nötig -->
+                    <div  id="navBoard" class="navigation-item" onclick="loadBoard()"><!-- js noch nötig -->
                         <img class="unclicked"src="./img/bord icon gray.svg" alt="board icon">
                         <img class="clicked d-none" src="./img/board icon blue.svg" alt="board icon">
                         <p>Board</p>

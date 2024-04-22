@@ -4,7 +4,7 @@ async function init() {
         startAnimation();
     }
     await loadUsers();
-    await summaryLode();
+    await summaryLoad();
     greetUser();
 }
 
@@ -58,7 +58,7 @@ async function Templates(template) {
  *
  * This function removes the 'd-none' class from the container element, likely making it visible.
  */
-function openDropdowen() {
+function openDropdown() {
     let container = document.getElementById('navigation-overlay');
     container.classList.remove('d-none');
 }
@@ -68,7 +68,7 @@ function openDropdowen() {
  *
  * This function adds the 'd-none' class to the container element, likely hiding it.
  */
-function closeDropdowen() {
+function closeDropdown() {
     let container = document.getElementById('navigation-overlay');
     container.classList.add('d-none');
 }
@@ -76,9 +76,9 @@ function closeDropdowen() {
 /**
  * Loads the help template and closes the navigation overlay dropdown menu.
  */
-function dropdowenHelp() {
+function dropdownHelp() {
     Templates('help');
-    closeDropdowen();
+    closeDropdown();
 }
 
 /**
@@ -86,20 +86,20 @@ function dropdowenHelp() {
  *
  * This code snippet waits for the DOM content to be fully loaded using the `DOMContentLoaded` event.
  * Once loaded, it calls the following functions to establish the navigation behavior:
- *  - `naviagtionClick`: Attaches click event listeners to all main navigation items.
+ *  - `navigationClick`: Attaches click event listeners to all main navigation items.
  *  - `clickedLegalPart`: Attaches click event listeners to legal section navigation elements within the ".navigation-legal" container.
- *  - `removeNaviagtionClick`: Attempts to remove click event listeners from all main navigation items (might not always be successful).
+ *  - `removeNavigationClick`: Attempts to remove click event listeners from all main navigation items (might not always be successful).
  *  - `removeClickedLegalPart`: Attaches click listeners to main navigation items to remove the "navigation-legal-clicked" class from any legal section element when clicked.
  */
 document.addEventListener('DOMContentLoaded', () => {
-    naviagtionClick(); // Call your function to set up event listeners
+    navigationClick(); // Call your function to set up event listeners
     clickedLegalPart();
-    removeNaviagtionClick();
+    removeNavigationClick();
     removeClickedLegalPart();
-    removeNavHigliteOnDropdowen();
-    removeNavHigliteLegalPartOnDropdowen();
-    removeNavHigliteOnHelp();
-    removeNavHigliteLegalPartOnHelp();
+    removeNavHighlightOnDropdown();
+    removeNavHighlightLegalPartOnDropdown();
+    removeNavHighlightOnHelp();
+    removeNavHighlightLegalPartOnHelp();
 });
 
 /**
@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
  *  - All navigation items are reset (hidden clicked images, shown unclicked images).
  *  - The `navigationClickImg` function is called to potentially change the clicked item's image (if screen is below 800px).
  */
-function naviagtionClick() {
+function navigationClick() {
     const btnElList = document.querySelectorAll('.navigation-item');
 
     btnElList.forEach(btnEl => {
@@ -170,7 +170,7 @@ function navigationClickImg() {
  * When a legal section navigation element is clicked:
  *  - The previously clicked legal section element (if any) loses the "navigation-legal-clicked" class.
  *  - The clicked element gains the "navigation-legal-clicked" class for visual selection.
- *  - **Additionally:** The function calls `removeNaviagtionClick` to potentially remove click listeners from the main navigation items.
+ *  - **Additionally:** The function calls `removeNavigationClick` to potentially remove click listeners from the main navigation items.
  *  (This behavior might need adjustment depending on your specific requirements.)
  */
 function clickedLegalPart() {
@@ -180,7 +180,7 @@ function clickedLegalPart() {
         btnEl.addEventListener('click', () => {
             document.querySelector('.navigation-legal-clicked')?.classList.remove('navigation-legal-clicked');
             btnEl.classList.add('navigation-legal-clicked');
-            removeNaviagtionClick();
+            removeNavigationClick();
         })
     })
 }
@@ -191,7 +191,7 @@ function clickedLegalPart() {
  * This function loops through all elements with the class ".navigation-item". It attempts to remove any existing click event listeners from these elements.
  *  - Note that this function might not always successfully remove listeners depending on how they were previously attached.
  */
-function removeNaviagtionClick() {
+function removeNavigationClick() {
     const btnElList = document.querySelectorAll('.navigation-legal div');
 
     btnElList.forEach(btnEl => {
@@ -235,7 +235,7 @@ function changeNavigationPrivacyPolicy() {
  * This function attaches click event listeners to all anchor tags within elements with the class "dropdowen-container".
  * When a dropdown anchor is clicked, it removes the "navigation-item-clicked" class from any currently highlighted navigation item (if any).
  */
-function removeNavHigliteOnDropdowen() {
+function removeNavHighlightOnDropdown() {
     const btnElList = document.querySelectorAll('.dropdowen-container a');
 
     btnElList.forEach(btnEl => {
@@ -249,10 +249,10 @@ function removeNavHigliteOnDropdowen() {
 /**
  * Removes highlight from any clicked legal section element on dropdown click.
  *
- * This function is similar to `removeNavHigliteOnDropdowen` but targets elements with the "navigation-legal-clicked" class.
+ * This function is similar to `removeNavHighlightOnDropdown` but targets elements with the "navigation-legal-clicked" class.
  * When a dropdown anchor is clicked, it removes the "navigation-legal-clicked" class from any currently highlighted legal section element (if any).
  */
-function removeNavHigliteLegalPartOnDropdowen() {
+function removeNavHighlightLegalPartOnDropdown() {
     const btnElList = document.querySelectorAll('.dropdowen-container a');
 
     btnElList.forEach(btnEl => {
@@ -263,7 +263,7 @@ function removeNavHigliteLegalPartOnDropdowen() {
     })
 }
 
-function removeNavHigliteLegalPartOnHelp() {
+function removeNavHighlightLegalPartOnHelp() {
     const btnElList = document.querySelectorAll('.help');
 
     btnElList.forEach(btnEl => {
@@ -274,7 +274,7 @@ function removeNavHigliteLegalPartOnHelp() {
     })
 }
 
-function removeNavHigliteOnHelp() {
+function removeNavHighlightOnHelp() {
     const btnElList = document.querySelectorAll('.help');
 
     btnElList.forEach(btnEl => {
@@ -291,12 +291,12 @@ function removeNavHigliteOnHelp() {
  *
  * This function uses `async` to load the legal notice template via `Templates` (not provided).
  * After successful loading (assumed), it:
- *  - Closes the dropdown (implementation in `closeDropdowen` not provided).
+ *  - Closes the dropdown (implementation in `closeDropdown` not provided).
  *  - Highlights the legal notice section with `legalNoticeHiglite`.
  */
-async function dropdowenLegalNotice() {
+async function dropdownLegalNotice() {
     await Templates('legal_notice');
-    await closeDropdowen();
+    await closeDropdown();
     legalNoticeHiglite();
 }
 
@@ -315,14 +315,14 @@ function legalNoticeHiglite() {
  *
  * This function uses `async` to load the privacy policy template via `Templates` (not provided).
  * After successful loading (assumed), it:
- *  - Closes the dropdown (implementation in `closeDropdowen` not provided).
- *  - Highlights the privacy policy section with `privacyPolicyHiglite`.
+ *  - Closes the dropdown (implementation in `closeDropdown` not provided).
+ *  - Highlights the privacy policy section with `privacyPolicyHighlight`.
  * Loads the legal notice template and closes the navigation overlay dropdown menu.
  */
-async function dropdowenPrivacyPolicy() {
+async function dropdownPrivacyPolicy() {
     await Templates('privacy_policy');
-    await closeDropdowen();
-    privacyPolicyHiglite();
+    await closeDropdown();
+    privacyPolicyHighlight();
 }
 
 /**
@@ -331,7 +331,7 @@ async function dropdowenPrivacyPolicy() {
  * This function adds the "navigation-legal-clicked" class to the element with ID "navPrivacyPolicy", visually marking it as selected.
  * Loads the privacy policy template and closes the navigation overlay dropdown menu.
  */
-function privacyPolicyHiglite() {
+function privacyPolicyHighlight() {
     let privacyPolicy = document.getElementById('navPrivacyPolicy');
     privacyPolicy.classList.add('navigation-legal-clicked');
 }

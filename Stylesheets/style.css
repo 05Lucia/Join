@@ -274,7 +274,7 @@ body {
     display: none;
 }
 
-.hadline {
+.headline {
     background-color: var(--maincolor);
     height: 80px;
     display: flex;
@@ -285,11 +285,11 @@ body {
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.10);
 }
 
-.hadline img {
+.headline img {
     height: 40px;
 }
 
-.hadline-user-info {
+.headline-user-info {
     display: flex;
     gap: 16px;
     align-items: center;
@@ -311,7 +311,7 @@ body {
     font-size: 16px;
 }
 
-.hadline-user-info p {
+.headline-user-info p {
     display: none;
 }
 
@@ -334,7 +334,7 @@ body {
     z-index: 2;
 }
 
-.dropdowen-container {
+.dropdown-container {
     position: absolute;
     background-color: white;
     height: 176px;
@@ -349,7 +349,7 @@ body {
     margin-top: 60px;
 }
 
-.dropdowen-container a {
+.dropdown-container a {
     cursor: pointer;
     color: var(--maincolor);
     text-decoration: none;
@@ -358,7 +358,7 @@ body {
     padding: 8px;
 }
 
-.dropdowen-hader:hover .dropdowen-container {
+.dropdowen-hader:hover .dropdown-container {
     cursor: pointer;
 }
 
@@ -448,7 +448,7 @@ body {
         color: var(--hoverBlue);
     }
 
-    .hadline-user-info p {
+    .headline-user-info p {
         display: flex;
         color: white;
     }
@@ -463,11 +463,11 @@ body {
         cursor: pointer;
     }
 
-    .help-dropdowen {
+    .help-dropdown {
         display: none;
     }
 
-    .dropdowen-container a {
+    .dropdown-container a {
         color: var(--menue-text);
         border-radius: 8px;
         width: 100%;
@@ -484,11 +484,11 @@ body {
         height: calc(100vh - 5rem);
     }
 
-    .dropdowen-hader:focus .dropdowen-container {
+    .dropdowen-hader:focus .dropdown-container {
         cursor: pointer;
     }
 
-    .dropdowen-container {
+    .dropdown-container {
         position: absolute;
         background-color: white;
         width: 172px;
@@ -503,7 +503,7 @@ body {
         gap: 8px;
     }
 
-    .dropdowen-container a:hover {
+    .dropdown-container a:hover {
         cursor: pointer;
         background-color: var(--lightBlueHover);
     }
