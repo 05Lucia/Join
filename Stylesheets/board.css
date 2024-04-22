@@ -563,6 +563,14 @@
     padding-bottom: 16px;
 }
 
+.board-card-big-top-popup {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+
 @media (min-width: 800px) {
     .wraper-board {
         width: calc(100vw - 200px);

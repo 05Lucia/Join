@@ -80,9 +80,8 @@ function TaskCadBigTemplate(card, id) {
         </div>
         <div class="board-card-big-subtasks-arear" id="board-card-big-subtasks-arear">
             <h2>Subtasks</h2> 
-            <div class="board-task-subtasks-container" id="board-task-subtasks-container">
-        </div> 
-    </div>
+            <div class="board-task-subtasks-container" id="board-task-subtasks-container"></div> 
+        </div>
         <div class="board-card-big-bottom" >
             <div class="board-card-icons" onclick="deleteTask(${id})">
                 <img class="board-card-big-bottom-icon" src="./img/delete.svg" alt="Delete">
@@ -90,7 +89,7 @@ function TaskCadBigTemplate(card, id) {
                 Delete
             </div>
             <div class="board-card-big-bottom-seperation"></div>
-            <div class="board-card-icons">
+            <div class="board-card-icons" onclick="editTask(${id})">
                 <img class="board-card-big-bottom-icon" src="./img/edit.svg" alt="Edit">
                 <img class="board-card-big-bottom-icon-hover" src="./img/edit hover.svg" alt="edit hover">
                 Edit
@@ -156,4 +155,16 @@ function boardPopupAddTaskWindow() {
         </div>
     </div> 
     `;
+}
+
+function EditTemplate() {
+    return `
+    <div class="board-card-big-top-popup">
+        <div class="board-card-close-container" onclick="closeCard()">
+            <img class="board-card-close" src="./img/Close.svg" alt="close">
+            <img class="board-card-close-hover" src="./img/close hover.svg" alt="close hover">
+        </div>
+    </div>
+    <div class="fullHeight" include-AddTask="./Templates/add_task-popup.html"> </div>
+    `
 }

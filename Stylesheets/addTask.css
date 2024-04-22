@@ -708,6 +708,7 @@ h3 {
 .createTaskButton p {
     font-size: 19px;
     font-weight: 400;
+    color: white;
 }
 
 .createTaskButton img {
@@ -990,6 +991,7 @@ h3 {
 
     .createTaskButton p {
         font-size: 23px;
+        color: white;
     }
 
     .createTaskButton:hover {
@@ -1025,7 +1027,7 @@ h3 {
 
 .addTaskContainerPopup {
     width: 488px;
-    min-width: 400px;
+    min-width: 396px;
     height: 769px;
     padding-top: 0;
     gap: 24px;
@@ -1050,6 +1052,8 @@ h3 {
     height: 70px;
     padding-top: 16px;
     gap: 24px;
+    padding-left: 16px;
+    padding-right: 16px;
 }
 
 .clearTaskButtonPopup{
@@ -1062,9 +1066,15 @@ h3 {
     align-items: center;
     height: 100%;
     width: 100%;
+    min-width: 396px;
     top: 0;
     left: 0;
     right: 0;
     background-color: rgba(255, 255, 255, 0.6);
     z-index: 12;
+}
+
+.editTaskButton {
+    width: auto !important;
+    height: auto !important;
 }
