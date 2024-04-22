@@ -1068,7 +1068,3 @@ h3 {
     background-color: rgba(255, 255, 255, 0.6);
     z-index: 12;
 }
-
-.taskCreatedButtonPopup {
-    transition: bottom 1s ease-out;
-}
