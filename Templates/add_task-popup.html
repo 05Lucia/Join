@@ -1,5 +1,5 @@
 <div class="addTaskWrapperPopup">
-    <div class="addTaskContainerPopup">
+    <div class="addTaskContainerPopup" id="addTaskContainer">
         <div class="enterTitleBox">
             <input class="addTaskInputTitle" id="addTaskInputTitle" onfocusout="errorMessageIfEmptyTitle()" type="text"
                 placeholder="Enter a title" required autocomplete="off">
@@ -64,7 +64,7 @@
             </span>
             <div class="addTaskSubtasksInputContainer">
                 <input class="addTaskSubtasksInput" id="addTaskSubtasksInput" type="text" placeholder="Add new subtask"
-                    oninput="showSubtaskInputMenu()">
+                    oninput="showSubtaskInputMenu()" autocomplete="off">
                 <div class="addTaskSubtasksIcons" id="addTaskSubtasksIcons">
                     <img src="./img/addSubtaskPlusIcon.svg">
                 </div>
@@ -84,7 +84,7 @@
         </button>
     </div>
 </div>
-<div class="taskCreatedButtonContainer" id="taskCreatedButtonContainer" style="display: none">
+<div class="taskCreatedButtonContainerPopup" id="taskCreatedButtonContainer" style="display: none">
     <div class="taskCreatedButton" id="taskCreatedButton">
         <p>Task added to board</p>
         <img src="../img/boardIconWhite.svg">

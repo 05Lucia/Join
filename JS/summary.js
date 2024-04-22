@@ -4,15 +4,15 @@
  *
  * This function uses `async` to load the summary template via `Templates` (not provided).
  * After successful loading (assumed), it:
- *  - Updates summary numbers with `summaryLodeNumbers` (implementation not provided).
- *  - Highlights the summary navigation section with `changeNavigationHigliteSummary`.
+ *  - Updates summary numbers with `summaryLoadNumbers` (implementation not provided).
+ *  - Highlights the summary navigation section with `changeNavigationHighlightSummary`.
  * @async
  */
-async function summaryLode() {
+async function summaryLoad() {
     await Templates('summary');
-    changeNavigationHigliteSummary();
-    summaryLodeNumbers();
-}
+    changeNavigationHighlightSummary();
+    summaryLoadNumbers();
+} 
 
 /**
  * Highlights the summary navigation element and removes highlights from legal sections.
@@ -21,7 +21,7 @@ async function summaryLode() {
  * It also removes the "navigation-legal-clicked" class from both legal notice and privacy policy elements.
  * Additionally, it adjusts element visibility based on screen size (potentially for mobile).
  */
-function changeNavigationHigliteSummary() {
+function changeNavigationHighlightSummary() {
     let summary = document.getElementById('navSummary');
     let privacyPolicy = document.getElementById('navPrivacyPolicy');
     let legalNotice = document.getElementById('navLegalNotice');
@@ -38,12 +38,12 @@ function changeNavigationHigliteSummary() {
 /**
  * Calls functions to retrieve and display the number of tasks in each list ("todo", "progress", "feedback", "done").
  */
-function summaryLodeNumbers() {
+function summaryLoadNumbers() {
     todoNumber();
     progressNumber();
     feedbackNumber();
     doneNumber();
-    boradTaskNumber();
+    boardTaskNumber();
     urgentNumber();
     displayClosestDueDate();
 }
@@ -136,7 +136,7 @@ function doneNumber() {
  * Calculates and displays the total number of tasks in the board using the 'cards' array length.
  * Performs error handling if the container element with ID 'bord-tasks-number' is not found.
  */
-function boradTaskNumber() {
+function boardTaskNumber() {
     const container = document.getElementById('bord-tasks-number');
 
     if (!container) {
