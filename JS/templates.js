@@ -168,3 +168,14 @@ function EditTemplate() {
     <div class="fullHeight" include-AddTask="./Templates/add_task-popup.html"> </div>
     `
 }
+
+function templateOkBtn() {
+    const editTaskBntContainer = document.getElementById('createTaskContainerPopup');
+    editTaskBntContainer.innerHTML = `
+    <button id="finish-btn" class="createTaskButton" onclick="">
+        <p>Ok</p>
+        <img src="./img/createTaskCheckIcon.svg">
+    </button>
+    `
+}
+

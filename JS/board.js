@@ -567,11 +567,17 @@ function search() {
 }
 
 async function editTask(id) {
-    const container = document.getElementById('borad-card-popup')
+    const container = document.getElementById('borad-card-popup');
     container.innerHTML = EditTemplate();
     await includeAddTask();
-    const editTaskBnt = document.getElementById('finish-btn')
-    editTaskBnt.innerHTML = '<p>Ok</p><img src="./img/createTaskCheckIcon.svg">';
+    await templateOkBtn();
+    const editTaskBnt = document.getElementById('finish-btn');
     editTaskBnt.classList.add('editTaskButton');
+}
+
+function TaskTextInEdit(id) {
+    // Find the card object by ID in the cards array
+    const card = cards.find(card => card.id === id);
+
     
 }
