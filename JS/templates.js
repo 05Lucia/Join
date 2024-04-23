@@ -9,7 +9,7 @@ function cardTemplate(card) {
     <div draggable="true" onclick="bigCard(${card.id})" ondragstart="startDragging(${card.id})" class="board-card-small" >
         <div style="background-color:${card.category.color};" class="category-card">${card.category.name}</div>
         <div class="card-text">
-            <h3 class="card-title">${card.titel}</h3>
+            <h3 class="card-title">${card.title}</h3>
             <p class="card-description">${card.description}</p>
             <!-- dont show more than 2 lines? JS? -->
         </div>
@@ -63,7 +63,7 @@ function TaskCadBigTemplate(card, id) {
                 <img class="board-card-close-hover" src="./img/close hover.svg" alt="close hover">
             </div>
         </div>
-        <h1>${card.titel} </h1>
+        <h1>${card.title} </h1>
         <p class="board-card-big-description">${card.description} </p>
         <div class="board-card-big-info">
             <h2>Due date:</h2>
@@ -108,7 +108,7 @@ function TaskCadBigTemplate(card, id) {
 function bigCardAssignedTemplate(user, initials) {
     return `
     <div class="board-card-big-assingend-user">
-        <div style="background-color:${user.color};" class="user-initals-card-big-card">${initials}</div>
+        <div style="background-color:${user.avatarColor};" class="user-initals-card-big-card">${initials}</div>
         <p>${user.name}</p>
     </div>
     `;
@@ -169,10 +169,11 @@ function EditTemplate() {
     `
 }
 
-function templateOkBtn() {
+function templateOkBtn(id) {
+    
     const editTaskBntContainer = document.getElementById('createTaskContainerPopup');
     editTaskBntContainer.innerHTML = `
-    <button id="finish-btn" class="createTaskButton" onclick="">
+    <button id="finish-btn" class="createTaskButton" onclick="editTaskDone(${id})">
         <p>Ok</p>
         <img src="./img/createTaskCheckIcon.svg">
     </button>
