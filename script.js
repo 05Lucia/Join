@@ -3,9 +3,9 @@ async function init() {
     if (!localStorage.getItem('isLoggedIn')) {
         startAnimation();
     }
-    await loadUsers();
+    // await loadUsers();
     await summaryLoad();
-    greetUser();
+    // greetUser();
 }
 
 function startAnimation() {
@@ -34,7 +34,7 @@ async function includeHTML() {
         }
     }
     if (document.getElementById('greeting')) {
-        greetUser();
+        // greetUser();
     }
 }
 

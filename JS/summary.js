@@ -241,10 +241,31 @@ function formatDueDate(dueDate) {
 }
 
 /**
+ * Finds the oldest overdue date from the provided array of overdue cards.
+ * @param {Array} overdueCards - An array of overdue card objects.
+ * @returns {string} - The oldest overdue date formatted as a localized string, or an empty string if no overdue cards exist.
+ */
+function getOldestOverdueDate(overdueCards) {
+    if (overdueCards.length === 0) {
+        return '';
+    }
+
+    let oldestOverdueDate = overdueCards[0].dueDate;
+    for (let i = 1; i < overdueCards.length; i++) {
+        const currentDueDate = overdueCards[i].dueDate;
+        if (new Date(currentDueDate.split('-').reverse().join('-')) < new Date(oldestOverdueDate.split('-').reverse().join('-'))) {
+            oldestOverdueDate = currentDueDate;
+        }
+    }
+
+    return formatDueDate(oldestOverdueDate);
+}
+
+/**
  * Updates UI with overdue/upcoming due date or "No upcoming due dates found" message.
  *
  * This function checks for overdue cards:
- *  - If overdue cards exist, it sets "Missed Deadline" text and iterates to format due dates.
+ *  - If overdue cards exist, it sets "Missed Deadline" text and gets the oldest overdue date.
  *  - If no overdue cards exist, it checks for upcoming cards:
  *      - If upcoming cards exist, it formats the closest upcoming due date.
  *      - Otherwise, it sets the message to "No upcoming due dates found".
@@ -261,16 +282,14 @@ function updateDueDateContainers(overdueCards, upcomingCards) {
     if (overdueCards.length > 0) {
         deadlineText = 'Missed Deadline';
         urgentButtonClass = 'missed-deadline';
-        for (let i = 0; i < overdueCards.length; i++) {
-            const card = overdueCards[i];
-            output += formatDueDate(card.dueDate);
-        }
+        output = getOldestOverdueDate(overdueCards);
     } else if (upcomingCards.length > 0) {
         const closestUpcomingDueDate = upcomingCards[0].dueDate;
         output = formatDueDate(closestUpcomingDueDate);
     } else {
         output = "No upcoming due dates found.";
     }
+
     outputDueDate(output);
     outputDeadlineText(deadlineText);
     urgentButtonColor(urgentButtonClass);
