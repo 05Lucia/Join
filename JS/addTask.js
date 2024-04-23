@@ -396,7 +396,8 @@ function clearSubtaskInputField() {
 function saveSubtaskInput() {
     let createdSubtask = document.getElementById('addTaskSubtasksInput').value.trim();
     if (createdSubtask !== "") {
-        createdSubtasks.push(createdSubtask)
+        let createdSubtasksJson = {text: createdSubtask, done: false};
+        createdSubtasks.push(createdSubtasksJson)
         openCreatedSubtaskBox();
         scrollDown();
     }
@@ -409,7 +410,7 @@ function openCreatedSubtaskBox() {
         const subtask = createdSubtasks[i];
         document.getElementById('createdSubTasksBox').innerHTML += /*html*/`
         <div class="eachSubtask" id="eachSubtask(${i})" onclick="" >
-           <li>${subtask}</li>
+           <li>${subtask.text}</li>
 
            <div class="createdSubtasksIcons" id="createdSubtasksIcons">
                 <img src="./img/edit.svg" onclick="editCreatedSubtask(${i})">
@@ -428,7 +429,7 @@ function editCreatedSubtask(i) {
     let currentSubtaskText = createdSubtasks[i];
     document.getElementById(`eachSubtask(${i})`).innerHTML = /*html*/`
     <div class="editEachSubtask" id="editEachSubtask(${i})" onclick="" onfocusout="saveEditSubtaskInput(${i})">
-        <input class="editTaskSubtasksInput" id="editTaskSubtasksInput" type="text" autocomplete="off" value="${currentSubtaskText}" onkeypress="if (event.keyCode === 13) saveEditSubtaskInput(${i})">
+        <input class="editTaskSubtasksInput" id="editTaskSubtasksInput" type="text" autocomplete="off" value="${currentSubtaskText.text}" onkeypress="if (event.keyCode === 13) saveEditSubtaskInput(${i})">
         <div class="editCreatedSubtasksIcons" id="editCreatedSubtasksIcons">
         <img src="./img/deleteContactIcon.svg" onclick="deleteCreatedSubtask(${i}); event.stopPropagation();">
             <div class="addTaskSubtasksIconsSeperator"></div>
@@ -464,7 +465,7 @@ function saveEditSubtaskInput(i) {
           <img src="./img/deleteContactIcon.svg" onclick="deleteCreatedSubtask(${i})">
         </div>
       `;
-        createdSubtasks[i] = editedSubtask;
+        createdSubtasks[i] = {text: editedSubtask, done: false};
     } else if (editedSubtask == "") {
         deleteCreatedSubtask(i);
     }
@@ -496,7 +497,7 @@ function createTask() {
     let category = document.getElementById('selectTaskCategoryTextField').innerText.trim(); // Kategorie abrufen
     let assigned = selectedAssignedContacts; // Zugeordnete Personen abrufen
     let description = document.getElementById('addTaskDescriptionInput').value.trim(); // Beschreibung abrufen
-    let subtasks = createdSubtasks.map(subtask => ({ text: subtask, done: false })); // Subtasks erstellen
+    let subtasks = createdSubtasks; // Subtasks erstellen
     let id = cards.length > 0 ? cards[cards.length - 1].id + 1 : 0; // ID erstellen
     let place = 'todo'; // Place festlegen
 
@@ -540,7 +541,7 @@ function createTask() {
                 name: category,
                 color: ''
             },
-            titel: title,
+            title: title,
             description: description,
             dueDate: dueDate,
             subtasks: subtasks,

@@ -3,16 +3,16 @@
  * Array to test card implement!!
  */
 let cards = [
-    { 
+    {
         "id": 0,
         "place": 'todo',
         "category": {
-            "name": 'JS',
+            "name": 'Technical Task',
             "color": '#FFA800'
         },
-        "titel": 'Test',
+        "title": 'Test',
         "description": 'irgend was ganz langes zu scheiben ist nervig so ich hofe ich habe langsam 2 zeilen ericht und bin jetzt auch langas mal drüber und schon bei der dritten die man hoffentlich nicht sieh! Auser das ist die Große Karte.',
-        "dueDate": '23-04-2024',
+        "dueDate": '2024-04-25',
         "subtasks": [
             {
                 "text": 'testing extra lang',
@@ -25,12 +25,14 @@ let cards = [
         ],
         "assigned": [
             {
-                "name": 'Alice Buchholz',
-                "color": '#7AE229'
+                "name": 'Albert Gerdes',
+                "initials": 'AG',
+                "avatarColor": '#7AE229'
             },
             {
-                "name": 'guest',
-                "color": '#FFA800'
+                "name": 'Aaron Brier',
+                "initials": 'AB',
+                "avatarColor": '#FFA800'
             },
         ],
         "priority": {
@@ -42,12 +44,12 @@ let cards = [
         "id": 1,
         "place": 'feedback',
         "category": {
-            "name": 'HTML',
+            "name": 'Technical Task',
             "color": '#FF3D00'
         },
-        "titel": 'Hallo Hallo',
+        "title": 'Hallo Hallo',
         "description": 'irgend was ....',
-        "dueDate": '20-04-2024',
+        "dueDate": '2024-05-05',
         "subtasks": [
             {
                 "text": 'testing',
@@ -72,29 +74,32 @@ let cards = [
         "id": 2,
         "place": 'progress',
         "category": {
-            "name": 'CSS',
+            "name": 'User Story',
             "color": '#005DFF'
         },
-        "titel": 'test ohne Subtask',
+        "title": 'test ohne Subtask',
         "description": 'test test 0 von 0!',
-        "dueDate": '30-04-2024',
+        "dueDate": '2024-04-30',
         "subtasks": [],
         "assigned": [
             {
-                "name": 'Alice Buchholz',
-                "color": '#7AE229'
+                "name": 'Bernt Saathoff',
+                "initials": 'PS',
+                "avatarColor": '#7AE229'
             },
             {
-                "name": 'Test Dummy',
-                "color": '#005DFF'
+                "name": 'Caroline Tabeling',
+                "initials": 'CT',
+                "avatarColor": '#005DFF'
             },
             {
-                "name": 'Someone Else',
-                "color": '#005DFF'
+                "name": 'Anton Mayer',
+                "initials": 'AM',
+                "avatarColor": '#005DFF'
             }
         ],
         "priority": {
-            "urgency": 'low',
+            "urgency": 'Low',
             "img": './img/priorityLowInactive.svg'
         }
     }
@@ -253,16 +258,12 @@ function assignedInitals(card) {
         for (let i = 0; i < card.assigned.length; i++) {
             const user = card.assigned[i];
             let names = user.name.split(' ');
-            let initials = names[0].substring(0, 1).toUpperCase();
-
-            if (names.length > 1) {
-                initials += names[names.length - 1].substring(0, 1).toUpperCase();
-            }
+            let initials = user.initials;
 
             if (i === 0) {
-                container.innerHTML += `<div style="background-color:${user.color};" class="user-initals-card">${initials} </div>`;
+                container.innerHTML += `<div style="background-color:${user.avatarColor};" class="user-initals-card">${initials} </div>`;
             } else {
-                container.innerHTML += `<div style="background-color:${user.color};" class="user-initals-card overlap">${initials} </div>`;
+                container.innerHTML += `<div style="background-color:${user.avatarColor};" class="user-initals-card overlap">${initials} </div>`;
             }
         }
     }
@@ -348,6 +349,11 @@ function closeCard() {
     container.style.alignItems = "center"
     container.innerHTML = `<div class="borad-card-popup d-none" id="borad-card-popup" onclick="doNotClose(event)"></div>`
     document.body.classList.remove('body-noscroll-class');
+
+    priorities = [];
+    selectedAssignedContacts = [];
+    createdSubtasks = [];
+    updateCards();
 }
 
 /**
@@ -374,11 +380,7 @@ function bigCardAssigned(card) {
         for (let i = 0; i < card.assigned.length; i++) {
             const user = card.assigned[i];
             let names = user.name.split(' ');
-            let initials = names[0].substring(0, 1).toUpperCase();
-
-            if (names.length > 1) {
-                initials += names[names.length - 1].substring(0, 1).toUpperCase();
-            }
+            let initials = user.initials
             container.innerHTML += bigCardAssignedTemplate(user, initials);
         }
     } else {
@@ -504,7 +506,7 @@ async function boardPopupAddTask() {
 
     container.innerHTML = boardPopupAddTaskWindow();
 
-    
+
     document.getElementById('borad-card-overlay').classList.remove('d-none');
     document.body.classList.add('body-noscroll-class');
     container.style.justifyContent = "flex-end"
@@ -567,10 +569,130 @@ function search() {
 }
 
 async function editTask(id) {
-    const container = document.getElementById('borad-card-popup')
+    const container = document.getElementById('borad-card-popup');
     container.innerHTML = EditTemplate();
-    await includeAddTask(id);
-    const editTaskBnt = document.getElementById('finish-btn')
-    editTaskBnt.innerHTML = '<p>Ok</p><img src="./img/createTaskCheckIcon.svg">';
+    await includeAddTask();
+    await templateOkBtn(id);
+    const editTaskBnt = document.getElementById('finish-btn');
     editTaskBnt.classList.add('editTaskButton');
+    TaskTextInEdit(id)
+}
+
+function TaskTextInEdit(id) {
+    // Find the card object by ID in the cards array
+    const card = cards.find(card => card.id === id);
+
+    document.getElementById('addTaskInputTitle').value = card.title;
+    document.getElementById('addTaskDescriptionInput').value = card.description;
+    document.getElementById('addTaskDueDateInput').value = card.dueDate;
+    priorityEdit(card);
+    isAssignedEdit(card);
+    document.getElementById('selectTaskCategoryTextField').innerHTML = card.category.name;
+    subtaskEdit(card);
+}
+
+function priorityEdit(card) {
+    if (card.priority.urgency === 'Urgent') {
+        changePriorityColor('urgentPriorityButton');
+    } if (card.priority.urgency === 'Medium') {
+        changePriorityColor('mediumPriorityButton');
+    } if (card.priority.urgency === 'Low') {
+        changePriorityColor('lowPriorityButton');
+    }
+}
+
+function isAssignedEdit(card) {
+    selectedAssignedContacts = [];
+    for (let i = 0; i < card.assigned.length; i++) {
+        const contact = card.assigned[i];
+        let selectedContact = { name: contact.name, initials: contact.initials, avatarColor: contact.avatarColor }; // Ein Objekt mit Namen, Initialen und Avatarfarbe erstellen
+        selectedAssignedContacts.push(selectedContact); // Kontakt zum Array hinzufügen
+    }
+    showAvatarsOfSelectedContacts();
+}
+
+function subtaskEdit(card) {
+    for (let i = 0; i < card.subtasks.length; i++) {
+        const subtask = card.subtasks[i];
+        let createdSubtasksJson = { text: subtask.text, done: subtask.done };
+        createdSubtasks.push(createdSubtasksJson);
+    }
+    openCreatedSubtaskBox();
+}
+
+function editTaskDone(id,) {
+    const card = cards.find(card => card.id === id);
+    let place = card.place;
+    cards.splice(card.id);
+
+    let title = errorMessageIfEmptyTitle(); // Titel überprüfen und abrufen
+    let dueDate = errorMessageIfEmptyDueDate(); // Fälligkeitsdatum überprüfen und abrufen
+    let priority = priorities[0]; // Priorität abrufen
+    let category = document.getElementById('selectTaskCategoryTextField').innerText.trim(); // Kategorie abrufen
+    let assigned = selectedAssignedContacts; // Zugeordnete Personen abrufen
+    let description = document.getElementById('addTaskDescriptionInput').value.trim(); // Beschreibung abrufen
+    let subtasks = createdSubtasks; // Subtasks erstellen
+
+    if (title == null && dueDate == null && !taskCategories.includes(category)) {
+        errorMessageIfEmptyTitle();
+        errorMessageIfEmptyDueDate();
+        errorMessageIfEmptyCategory();
+    } else if (title == null && dueDate == null) {
+        errorMessageIfEmptyTitle();
+        errorMessageIfEmptyDueDate();
+    } else if (title == null && !taskCategories.includes(category)) {
+        errorMessageIfEmptyTitle();
+        errorMessageIfEmptyCategory();
+    } else if (dueDate == null && !taskCategories.includes(category)) {
+        errorMessageIfEmptyDueDate();
+        errorMessageIfEmptyCategory();
+    } else if (title == null) {
+        errorMessageIfEmptyTitle();
+    } else if (dueDate == null) {
+        errorMessageIfEmptyDueDate();
+    } else if (!taskCategories.includes(category)) {
+        errorMessageIfEmptyCategory();
+    } else {
+
+        // Priorität Bildpfad festlegen
+        let priorityImg;
+        if (priority == 'Urgent') {
+            priorityImg = './img/priorityHighInactive.svg';
+        } else if (priority == 'Medium') {
+            priorityImg = './img/priorityMediumInactive.svg';
+        } else {
+            priorityImg = './img/priorityLowInactive.svg';
+        }
+
+        // Neues Kartenobjekt erstellen
+        let newCard = {
+            id: id,
+            place: place,
+            category: {
+                name: category,
+                color: ''
+            },
+            title: title,
+            description: description,
+            dueDate: dueDate,
+            subtasks: subtasks,
+            assigned: assigned,
+            priority: {
+                urgency: priority,
+                img: priorityImg
+            }
+        };
+
+
+        // Karte zum Array hinzufügen
+        cards.push(newCard);
+
+        // Zur Überprüfung in der Konsole ausgeben
+        console.log('Neue Karte erstellt:', newCard);
+
+        priorities = [];
+        selectedAssignedContacts = [];
+        createdSubtasks = [];
+        bigCard(id); // checken das nicht doppelt...?
+    }
 }
