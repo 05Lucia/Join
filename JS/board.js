@@ -569,8 +569,9 @@ function search() {
 async function editTask(id) {
     const container = document.getElementById('borad-card-popup')
     container.innerHTML = EditTemplate();
-    await includeAddTask(id);
+    await includeAddTask();
     const editTaskBnt = document.getElementById('finish-btn')
     editTaskBnt.innerHTML = '<p>Ok</p><img src="./img/createTaskCheckIcon.svg">';
     editTaskBnt.classList.add('editTaskButton');
+    
 }

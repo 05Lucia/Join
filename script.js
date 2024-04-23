@@ -100,6 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
     removeNavHighlightLegalPartOnDropdown();
     removeNavHighlightOnHelp();
     removeNavHighlightLegalPartOnHelp();
+    removeNavHighlightOnLogo();
 });
 
 /**
@@ -285,6 +286,24 @@ function removeNavHighlightOnHelp() {
     })
 }
 
+function removeNavHighlightOnLogo() {
+    const btnElList = document.querySelectorAll('.navLogo');
+    const buttonElList = document.querySelectorAll('.navLogo');
+
+    btnElList.forEach(btnEl => {
+        btnEl.addEventListener('click', () => {
+            document.querySelector('.navigation-item-clicked')?.classList.remove('navigation-item-clicked');
+            resetNavigationItems();
+        })
+    })
+
+    buttonElList.forEach(btnEl => {
+        btnEl.addEventListener('click', () => {
+            document.querySelector('.navigation-legal-clicked')?.classList.remove('navigation-legal-clicked');
+            resetNavigationItems();
+        })
+    })
+}
 // leagalnotes / privacy Policy Navigation---------------------------------------------------------------
 /**
  * Loads legal notice template and highlights the legal notice section.

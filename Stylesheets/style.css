@@ -376,6 +376,10 @@ body {
     height: 100%;
 }
 
+.navLogo {
+    cursor: pointer;
+}
+
 /* for desktop screens */
 @media (min-width: 800px) {
     .navigation-row {
