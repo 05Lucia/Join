@@ -633,24 +633,24 @@ function editTaskDone(id,) {
     let description = document.getElementById('addTaskDescriptionInput').value.trim(); // Beschreibung abrufen
     let subtasks = createdSubtasks; // Subtasks erstellen
 
-    if (title == null && dueDate == null && !taskCategories.includes(category)) {
+    if (title == null && dueDate == null && !taskCategories.some(categoryObj => categoryObj.name === category)) {
         errorMessageIfEmptyTitle();
         errorMessageIfEmptyDueDate();
         errorMessageIfEmptyCategory();
     } else if (title == null && dueDate == null) {
         errorMessageIfEmptyTitle();
         errorMessageIfEmptyDueDate();
-    } else if (title == null && !taskCategories.includes(category)) {
+    } else if (title == null && !taskCategories.some(categoryObj => categoryObj.name === category)) {
         errorMessageIfEmptyTitle();
         errorMessageIfEmptyCategory();
-    } else if (dueDate == null && !taskCategories.includes(category)) {
+    } else if (dueDate == null && !taskCategories.some(categoryObj => categoryObj.name === category)) {
         errorMessageIfEmptyDueDate();
         errorMessageIfEmptyCategory();
     } else if (title == null) {
         errorMessageIfEmptyTitle();
     } else if (dueDate == null) {
         errorMessageIfEmptyDueDate();
-    } else if (!taskCategories.includes(category)) {
+    } else if (!taskCategories.some(categoryObj => categoryObj.name === category)) {
         errorMessageIfEmptyCategory();
     } else {
 
@@ -664,13 +664,23 @@ function editTaskDone(id,) {
             priorityImg = './img/priorityLowInactive.svg';
         }
 
+        // Farben für Kategorie abrufen
+        let categoryColor;
+        let matchingCategory = taskCategories.find(categoryObj => categoryObj.name === category);
+        if (matchingCategory) {
+            categoryColor = matchingCategory.categoryColor;
+        } else {
+            // Fall, wenn keine Übereinstimmung gefunden wurde
+            console.error("Keine Übereinstimmung für die Kategorie gefunden");
+        }
+
         // Neues Kartenobjekt erstellen
         let newCard = {
             id: id,
             place: place,
             category: {
                 name: category,
-                color: ''
+                color: categoryColor
             },
             title: title,
             description: description,

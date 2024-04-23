@@ -306,7 +306,16 @@ function showAvatarsOfSelectedContacts() {
     }
 }
 
-let taskCategories = ['Technical Task', 'User Story'];
+// let taskCategories = ['Technical Task', 'User Story'];
+let taskCategories = [{
+    name: "Technical Task",
+    categoryColor: "rgb(0,56,255)"
+},
+{
+    name: 'User Story',
+    categoryColor: "rgb(255,122,0)"
+}
+];
 
 function toggleSelectTaskCategoryDropdown() {
     var content = document.getElementById("dropdownSelectTasksCategory");
@@ -325,7 +334,7 @@ function openTaskCategoryDropdown() {
         const taskCategory = taskCategories[i];
         document.getElementById('dropdownSelectTasksCategory').innerHTML += /*html*/`
         <div class="dropdownEachTaskCategory" id="dropdownEachTaskCategory(${i})" onclick="selectTaskCategory(${i})">
-            ${taskCategory}
+            ${taskCategory.name}
         </div>
     `;
     }
@@ -338,7 +347,7 @@ function closeTaskCategoryDropdown() {
 
 function selectTaskCategory(i) {
     let taskCategory = taskCategories[i];
-    document.getElementById('selectTaskCategoryTextField').innerHTML = taskCategory;
+    document.getElementById('selectTaskCategoryTextField').innerHTML = taskCategory.name;
     closeTaskCategoryDropdown();
     errorMessageIfEmptyCategory();
 }
@@ -396,7 +405,7 @@ function clearSubtaskInputField() {
 function saveSubtaskInput() {
     let createdSubtask = document.getElementById('addTaskSubtasksInput').value.trim();
     if (createdSubtask !== "") {
-        let createdSubtasksJson = {text: createdSubtask, done: false};
+        let createdSubtasksJson = { text: createdSubtask, done: false };
         createdSubtasks.push(createdSubtasksJson)
         openCreatedSubtaskBox();
         scrollDown();
@@ -465,7 +474,7 @@ function saveEditSubtaskInput(i) {
           <img src="./img/deleteContactIcon.svg" onclick="deleteCreatedSubtask(${i})">
         </div>
       `;
-        createdSubtasks[i] = {text: editedSubtask, done: false};
+        createdSubtasks[i] = { text: editedSubtask, done: false };
     } else if (editedSubtask == "") {
         deleteCreatedSubtask(i);
     }
@@ -502,24 +511,24 @@ function createTask() {
     let place = 'todo'; // Place festlegen
 
 
-    if (title == null && dueDate == null && !taskCategories.includes(category)) {
+    if (title == null && dueDate == null && !taskCategories.some(categoryObj => categoryObj.name === category)) {
         errorMessageIfEmptyTitle();
         errorMessageIfEmptyDueDate();
         errorMessageIfEmptyCategory();
     } else if (title == null && dueDate == null) {
         errorMessageIfEmptyTitle();
         errorMessageIfEmptyDueDate();
-    } else if (title == null && !taskCategories.includes(category)) {
+    } else if (title == null && !taskCategories.some(categoryObj => categoryObj.name === category)) {
         errorMessageIfEmptyTitle();
         errorMessageIfEmptyCategory();
-    } else if (dueDate == null && !taskCategories.includes(category)) {
+    } else if (dueDate == null && !taskCategories.some(categoryObj => categoryObj.name === category)) {
         errorMessageIfEmptyDueDate();
         errorMessageIfEmptyCategory();
     } else if (title == null) {
         errorMessageIfEmptyTitle();
     } else if (dueDate == null) {
         errorMessageIfEmptyDueDate();
-    } else if (!taskCategories.includes(category)) {
+    } else if (!taskCategories.some(categoryObj => categoryObj.name === category)) {
         errorMessageIfEmptyCategory();
     } else {
 
@@ -533,13 +542,29 @@ function createTask() {
             priorityImg = './img/priorityLowInactive.svg';
         }
 
+        // Farben für Kategorie festlegen
+        let categoryColor;
+        let matchingCategory = taskCategories.find(categoryObj => categoryObj.name === category);
+        // if (category == 'Technical Task') {
+        //     categoryColor = taskCategories.categoryColor;
+        // } else if (category == 'User Story') {
+        //     categoryColor = taskCategories.categoryColor;
+        // }
+
+        if (matchingCategory) {
+            categoryColor = matchingCategory.categoryColor;
+        } else {
+            // Fall, wenn keine Übereinstimmung gefunden wurde
+            console.error("Keine Übereinstimmung für die Kategorie gefunden");
+        }
+
         // Neues Kartenobjekt erstellen
         let newCard = {
             id: id,
             place: place,
             category: {
                 name: category,
-                color: ''
+                color: categoryColor
             },
             title: title,
             description: description,
@@ -575,6 +600,6 @@ function showTaskCreatedPopUp() {
         document.getElementById('taskCreatedButtonContainer').style.display = "none";
     }, 800);
     setTimeout(() => {
-        lodeBoard();
+        loadBoard();
     }, 820);
 }
