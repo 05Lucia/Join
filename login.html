@@ -29,31 +29,22 @@
             <form class="loginForm" onsubmit="login(); return false;">
                 <div class="inputField">
                     <input class="input user-email" type="email" required id="email" placeholder="Email" autocomplete="email" onkeyup="loadRememberedPassword()">
-                    <img class="inputImage" src="./img/img/mail.svg">
+                    <img class="inputImage" src="./img/img/mail.svg"> 
                 </div>
                 <div class="inputField">
                     <input class="input" type="password" required id="password" placeholder="Password" autocomplete="current-password" onfocus="changeLockIcon(this)">
                     <img class="inputImage" id="passwordIcon" src="./img/img/lock.svg" onclick="togglePassword('password')">
                 </div>
-                <div class="resetPassword">
-                    <button onclick="resetPassword(event)">Reset your password</button>
-                </div>                
-                <div class="msgBoxSuccess" id="msgBox"></div>
-                <div class="checkboxLoginContainer">
-                    <label class="checkbox">
-                        <input type="checkbox" id="rememberMeCheckbox" class="realCheckbox" onchange="handleRememberMeChange();">
-                <div class="msgBoxSuccess" id="msgBox"></div>     
+                <div id="passwordError" class="passwordError">Wrong password! Try again.</div>               
+                <div class="msgBoxSuccess" id="msgBox"></div> 
                 <div class="checkboxContainer">
                     <label>
-                        <input type="checkbox" id="rememberCheckbox" class="hiddenCheckbox" onchange="toggleRememberMeCheckbox(this);">
+                        <input type="checkbox" id="rememberCheckbox" class="hiddenCheckbox" onchange="toggleRememberMeCheckbox(this); handleRememberMeChange();">
                         <img class="checkboxImage" src="./img/Rectangle5.svg" 
                              data-checked="./img/img/checked.svg" data-unchecked="./img/img/Rectangle5.svg">
                         <span>Remember me</span>
                     </label> 
                 </div>       
-                    </label>
-                </div>
-                         
                 <div class="buttonContainer">
                     <button type="submit" class="blueBtn">Log in</button>
                     <button type="button" onclick="guestLogin()" class="greyBorderBtn">Guest log in</button>
@@ -73,20 +64,7 @@
             <div class="modal-content">
               <p>Welcome! You're logged in.</p> 
             </div>
-        </div> 
-
-        <div id="resetPasswordPopup" class="modal">
-            <div class="ResetPasswordPopupContent">
-                <span class="changeYourPassword">Change your password</span>
-                <div class="inputFieldReset">  
-                    <input class="inputReset" type="password" id="newPassword" placeholder="Enter new Password" onfocus="changeLockIcon(this)">
-                    <img class="inputImageReset" id="newPasswordIcon" src="./img/img/lock.svg" onclick="togglePassword('newPassword')">
-                </div>                  
-                <button class="greyBorderBtnSmall" onclick="changePassword()">Change password</button>
-                <span class="closeReset" onclick="closeReset()">×</span>      
-            </div>   
-        </div>
-        
+        </div>         
 </div>
 </main>
 </html>
