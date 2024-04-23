@@ -184,6 +184,28 @@ input::placeholder {
     color: #D1D1D1;
 }
 
+.passwordError {
+    width: 90%;
+    display: none; 
+    color: red;
+    font-size: 14px;
+    margin-top: -10px;
+    text-align: left;
+}
+
+.msgError {
+    width: 90%; 
+    color: red;
+    font-size: 14px;
+    margin-top: -5px;
+    text-align: left;
+    font-size: 12px;
+}
+
+.inputField input.error {
+    border-bottom: 1px solid red;
+}
+
 .inputImage {
     width: 24px;
     height: 24px;
@@ -194,7 +216,6 @@ input::placeholder {
     outline: none;
 }
 
-.checkboxLoginContainer {
 .checkboxContainer {
     width: 90%;
     height: 23px;
@@ -287,10 +308,6 @@ input::placeholder {
     min-width: 760px;
 }
 
-.loginHeader {
-    margin-top: 80px;
-}
-
 .loginHeader img {
     position: fixed;
     top: 80px;
@@ -328,6 +345,10 @@ input::placeholder {
     left: 60px;
     width: 100px;
     height: auto;
+}
+
+.h1Login {
+    font-size: 44px;
 }
 
 .buttonContainer {
@@ -368,6 +389,10 @@ input::placeholder {
 .loginHeadline { 
     margin-bottom: 0;
     padding-top: 0;
+}
+
+.h1Login {
+    font-size: 42px;
 }
 
 .checkboxLoginContainer {
@@ -416,6 +441,10 @@ input::placeholder {
 
 .loginHeadline {
     padding: 0;
+}
+
+.h1Login {
+    font-size: 36px;
 }
 
 .loginHeader {
@@ -471,6 +500,10 @@ input::placeholder {
     height: auto;
     top: 30px;
     left: 30px;
+}
+
+.h1Login {
+    font-size: 32px;
 }
 
 .loginForm {
@@ -641,9 +674,10 @@ input::placeholder {
     width: 90%; 
     cursor: pointer;
     display: flex;
-    justify-content: left;
+    justify-content: right;
     align-items: center;
     color: var(--maincolor);
+    margin-top: -16px;
 }
 
 .resetPassword button {
@@ -651,7 +685,7 @@ input::placeholder {
     color: var(--maincolor);
     border: unset;
     background-color: white;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .resetPassword :hover {

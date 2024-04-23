@@ -138,6 +138,23 @@ let users = [
     }
 ];
 
+function validateEmailAddress() {
+    let emailInput = document.getElementById("email");
+    let email = emailInput.value;
+    let pattern = new RegExp('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}');
+    let emailMessage = document.getElementById("msgBoxValidateEmail");  
+
+    if (!pattern.test(email)) {
+        emailMessage.innerHTML = "Bitte geben Sie eine gültige E-Mail-Adresse ein.";
+        emailMessage.style.color = "red";
+        return false;
+    } else {
+        emailMessage.innerHTML = "E-Mail-Adresse ist gültig.";
+        emailMessage.style.color = "green";
+        return true;
+    }
+}
+
 
 /**
  * Checks the strength of the password entered by the user.
@@ -150,7 +167,7 @@ function checkPasswordStrength() {
     let pattern = new RegExp('(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}');
 
     if (!pattern.test(password)) {
-        strengthIndicator.innerHTML = "Your password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, and one number";
+        strengthIndicator.innerHTML = "Password must be at least 8 characters, including one uppercase letter, one lowercase letter, and one number";
         strengthIndicator.style.color = "red";
         return false;
     } else {
@@ -319,11 +336,19 @@ async function checkIfEmailExists(email) {
  * Sets local storage items if the credentials are valid, otherwise alerts the user.
  * @async
  * @returns {Promise<void>}
- */
+ */ 
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('password').addEventListener('focus', function() {
+        if (this.classList.contains('error')) {
+            clearPasswordError();
+            this.value = '';  
+        }
+    });
+});
+
 async function login() {
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;
-    let rememberMe = document.getElementById('rememberMeCheckbox').checked;
     let rememberMe = document.getElementById('rememberCheckbox').checked;
     let users = await loadUsers();
     let user = users.find(u => u.email === email);
@@ -333,8 +358,23 @@ async function login() {
         await rememberPassword(email, user.password, rememberMe);
         successfulSignup();
     } else {
-        alert("Invalid email or password");
+        wrongPasswordMessage(); 
     }
+}
+
+
+function wrongPasswordMessage() {
+    let passwordField = document.getElementById('password');
+    passwordField.classList.add('error');
+    document.getElementById('passwordError').style.display = 'block';
+}
+
+
+function clearPasswordError() {
+    let passwordField = document.getElementById('password');
+    passwordField.classList.remove('error');
+    document.getElementById('passwordError').style.display = 'none';
+    passwordField.value = '';  
 }
 
 
@@ -347,7 +387,6 @@ function setUserLogin(user) {
     localStorage.setItem('currentUserName', user.name);
     localStorage.setItem('userType', 'regular');
 }
-
 
 
 /**
@@ -371,7 +410,7 @@ function toggleCheckbox(inputElement) {
  */
 function handleRememberMeChange() {
     let email = document.getElementById('email').value;
-    let remember = document.getElementById('rememberMeCheckbox').checked;
+    let remember = document.getElementById('rememberCheckbox').checked;
     rememberPassword(email, remember);
 }
 
@@ -400,11 +439,6 @@ async function rememberPassword(email, password, remember) {
  * Toggles the visibility and state of a custom checkbox UI element.
  * @param {HTMLElement} label - The label element associated with the checkbox.
  */
-function toggleRememberMeCheckbox(label) { 
-    let checkbox = label.parentElement.querySelector('.realCheckbox');
-    let checkboxImage = label.querySelector('.checkboxImage');
-    checkbox.checked = !checkbox.checked;
-    checkboxImage.src = checkbox.checked ? checkboxImage.getAttribute('data-checked') : checkboxImage.getAttribute('data-unchecked');
 function toggleRememberMeCheckbox(inputElement) { 
     let checkboxImage = inputElement.parentElement.querySelector('.checkboxImage');
     checkboxImage.src = inputElement.checked ? checkboxImage.getAttribute('data-checked') : checkboxImage.getAttribute('data-unchecked');
@@ -427,11 +461,9 @@ async function loadRememberedPassword() {
     let rememberedUser = users.find(u => u.rememberMe && u.email === inputEmail);
     if (rememberedUser) {
         document.getElementById('password').value = rememberedUser.password;
-        document.getElementById('rememberMeCheckbox').checked = true;
-        document.getElementById('rememberCheckbox').checked = true;
+        document.getElementById('rememberCheckbox').checked = true; 
     } else {
         document.getElementById('password').value = '';
-        document.getElementById('rememberMeCheckbox').checked = false;
         document.getElementById('rememberCheckbox').checked = false;
     }
 }
@@ -469,55 +501,6 @@ function successfulSignup() {
         }, 2000);
         
     }
-}
-
-
-/**
- * Displays the reset password popup.
- */
-function resetPassword() {
-    document.getElementById("resetPasswordPopup").style.display = "block";
-}
-
-
-/**
- * Changes the user's password after validating the new password field.
- * Alerts the user whether the change was successful or not.
- * @async
- * @returns {Promise<void>}
- */
-async function changePassword() {
-    let newPassword = document.getElementById('newPassword').value;
-    if (!newPassword) {
-        alert('Please enter a new password.');
-        return;
-    }
-
-    let email = document.querySelector('.user-email').value;
-    let users = await loadUsers();
-    let user = users.find(user => user.email === email);
-    if (!user) {
-        alert('No user found with this email.');
-        return;
-    }
-
-    user.password = newPassword;
-    try {
-        await setItem('users', JSON.stringify(users));
-        alert('Your password has been successfully updated.');
-    } catch (error) {
-        console.error('Error updating password:', error);
-        alert('Failed to update password.');
-    }
-}
-
-
-/**
- * Closes the reset password popup and redirects to the login page.
- */
-function closeReset() {
-    document.getElementById("resetPasswordPopup").style.display = "none";
-    window.location.href = '../login.html';
 }
 
 
