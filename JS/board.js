@@ -353,6 +353,7 @@ function closeCard() {
     priorities = [];
     selectedAssignedContacts = [];
     createdSubtasks = [];
+    updateCards();
 }
 
 /**
