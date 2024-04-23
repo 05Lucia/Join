@@ -349,6 +349,10 @@ function closeCard() {
     container.style.alignItems = "center"
     container.innerHTML = `<div class="borad-card-popup d-none" id="borad-card-popup" onclick="doNotClose(event)"></div>`
     document.body.classList.remove('body-noscroll-class');
+
+    priorities = [];
+    selectedAssignedContacts = [];
+    createdSubtasks = [];
 }
 
 /**
@@ -609,7 +613,7 @@ function isAssignedEdit(card) {
 function subtaskEdit(card) {
     for (let i = 0; i < card.subtasks.length; i++) {
         const subtask = card.subtasks[i];
-        let createdSubtasksJson = {text: subtask.text, done: subtask.done};
+        let createdSubtasksJson = { text: subtask.text, done: subtask.done };
         createdSubtasks.push(createdSubtasksJson);
     }
     openCreatedSubtaskBox();
@@ -678,7 +682,7 @@ function editTaskDone(id,) {
             }
         };
 
-        
+
         // Karte zum Array hinzufügen
         cards.push(newCard);
 
