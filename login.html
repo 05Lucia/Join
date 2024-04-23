@@ -42,9 +42,18 @@
                 <div class="checkboxLoginContainer">
                     <label class="checkbox">
                         <input type="checkbox" id="rememberMeCheckbox" class="realCheckbox" onchange="handleRememberMeChange();">
+                <div class="msgBoxSuccess" id="msgBox"></div>     
+                <div class="checkboxContainer">
+                    <label>
+                        <input type="checkbox" id="rememberCheckbox" class="hiddenCheckbox" onchange="toggleRememberMeCheckbox(this);">
+                        <img class="checkboxImage" src="./img/Rectangle5.svg" 
+                             data-checked="./img/img/checked.svg" data-unchecked="./img/img/Rectangle5.svg">
                         <span>Remember me</span>
                     </label> 
                 </div>       
+                    </label>
+                </div>
+                         
                 <div class="buttonContainer">
                     <button type="submit" class="blueBtn">Log in</button>
                     <button type="button" onclick="guestLogin()" class="greyBorderBtn">Guest log in</button>

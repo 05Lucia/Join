@@ -195,6 +195,7 @@ input::placeholder {
 }
 
 .checkboxLoginContainer {
+.checkboxContainer {
     width: 90%;
     height: 23px;
     cursor: pointer;
@@ -204,6 +205,27 @@ input::placeholder {
     gap: 10px;
     margin-top: 30px;
     margin-bottom: 30px;
+}
+
+.checkboxImage {
+    cursor: pointer;
+    border: unset;
+    border-radius: 3px;
+    background-color: white;
+    transition: background-color 0.3s ease, padding 0.3s ease; 
+}
+
+.checkboxImage:hover {
+    background-color: var(--lightBlue);
+    box-shadow: 0 0 0 1px var(--lightBlue); 
+}
+
+.hiddenCheckbox {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    margin: 0;
 }
 
 .rememberMe {
