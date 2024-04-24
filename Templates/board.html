@@ -2,7 +2,7 @@
     <div class="board-top">
 
         <div class="search-field">
-            <input onchange="search()" id="search" class="search-input" type="text" placeholder="Find Task">
+            <input oninput="search()" id="search" class="search-input" type="text" placeholder="Find Task">
             <div class="search-boder"></div>
             <div class="search-btn-container" onclick="search()">
                 <img class="search-btn-normal" src="./img/search btn.svg" alt="">
@@ -12,6 +12,7 @@
         </div>
         <button class="blueBtn add-btn-top" onclick="boardPopupAddTask() ">Add task <img src="./img/plus icon.svg" alt=""></button>
     </div>
+    <div id="no-search-results"></div>
     <div class="kanban-board">
         <div class="board-collum">
             <div class="board-header">

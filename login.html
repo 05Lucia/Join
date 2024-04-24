@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,16 +11,17 @@
     <link rel="stylesheet" href="./Stylesheets/summary.css">
     <link rel="stylesheet" href="./Stylesheets/register.css">
     <link rel="stylesheet" href="./fonts/fonts.css">
-    <script src="script.js"></script> 
+    <script src="script.js"></script>
     <script src="./JS/storage.js"></script>
     <script src="./JS/register.js"></script>
 </head>
 <!-- login page (after start animation) -->
-<main class="mainLoginContainer"> 
-<div id="loginPage" class="loginPage">
-    <div class="loginHeader">
-        <img src="./img/logo.png">
-    </div> 
+<main class="mainLoginContainer">
+    
+    <div id="loginPage" class="loginPage">
+        <div class="loginHeader">
+            <img src="./img/logo.png">
+        </div>
         <div class="loginContainer">
             <div class="loginHeadline">
                 <h1 class="h1Login">Log in</h1>
@@ -28,44 +29,48 @@
             </div>
             <form class="loginForm" onsubmit="login(); return false;">
                 <div class="inputField">
-                    <input class="input user-email" type="email" required id="email" placeholder="Email" autocomplete="email" onkeyup="loadRememberedPassword()">
-                    <img class="inputImage" src="./img/img/mail.svg"> 
+                    <input class="input user-email" type="email" required id="email" placeholder="Email"
+                        autocomplete="email" onkeyup="loadRememberedPassword()">
+                    <img class="inputImage" src="./img/img/mail.svg">
                 </div>
                 <div class="inputField">
-                    <input class="input" type="password" required id="password" placeholder="Password" autocomplete="current-password" onfocus="changeLockIcon(this)">
-                    <img class="inputImage" id="passwordIcon" src="./img/img/lock.svg" onclick="togglePassword('password')">
+                    <input class="input" type="password" required id="password" placeholder="Password"
+                        autocomplete="current-password" onfocus="changeLockIcon(this)">
+                    <img class="inputImage" id="passwordIcon" src="./img/img/lock.svg"
+                        onclick="togglePassword('password')">
                 </div>
-                <div id="passwordError" class="passwordError">Wrong password! Try again.</div>               
-                <div class="msgBoxSuccess" id="msgBox"></div> 
+                <div id="passwordError" class="passwordError">Wrong password! Try again.</div>
+                <div class="msgBoxSuccess" id="msgBox"></div>
                 <div class="checkboxContainer">
                     <label>
-                        <input type="checkbox" id="rememberCheckbox" class="hiddenCheckbox" onchange="toggleRememberMeCheckbox(this); handleRememberMeChange();">
-                        <img class="checkboxImage" src="./img/Rectangle5.svg" 
-                             data-checked="./img/img/checked.svg" data-unchecked="./img/img/Rectangle5.svg">
+                        <input type="checkbox" id="rememberCheckbox" class="hiddenCheckbox"
+                            onchange="toggleRememberMeCheckbox(this); handleRememberMeChange();">
+                        <img class="checkboxImage" src="./img/Rectangle5.svg" data-checked="./img/img/checked.svg"
+                            data-unchecked="./img/img/Rectangle5.svg">
                         <span>Remember me</span>
-                    </label> 
-                </div>       
+                    </label>
+                </div>
                 <div class="buttonContainer">
                     <button type="submit" class="blueBtn">Log in</button>
                     <button type="button" onclick="guestLogin()" class="greyBorderBtn">Guest log in</button>
                 </div>
             </form>
         </div>
+    </div>
+    <div class="noJoinUser">
+        <span>Not a Join User?</span>
+        <button class="blueBtn" onclick="window.location.href='../signup.html'">Sign up</button>
+    </div>
+    <div class="legalNotes">
+        <button onclick="window.location.href='../privacyPolicyLogin.html'">Privacy Policy</button>
+        <button onclick="window.location.href='../legalNoticeLogin.html'">Legal Notice</button>
+    </div>
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <p>Welcome! You're logged in.</p>
         </div>
-        <div class="noJoinUser">
-            <span>Not a Join User?</span>
-            <button class="blueBtn" onclick="window.location.href='../signup.html'">Sign up</button>
-        </div>
-        <div class="legalNotes">
-            <button onclick="window.location.href='../privacyPolicyLogin.html'">Privacy Policy</button>
-            <button onclick="window.location.href='../legalNoticeLogin.html'">Legal Notice</button>
-        </div>
-        <div id="signupModal" class="modal">
-            <div class="modal-content">
-              <p>Welcome! You're logged in.</p> 
-            </div>
-        </div>         
-</div>
+    </div>
+    </div>
 </main>
+
 </html>
- 

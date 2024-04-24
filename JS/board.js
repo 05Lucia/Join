@@ -79,7 +79,7 @@ let cards = [
         },
         "title": 'test ohne Subtask',
         "description": 'test test 0 von 0!',
-        "dueDate": '2024-04-30',
+        "dueDate": '2024-04-24',
         "subtasks": [],
         "assigned": [
             {
@@ -390,9 +390,21 @@ function bigCardAssigned(card) {
 
 function dueDateConvert(card) {
     let dueDateContainer = document.getElementById('due-date');
-    const formattedDueDate = card.dueDate.replace(/-/g, '.');
-    dueDateContainer.innerText = `${formattedDueDate}`;
-}
+  
+    // Check if dueDate exists and is a string (optional safety check)
+    if (!card.dueDate || typeof card.dueDate !== 'string') {
+      dueDateContainer.innerText = "No due date";
+      return; // Exit the function if no due date or not a string
+    }
+  
+    // Split the date string into year, month, and day components
+    const [year, month, day] = card.dueDate.split('-');
+  
+    // Create the formatted date string in DD.MM.YYYY format
+    const formattedDueDate = `${day.padStart(2, '0')}.${month.padStart(2, '0')}.${year}`;
+  
+    dueDateContainer.innerText = formattedDueDate;
+  }
 
 /**
  * Checks for subtasks and conditionally hides the subtasks area of the big card modal.
@@ -537,10 +549,8 @@ async function includeAddTask() {
 }
 
 /**
- * Filters and displays cards within designated containers based on a search query.
- * Searches for matches in both the card title and description.
- *
- * Handles scenarios where no cards match the search criteria.
+ * Searches cards based on user input, hiding unmatched & showing matches.
+ * Calls NoMatchFound for empty search or no results.
  */
 function search() {
     let query = document.getElementById('search').value.toLowerCase();
@@ -562,12 +572,31 @@ function search() {
             }
         }
     }
+    NoMatchFound(hasMatch,query);
+}
+
+/**
+ * Handles no search results: shows message if no match, clears if query is empty or has matches.
+ * @param {boolean} hasMatch - Flag indicating if any matches were found.
+ * @param {string} query - The search query string.
+ */
+function NoMatchFound(hasMatch,query) {
     // Handle no matches scenario 
     if (!hasMatch) {
-        console.log("No task cards found matching the search query.");
+        let container = document.getElementById('no-search-results')
+        container.innerText = 'No matching task found.';
+    }
+    if (query === '' || hasMatch) {
+        document.getElementById('no-search-results').innerText = '';
     }
 }
 
+/**
+ * Opens edit task popup, loads edit template, handles OK button and sets edit mode for "finish" button.
+ * Calls functions to pre-fill edit form data based on provided task ID.
+ *
+ * @param {string} id - The ID of the task to edit.
+ */
 async function editTask(id) {
     const container = document.getElementById('borad-card-popup');
     container.innerHTML = EditTemplate();
@@ -578,6 +607,11 @@ async function editTask(id) {
     TaskTextInEdit(id)
 }
 
+/**
+ * Pre-fills edit form fields with data from the task object based on its ID.
+ *
+ * @param {string} id - The ID of the task to edit.
+ */
 function TaskTextInEdit(id) {
     // Find the card object by ID in the cards array
     const card = cards.find(card => card.id === id);
@@ -591,6 +625,11 @@ function TaskTextInEdit(id) {
     subtaskEdit(card);
 }
 
+/**
+ * Sets the priority button color based on the provided card's urgency level.
+ *
+ * @param {object} card - The task object containing urgency information.
+ */
 function priorityEdit(card) {
     if (card.priority.urgency === 'Urgent') {
         changePriorityColor('urgentPriorityButton');
@@ -601,6 +640,11 @@ function priorityEdit(card) {
     }
 }
 
+/**
+ * Pre-fills assigned contact information based on the provided card's assigned contacts.
+ *
+ * @param {object} card - The task object containing assigned contact information.
+ */
 function isAssignedEdit(card) {
     selectedAssignedContacts = [];
     for (let i = 0; i < card.assigned.length; i++) {
@@ -611,6 +655,12 @@ function isAssignedEdit(card) {
     showAvatarsOfSelectedContacts();
 }
 
+/**
+ * Handles pre-filling subtask data based on the provided card's subtasks.
+ * (Specific details depend on your subtask implementation)
+ *
+ * @param {object} card - The task object containing subtask information.
+ */
 function subtaskEdit(card) {
     for (let i = 0; i < card.subtasks.length; i++) {
         const subtask = card.subtasks[i];
