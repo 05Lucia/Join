@@ -137,6 +137,13 @@ h3 {
     outline: none;
 }
 
+.addTaskDescriptionInput::-webkit-resizer {
+    background-image: url('../img/textAreaIcon.svg');
+    background-size: 14px;
+    background-repeat: no-repeat;
+    background-position: left top;
+  }
+
 .dueDateBox {
     display: flex;
     flex-direction: column;
