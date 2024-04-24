@@ -306,7 +306,15 @@ function showAvatarsOfSelectedContacts() {
     }
 }
 
-let taskCategories = ['Technical Task', 'User Story'];
+let taskCategories = [{
+    name: "Technical Task",
+    categoryColor: "rgb(0,56,255)"
+},
+{
+    name: 'User Story',
+    categoryColor: "rgb(255,122,0)"
+}
+];
 
 function toggleSelectTaskCategoryDropdown() {
     var content = document.getElementById("dropdownSelectTasksCategory");
@@ -325,7 +333,7 @@ function openTaskCategoryDropdown() {
         const taskCategory = taskCategories[i];
         document.getElementById('dropdownSelectTasksCategory').innerHTML += /*html*/`
         <div class="dropdownEachTaskCategory" id="dropdownEachTaskCategory(${i})" onclick="selectTaskCategory(${i})">
-            ${taskCategory}
+            ${taskCategory.name}
         </div>
     `;
     }
@@ -338,7 +346,7 @@ function closeTaskCategoryDropdown() {
 
 function selectTaskCategory(i) {
     let taskCategory = taskCategories[i];
-    document.getElementById('selectTaskCategoryTextField').innerHTML = taskCategory;
+    document.getElementById('selectTaskCategoryTextField').innerHTML = taskCategory.name;
     closeTaskCategoryDropdown();
     errorMessageIfEmptyCategory();
 }
@@ -396,7 +404,7 @@ function clearSubtaskInputField() {
 function saveSubtaskInput() {
     let createdSubtask = document.getElementById('addTaskSubtasksInput').value.trim();
     if (createdSubtask !== "") {
-        let createdSubtasksJson = {text: createdSubtask, done: false};
+        let createdSubtasksJson = { text: createdSubtask, done: false };
         createdSubtasks.push(createdSubtasksJson)
         openCreatedSubtaskBox();
         scrollDown();
@@ -410,7 +418,7 @@ function openCreatedSubtaskBox() {
         const subtask = createdSubtasks[i];
         document.getElementById('createdSubTasksBox').innerHTML += /*html*/`
         <div class="eachSubtask" id="eachSubtask(${i})" onclick="" >
-           <li>${subtask.text}</li>
+           <li class="subtaskListInput" ondblclick="editCreatedSubtask(${i})">${subtask.text}</li>
 
            <div class="createdSubtasksIcons" id="createdSubtasksIcons">
                 <img src="./img/edit.svg" onclick="editCreatedSubtask(${i})">
@@ -428,7 +436,7 @@ function editCreatedSubtask(i) {
     document.getElementById(`eachSubtask(${i})`).classList.add('eachSubtaskFocused');
     let currentSubtaskText = createdSubtasks[i];
     document.getElementById(`eachSubtask(${i})`).innerHTML = /*html*/`
-    <div class="editEachSubtask" id="editEachSubtask(${i})" onclick="" onfocusout="saveEditSubtaskInput(${i})">
+    <div class="editEachSubtask" id="editEachSubtask(${i})" onclick="">
         <input class="editTaskSubtasksInput" id="editTaskSubtasksInput" type="text" autocomplete="off" value="${currentSubtaskText.text}" onkeypress="if (event.keyCode === 13) saveEditSubtaskInput(${i})">
         <div class="editCreatedSubtasksIcons" id="editCreatedSubtasksIcons">
         <img src="./img/deleteContactIcon.svg" onclick="deleteCreatedSubtask(${i}); event.stopPropagation();">
@@ -457,7 +465,7 @@ function saveEditSubtaskInput(i) {
 
     if (editedSubtask !== "") { // Check for non-empty string
         document.getElementById(`eachSubtask(${i})`).innerHTML = /*html*/`
-        <li>${editedSubtask}</li>
+        <li class="subtaskListInput" ondblclick="editCreatedSubtask(${i})">${editedSubtask}</li>
   
         <div class="createdSubtasksIcons" id="createdSubtasksIcons">
           <img src="./img/edit.svg" onclick="editCreatedSubtask(${i})">
@@ -465,7 +473,7 @@ function saveEditSubtaskInput(i) {
           <img src="./img/deleteContactIcon.svg" onclick="deleteCreatedSubtask(${i})">
         </div>
       `;
-        createdSubtasks[i] = {text: editedSubtask, done: false};
+        createdSubtasks[i] = { text: editedSubtask, done: false };
     } else if (editedSubtask == "") {
         deleteCreatedSubtask(i);
     }
@@ -502,24 +510,24 @@ function createTask() {
     let place = 'todo'; // Place festlegen
 
 
-    if (title == null && dueDate == null && !taskCategories.includes(category)) {
+    if (title == null && dueDate == null && !taskCategories.some(categoryObj => categoryObj.name === category)) {
         errorMessageIfEmptyTitle();
         errorMessageIfEmptyDueDate();
         errorMessageIfEmptyCategory();
     } else if (title == null && dueDate == null) {
         errorMessageIfEmptyTitle();
         errorMessageIfEmptyDueDate();
-    } else if (title == null && !taskCategories.includes(category)) {
+    } else if (title == null && !taskCategories.some(categoryObj => categoryObj.name === category)) {
         errorMessageIfEmptyTitle();
         errorMessageIfEmptyCategory();
-    } else if (dueDate == null && !taskCategories.includes(category)) {
+    } else if (dueDate == null && !taskCategories.some(categoryObj => categoryObj.name === category)) {
         errorMessageIfEmptyDueDate();
         errorMessageIfEmptyCategory();
     } else if (title == null) {
         errorMessageIfEmptyTitle();
     } else if (dueDate == null) {
         errorMessageIfEmptyDueDate();
-    } else if (!taskCategories.includes(category)) {
+    } else if (!taskCategories.some(categoryObj => categoryObj.name === category)) {
         errorMessageIfEmptyCategory();
     } else {
 
@@ -533,13 +541,23 @@ function createTask() {
             priorityImg = './img/priorityLowInactive.svg';
         }
 
+        // Farben für Kategorie abrufen
+        let categoryColor;
+        let matchingCategory = taskCategories.find(categoryObj => categoryObj.name === category);
+        if (matchingCategory) {
+            categoryColor = matchingCategory.categoryColor;
+        } else {
+            // Fall, wenn keine Übereinstimmung gefunden wurde
+            console.error("Keine Übereinstimmung für die Kategorie gefunden");
+        }
+
         // Neues Kartenobjekt erstellen
         let newCard = {
             id: id,
             place: place,
             category: {
                 name: category,
-                color: ''
+                color: categoryColor
             },
             title: title,
             description: description,
@@ -575,6 +593,6 @@ function showTaskCreatedPopUp() {
         document.getElementById('taskCreatedButtonContainer').style.display = "none";
     }, 800);
     setTimeout(() => {
-        lodeBoard();
+        loadBoard();
     }, 820);
 }
