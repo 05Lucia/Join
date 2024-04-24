@@ -292,6 +292,7 @@ async function addUser() {
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;
     let name = document.getElementById('name').value;
+    let userContacts = contacts;
 
     if (email === "" || password === "" || name === "") {
         alert("Please fill in all fields");
@@ -311,7 +312,8 @@ async function addUser() {
     users.push({
         name: name,
         email: email,
-        password: password
+        password: password,
+        userContacts: userContacts
     });
 
     await setItem('users', JSON.stringify(users));
