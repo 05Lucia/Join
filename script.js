@@ -6,6 +6,7 @@ async function init() {
         // return;
     }
     await loadUsers();
+    await mobileGreeting();
     await summaryLoad();
     greetUser();
 }
@@ -15,6 +16,38 @@ function startAnimation() {
         // JS Template 
         window.location.href = 'login.html';
     }, 1200);
+}
+
+
+async function mobileGreeting() {
+    if (window.innerWidth < 800) {
+      await TemplateGreetMobile(); // Assuming this displays a greeting for mobile
+      setTimeout(() => {
+        greetUserMobile();
+      }, 1200);
+    }
+  }
+
+/**
+ * Displays a greeting message based on the current time of day to the logged-in user.
+ */
+function greetUserMobile() {
+    let userName = localStorage.getItem('currentUserName');
+    let greetingElement = document.getElementById('greeting-containe');
+    let currentHour = new Date().getHours();
+    let greetingText = "Welcome";
+
+    if (currentHour < 12) {
+        greetingText = "Good morning";
+    } else if (currentHour < 18) {
+        greetingText = "Good afternoon";
+    } else {
+        greetingText = "Good evening";
+    }
+
+    if (greetingElement) {
+        greetingElement.textContent = `${greetingText}, ${userName}.`;
+    }
 }
 
 // naviagtion ---------------------------------------------------------------------------------------------------

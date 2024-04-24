@@ -9,10 +9,10 @@
  * @async
  */
 async function summaryLoad() {
-    await Templates('summary');
     changeNavigationHighlightSummary();
+    await Templates('summary');
     summaryLoadNumbers();
-} 
+}
 
 /**
  * Highlights the summary navigation element and removes highlights from legal sections.

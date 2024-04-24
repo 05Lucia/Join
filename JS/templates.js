@@ -170,7 +170,7 @@ function EditTemplate() {
 }
 
 function templateOkBtn(id) {
-    
+
     const editTaskBntContainer = document.getElementById('createTaskContainerPopup');
     editTaskBntContainer.innerHTML = `
     <button id="finish-btn" class="createTaskButton" onclick="editTaskDone(${id})">
@@ -178,5 +178,13 @@ function templateOkBtn(id) {
         <img src="./img/createTaskCheckIcon.svg">
     </button>
     `
+}
+
+function TemplateGreetMobile() {
+    document.getElementById('content').innerHTML = `
+    <div>
+        <h1 id="greeting-container"></h1>
+    </div>
+    `;
 }
 
