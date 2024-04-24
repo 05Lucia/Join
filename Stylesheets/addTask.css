@@ -8,7 +8,7 @@
     align-items: center;
     width: 100vw;
     max-height: calc(100vh - 10rem)
-} 
+}
 
 .addTaskContainer {
     display: flex;
@@ -334,7 +334,7 @@ h3 {
     outline: none;
 }
 
-.assignContactsDropdown::placeholder{
+.assignContactsDropdown::placeholder {
     color: black;
 }
 
@@ -421,8 +421,8 @@ h3 {
     align-items: center;
 }
 
-.avatarsOfSelectedContacts{
-    display:flex;
+.avatarsOfSelectedContacts {
+    display: flex;
     gap: 8px;
 }
 
@@ -434,7 +434,7 @@ h3 {
     margin-top: -12px;
 }
 
-.errorMessageIfEmptyCategory{
+.errorMessageIfEmptyCategory {
     font-size: 13px;
     color: rgba(255, 129, 144, 1);
     line-height: 16px;
@@ -445,9 +445,11 @@ h3 {
     0% {
         font-weight: bold;
     }
+
     50% {
         font-weight: normal;
     }
+
     100% {
         font-weight: bold;
     }
@@ -974,6 +976,80 @@ h3 {
         outline: none;
     }
 
+    .addTaskSubtasksIcons img {
+        display: flex;
+        border-radius: 50%;
+    }
+
+    .addTaskSubtasksIcons img:hover {
+        background-color: rgba(210, 227, 255, 1);
+        transform: scale(1.05);
+    }
+
+    .createdSubTasksBox {
+        margin-top: 0px;
+        overflow-y: unset;
+        gap: 12px;
+    }
+
+    .eachSubtask {
+        height: 32px;
+        border-radius: 10px;
+    }
+
+    .eachSubtaskFocused {
+        border-radius: 10px 10px 0 0;
+    }
+
+    .eachSubtask:hover {
+        cursor: pointer;
+        background-color: rgba(227, 238, 255, 1);
+        transition: 0.1s ease-out;
+    }
+
+    .eachSubtask:hover .createdSubtasksIcons {
+        filter: opacity(1);
+        transition: 0.1s ease-out;
+    }
+
+    .editEachSubtask {
+        height: 32px;
+    }
+
+    .editTaskSubtasksInput {
+        height: 32px;
+    }
+
+    .createdSubtasksIcons {
+        filter: opacity(0);
+        transition: 0.1s ease-out;
+    }
+
+    .createdSubtasksIcons img {
+        display: flex;
+        border-radius: 50%;
+    }
+
+    .createdSubtasksIcons img:hover {
+        background-color: rgba(210, 227, 255, 1);
+        transform: scale(1.05);
+    }
+
+    .subtaskListInput {
+        min-width: 80%;
+        line-height: 40px;
+    }
+
+    .editCreatedSubtasksIcons img {
+        display: flex;
+        border-radius: 50%;
+    }
+
+    .editCreatedSubtasksIcons img:hover {
+        background-color: rgba(210, 227, 255, 1);
+        transform: scale(1.05);
+    }
+
     .createTaskContainer {
         width: 50%;
         height: 100%;
@@ -1062,7 +1138,7 @@ h3 {
     padding-right: 16px;
 }
 
-.clearTaskButtonPopup{
+.clearTaskButtonPopup {
     display: none;
 }
 

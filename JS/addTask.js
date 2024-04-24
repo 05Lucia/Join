@@ -306,7 +306,6 @@ function showAvatarsOfSelectedContacts() {
     }
 }
 
-// let taskCategories = ['Technical Task', 'User Story'];
 let taskCategories = [{
     name: "Technical Task",
     categoryColor: "rgb(0,56,255)"
@@ -419,7 +418,7 @@ function openCreatedSubtaskBox() {
         const subtask = createdSubtasks[i];
         document.getElementById('createdSubTasksBox').innerHTML += /*html*/`
         <div class="eachSubtask" id="eachSubtask(${i})" onclick="" >
-           <li>${subtask.text}</li>
+           <li class="subtaskListInput" ondblclick="editCreatedSubtask(${i})">${subtask.text}</li>
 
            <div class="createdSubtasksIcons" id="createdSubtasksIcons">
                 <img src="./img/edit.svg" onclick="editCreatedSubtask(${i})">
@@ -437,7 +436,7 @@ function editCreatedSubtask(i) {
     document.getElementById(`eachSubtask(${i})`).classList.add('eachSubtaskFocused');
     let currentSubtaskText = createdSubtasks[i];
     document.getElementById(`eachSubtask(${i})`).innerHTML = /*html*/`
-    <div class="editEachSubtask" id="editEachSubtask(${i})" onclick="" onfocusout="saveEditSubtaskInput(${i})">
+    <div class="editEachSubtask" id="editEachSubtask(${i})" onclick="">
         <input class="editTaskSubtasksInput" id="editTaskSubtasksInput" type="text" autocomplete="off" value="${currentSubtaskText.text}" onkeypress="if (event.keyCode === 13) saveEditSubtaskInput(${i})">
         <div class="editCreatedSubtasksIcons" id="editCreatedSubtasksIcons">
         <img src="./img/deleteContactIcon.svg" onclick="deleteCreatedSubtask(${i}); event.stopPropagation();">
@@ -466,7 +465,7 @@ function saveEditSubtaskInput(i) {
 
     if (editedSubtask !== "") { // Check for non-empty string
         document.getElementById(`eachSubtask(${i})`).innerHTML = /*html*/`
-        <li>${editedSubtask}</li>
+        <li class="subtaskListInput" ondblclick="editCreatedSubtask(${i})">${editedSubtask}</li>
   
         <div class="createdSubtasksIcons" id="createdSubtasksIcons">
           <img src="./img/edit.svg" onclick="editCreatedSubtask(${i})">
@@ -542,15 +541,9 @@ function createTask() {
             priorityImg = './img/priorityLowInactive.svg';
         }
 
-        // Farben für Kategorie festlegen
+        // Farben für Kategorie abrufen
         let categoryColor;
         let matchingCategory = taskCategories.find(categoryObj => categoryObj.name === category);
-        // if (category == 'Technical Task') {
-        //     categoryColor = taskCategories.categoryColor;
-        // } else if (category == 'User Story') {
-        //     categoryColor = taskCategories.categoryColor;
-        // }
-
         if (matchingCategory) {
             categoryColor = matchingCategory.categoryColor;
         } else {
