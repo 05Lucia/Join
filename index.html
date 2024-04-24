@@ -19,12 +19,15 @@
     <script src="./JS/storage.js"></script>
     <script src="./JS/addTask.js"></script>
     <script src="./JS/board.js"></script>
-    <script src="./JS/register.js"></script>
     <script src="./JS/templates.js"></script>
     <link rel="stylesheet" href="./fonts/fonts.css">
 </head>
 
-<body onload="init()" id="body">
+<body onload="init()" id="body"> 
+    <!--overlay for start animation -->
+    <!-- <div id="overlay" class="overlay">
+        <img src="./img/logoNegative.png" alt="Negative Logo" class="overlay-logo">
+    </div> -->
 
     <div class="borad-card-overlay d-none" id="borad-card-overlay" onclick="closeCard()">
         <div class="borad-card-popup d-none" id="borad-card-popup" onclick="doNotClose(event)">

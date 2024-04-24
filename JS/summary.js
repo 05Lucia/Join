@@ -207,7 +207,7 @@ function separateCards(overdueCards, upcomingCards, currentDate) {
     for (let i = 0; i < cards.length; i++) {
         const card = cards[i];
         if (card.place !== 'done') {
-            const dueDate = card.dueDate ? new Date(card.dueDate.split('-').reverse().join('-')) : null;
+            const dueDate = card.dueDate ? new Date(card.dueDate) : null;
             if (dueDate && dueDate < currentDate) {
                 overdueCards.push(card);
             } else if (dueDate && dueDate >= currentDate) {
@@ -218,25 +218,25 @@ function separateCards(overdueCards, upcomingCards, currentDate) {
 }
 
 /**
-  * Sorts the upcoming cards array by due date in ascending order.
-  * @param {Array} upcomingCards - An array of upcoming card objects.
-  * @returns {Array} - The sorted array of upcoming cards.
-  */
+ * Sorts the upcoming cards array by due date in ascending order.
+ * @param {Array} upcomingCards - An array of upcoming card objects.
+ * @returns {Array} - The sorted array of upcoming cards.
+ */
 function sortUpcomingCards(upcomingCards) {
     return upcomingCards.sort((a, b) => {
-        const dateA = a.dueDate ? new Date(`${a.dueDate.split('-')[1]}/${a.dueDate.split('-')[0]}/${a.dueDate.split('-')[2]}`) : new Date(8640000000000000);
-        const dateB = b.dueDate ? new Date(`${b.dueDate.split('-')[1]}/${b.dueDate.split('-')[0]}/${b.dueDate.split('-')[2]}`) : new Date(8640000000000000);
+        const dateA = a.dueDate ? new Date(a.dueDate) : new Date(8640000000000000);
+        const dateB = b.dueDate ? new Date(b.dueDate) : new Date(8640000000000000);
         return dateA - dateB;
     });
 }
 
 /**
  * Formats the due date as a localized string.
- * @param {string} dueDate - The due date string in the format "DD-MM-YYYY".
+ * @param {string} dueDate - The due date string in the format "YYYY-MM-DD".
  * @returns {string} - The formatted due date as a localized string.
  */
 function formatDueDate(dueDate) {
-    const formattedDate = new Date(`${dueDate.split('-')[1]}/${dueDate.split('-')[0]}/${dueDate.split('-')[2]}`);
+    const formattedDate = new Date(dueDate);
     return formattedDate.toLocaleString('default', { month: 'long', day: 'numeric', year: 'numeric' });
 }
 
@@ -253,7 +253,7 @@ function getOldestOverdueDate(overdueCards) {
     let oldestOverdueDate = overdueCards[0].dueDate;
     for (let i = 1; i < overdueCards.length; i++) {
         const currentDueDate = overdueCards[i].dueDate;
-        if (new Date(currentDueDate.split('-').reverse().join('-')) < new Date(oldestOverdueDate.split('-').reverse().join('-'))) {
+        if (new Date(currentDueDate) < new Date(oldestOverdueDate)) {
             oldestOverdueDate = currentDueDate;
         }
     }
@@ -280,12 +280,16 @@ function updateDueDateContainers(overdueCards, upcomingCards) {
     let urgentButtonClass = '';
 
     if (overdueCards.length > 0) {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Set time to 00:00:00 to compare only dates
         deadlineText = 'Missed Deadline';
         urgentButtonClass = 'missed-deadline';
         output = getOldestOverdueDate(overdueCards);
     } else if (upcomingCards.length > 0) {
         const closestUpcomingDueDate = upcomingCards[0].dueDate;
         output = formatDueDate(closestUpcomingDueDate);
+
+
     } else {
         output = "No upcoming due dates found.";
     }

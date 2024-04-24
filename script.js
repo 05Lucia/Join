@@ -2,6 +2,8 @@ async function init() {
     //login page after start animation//
     if (!localStorage.getItem('isLoggedIn')) {
         startAnimation();
+        // window.location.href = "login.html";
+        // return;
     }
     await loadUsers();
     await summaryLoad();
@@ -10,6 +12,7 @@ async function init() {
 
 function startAnimation() {
     setTimeout(() => {
+        // JS Template 
         window.location.href = 'login.html';
     }, 1200);
 }
