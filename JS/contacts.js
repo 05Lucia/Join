@@ -63,6 +63,33 @@ let contacts = [
         "email": "caroline@gmail.com",
         "phone": "+49 7777 777 77 7",
         "category": "C"
+    },
+    {
+        "name": "Diana",
+        "surname": "König",
+        "initials": "DK",
+        "avatarColor": "rgb(255,70,70)",
+        "email": "diana.koenig@gmail.com",
+        "phone": "+49 8888 888 88 8",
+        "category": "D"
+    },
+    {
+        "name": "Erik",
+        "surname": "Wagner",
+        "initials": "EW",
+        "avatarColor": "rgb(255,0,191)",
+        "email": "erik.wagner@gmail.com",
+        "phone": "+49 9999 999 99 9",
+        "category": "E"
+    },
+    {
+        "name": "Fiona",
+        "surname": "Müller",
+        "initials": "FM",
+        "avatarColor": "rgb(255,122,0)",
+        "email": "fiona.mueller@gmail.com",
+        "phone": "+49 1010 101 01 0",
+        "category": "F"
     }
 ]
 
