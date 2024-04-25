@@ -349,7 +349,7 @@ function outputDeadlineText(deadlineText) {
  * @param {string} urgentButtonClass - Class name to add for urgency indication.
  */
 function urgentButtonColor(urgentButtonClass) {
-    const urgentButton = document.querySelector('.urgent-button');
+    const urgentButton = document.querySelector('.btn-urgent-back');
     if (urgentButton) {
         urgentButton.classList.remove('missed-deadline');
         if (urgentButtonClass) {

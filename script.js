@@ -8,7 +8,7 @@ async function init() {
     await loadUsers();
     await mobileGreeting();
     await summaryLoad();
-    greetUser();
+    greetUser(); 
 }
 
 function startAnimation() {
