@@ -375,6 +375,10 @@ body {
     flex: 1;
 }
 
+.template-container {
+    height: calc(100vh - 10rem);
+}
+
 .greeting-container {
     height: 100%;
     width: 100%;
@@ -409,6 +413,10 @@ body {
 
 /* for desktop screens */
 @media (min-width: 800px) {
+    .template-container {
+        height: calc(100vh - 5rem);
+    }
+
     .navigation-row {
         position: relative;
         right: none;

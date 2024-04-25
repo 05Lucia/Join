@@ -88,7 +88,7 @@ async function Templates(template) {
     const content = document.getElementById('content');
     content.innerHTML = '';
     content.innerHTML = `
-    <div include-html="./Templates/${template}.html"> </div>
+    <div class="template-container" include-html="./Templates/${template}.html"> </div>
     `;
     await includeHTML();
 }

@@ -15,4 +15,4 @@ async function getItem(key) {
             return res.data.value;
         } throw `Could not find data with key "${key}".`;
     });
-}
+} 
