@@ -79,7 +79,7 @@ let cards = [
         },
         "title": 'test ohne Subtask',
         "description": 'test test 0 von 0!',
-        "dueDate": '2024-04-24',
+        "dueDate": '2024-04-25',
         "subtasks": [],
         "assigned": [
             {
