@@ -9,9 +9,9 @@
  * @async
  */
 async function summaryLoad() {
-    changeNavigationHighlightSummary();
     await Templates('summary');
     summaryLoadNumbers();
+    changeNavigationHighlightSummary();
 }
 
 /**
@@ -33,6 +33,7 @@ function changeNavigationHighlightSummary() {
         summary.children[0].classList.add('d-none');
         summary.children[1].classList.remove('d-none');
     }
+    
 }
 
 /**

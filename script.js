@@ -141,6 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
     removeNavHighlightOnHelp();
     removeNavHighlightLegalPartOnHelp();
     removeNavHighlightOnLogo();
+    resetNavigationItems();
 });
 
 /**
