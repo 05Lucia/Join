@@ -22,9 +22,8 @@ function startAnimation() {
 async function mobileGreeting() {
     if (window.innerWidth < 800) {
       await TemplateGreetMobile(); // Assuming this displays a greeting for mobile
-      setTimeout(() => {
-        greetUserMobile();
-      }, 1200);
+      await greetUserMobile();
+      return new Promise((resolve) => setTimeout(resolve, 1200)); // Wait 1.2 seconds
     }
   }
 
@@ -33,7 +32,7 @@ async function mobileGreeting() {
  */
 function greetUserMobile() {
     let userName = localStorage.getItem('currentUserName');
-    let greetingElement = document.getElementById('greeting-containe');
+    let greetingElement = document.getElementById('greeting-mobile');
     let currentHour = new Date().getHours();
     let greetingText = "Welcome";
 
@@ -44,9 +43,14 @@ function greetUserMobile() {
     } else {
         greetingText = "Good evening";
     }
-
-    if (greetingElement) {
-        greetingElement.textContent = `${greetingText}, ${userName}.`;
+    
+    if (userName === 'Gast') {
+        greetingElement.textContent = `${greetingText}`;
+    }else if (userName !== 'Gast') {
+        let greetingElementUser = document.getElementById('greeting-mobile-user');
+        greetingElementUser.textContent = `${greetingText},`;
+        greetingElement.textContent = `${userName}`;
+        greetingElement.style.color = '#005DFF';
     }
 }
 

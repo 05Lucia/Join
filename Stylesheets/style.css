@@ -370,7 +370,30 @@ body {
     height: 100%;
     height: calc(100vh - 10rem);
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex: 1;
+}
+
+.greeting-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.greeting-container h1 {
+ font-weight: 700 !important;
+ font-size: 48px !important;
+ color: var(--greeting-text);
+}
+
+.greeting-container p {
+    font-weight: 400;
+    font-size: 33px;
+    color: var(--greeting-text);
 }
 
 .main-container {

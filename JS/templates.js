@@ -182,8 +182,9 @@ function templateOkBtn(id) {
 
 function TemplateGreetMobile() {
     document.getElementById('content').innerHTML = `
-    <div>
-        <h1 id="greeting-container"></h1>
+    <div class="greeting-container">
+        <p id="greeting-mobile-user"></p><br>
+        <h1 class="greeting-mobile" id="greeting-mobile"></h1>
     </div>
     `;
 }
