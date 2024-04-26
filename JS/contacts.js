@@ -93,10 +93,17 @@ let contacts = [
     }
 ]
 
+let localContacts = [];
+
+
+// async function loadContacts() {
+//     await Templates('contacts');
+//     initContacts();
+// }
 
 async function loadContacts() {
     await Templates('contacts');
-    initContacts();
+    await initContacts();
 }
 
 /**
@@ -105,18 +112,70 @@ async function loadContacts() {
  * 2. Creates categories for contacts based on the first letter of their first names.
  * 3. Renders the contact list HTML based on the categorized contacts.
  */
-function initContacts() {
+// function initContacts() {
+//     sortByFirstName();
+//     let categorizedContacts = createCategories();
+//     renderContactList(categorizedContacts);
+// }
+
+async function initContacts() {
+    await copyRemoteContactsToLocal();
     sortByFirstName();
     let categorizedContacts = createCategories();
-    renderContactList(categorizedContacts);
+    await renderContactList(categorizedContacts);
+}
+
+let currentUser = localStorage.getItem('currentUserName');
+async function copyRemoteContactsToLocal() {
+    localContacts = [];
+    let allUsers = await loadUsers();
+    let thisUser = allUsers.find(entry => entry.name === currentUser);
+    let userEntry = thisUser.userContacts;
+    localContacts.push(...userEntry);
+    console.log('Unsortierte localContacts', localContacts);
 }
 
 /**
  * This function sorts all contacts in the `contacts` array alphabetically according to their first names.
  */
 function sortByFirstName() {
-    contacts.sort((a, b) => a.name.localeCompare(b.name));
+    localContacts.sort((a, b) => a.name.localeCompare(b.name));
+    console.log('Sortierte localContacts', localContacts);
 }
+
+
+// let userContacts = [];
+// let sortedUserContacts = [];
+// async function sortByFirstName() {
+//     // // Daten aus dem Remote-Speicher abrufen
+//     // let usersData = await getItem('users');
+//     // console.log('userData', usersData);
+
+//     // // Parsen der JSON-Daten
+//     // let users = JSON.parse(usersData);
+//     // console.log('userData2', usersData);
+
+
+
+//     // Kontakte von Max Mustermann filtern
+//     userContacts = users.find(entry => entry.name === currentUser).userContacts;
+
+//     // Funktion zur Sortierung nach dem Vornamen
+//     function sortContactsByFirstName(localContacts) {
+//         return localContacts.sort((a, b) => a.name.localeCompare(b.name));
+//     }
+
+//     // Kontakte von Max Mustermann sortieren
+//     sortedUserContacts = sortContactsByFirstName(userContacts);
+//     localContacts = sortedUserContacts;
+//     console.log('Sortierte localContacts', localContacts);
+
+//     // Ausgabe der sortierten Kontakte von Max Mustermann
+//     console.log('sortierte Kontakte von Max', sortedUserContacts);
+
+//     console.log('current User ist: ', currentUser);
+// }
+
 
 /**
  * This function creates categories for contacts based on the first letter of their first names.
@@ -127,7 +186,7 @@ function sortByFirstName() {
  */
 function createCategories() {
     let categories = {};
-    contacts.forEach(contact => {
+    localContacts.forEach(contact => {
         let initial = contact.name.charAt(0).toUpperCase();
         if (!categories[initial]) {
             categories[initial] = [];
@@ -142,7 +201,7 @@ function createCategories() {
  *
  * @param {CategoryContacts} categories - An object containing categories and their associated contacts.
  */
-function renderContactList(categories) {
+async function renderContactList(categories) {
     let contactListHTML = '';
     let index = 0;
     contactListHTML = renderContactCategoryAndEachContact(categories, contactListHTML, index);
@@ -271,16 +330,66 @@ function hideAddContactCard() {
 /**
  * This function creates a new contact and adds it to the contacts list.
  */
-function createContact() {
+async function createContact() {
     let dataSet = newContactDataSetForArray();
-        contacts.push(dataSet.newContact);
-        initContacts();
-        let contactIndex = getIndexByNameSurname(contacts, dataSet.formattedName.firstName, dataSet.formattedName.lastName);
-        openContactInfo(contactIndex);
-        showContactCreatedPopUp();
-        clearAddContactForm();
-        hideAddContactCard();
-        scrollToAnchor(`contact(${toggleIndex})`);
+    await addContactToUser(dataSet.contactData.email, dataSet.newContact);
+    // contacts.push(dataSet.newContact);
+    await initContacts();
+    // let contactIndex = getIndexByNameSurname(contacts, dataSet.formattedName.firstName, dataSet.formattedName.lastName);
+    let contactIndex = getIndexByNameSurname(localContacts, dataSet.formattedName.firstName, dataSet.formattedName.lastName);
+    openContactInfo(contactIndex);
+    showContactCreatedPopUp();
+    clearAddContactForm();
+    hideAddContactCard();
+    scrollToAnchor(`contact(${toggleIndex})`);
+}
+
+async function addContactToUser(userEmail, newContact) {
+    // try {
+    // // Daten aus dem Remote-Speicher abrufen
+    // let usersData = await getItem('users');
+
+    // // Parsen der JSON-Daten
+    // let users = JSON.parse(usersData);
+
+    // Den Eintrag des Benutzers basierend auf der E-Mail finden
+
+    let allUsers = await loadUsers();
+    let thisUser = allUsers.find(entry => entry.name === currentUser);
+    let userEntry = thisUser.userContacts;
+    userEntry.push(newContact);
+
+    await setItem('users', JSON.stringify(allUsers));
+
+    localContacts = [];
+
+
+
+
+    //         // Sicherstellen, dass der Benutzer gefunden wurde
+    //         if (!userEntry) {
+    //             throw new Error('Benutzer nicht gefunden.');
+    //         }
+
+    //         // Zugriff auf das userContacts-Array im Benutzereintrag
+    //         let userContacts = userEntry.userContacts || [];
+
+    //         // Hinzufügen des neuen Kontakts zum userContacts-Array
+    //         userContacts.push(newContact);
+
+    //         // Aktualisierung des userContacts-Arrays im Benutzereintrag
+    //         userEntry.userContacts = userContacts;
+
+    //         // Aktualisierung des value-Feldes im Remote-Array
+    //         users.data.value = JSON.stringify(users.data.value);
+
+    //         // Speichern der aktualisierten Daten im Remote-Speicher
+    //         await setItem('users', JSON.stringify(users));
+
+    //         console.log('Kontakt erfolgreich hinzugefügt.');
+    //     } catch (error) {
+    //         console.error('Fehler beim Hinzufügen des Kontakts:', error);
+    //     }
 }
 
 /**
@@ -377,9 +486,9 @@ function createNewContactDataSet(contactData, formattedName, existingContact = n
  * @param {string} lastName - The last name of the contact to find.
  * @returns {number} The index of the found contact, or -1 if not found.
  */
-function getIndexByNameSurname(contacts, firstName, lastName) {
-    for (let i = 0; i < contacts.length; i++) {
-        if (contacts[i].name === firstName && contacts[i].surname === lastName) {
+function getIndexByNameSurname(localContacts, firstName, lastName) {
+    for (let i = 0; i < localContacts.length; i++) {
+        if (localContacts[i].name === firstName && localContacts[i].surname === lastName) {
             return i;
         }
     }
@@ -631,7 +740,7 @@ function highlightCreatedContact(index) {
  * @param {number} index - The index of the clicked contact in the `contacts` array.
  */
 function openContactInfoHTMLTemplate(index) {
-    let contact = contacts[index];
+    let contact = localContacts[index];
     document.getElementById('contactInfoContactDetails').innerHTML = /*html*/`
                     <div class="contactInfoAvatarAndName">
                         <div class="contactInfoAvatar" style="background-color: ${contact.avatarColor};">
@@ -760,14 +869,14 @@ function redesignAddContactCardToEditContactCard() {
  * @param {number} index - The index of the clicked contact in the `contacts` array.
  */
 function showCurrentContactDetails(index) {
-    document.getElementById('avatarIcon').style.backgroundColor = `${contacts[index]['avatarColor']}`;
-    document.getElementById('avatarIcon').innerHTML = `${contacts[index]['initials']}`;
+    document.getElementById('avatarIcon').style.backgroundColor = `${localContacts[index]['avatarColor']}`;
+    document.getElementById('avatarIcon').innerHTML = `${localContacts[index]['initials']}`;
     var inputNameField = document.getElementById('editContactName');
-    var nameToShow = `${contacts[index]['name']} ${contacts[index]['surname']}`;
+    var nameToShow = `${localContacts[index]['name']} ${localContacts[index]['surname']}`;
     inputNameField.value = nameToShow;
     inputNameField.setSelectionRange(nameToShow.length, nameToShow.length);
-    document.getElementById('editContactEmail').value = contacts[index]['email'];
-    document.getElementById('editContactPhone').value = contacts[index]['phone'];
+    document.getElementById('editContactEmail').value = localContacts[index]['email'];
+    document.getElementById('editContactPhone').value = localContacts[index]['phone'];
     setTimeout(function () {
         inputNameField.focus();
     }, 125);
@@ -795,10 +904,20 @@ function editContactDeleteAndSaveButtonLayoutHTMLTemplate(index) {
  * It removes the contact data at the specified index, hides the add contact card, refreshes the contact list, hides the edit/delete menu, and closes the contact info panel.
  * @param {number} index - The index of the contact to be deleted from the `contacts` array.
  */
-function deleteContact(index) {
-    contacts.splice(index, 1);
+async function deleteContact(index) {
+    localContacts.splice(index, 1);
+
+    let allUsers = await loadUsers();
+    let thisUser = allUsers.find(entry => entry.name === currentUser);
+    let userEntry = thisUser.userContacts;
+    userEntry.splice(0, userEntry.length);
+    userEntry.push(...localContacts);
+
+    await setItem('users', JSON.stringify(allUsers));
+    localContacts = [];
+
     hideAddContactCard();
-    initContacts();
+    await initContacts();
     hideContactEditDeleteMenu();
     closeContactInfo();
 }
@@ -816,7 +935,7 @@ function hideContactEditDeleteMenu() {
  * It then optionally refreshes the contact list and opens the contact info panel for the updated contact. Finally, it optionally clears the input fields and hides the add contact card.
  * @param {number} index - The index of the contact to be updated in the `contacts` array.
  */
-function updateContact(index) {
+async function updateContact(index) {
     // Erfassen Sie die aktualisierten Werte aus den Eingabefeldern
     let contactData = getContactData();
 
@@ -826,20 +945,33 @@ function updateContact(index) {
         let formattedName = formatContactName(contactData);
 
         // Übergeben Sie den vorhandenen Kontakt, um dessen Farbe beizubehalten
-        let existingContact = contacts[index];
+        let existingContact = localContacts[index];
 
         // Aktualisieren Sie den ausgewählten Kontakt im Array
-        contacts[index] = createNewContactDataSet(contactData, formattedName, existingContact);
+        localContacts[index] = createNewContactDataSet(contactData, formattedName, existingContact);
 
+        let allUsers = await loadUsers();
+        let thisUser = allUsers.find(entry => entry.name === currentUser);
+        let userEntry = thisUser.userContacts;
+        userEntry.length = 0;
+        userEntry.push(...localContacts);
+        allUsers.length = 0;
+    
+        await setItem('users', JSON.stringify(allUsers));
+    
+
+
+        hideAddContactCard();
         // Optional: Aktualisieren Sie die Kontaktliste auf der Seite
-        initContacts();
+        await initContacts();
 
-        let contactIndex = getIndexByNameSurname(contacts, formattedName.firstName, formattedName.lastName);
+        let contactIndex = getIndexByNameSurname(localContacts, formattedName.firstName, formattedName.lastName);
         openContactInfo(contactIndex);
 
         // Optional: Leeren Sie die Eingabefelder
         clearAddContactForm();
-        hideAddContactCard();
+       
+        return;
     } else {
         // Geben Sie eine Fehlermeldung aus, wenn nicht alle Felder ausgefüllt sind
         alert("Bitte füllen Sie alle Felder aus.");

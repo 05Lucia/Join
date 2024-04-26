@@ -4,7 +4,7 @@ let users = [
         "email": "caro@gmail.com",
         "password": "Pommes123",
         "rememberMe": false,
-        "contacts": [
+        "userContacts": [
             {
                 "name": "Leyla",
                 "surname": "Blume",
@@ -39,7 +39,7 @@ let users = [
         "email": "alice@gmail.com",
         "password": "Currywurst345",
         "rememberMe": false,
-        "contacts": [
+        "userContacts": [
             {
                 "name": "Anton",
                 "surname": "Mayer",
@@ -74,7 +74,7 @@ let users = [
         "email": "vitali@gmail.com",
         "password": "Mayo6789",
         "rememberMe": false,
-        "contacts": [
+        "userContacts": [
             {
                 "name": "Carsten",
                 "surname": "Schmidt",
@@ -106,7 +106,7 @@ let users = [
     },
     {
         "name": "Guest",
-        "contacts": [
+        "userContacts": [
             {
                 "name": "Carsten",
                 "surname": "Schmidt",
@@ -549,7 +549,7 @@ async function saveGuestUser() {
     if (!guestExists) {
         let guestUser = {
             "name": "Guest",
-            "contacts": [
+            "userContacts": [
                 {
                     "name": "Caroline",
                     "surname": "Tabeling",
