@@ -673,7 +673,7 @@
 
 }
 
-@media (min-width: 1127px) {
+@media (min-width: 1446px) {
     .kanban-board {
         flex-direction: row;
         overflow-x: scroll;

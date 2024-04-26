@@ -157,6 +157,11 @@ function boardPopupAddTaskWindow() {
     `;
 }
 
+/**
+ * Generates the HTML structure for a large board card popup.
+ *
+ * @returns {string} The HTML string representing the board card popup structure.
+ */
 function EditTemplate() {
     return `
     <div class="board-card-big-top-popup">
@@ -169,8 +174,13 @@ function EditTemplate() {
     `
 }
 
+/**
+ * Updates the content of the "createTaskContainerPopup" element with an "Ok" button 
+ * for completing task editing.
+ *
+ * @param {string} id - The ID of the task being edited (likely used for internal logic).
+ */
 function templateOkBtn(id) {
-    
     const editTaskBntContainer = document.getElementById('createTaskContainerPopup');
     editTaskBntContainer.innerHTML = `
     <button id="finish-btn" class="createTaskButton" onclick="editTaskDone(${id})">
@@ -178,5 +188,19 @@ function templateOkBtn(id) {
         <img src="./img/createTaskCheckIcon.svg">
     </button>
     `
+}
+
+/**
+ * Generates the HTML structure for a mobile greeting element.
+ *
+ * Inserts the greeting content into the element with ID "content".
+ */
+function TemplateGreetMobile() {
+    document.getElementById('content').innerHTML = `
+    <div class="greeting-container">
+        <p id="greeting-mobile-user"></p><br>
+        <h1 class="greeting-mobile" id="greeting-mobile"></h1>
+    </div>
+    `;
 }
 

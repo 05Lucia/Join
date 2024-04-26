@@ -10,9 +10,9 @@
  */
 async function summaryLoad() {
     await Templates('summary');
-    changeNavigationHighlightSummary();
     summaryLoadNumbers();
-} 
+    changeNavigationHighlightSummary();
+}
 
 /**
  * Highlights the summary navigation element and removes highlights from legal sections.
@@ -33,6 +33,7 @@ function changeNavigationHighlightSummary() {
         summary.children[0].classList.add('d-none');
         summary.children[1].classList.remove('d-none');
     }
+    
 }
 
 /**
@@ -181,12 +182,13 @@ function urgentNumber() {
  */
 function displayClosestDueDate() {
     const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0); // Set time to 00:00:00 to compare only dates
     let overdueCards = [];
     let upcomingCards = [];
 
     separateCards(overdueCards, upcomingCards, currentDate);
     sortUpcomingCards(upcomingCards);
-    updateDueDateContainers(overdueCards, upcomingCards);
+    updateDueDateContainers(overdueCards, upcomingCards, currentDate);
 }
 
 /**
@@ -208,10 +210,14 @@ function separateCards(overdueCards, upcomingCards, currentDate) {
         const card = cards[i];
         if (card.place !== 'done') {
             const dueDate = card.dueDate ? new Date(card.dueDate) : null;
-            if (dueDate && dueDate < currentDate) {
-                overdueCards.push(card);
-            } else if (dueDate && dueDate >= currentDate) {
-                upcomingCards.push(card);
+            if (dueDate) {
+                if (dueDate < currentDate) {
+                    overdueCards.push(card);
+                } if (dueDate > currentDate) {
+                    upcomingCards.push(card);
+                } if (dueDate === currentDate) { // Due date matches current date
+                    upcomingCards.push(card); // Add to upcoming for display
+                }
             }
         }
     }
@@ -274,26 +280,33 @@ function getOldestOverdueDate(overdueCards) {
  * @param {array} overdueCards - Array of overdue card objects.
  * @param {array} upcomingCards - Array of upcoming card objects.
  */
-function updateDueDateContainers(overdueCards, upcomingCards) {
+function updateDueDateContainers(overdueCards, upcomingCards, currentDate) {
     let output = '';
     let deadlineText = 'Upcoming Deadline';
     let urgentButtonClass = '';
 
     if (overdueCards.length > 0) {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0); // Set time to 00:00:00 to compare only dates
         deadlineText = 'Missed Deadline';
         urgentButtonClass = 'missed-deadline';
         output = getOldestOverdueDate(overdueCards);
     } else if (upcomingCards.length > 0) {
-        const closestUpcomingDueDate = upcomingCards[0].dueDate;
-        output = formatDueDate(closestUpcomingDueDate);
-
-
+        const closestUpcomingCard = upcomingCards[0];
+        if (closestUpcomingCard.dueDate) {
+            const dueDateAsDate = new Date(closestUpcomingCard.dueDate);
+            dueDateAsDate.setHours(0, 0, 0, 0); // Set time to 00:00:00
+            const currentDateWithoutTime = new Date(currentDate);
+            currentDateWithoutTime.setHours(0, 0, 0, 0); // Set time to 00:00:00
+            if (dueDateAsDate.getTime() === currentDateWithoutTime.getTime()) {
+                deadlineText = 'Deadline is today';
+                output = formatDueDate(dueDateAsDate);
+                urgentButtonClass = 'missed-deadline';
+            } else {
+                output = formatDueDate(dueDateAsDate);
+            }
+        }
     } else {
         output = "No upcoming due dates found.";
     }
-
     outputDueDate(output);
     outputDeadlineText(deadlineText);
     urgentButtonColor(urgentButtonClass);
@@ -337,7 +350,7 @@ function outputDeadlineText(deadlineText) {
  * @param {string} urgentButtonClass - Class name to add for urgency indication.
  */
 function urgentButtonColor(urgentButtonClass) {
-    const urgentButton = document.querySelector('.urgent-button');
+    const urgentButton = document.querySelector('.btn-urgent-back');
     if (urgentButton) {
         urgentButton.classList.remove('missed-deadline');
         if (urgentButtonClass) {

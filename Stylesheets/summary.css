@@ -1,6 +1,7 @@
 /*  Summary ----------------------------------------------------- */
 
 .summary-overview {
+    position: relative;
     height: calc(100vh - 10rem);
     width: 100vw;
     display: flex;
@@ -8,6 +9,29 @@
     justify-content: center;
     padding: 32px 16px;
     overflow-y: scroll;
+    bottom: -100%;
+    transition: 0.5s ease-in;
+    animation: slideup 0.6s forwards;
+    -webkit-animation: slideup 0.6s forwards;
+    opacity: 0;
+}
+
+@-webkit-keyframes slideup {
+    100% {
+        bottom: 0;
+    }
+}
+
+@keyframes slideup {
+    0% {
+        bottom: -100%;
+        opacity: 0;
+    }
+
+    100% {
+        bottom: 0;
+        opacity: 1;
+    }
 }
 
 .greeting {
@@ -72,8 +96,8 @@
 }
 
 .missed-deadline {
-    background-color: red !important;
-  }
+    background-color: rgb(255, 61, 0) !important;
+}
 
 .urgent-button h2 {
     font-weight: 700px;
@@ -91,10 +115,10 @@
     color: var(--hoverBlue);
 }
 
-.missed-deadline:hover {
+.urgent-button:hover>.missed-deadline {
     background-color: white !important;
     color: red !important;
-  }
+}
 
 .urgent-button:hover .wiht-line {
     border: 2px solid var(--hoverBlue);
@@ -141,6 +165,8 @@
     align-items: flex-start;
     justify-content: center;
     gap: 2px;
+    padding: 16px;
+    border-radius: 10px;
 }
 
 .btn-urgent-back h2 {
@@ -253,16 +279,20 @@
 }
 
 @media (max-width: 400px) {
+    .btn-container {
+        max-width: 300px;
+    }
+
     .urgent-button {
-        width: 320px;
+        width: 300px;
     }
 
     .light-task-btn {
-        width: 150px;
+        width: 130px;
     }
 
     .to-do-btn {
-        width: 320px;
+        width: 300px;
     }
 
     .summary-overview {

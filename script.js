@@ -6,8 +6,9 @@ async function init() {
         // return;
     }
     await loadUsers();
+    await mobileGreeting();
     await summaryLoad();
-    greetUser();
+    greetUser(); 
 }
 
 function startAnimation() {
@@ -15,6 +16,42 @@ function startAnimation() {
         // JS Template 
         window.location.href = 'login.html';
     }, 1200);
+}
+
+
+async function mobileGreeting() {
+    if (window.innerWidth < 800) {
+      await TemplateGreetMobile(); // Assuming this displays a greeting for mobile
+      await greetUserMobile();
+      return new Promise((resolve) => setTimeout(resolve, 1200)); // Wait 1.2 seconds
+    }
+  }
+
+/**
+ * Displays a greeting message based on the current time of day to the logged-in user.
+ */
+function greetUserMobile() {
+    let userName = localStorage.getItem('currentUserName');
+    let greetingElement = document.getElementById('greeting-mobile');
+    let currentHour = new Date().getHours();
+    let greetingText = "Welcome";
+
+    if (currentHour < 12) {
+        greetingText = "Good morning";
+    } else if (currentHour < 18) {
+        greetingText = "Good afternoon";
+    } else {
+        greetingText = "Good evening";
+    }
+    
+    if (userName === 'Gast') {
+        greetingElement.textContent = `${greetingText}`;
+    }else if (userName !== 'Gast') {
+        let greetingElementUser = document.getElementById('greeting-mobile-user');
+        greetingElementUser.textContent = `${greetingText},`;
+        greetingElement.textContent = `${userName}`;
+        greetingElement.style.color = '#005DFF';
+    }
 }
 
 // naviagtion ---------------------------------------------------------------------------------------------------
@@ -51,7 +88,7 @@ async function Templates(template) {
     const content = document.getElementById('content');
     content.innerHTML = '';
     content.innerHTML = `
-    <div include-html="./Templates/${template}.html"> </div>
+    <div class="template-container" include-html="./Templates/${template}.html"> </div>
     `;
     await includeHTML();
 }
@@ -104,6 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
     removeNavHighlightOnHelp();
     removeNavHighlightLegalPartOnHelp();
     removeNavHighlightOnLogo();
+    resetNavigationItems();
 });
 
 /**
