@@ -1,9 +1,7 @@
 async function init() {
-    //login page after start animation//
     if (!localStorage.getItem('isLoggedIn')) {
-        startAnimation();
-        // window.location.href = "login.html";
-        // return;
+        insertAnimation();
+        await startAnimation();
     }
     await loadUsers();
     await mobileGreeting();
@@ -24,12 +22,22 @@ function checkCards() {
     }
 }
 
+function insertAnimation() {
+    let overlayHtml = `
+        <div id="overlay" class="overlay">
+            <img src="./img/logoNegative.png" alt="Negative Logo" class="overlay-logo">
+        </div>
+    `;
+    document.body.insertAdjacentHTML('afterbegin', overlayHtml);
+}
 
-function startAnimation() {
-    setTimeout(() => {
-        // JS Template 
-        window.location.href = 'login.html';
-    }, 1200);
+async function startAnimation() {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            window.location.href = 'login.html';
+            resolve();
+        }, 1200);
+    });
 }
 
 
@@ -88,7 +96,7 @@ async function includeHTML() {
         }
     }
     if (document.getElementById('greeting')) {
-        // greetUser();
+        greetUser();
     }
 }
 
