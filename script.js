@@ -1,21 +1,30 @@
 async function init() {
-    //login page after start animation//
     if (!localStorage.getItem('isLoggedIn')) {
-        startAnimation();
-        // window.location.href = "login.html";
-        // return;
+        insertAnimation();
+        await startAnimation();
     }
     await loadUsers();
-    await mobileGreeting();
     await summaryLoad();
-    greetUser(); 
+    includeHTML();
+    greetUser();
 }
 
-function startAnimation() {
-    setTimeout(() => {
-        // JS Template 
-        window.location.href = 'login.html';
-    }, 1200);
+function insertAnimation() {
+    let overlayHtml = `
+        <div id="overlay" class="overlay">
+            <img src="./img/logoNegative.png" alt="Negative Logo" class="overlay-logo">
+        </div>
+    `;
+    document.body.insertAdjacentHTML('afterbegin', overlayHtml);
+}
+
+async function startAnimation() {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            window.location.href = 'login.html';
+            resolve();
+        }, 1200);
+    });
 }
 
 
