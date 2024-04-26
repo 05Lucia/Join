@@ -83,7 +83,7 @@ async function includeHTML() {
         }
     }
     if (document.getElementById('greeting')) {
-        // greetUser();
+        greetUser();
     }
 }
 
