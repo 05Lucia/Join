@@ -10,8 +10,9 @@ async function init() {
     await loadTasks();
     await checkCards();
     await summaryLoad();
-    greetUser(); 
-} 
+    greetUser();
+}
+
 
 function checkCards() {
     if (cards.length === 0) {
@@ -23,6 +24,7 @@ function checkCards() {
     }
 }
 
+
 function startAnimation() {
     setTimeout(() => {
         // JS Template 
@@ -33,11 +35,11 @@ function startAnimation() {
 
 async function mobileGreeting() {
     if (window.innerWidth < 800) {
-      await TemplateGreetMobile(); // Assuming this displays a greeting for mobile
-      await greetUserMobile();
-      return new Promise((resolve) => setTimeout(resolve, 1200)); // Wait 1.2 seconds
+        await TemplateGreetMobile(); // Assuming this displays a greeting for mobile
+        await greetUserMobile();
+        return new Promise((resolve) => setTimeout(resolve, 1200)); // Wait 1.2 seconds
     }
-  }
+}
 
 /**
  * Displays a greeting message based on the current time of day to the logged-in user.
@@ -55,10 +57,10 @@ function greetUserMobile() {
     } else {
         greetingText = "Good evening";
     }
-    
+
     if (userName === 'Gast') {
         greetingElement.textContent = `${greetingText}`;
-    }else if (userName !== 'Gast') {
+    } else if (userName !== 'Gast') {
         let greetingElementUser = document.getElementById('greeting-mobile-user');
         greetingElementUser.textContent = `${greetingText},`;
         greetingElement.textContent = `${userName}`;

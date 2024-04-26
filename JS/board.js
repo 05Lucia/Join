@@ -592,6 +592,7 @@ function subtaskEdit(card) {
     openCreatedSubtaskBox();
 }
 
+
 function editTaskDone(id,) {
     const card = cards.find(card => card.id === id);
     let place = card.place;
