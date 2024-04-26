@@ -1,7 +1,9 @@
 async function init() {
+    //login page after start animation//
     if (!localStorage.getItem('isLoggedIn')) {
-        insertAnimation();
-        await startAnimation();
+        startAnimation();
+        // window.location.href = "login.html";
+        // return;
     }
     await loadUsers();
     await mobileGreeting();
@@ -39,7 +41,6 @@ async function startAnimation() {
         }, 1200);
     });
 }
-
 
 async function mobileGreeting() {
     if (window.innerWidth < 800) {
