@@ -138,6 +138,11 @@ let users = [
     }
 ];
 
+
+/**
+ * Validates the user's email address.
+ * @returns {boolean} Returns true if the email address is valid, otherwise false.
+ */
 function validateEmailAddress() {
     let emailInput = document.getElementById("email");
     let email = emailInput.value;
@@ -228,11 +233,9 @@ function changeLockIcon(inputElement) {
 
 
 /**
- * Toggles the checkbox that states if the Privacy Policy was accepted or not and updatates the checkbox image.
- * Toggles the state of a checkbox and updates the image icon to checked or not checked
- * This function is used on login and signup pages to handle user interaction with the checkboxes,
- * such as remembering passwords and accepting privacy policies. 
-* @param {HTMLElement} buttonElement - On click of this button, the state of the checkbox will be toggled.
+ * Checks if the Privacy Policy checkbox is checked before final signup is possible.
+ * If the checkbox is not checked, displays an alert message prompting the user to accept the Privacy Policy.
+ * @returns {boolean} Returns true if the Privacy Policy checkbox is checked, otherwise false.
  */
 function togglePrivacyPolicyCheckbox(buttonElement) {
     let container = buttonElement.closest('.checkboxContainer');
@@ -282,9 +285,7 @@ async function loadUsers() {
 
 
 /**
- * Asynchronously adds a new user to the storage if the email does not already exist.
- * Ensures all fields are filled and the privacy policy is checked before proceeding.
- * Redirects to login page on successful registration or alerts the user on failure conditions.
+ * Adds a new user after form validation and redirects to login page on success.
  * @async
  * @returns {Promise<void>}
  */
@@ -292,10 +293,8 @@ async function addUser() {
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;
     let name = document.getElementById('name').value;
-    let userContacts = contacts;
 
-    if (email === "" || password === "" || name === "") {
-        alert("Please fill in all fields");
+    if (!validateFormFields(email, password, name)) {
         return;
     }
 
@@ -308,17 +307,42 @@ async function addUser() {
         return;
     }
 
-    let users = await loadUsers();
-    users.push({
+    const user = {
         name: name,
         email: email,
         password: password,
-        userContacts: userContacts
-    });
+        userContacts: contacts
+    };
 
-    await setItem('users', JSON.stringify(users));
-    console.log("Users saved to storage", users);
+    await saveNewUser(user);
     window.location.href = '../login.html?msg=Your signup is successful';
+}
+
+/**
+ * Validates form fields and displays an alert if any field is empty.
+ * @param {string} email - User's email address.
+ * @param {string} password - User's password.
+ * @param {string} name - User's name.
+ * @returns {boolean} - Returns true if all fields are filled, otherwise false.
+ */
+function validateFormFields(email, password, name) {
+    if (email === "" || password === "" || name === "") {
+        alert("Please fill in all fields");
+        return false;
+    }
+    return true;
+}
+
+/**
+ * Saves a new user to the storage.
+ * @param {Object} user - The user object to be saved.
+ * @async
+ * @returns {Promise<void>}
+ */
+async function saveNewUser(user) {
+    let users = await loadUsers();
+    users.push(user);
+    await setItem('users', JSON.stringify(users));
 }
 
 
@@ -348,6 +372,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+
+/**
+ * Attempts to log in the user by comparing the provided credentials with stored users.
+ * Sets local storage items if the credentials are valid, otherwise displays an error message.
+ * @async
+ * @returns {Promise<void>}
+ */
 async function login() {
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;
@@ -358,13 +389,16 @@ async function login() {
     if (user && user.password === password) {
         setUserLogin(user);
         await rememberPassword(email, user.password, rememberMe);
-        successfulSignup();
+        successfulLogin();
     } else {
         wrongPasswordMessage(); 
     }
 }
 
 
+/**
+ * Displays an error message when the password is entered incorrectly.
+ */
 function wrongPasswordMessage() {
     let passwordField = document.getElementById('password');
     passwordField.classList.add('error');
@@ -372,11 +406,33 @@ function wrongPasswordMessage() {
 }
 
 
+/**
+ * Clears the error state and message when the password field is focused.
+ */
 function clearPasswordError() {
     let passwordField = document.getElementById('password');
     passwordField.classList.remove('error');
     document.getElementById('passwordError').style.display = 'none';
     passwordField.value = '';  
+}
+
+
+/**
+ * Displays the login modal.
+ */
+function successfulLogin() {
+    let loginModal = document.getElementById("loginModal");
+    if (loginModal.style.display !== "block") {
+        loginModal.style.display = "block";
+
+        setTimeout(function() {
+            if (loginModal.style.display === "block") {
+                loginModal.style.display = "none";
+                window.location.href = '../index.html';
+                greetUser();
+            }
+        }, 2000);
+    }
 }
 
 
@@ -470,6 +526,11 @@ async function loadRememberedPassword() {
     }
 }
 
+
+/**
+ * Loads remembered password if the email input field is present.
+ * This function is triggered when the DOM content is loaded.
+ */
 document.addEventListener('DOMContentLoaded', function() {
     const emailElement = document.getElementById('email');
     if (emailElement) {
@@ -478,6 +539,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+/**
+ * Displays a message in the message box based on the URL parameters.
+ * This function is triggered when the DOM content is loaded.
+ */
 document.addEventListener('DOMContentLoaded', function () {
     const urlParams = new URLSearchParams(window.location.search);
     const msg = urlParams.get('msg');
@@ -485,25 +550,6 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('msgBox').innerHTML = msg;
     }
 });
-
-
-/**
- * Displays the signup modal.
- */
-function successfulSignup() {
-    var signupModal = document.getElementById("signupModal");
-    if (signupModal.style.display !== "block") {
-        signupModal.style.display = "block";
-
-        setTimeout(function() {
-            if (signupModal.style.display === "block") {
-                signupModal.style.display = "none";
-                window.location.href = '../index.html';
-            }
-        }, 2000);
-        
-    }
-}
 
 
 /**
@@ -525,6 +571,9 @@ async function guestLogin() {
 }
 
 
+/**
+ * Sets up the session for a guest user by storing necessary data in local storage.
+ */
 function setGuestLogin() {
     localStorage.setItem('isLoggedIn', 'true');
     localStorage.setItem('currentUserName', 'Gast');
@@ -532,6 +581,10 @@ function setGuestLogin() {
 }
 
 
+/**
+ * Checks if a user is already logged in and prevents guest login in that case.
+ * Redirects to the login page if a user is already logged in.
+ */
 function attemptGuestLogin() {
     if (checkLoginStatus()) {
         alert(`Sie sind bereits als ${localStorage.getItem('currentUserName')} eingeloggt. Bitte loggen Sie sich aus, bevor Sie als Gast fortfahren.`);
@@ -540,6 +593,10 @@ function attemptGuestLogin() {
 }
 
 
+/**
+ * Saves the guest user to storage if the guest user doesn't already exist.
+ * @async
+ */
 async function saveGuestUser() { 
     let users = await getItem('users');
     users = JSON.parse(users);
@@ -590,7 +647,10 @@ function greetUser() {
     UserInitals(userName);
 }
 
-//Fertig machen!!! 
+
+/**
+ * Displays user initials based on the provided user name on the board
+ */
 function UserInitals(userName) {
     let userInitalsContainer = document.getElementById('user-initals');
 
