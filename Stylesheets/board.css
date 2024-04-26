@@ -119,6 +119,7 @@
 
 .board-card-small {
     width: 250px;
+    min-width: 250px;
     height: auto;
     padding: 16px;
     border-radius: 24px;

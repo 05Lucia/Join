@@ -204,3 +204,243 @@ function TemplateGreetMobile() {
     `;
 }
 
+function restoreDefault() {
+    setItem("cards", backupCards)
+}
+
+const backupCards = [
+    {
+        "id": 0,
+        "place": "todo",
+        "category": {
+            "name": "Technical Task",
+            "color": "rgb(0,56,255)"
+        },
+        "title": "Implement Drag and Drop",
+        "description": "Allow users to drag and drop cards between columns (Todo, In Progress, Done) to update their status.",
+        "dueDate": "2024-04-30",
+        "subtasks": [
+            {
+                "text": "Design interaction for dragging cards",
+                "done": false
+            },
+            {
+                "text": "Implement logic for updating card positions",
+                "done": false
+            },
+            {
+                "text": "Handle visual feedback during drag and drop",
+                "done": false
+            }
+        ],
+        "assigned": [
+            {
+                "name": "Anton",
+                "surname": "Mayer",
+                "initials": "AM",
+                "avatarColor": "rgb(255,122,0)"
+            }
+        ],
+        "priority": {
+            "urgency": "Low",
+            "img": "./img/priorityLowInactive.svg"
+        }
+    },
+    {
+        "id": 1,
+        "place": "todo",
+        "category": {
+            "name": "User Story",
+            "color": "rgb(255,122,0)"
+        },
+        "title": "Design Card Component",
+        "description": "Create a reusable card component that displays task information (title, description, due date, etc.)",
+        "dueDate": "2024-04-28",
+        "subtasks": [
+            {
+                "text": "Define card layout and styles",
+                "done": false
+            },
+            {
+                "text": "Implement visual elements for card properties (title, assignee)",
+                "done": false
+            },
+            {
+                "text": "Ensure responsiveness for different screen sizes",
+                "done": false
+            }
+        ],
+        "assigned": [
+            {
+                "name": "Caroline",
+                "surname": "Tabeling",
+                "initials": "CT",
+                "avatarColor": "rgb(31,215,193)"
+            },
+            {
+                "name": "Anton",
+                "surname": "Mayer",
+                "initials": "AM",
+                "avatarColor": "rgb(255,122,0)"
+            }
+        ],
+        "priority": {
+            "urgency": "Urgent",
+            "img": "./img/priorityHighInactive.svg"
+        }
+    },
+    {
+        "id": 2,
+        "place": "progress",
+        "category": {
+            "name": "Technical Task",
+            "color": "rgb(0,56, 255)"
+        },
+        "title": "Display Card Metadata",
+        "description": "Fetch and display additional card information like assigned users and due dates.",
+        "dueDate": "2024-04-26",
+        "subtasks": [
+            {
+                "text": "Define API endpoint for card data",
+                "done": true
+            },
+            {
+                "text": "Implement logic to retrieve card data",
+                "done": true
+            },
+            {
+                "text": "Update card UI to display retrieved data",
+                "done": false
+            }
+        ],
+        "assigned": [
+            {
+                "name": "Bernt",
+                "surname": "Saathoff",
+                "initials": "BS",
+                "avatarColor": "rgb(255,187,43)"
+            }
+        ],
+        "priority": {
+            "urgency": "Medium",
+            "img": "./img/priorityMediumInactive.svg"
+        }
+    },
+    {
+        "id": 3,
+        "place": "feedback",
+        "category": {
+            "name": "Technical Task",
+            "color": "rgb(0,56,255)"
+        },
+        "title": "Refine User Authentication",
+        "description": "Review and improve the implemented user authentication system. Consider adding features like password hashing, secure session management, and role-based access control (RBAC) if necessary.",
+        "dueDate": "2024-05-07",
+        "subtasks": [
+            {
+                "text": "Evaluate the security strength of current implementation",
+                "done": true
+            },
+            {
+                "text": "Implement additional security measures (password hashing, session management)",
+                "done": true
+            },
+            {
+                "text": "Consider adding RBAC for differentiated user permissions (optional)",
+                "done": true
+            }
+        ],
+        "assigned": [
+            {
+                "name": "Diana",
+                "surname": "König",
+                "initials": "DK",
+                "avatarColor": "rgb(255,70,70)"
+            },
+            {
+                "name": "Erik",
+                "surname": "Wagner",
+                "initials": "EW",
+                "avatarColor": "rgb(255,0,191)"
+            }
+        ],
+        "priority": {
+            "urgency": "Medium",
+            "img": "./img/priorityMediumInactive.svg"
+        }
+    },
+    {
+        "id": 4,
+        "place": "progress",
+        "category": {
+            "name": "Technical Task",
+            "color": "rgb(0,56,255)"
+        },
+        "title": "Implement Data Persistence",
+        "description": "Store card data (title, description, due date, assigned users, etc.) in a persistent storage mechanism like a database or local storage. Ensure data integrity and retrieval.",
+        "dueDate": "2024-05-03",
+        "subtasks": [
+            {
+                "text": "Choose a suitable data storage solution",
+                "done": false
+            },
+            {
+                "text": "Design data schema to represent card information",
+                "done": false
+            },
+            {
+                "text": "Implement logic to save and load card data from storage",
+                "done": false
+            }
+        ],
+        "assigned": [
+            {
+                "name": "Erik",
+                "surname": "Wagner",
+                "initials": "EW",
+                "avatarColor": "rgb(255,0,191)"
+            }
+        ],
+        "priority": {
+            "urgency": "Urgent",
+            "img": "./img/priorityHighInactive.svg"
+        }
+    },
+    {
+        "id": 5,
+        "place": "feedback",
+        "category": {
+            "name": "User Story",
+            "color": "rgb(255,122,0)"
+        },
+        "title": "Implement User Interface",
+        "description": "Design the overall user interface for the Kanban board, including card layouts, columns, drag-and-drop interactions, and visual feedback elements.",
+        "dueDate": "2024-05-01",
+        "subtasks": [
+            {
+                "text": "Create mockups for different Kanban board views",
+                "done": false
+            },
+            {
+                "text": "Design user interactions like adding, editing, and deleting cards",
+                "done": false
+            },
+            {
+                "text": "Ensure a clean and user-friendly visual style",
+                "done": false
+            }
+        ],
+        "assigned": [
+            {
+                "name": "Fiona",
+                "surname": "Müller",
+                "initials": "FM",
+                "avatarColor": "rgb(255,122,0)"
+            }
+        ],
+        "priority": {
+            "urgency": "Urgent",
+            "img": "./img/priorityHighInactive.svg"
+        }
+    }
+]

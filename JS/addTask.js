@@ -12,6 +12,8 @@ async function loadAddTasks() {
     changeNavigationAddTask()
 }
 
+
+
 /**
  * Initializes functionalities related to adding tasks.
  *
@@ -572,6 +574,7 @@ function createTask() {
 
         // Karte zum Array hinzufügen
         cards.push(newCard);
+        addTaskToRemote();
 
         // Zur Überprüfung in der Konsole ausgeben
         console.log('Neue Karte erstellt:', newCard);
@@ -596,3 +599,4 @@ function showTaskCreatedPopUp() {
         loadBoard();
     }, 820);
 }
+

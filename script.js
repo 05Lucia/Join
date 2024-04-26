@@ -7,8 +7,20 @@ async function init() {
     }
     await loadUsers();
     await mobileGreeting();
+    await loadTasks();
+    await checkCards();
     await summaryLoad();
     greetUser(); 
+} 
+
+function checkCards() {
+    if (cards.length === 0) {
+        restoreDefault();
+        loadTasks();
+        return;
+    } else {
+        return;
+    }
 }
 
 function startAnimation() {

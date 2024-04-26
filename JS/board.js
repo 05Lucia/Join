@@ -2,108 +2,28 @@
 /**
  * Array to test card implement!!
  */
-let cards = [
-    {
-        "id": 0,
-        "place": 'todo',
-        "category": {
-            "name": 'Technical Task',
-            "color": '#FFA800'
-        },
-        "title": 'Test',
-        "description": 'irgend was ganz langes zu scheiben ist nervig so ich hofe ich habe langsam 2 zeilen ericht und bin jetzt auch langas mal drüber und schon bei der dritten die man hoffentlich nicht sieh! Auser das ist die Große Karte.',
-        "dueDate": '2024-04-29',
-        "subtasks": [
-            {
-                "text": 'testing extra lang',
-                "done": true
-            },
-            {
-                "text": 'sonmthing',
-                "done": false
-            }
-        ],
-        "assigned": [
-            {
-                "name": 'Albert Gerdes',
-                "initials": 'AG',
-                "avatarColor": '#7AE229'
-            },
-            {
-                "name": 'Aaron Brier',
-                "initials": 'AB',
-                "avatarColor": '#FFA800'
-            },
-        ],
-        "priority": {
-            "urgency": 'Medium',
-            "img": './img/priorityMediumInactive.svg'
+let cards = []
+
+async function loadTasks() {
+    try {
+        let result = await getItem('cards');
+        if (result) {
+            cards = JSON.parse(result);
+            return cards;
+        } else {
+            console.log("No cards found in storage, returning empty array.");
+            return [];
         }
-    },
-    {
-        "id": 1,
-        "place": 'feedback',
-        "category": {
-            "name": 'Technical Task',
-            "color": '#FF3D00'
-        },
-        "title": 'Hallo Hallo',
-        "description": 'irgend was ....',
-        "dueDate": '2024-05-05',
-        "subtasks": [
-            {
-                "text": 'testing',
-                "done": true
-            },
-            {
-                "text": 'sonmthing',
-                "done": false
-            },
-            {
-                "text": 'todo',
-                "done": true
-            }
-        ],
-        "assigned": [],
-        "priority": {
-            "urgency": 'Urgent',
-            "img": './img/priorityHighInactive.svg'
-        }
-    },
-    {
-        "id": 2,
-        "place": 'progress',
-        "category": {
-            "name": 'User Story',
-            "color": '#005DFF'
-        },
-        "title": 'test ohne Subtask',
-        "description": 'test test 0 von 0!',
-        "dueDate": '2024-04-27',
-        "subtasks": [],
-        "assigned": [
-            {
-                "name": 'Bernt Saathoff',
-                "initials": 'PS',
-                "avatarColor": '#7AE229'
-            },
-            {
-                "name": 'Caroline Tabeling',
-                "initials": 'CT',
-                "avatarColor": '#005DFF'
-            },
-            {
-                "name": 'Anton Mayer',
-                "initials": 'AM',
-                "avatarColor": '#005DFF'
-            }
-        ],
-        "priority": {
-            "urgency": 'Low',
-            "img": './img/priorityLowInactive.svg'
-        }
+    } catch (e) {
+        console.error('Loading error:', e);
+        return [];
     }
-]
+}
+
+async function UpdateTaskInRemote() {
+    await setItem('cards', cards);
+    console.log("cards saved to storage", cards);
+}
 
 /**
  * Asynchronously loads all necessary functions for the board in the correct order.
@@ -312,6 +232,7 @@ function drop(place) {
     cards[currentDraggedElement]['place'] = '';
     cards[currentDraggedElement]['place'] = place;
     updateCards();
+    UpdateTaskInRemote();
 }
 
 /**
@@ -390,21 +311,21 @@ function bigCardAssigned(card) {
 
 function dueDateConvert(card) {
     let dueDateContainer = document.getElementById('due-date');
-  
+
     // Check if dueDate exists and is a string (optional safety check)
     if (!card.dueDate || typeof card.dueDate !== 'string') {
-      dueDateContainer.innerText = "No due date";
-      return; // Exit the function if no due date or not a string
+        dueDateContainer.innerText = "No due date";
+        return; // Exit the function if no due date or not a string
     }
-  
+
     // Split the date string into year, month, and day components
     const [year, month, day] = card.dueDate.split('-');
-  
+
     // Create the formatted date string in DD.MM.YYYY format
     const formattedDueDate = `${day.padStart(2, '0')}.${month.padStart(2, '0')}.${year}`;
-  
+
     dueDateContainer.innerText = formattedDueDate;
-  }
+}
 
 /**
  * Checks for subtasks and conditionally hides the subtasks area of the big card modal.
@@ -449,8 +370,9 @@ function deleteTask(cardId) {
     for (let i = cards.length - 1; i >= 0; i--) {
         if (cards[i].id === cardId) {
             cards.splice(i, 1);
-            updateCards()
+            updateCards();
             closeCard();
+            UpdateTaskInRemote();
             return;
         }
     }
@@ -572,7 +494,7 @@ function search() {
             }
         }
     }
-    NoMatchFound(hasMatch,query);
+    NoMatchFound(hasMatch, query);
 }
 
 /**
@@ -580,7 +502,7 @@ function search() {
  * @param {boolean} hasMatch - Flag indicating if any matches were found.
  * @param {string} query - The search query string.
  */
-function NoMatchFound(hasMatch,query) {
+function NoMatchFound(hasMatch, query) {
     // Handle no matches scenario 
     if (!hasMatch) {
         let container = document.getElementById('no-search-results')
@@ -743,9 +665,9 @@ function editTaskDone(id,) {
             }
         };
 
-
         // Karte zum Array hinzufügen
         cards.push(newCard);
+        UpdateTaskInRemote();
 
         // Zur Überprüfung in der Konsole ausgeben
         console.log('Neue Karte erstellt:', newCard);
