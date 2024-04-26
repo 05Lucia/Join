@@ -1,9 +1,8 @@
 async function init() {
     //login page after start animation//
     if (!localStorage.getItem('isLoggedIn')) {
-        startAnimation();
-        // window.location.href = "login.html";
-        // return;
+        insertAnimation();
+        await startAnimation();
     }
     await loadUsers();
     await mobileGreeting();
