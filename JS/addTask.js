@@ -35,11 +35,13 @@ function addTaskInit() {
  *  - Otherwise (larger screens):
  *      - It calls `boardPopupAddTask` (not provided) to potentially handle adding tasks for larger screens (place argument might be used for specific handling).
  */
+let boardPlace = "";
 function openAddTaskSmallBtnBoard(place) {
+    boardPlace = place;
     if (window.innerWidth < 800) {
-        loadAddTasks(place);
+        loadAddTasks(boardPlace);
     } else {
-        boardPopupAddTask(place);
+        boardPopupAddTask(boardPlace);
     }
 }
 
@@ -509,7 +511,12 @@ function createTask() {
     let description = document.getElementById('addTaskDescriptionInput').value.trim(); // Beschreibung abrufen
     let subtasks = createdSubtasks; // Subtasks erstellen
     let id = cards.length > 0 ? cards[cards.length - 1].id + 1 : 0; // ID erstellen
-    let place = 'todo'; // Place festlegen
+    let place = ''; // Place festlegen
+    if (boardPlace === "") {
+        place = 'todo'; //
+    } else {
+        place = boardPlace;
+    }
 
 
     if (title == null && dueDate == null && !taskCategories.some(categoryObj => categoryObj.name === category)) {
@@ -571,6 +578,7 @@ function createTask() {
                 img: priorityImg
             }
         };
+        boardPlace = "";
 
         // Karte zum Array hinzufügen
         cards.push(newCard);
@@ -582,6 +590,7 @@ function createTask() {
         priorities = [];
         selectedAssignedContacts = [];
         createdSubtasks = [];
+        
         showTaskCreatedPopUp();
     }
 }
