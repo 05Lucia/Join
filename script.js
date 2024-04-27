@@ -16,13 +16,24 @@ async function init() {
     if (!localStorage.getItem('isLoggedIn')) {
         insertAnimation();
         await startAnimation();
+    } else {
+        await hideStartAnimation();
+        await loadUsers();
+        await mobileGreeting();
+        await loadTasks();
+        await checkCards();
+        await summaryLoad();
+        greetUser();
+    
     }
-    await loadUsers();
-    await mobileGreeting();
-    await loadTasks();
-    await checkCards();
-    await summaryLoad();
-    greetUser();
+        
+        
+}
+
+function hideStartAnimation() {
+    if (localStorage.getItem('isLoggedIn')) {
+        document.getElementById('overlay').classList.add('d-none');
+    }
 }
 
 /**
@@ -70,8 +81,10 @@ async function startAnimation() {
     return new Promise(resolve => {
         setTimeout(() => {
             window.location.href = 'login.html';
+            document.getElementById('overlay').classList.add('d-none');
             resolve();
         }, 1200);
+
     });
 }
 

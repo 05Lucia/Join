@@ -562,9 +562,6 @@ async function guestLogin() {
         await saveGuestUser();  
         alert("Welcome, dear guest! Please be aware that your access is limited. To fully enjoy all the features of Join, consider registering using our sign-up form.");
         greetUser();
-    } catch (error) {
-        console.error("Fehler beim Speichern des Gastbenutzers:", error);
-        alert("Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
     } finally {
         window.location.href = '../index.html';
     }
@@ -629,7 +626,7 @@ async function saveGuestUser() {
  */
 function greetUser() {
     let userName = localStorage.getItem('currentUserName');
-    let greetingElement = document.getElementById('greeting');
+    let greetingElement = document.getElementById('greeting-mobile');
     let currentHour = new Date().getHours();
     let greetingText = "Welcome";
 
@@ -641,8 +638,13 @@ function greetUser() {
         greetingText = "Good evening";
     }
 
-    if (greetingElement) {
-        greetingElement.textContent = `${greetingText}, ${userName}.`;
+    if (userName === 'Gast') {
+        greetingElement.textContent = `${greetingText}`;
+    } else if (userName !== 'Gast') {
+        let greetingElementUser = document.getElementById('greeting-mobile-user');
+        greetingElementUser.textContent = `${greetingText},`;
+        greetingElement.textContent = `${userName}`;
+        greetingElement.style.color = '#005DFF';
     }
     UserInitals(userName);
 }

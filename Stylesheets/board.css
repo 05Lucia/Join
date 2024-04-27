@@ -230,6 +230,7 @@
     justify-content: flex-start;
     gap: 16px;
     overflow-x: scroll;
+    overflow-y: scroll;
 }
 
 .card-container::-webkit-scrollbar {
@@ -687,6 +688,7 @@
 
     .card-container {
         flex-direction: column;
+        overflow-x: hidden;
     }
 
     .board-collum {
