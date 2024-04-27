@@ -94,51 +94,55 @@ let contacts = [
 ]
 
 let localContacts = [];
+let allUsers = [];
 
+let currentUser = localStorage.getItem('currentUserName');
+async function loadRemoteContactsOfLoggedInUser() {
+    try {
+        let result = await getItem('users');
+        if (result) {
+            allUsers = JSON.parse(result);
+            let thisUser = allUsers.find(entry => entry.name === currentUser);
+            localContacts = thisUser.userContacts;
+            console.log('localContacts beim Laden aus remote Storage (unsortiert)', localContacts);
+            return localContacts;
+        } else {
+            console.log("No users contacts found in storage, returning empty array.");
+            return [];
+        }
+    } catch (e) {
+        console.error('Loading error:', e);
+        return [];
+    }
+}
 
-// async function loadContacts() {
-//     await Templates('contacts');
-//     initContacts();
-// }
-
-async function loadContacts() {
-    await Templates('contacts');
+async function updateUserContactsInRemote() {
+    console.log("localContacts BEFORE SAVING to storage", allUsers);
+    await setItem('users', allUsers);
+    console.log("localContacts saved to storage", allUsers);
     await initContacts();
 }
 
-/**
- * This function is used to load the contact list, performing the following steps:
- * 1. Sorts all contacts alphabetically by first name.
- * 2. Creates categories for contacts based on the first letter of their first names.
- * 3. Renders the contact list HTML based on the categorized contacts.
- */
-// function initContacts() {
-//     sortByFirstName();
-//     let categorizedContacts = createCategories();
-//     renderContactList(categorizedContacts);
-// }
-
-async function initContacts() {
-    await copyRemoteContactsToLocal();
-    sortByFirstName();
-    let categorizedContacts = createCategories();
-    await renderContactList(categorizedContacts);
+async function loadContacts() {
+    await Templates('contacts');
+    console.log("Im Init vor dem Laden");
+    await loadRemoteContactsOfLoggedInUser();
+    console.log("Im Init NACH dem Laden");
+    await initContacts();
 }
 
-let currentUser = localStorage.getItem('currentUserName');
-async function copyRemoteContactsToLocal() {
-    localContacts = [];
-    let allUsers = await loadUsers();
-    let thisUser = allUsers.find(entry => entry.name === currentUser);
-    let userEntry = thisUser.userContacts;
-    localContacts.push(...userEntry);
-    console.log('Unsortierte localContacts', localContacts);
+
+
+async function initContacts() {
+    await sortByFirstName();
+    let categorizedContacts = await createCategories();
+    await renderContactList(categorizedContacts);
 }
 
 /**
  * This function sorts all contacts in the `contacts` array alphabetically according to their first names.
  */
-function sortByFirstName() {
+async function sortByFirstName() {
     localContacts.sort((a, b) => a.name.localeCompare(b.name));
     console.log('Sortierte localContacts', localContacts);
 }
@@ -184,7 +188,7 @@ function sortByFirstName() {
  *
  * @returns {CategoryContacts} An object containing categories and their associated contacts.
  */
-function createCategories() {
+async function createCategories() {
     let categories = {};
     localContacts.forEach(contact => {
         let initial = contact.name.charAt(0).toUpperCase();
@@ -332,7 +336,9 @@ function hideAddContactCard() {
  */
 async function createContact() {
     let dataSet = newContactDataSetForArray();
-    await addContactToUser(dataSet.contactData.email, dataSet.newContact);
+    localContacts.push(dataSet.newContact);
+    await updateUserContactsInRemote();
+    // await addContactToUser(dataSet.contactData.email, dataSet.newContact);
     // contacts.push(dataSet.newContact);
     await initContacts();
     // let contactIndex = getIndexByNameSurname(contacts, dataSet.formattedName.firstName, dataSet.formattedName.lastName);
@@ -344,53 +350,55 @@ async function createContact() {
     scrollToAnchor(`contact(${toggleIndex})`);
 }
 
-async function addContactToUser(userEmail, newContact) {
-    // try {
-    // // Daten aus dem Remote-Speicher abrufen
-    // let usersData = await getItem('users');
+// async function addContactToUser(userEmail, newContact) {
+// try {
+// // Daten aus dem Remote-Speicher abrufen
+// let usersData = await getItem('users');
 
-    // // Parsen der JSON-Daten
-    // let users = JSON.parse(usersData);
+// // Parsen der JSON-Daten
+// let users = JSON.parse(usersData);
 
-    // Den Eintrag des Benutzers basierend auf der E-Mail finden
-
-    let allUsers = await loadUsers();
-    let thisUser = allUsers.find(entry => entry.name === currentUser);
-    let userEntry = thisUser.userContacts;
-    userEntry.push(newContact);
-
-    await setItem('users', JSON.stringify(allUsers));
-
-    localContacts = [];
+// Den Eintrag des Benutzers basierend auf der E-Mail finden
 
 
 
+// let allUsers = await loadUsers();
+// let thisUser = allUsers.find(entry => entry.name === currentUser);
+// let userEntry = thisUser.userContacts;
+// userEntry.push(newContact);
 
-    //         // Sicherstellen, dass der Benutzer gefunden wurde
-    //         if (!userEntry) {
-    //             throw new Error('Benutzer nicht gefunden.');
-    //         }
+// await setItem('users', JSON.stringify(allUsers));
 
-    //         // Zugriff auf das userContacts-Array im Benutzereintrag
-    //         let userContacts = userEntry.userContacts || [];
+// localContacts = [];
 
-    //         // Hinzufügen des neuen Kontakts zum userContacts-Array
-    //         userContacts.push(newContact);
 
-    //         // Aktualisierung des userContacts-Arrays im Benutzereintrag
-    //         userEntry.userContacts = userContacts;
 
-    //         // Aktualisierung des value-Feldes im Remote-Array
-    //         users.data.value = JSON.stringify(users.data.value);
 
-    //         // Speichern der aktualisierten Daten im Remote-Speicher
-    //         await setItem('users', JSON.stringify(users));
+//         // Sicherstellen, dass der Benutzer gefunden wurde
+//         if (!userEntry) {
+//             throw new Error('Benutzer nicht gefunden.');
+//         }
 
-    //         console.log('Kontakt erfolgreich hinzugefügt.');
-    //     } catch (error) {
-    //         console.error('Fehler beim Hinzufügen des Kontakts:', error);
-    //     }
-}
+//         // Zugriff auf das userContacts-Array im Benutzereintrag
+//         let userContacts = userEntry.userContacts || [];
+
+//         // Hinzufügen des neuen Kontakts zum userContacts-Array
+//         userContacts.push(newContact);
+
+//         // Aktualisierung des userContacts-Arrays im Benutzereintrag
+//         userEntry.userContacts = userContacts;
+
+//         // Aktualisierung des value-Feldes im Remote-Array
+//         users.data.value = JSON.stringify(users.data.value);
+
+//         // Speichern der aktualisierten Daten im Remote-Speicher
+//         await setItem('users', JSON.stringify(users));
+
+//         console.log('Kontakt erfolgreich hinzugefügt.');
+//     } catch (error) {
+//         console.error('Fehler beim Hinzufügen des Kontakts:', error);
+//     }
+// }
 
 /**
  * This function retrieves contact data from the input fields and formats it.
@@ -906,16 +914,7 @@ function editContactDeleteAndSaveButtonLayoutHTMLTemplate(index) {
  */
 async function deleteContact(index) {
     localContacts.splice(index, 1);
-
-    let allUsers = await loadUsers();
-    let thisUser = allUsers.find(entry => entry.name === currentUser);
-    let userEntry = thisUser.userContacts;
-    userEntry.splice(0, userEntry.length);
-    userEntry.push(...localContacts);
-
-    await setItem('users', JSON.stringify(allUsers));
-    localContacts = [];
-
+    await updateUserContactsInRemote();
     hideAddContactCard();
     await initContacts();
     hideContactEditDeleteMenu();
@@ -950,30 +949,23 @@ async function updateContact(index) {
         // Aktualisieren Sie den ausgewählten Kontakt im Array
         localContacts[index] = createNewContactDataSet(contactData, formattedName, existingContact);
 
-        let allUsers = await loadUsers();
-        let thisUser = allUsers.find(entry => entry.name === currentUser);
-        let userEntry = thisUser.userContacts;
-        userEntry.length = 0;
-        userEntry.push(...localContacts);
-        allUsers.length = 0;
-    
-        await setItem('users', JSON.stringify(allUsers));
-    
-
-
         hideAddContactCard();
         // Optional: Aktualisieren Sie die Kontaktliste auf der Seite
+        console.log("VOR INIT aus EDIT USER");
         await initContacts();
+        console.log("NACH INIT aus EDIT USER");
 
         let contactIndex = getIndexByNameSurname(localContacts, formattedName.firstName, formattedName.lastName);
         openContactInfo(contactIndex);
 
         // Optional: Leeren Sie die Eingabefelder
         clearAddContactForm();
-       
-        return;
+
     } else {
         // Geben Sie eine Fehlermeldung aus, wenn nicht alle Felder ausgefüllt sind
         alert("Bitte füllen Sie alle Felder aus.");
     }
+    console.log("VOR dem Updaten der Kontakte ins Remot");
+    await updateUserContactsInRemote();
+    console.log("NACH dem Updaten der Kontakte ins Remot");
 }
