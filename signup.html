@@ -31,33 +31,33 @@
         <form class="loginForm" onsubmit="addUser(); return false">
             <div class="inputField">
                 <input class="input" type="name" required id="name" placeholder="Name" autocomplete="name">
-                <img class="inputImage" src="./img/img/person.svg">
+                <img class="inputImage" src="./img/person.svg">
             </div>
             <div class="inputField">
                 <input class="input user-email" type="email" required id="email" placeholder="Email" autocomplete="email" 
                     onkeyup="validateEmailAddress()">
-                <img class="inputImage" src="./img/img/mail.svg">
+                <img class="inputImage" src="./img/mail.svg">
             </div>
             <div class="msgError" id="msgBoxValidateEmail"></div>
             <div class="inputField">
                 <input class="input" type="password" required id="password" placeholder="Password" minlength="8" autocomplete="new-password"
                        onfocus="changeLockIcon(this)"
                        oninput="checkPasswordStrength()">
-                <img onclick="togglePassword('password')" class="inputImage" id="passwordIcon" src="./img/img/lock.svg">
+                <img onclick="togglePassword('password')" class="inputImage" id="passwordIcon" src="./img/lock.svg">
             </div>  
             <div  class="msgError" id="passwordStrengthMessage"></div>          
             <div class="inputField">
                 <input class="input" type="password" required id="confirm_password" placeholder="Confirm Password" autocomplete="new-password"  
                     onfocus="changeLockIcon(this)"   
                     onkeyup="validateConfirmedPassword()">
-                <img onclick="togglePassword('confirm_password')" class="inputImage" id="confirmPasswordIcon" src="./img/img/lock.svg">
+                <img onclick="togglePassword('confirm_password')" class="inputImage" id="confirmPasswordIcon" src="./img/lock.svg">
             </div>
             <div class="msgError" id="passwordMatchMessage"></div>
         
             <div id="msgBox"></div>
             <div class="checkboxContainer">
                 <button type="button" class="checkbox" onclick="togglePrivacyPolicyCheckbox(this);">
-                    <img class="checkboxImage" src="./img/Rectangle5.svg" data-checked="./img/img/checked.svg" data-unchecked="./img/Rectangle5.svg">
+                    <img class="checkboxImage" src="./img/Rectangle5.svg" data-checked="./img/checked.svg" data-unchecked="./img/Rectangle5.svg">
                 </button>
                 <span>I accept the <a href="./templates/privacy_policy.html">Privacy Policy</a></span>
                 <input type="checkbox" class="realCheckbox" hidden>

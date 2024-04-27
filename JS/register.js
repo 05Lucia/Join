@@ -215,10 +215,10 @@ function togglePassword(fieldId) {
 
     if (input.type === "password") {
         input.type = "text";
-        icon.src = "./img/img/visibility_off.svg";
+        icon.src = "./img/visibility_off.svg";
     } else {
         input.type = "password";
-        icon.src = "./img/img/visibility.svg";
+        icon.src = "./img/visibility.svg";
     }
 }
 

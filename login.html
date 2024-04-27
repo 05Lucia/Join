@@ -18,11 +18,10 @@
 </head>
 <!-- login page (after start animation) -->
 <main class="mainLoginContainer">
-    
+    <div class="loginHeader">
+        <img src="./img/logo.png">
+    </div>    
     <div id="loginPage" class="loginPage">
-        <div class="loginHeader">
-            <img src="./img/logo.png">
-        </div>
         <div class="loginContainer">
             <div class="loginHeadline">
                 <h1 class="h1Login">Log in</h1>
@@ -32,12 +31,12 @@
                 <div class="inputField">
                     <input class="input user-email" type="email" required id="email" placeholder="Email"
                         autocomplete="email" onkeyup="loadRememberedPassword()">
-                    <img class="inputImage" src="./img/img/mail.svg">
+                    <img class="inputImage" src="./img/mail.svg">
                 </div>
                 <div class="inputField">
                     <input class="input" type="password" required id="password" placeholder="Password"
                         autocomplete="current-password" onfocus="changeLockIcon(this)">
-                    <img class="inputImage" id="passwordIcon" src="./img/img/lock.svg"
+                    <img class="inputImage" id="passwordIcon" src="./img/lock.svg"
                         onclick="togglePassword('password')">
                 </div>
                 <div id="passwordError" class="passwordError">Wrong password! Try again.</div>
@@ -46,8 +45,8 @@
                     <label>
                         <input type="checkbox" id="rememberCheckbox" class="hiddenCheckbox"
                             onchange="toggleRememberMeCheckbox(this); handleRememberMeChange();">
-                        <img class="checkboxImage" src="./img/Rectangle5.svg" data-checked="./img/img/checked.svg"
-                            data-unchecked="./img/img/Rectangle5.svg">
+                        <img class="checkboxImage" src="./img/Rectangle5.svg" data-checked="./img/checked.svg"
+                            data-unchecked="./img/Rectangle5.svg">
                         <span>Remember me</span>
                     </label>
                 </div>
