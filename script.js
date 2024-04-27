@@ -25,16 +25,50 @@ async function init() {
         await summaryLoad();
         greetUser();
     
-    }
-        
-        
+    }      
 }
 
-function hideStartAnimation() {
+async function hideStartAnimation() {
+    let overlay = document.getElementById('overlay');
     if (localStorage.getItem('isLoggedIn')) {
-        document.getElementById('overlay').classList.add('d-none');
+        overlay.classList.add('d-none');  
     }
 }
+
+
+/**
+ * Inserts an animation overlay element into the DOM.
+ * 
+ * This function creates an HTML string representing an overlay element with a logo image.
+ * It then inserts this HTML content at the beginning of the document body using `insertAdjacentHTML`.
+ */
+function insertAnimation() {
+    let overlay = document.getElementById('overlay');
+    overlay.classList.remove('d-none'); 
+    overlay.innerHTML = `
+        <img src="./img/logoNegative.png" alt="Negative Logo" class="overlay-logo">
+    `;
+}
+
+
+/**
+ * Simulates a startup animation with a delay before redirecting to the login page.
+ * 
+ * This function uses a Promise to create an asynchronous delay.
+ * It sets a timeout of 1.2 seconds and then redirects the user to the login.html page.
+ * The Promise resolves after the timeout, allowing subsequent asynchronous operations in `init` to proceed.
+ */
+async function startAnimation() {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            window.location.href = 'login.html';
+            document.getElementById('overlay').classList.add('d-none');
+            resolve();
+        }, 1200);
+
+    });
+}
+
 
 /**
  * Checks if there are any existing cards in the application.
@@ -55,38 +89,6 @@ function checkCards() {
     }
 }
 
-/**
- * Inserts an animation overlay element into the DOM.
- * 
- * This function creates an HTML string representing an overlay element with a logo image.
- * It then inserts this HTML content at the beginning of the document body using `insertAdjacentHTML`.
- */
-function insertAnimation() {
-    let overlayHtml = `
-        <div id="overlay" class="overlay">
-            <img src="./img/logoNegative.png" alt="Negative Logo" class="overlay-logo">
-        </div>
-    `;
-    document.body.insertAdjacentHTML('afterbegin', overlayHtml);
-}
-
-/**
- * Simulates a startup animation with a delay before redirecting to the login page.
- * 
- * This function uses a Promise to create an asynchronous delay.
- * It sets a timeout of 1.2 seconds and then redirects the user to the login.html page.
- * The Promise resolves after the timeout, allowing subsequent asynchronous operations in `init` to proceed.
- */
-async function startAnimation() {
-    return new Promise(resolve => {
-        setTimeout(() => {
-            window.location.href = 'login.html';
-            document.getElementById('overlay').classList.add('d-none');
-            resolve();
-        }, 1200);
-
-    });
-}
 
 /**
  * Displays a greeting and potentially performs additional actions for mobile users.

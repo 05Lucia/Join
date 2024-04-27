@@ -358,22 +358,6 @@ async function checkIfEmailExists(email) {
 
 
 /**
- * Processes the login by checking the provided credentials against stored users.
- * Sets local storage items if the credentials are valid, otherwise alerts the user.
- * @async
- * @returns {Promise<void>}
- */ 
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('password').addEventListener('focus', function() {
-        if (this.classList.contains('error')) {
-            clearPasswordError();
-            this.value = '';  
-        }
-    });
-});
-
-
-/**
  * Attempts to log in the user by comparing the provided credentials with stored users.
  * Sets local storage items if the credentials are valid, otherwise displays an error message.
  * @async
