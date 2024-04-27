@@ -1,3 +1,16 @@
+/**
+ * Initializes the application after a startup animation.
+ * 
+ * This function checks if a user is logged in (based on localStorage).
+ * If not, it inserts an animation and redirects to the login page after 1.2 seconds.
+ * Then, it performs various asynchronous tasks in sequence:
+ * - Loads user data
+ * - Displays a mobile greeting (if applicable)
+ * - Loads tasks
+ * - Checks for existing cards (potentially for restoring defaults)
+ * - Loads summary information
+ * - Greets the user (potentially with a different greeting for mobile)
+ */
 async function init() {
     //login page after start animation//
     if (!localStorage.getItem('isLoggedIn')) {
@@ -12,7 +25,15 @@ async function init() {
     greetUser();
 }
 
-
+/**
+ * Checks if there are any existing cards in the application.
+ * 
+ * If there are no cards:
+ * - Restores default settings (implementation assumed in restoreDefault function)
+ * - Loads tasks again
+ * 
+ * If there are cards, the function simply returns.
+ */
 function checkCards() {
     if (cards.length === 0) {
         restoreDefault();
@@ -23,6 +44,12 @@ function checkCards() {
     }
 }
 
+/**
+ * Inserts an animation overlay element into the DOM.
+ * 
+ * This function creates an HTML string representing an overlay element with a logo image.
+ * It then inserts this HTML content at the beginning of the document body using `insertAdjacentHTML`.
+ */
 function insertAnimation() {
     let overlayHtml = `
         <div id="overlay" class="overlay">
@@ -32,6 +59,13 @@ function insertAnimation() {
     document.body.insertAdjacentHTML('afterbegin', overlayHtml);
 }
 
+/**
+ * Simulates a startup animation with a delay before redirecting to the login page.
+ * 
+ * This function uses a Promise to create an asynchronous delay.
+ * It sets a timeout of 1.2 seconds and then redirects the user to the login.html page.
+ * The Promise resolves after the timeout, allowing subsequent asynchronous operations in `init` to proceed.
+ */
 async function startAnimation() {
     return new Promise(resolve => {
         setTimeout(() => {
@@ -41,6 +75,15 @@ async function startAnimation() {
     });
 }
 
+/**
+ * Displays a greeting and potentially performs additional actions for mobile users.
+ * 
+ * This function checks the window inner width to determine if the user is on a mobile device.
+ * If the width is less than 800 pixels:
+ * - It calls the assumed `TemplateGreetMobile` function (likely for mobile greeting display)
+ * - It calls `greetUserMobile` (assumed to personalize the greeting for mobile)
+ * - It waits for 1.2 seconds using a Promise with setTimeout
+ */
 async function mobileGreeting() {
     if (window.innerWidth < 800) {
         await TemplateGreetMobile(); // Assuming this displays a greeting for mobile
