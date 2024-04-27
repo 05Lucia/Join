@@ -574,7 +574,7 @@ function createTask() {
 
         // Karte zum Array hinzufügen
         cards.push(newCard);
-        addTaskToRemote();
+        UpdateTaskInRemote();
 
         // Zur Überprüfung in der Konsole ausgeben
         console.log('Neue Karte erstellt:', newCard);
