@@ -597,7 +597,7 @@ function subtaskEdit(card) {
 function editTaskDone(id) {
     const card = cards.find(card => card.id === id);
     let place = card.place;
-    cards.splice(card.id, 1);
+    deleteUneditTask(id);
 
     let title = errorMessageIfEmptyTitle(); // Titel überprüfen und abrufen
     let dueDate = errorMessageIfEmptyDueDate(); // Fälligkeitsdatum überprüfen und abrufen
@@ -609,70 +609,83 @@ function editTaskDone(id) {
 
     if (!checkErrors(title, dueDate, category)) {
         return; // Early exit on validation failure
-      }
-        
-     
-
-        // Priorität Bildpfad festlegen
-        let priorityImg;
-        if (priority == 'Urgent') {
-            priorityImg = './img/priorityHighInactive.svg';
-        } else if (priority == 'Medium') {
-            priorityImg = './img/priorityMediumInactive.svg';
-        } else {
-            priorityImg = './img/priorityLowInactive.svg';
-        }
-
-        // Farben für Kategorie abrufen
-        let categoryColor;
-        let matchingCategory = taskCategories.find(categoryObj => categoryObj.name === category);
-        if (matchingCategory) {
-            categoryColor = matchingCategory.categoryColor;
-        } else {
-            // Fall, wenn keine Übereinstimmung gefunden wurde
-            console.error("Keine Übereinstimmung für die Kategorie gefunden");
-        }
-
-        // Neues Kartenobjekt erstellen
-        let newCard = {
-            id: id,
-            place: place,
-            category: {
-                name: category,
-                color: categoryColor
-            },
-            title: title,
-            description: description,
-            dueDate: dueDate,
-            subtasks: subtasks,
-            assigned: assigned,
-            priority: {
-                urgency: priority,
-                img: priorityImg
-            }
-        };
-
-        // Karte zum Array hinzufügen
-        cards.push(newCard);
-        UpdateTaskInRemote();
-
-        // Zur Überprüfung in der Konsole ausgeben
-        console.log('Neue Karte erstellt:', newCard);
-
-        priorities = [];
-        selectedAssignedContacts = [];
-        createdSubtasks = [];
-        bigCard(id); 
-        updateCards();
+    }
+    const priorityImg = priorityImgCheck(priority);
     
+    let matchingCategory = taskCategories.find(categoryObj => categoryObj.name === category);
+    let categoryColor = matchingCategoryCheck(matchingCategory);// Farben für Kategorie abrufen
+
+    const newCard = createCardObject(id, place, category, categoryColor, title, description, dueDate, subtasks, assigned, priority, priorityImg);
+
+    cards.push(newCard);// Karte zum Array hinzufügen
+    UpdateTaskInRemote();
+
+    console.log('Neue Karte erstellt:', newCard); // Zur Überprüfung in der Konsole ausgeben
+
+    emptyArrays();
+    bigCard(id);
+    updateCards();
 }
 
 function checkErrors(title, dueDate, category) {
     if (!title || !dueDate || !taskCategories.some(categoryObj => categoryObj.name === category)) {
-      errorMessageIfEmptyTitle(!title);
-      errorMessageIfEmptyDueDate(!dueDate);
-      errorMessageIfEmptyCategory(!taskCategories.some(categoryObj => categoryObj.name === category));
-      return false; // Indicate validation failure
+        errorMessageIfEmptyTitle(!title);
+        errorMessageIfEmptyDueDate(!dueDate);
+        errorMessageIfEmptyCategory(!taskCategories.some(categoryObj => categoryObj.name === category));
+        return false; // Indicate validation failure
     }
     return true; // Indicate validation success
+}
+
+function priorityImgCheck(priority) {
+    if (priority == 'Urgent') {
+        return './img/priorityHighInactive.svg';
+    } else if (priority == 'Medium') {
+        return './img/priorityMediumInactive.svg';
+    } else if (priority == 'Low') {
+        return './img/priorityLowInactive.svg';
+    }
+}
+
+function matchingCategoryCheck(matchingCategory) {
+    if (matchingCategory) {
+        return matchingCategory.categoryColor; // Return the color value
+    } else {
+        // Fall, wenn keine Übereinstimmung gefunden wurde
+        console.error("Keine Übereinstimmung für die Kategorie gefunden");
+    }
+}
+
+function emptyArrays() {
+    priorities = [];
+    selectedAssignedContacts = [];
+    createdSubtasks = [];
+}
+
+function deleteUneditTask(id) {
+    for (let i = cards.length - 1; i >= 0; i--) {
+        if (cards[i].id === id) {
+            cards.splice(i, 1);
+        }
+    }
+}
+
+function createCardObject(id, place, category, categoryColor, title, description, dueDate, subtasks, assigned, priority, priorityImg) {
+    return {
+        id: id,
+        place: place,
+        category: {
+            name: category,
+            color: categoryColor
+        },
+        title: title,
+        description: description,
+        dueDate: dueDate,
+        subtasks: subtasks,
+        assigned: assigned,
+        priority: {
+            urgency: priority,
+            img: priorityImg
+        }
+    };
   }
