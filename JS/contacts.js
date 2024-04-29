@@ -95,8 +95,9 @@ let contacts = [
 
 let localContacts = [];
 let allUsers = [];
-
 let currentUser = localStorage.getItem('currentUserName');
+let userEmail = "";
+
 async function loadRemoteContactsOfLoggedInUser() {
     try {
         let result = await getItem('users');
@@ -104,6 +105,8 @@ async function loadRemoteContactsOfLoggedInUser() {
             allUsers = JSON.parse(result);
             let thisUser = allUsers.find(entry => entry.name === currentUser);
             localContacts = thisUser.userContacts;
+            userEmail = thisUser.email;
+            userName = thisUser.name;
             console.log('localContacts beim Laden aus remote Storage (unsortiert)', localContacts);
             return localContacts;
         } else {
@@ -117,21 +120,44 @@ async function loadRemoteContactsOfLoggedInUser() {
 }
 
 async function updateUserContactsInRemote() {
-    console.log("localContacts BEFORE SAVING to storage", allUsers);
     await setItem('users', allUsers);
-    console.log("localContacts saved to storage", allUsers);
     await initContacts();
 }
 
 async function loadContacts() {
     await Templates('contacts');
-    console.log("Im Init vor dem Laden");
     await loadRemoteContactsOfLoggedInUser();
-    console.log("Im Init NACH dem Laden");
+    await checkIfUserIsAddedAsContact();
     await initContacts();
 }
 
+async function checkIfUserIsAddedAsContact() {
+    for (let i = 0; i < localContacts.length; i++) {
+        if (localContacts[i].email === userEmail) {
+            console.log("Der eingeloggte Nutzer ist auch schon als Kontakt angelegt");
+            return true; // Der Benutzer ist bereits ein Kontakt
+        }
+    }
+    console.log("Der eingeloggte Nutzer ist NICHT als Kontakt angelegt");
+    createUserAsContact();
+}
 
+async function createUserAsContact() {
+    console.log("User wird als eigener Kontakt angelegt");
+
+    let name = currentUser;
+    let email = userEmail;
+    let phone = "+49";
+
+    console.log("Username: ", name);
+    console.log("User Email: ", email);
+    console.log("User Phone: ", phone);
+
+    let dataSet = newContactDataSetForArray(name, email, phone);
+    localContacts.push(dataSet.newContact);
+    await updateUserContactsInRemote();
+    clearAddContactForm();
+}
 
 async function initContacts() {
     await sortByFirstName();
@@ -336,6 +362,18 @@ function hideAddContactCard() {
  */
 async function createContact() {
     let dataSet = newContactDataSetForArray();
+
+    console.log('dataSET', dataSet);
+    console.log('dataSET contactData email', dataSet.contactData.email);
+    console.log('localContacts', localContacts);
+
+     for (let i = 0; i < localContacts.length; i++) {
+         if (localContacts[i].email === dataSet.contactData.email) {
+            alert('A contact with the same email address already exists in your list.');
+             return true; // Der Benutzer ist bereits ein Kontakt
+         }
+     }
+
     localContacts.push(dataSet.newContact);
     await updateUserContactsInRemote();
     // await addContactToUser(dataSet.contactData.email, dataSet.newContact);
@@ -404,8 +442,8 @@ async function createContact() {
  * This function retrieves contact data from the input fields and formats it.
  * @returns {object} An object containing the contact data and formatted name.
  */
-function newContactDataSetForArray() {
-    let contactData = getContactData();
+function newContactDataSetForArray(name, email, phone) {
+    let contactData = getContactData(name, email, phone);
     let formattedName = formatContactName(contactData);
     let newContact = createNewContactDataSet(contactData, formattedName);
     return {
@@ -419,10 +457,16 @@ function newContactDataSetForArray() {
  * This function retrieves the entered contact name, email, and phone number.
  * @returns {object} An object containing the contact data.
  */
-function getContactData() {
-    const name = document.getElementById("editContactName").value;
-    const email = document.getElementById("editContactEmail").value;
-    const phone = document.getElementById("editContactPhone").value;
+function getContactData(name = "", email = "", phone = "") {
+    if (name === "") {
+        name = document.getElementById("editContactName").value;
+    }
+    if (email === "") {
+        email = document.getElementById("editContactEmail").value;
+    }
+    if (phone === "") {
+        phone = document.getElementById("editContactPhone").value;
+    }
     return {
         name,
         email,
@@ -913,12 +957,16 @@ function editContactDeleteAndSaveButtonLayoutHTMLTemplate(index) {
  * @param {number} index - The index of the contact to be deleted from the `contacts` array.
  */
 async function deleteContact(index) {
-    localContacts.splice(index, 1);
-    await updateUserContactsInRemote();
-    hideAddContactCard();
-    await initContacts();
-    hideContactEditDeleteMenu();
-    closeContactInfo();
+    if (localContacts[index].email === userEmail) {
+        alert('The user cannot delete themselves from their own contact list.');
+    } else {
+        localContacts.splice(index, 1);
+        await updateUserContactsInRemote();
+        hideAddContactCard();
+        await initContacts();
+        hideContactEditDeleteMenu();
+        closeContactInfo();
+    }
 }
 
 /**
@@ -940,6 +988,7 @@ async function updateContact(index) {
 
     // Überprüfen Sie, ob alle Felder ausgefüllt sind
     if (contactData.name && contactData.email && contactData.phone) {
+        
         // Formatieren Sie den Namen
         let formattedName = formatContactName(contactData);
 
@@ -963,7 +1012,7 @@ async function updateContact(index) {
 
     } else {
         // Geben Sie eine Fehlermeldung aus, wenn nicht alle Felder ausgefüllt sind
-        alert("Bitte füllen Sie alle Felder aus.");
+        alert("Please fill out every input field.");
     }
     console.log("VOR dem Updaten der Kontakte ins Remot");
     await updateUserContactsInRemote();
