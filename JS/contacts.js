@@ -369,7 +369,7 @@ async function createContact() {
 
      for (let i = 0; i < localContacts.length; i++) {
          if (localContacts[i].email === dataSet.contactData.email) {
-            alert('Es gibt bereits einen Kontakt in deiner Liste mit der selben Email Adresse');
+            alert('A contact with the same email address already exists in your list.');
              return true; // Der Benutzer ist bereits ein Kontakt
          }
      }
@@ -958,7 +958,7 @@ function editContactDeleteAndSaveButtonLayoutHTMLTemplate(index) {
  */
 async function deleteContact(index) {
     if (localContacts[index].email === userEmail) {
-        alert('User kann nicht aus seinen Kontakten gelöscht werden');
+        alert('The user cannot delete themselves from their own contact list.');
     } else {
         localContacts.splice(index, 1);
         await updateUserContactsInRemote();
@@ -1012,7 +1012,7 @@ async function updateContact(index) {
 
     } else {
         // Geben Sie eine Fehlermeldung aus, wenn nicht alle Felder ausgefüllt sind
-        alert("Bitte füllen Sie alle Felder aus.");
+        alert("Please fill out every input field.");
     }
     console.log("VOR dem Updaten der Kontakte ins Remot");
     await updateUserContactsInRemote();
