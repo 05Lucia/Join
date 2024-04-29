@@ -593,7 +593,13 @@ function subtaskEdit(card) {
     openCreatedSubtaskBox();
 }
 
-
+/**
+ * Edits a task with the given ID.
+ * 
+ * @param {number} id - The ID of the task to edit.
+ * 
+ * @returns {void} (nothing returned)
+ */
 function editTaskDone(id) {
     const card = cards.find(card => card.id === id);
     let place = card.place;
@@ -627,6 +633,15 @@ function editTaskDone(id) {
     updateCards();
 }
 
+/**
+ * Checks for empty title, due date or invalid category.
+ * 
+ * @param {string} title - The task title.
+ * @param {string} dueDate - The task due date.
+ * @param {string} category - The task category.
+ * 
+ * @returns {boolean} True if all fields are valid, false otherwise.
+ */
 function checkErrors(title, dueDate, category) {
     if (!title || !dueDate || !taskCategories.some(categoryObj => categoryObj.name === category)) {
         errorMessageIfEmptyTitle(!title);
@@ -637,6 +652,13 @@ function checkErrors(title, dueDate, category) {
     return true; // Indicate validation success
 }
 
+/**
+ * Maps priority level to corresponding image path.
+ * 
+ * @param {string} priority - The task priority (Urgent, Medium, Low).
+ * 
+ * @returns {string} The image path for the priority level.
+ */
 function priorityImgCheck(priority) {
     if (priority == 'Urgent') {
         return './img/priorityHighInactive.svg';
@@ -647,6 +669,13 @@ function priorityImgCheck(priority) {
     }
 }
 
+/**
+ * Retrieves category color based on matching category object.
+ * 
+ * @param {object|null} matchingCategory - The matching category object (if found).
+ * 
+ * @returns {string} The category color (if match found), otherwise logs an error.
+ */
 function matchingCategoryCheck(matchingCategory) {
     if (matchingCategory) {
         return matchingCategory.categoryColor; // Return the color value
@@ -656,12 +685,24 @@ function matchingCategoryCheck(matchingCategory) {
     }
 }
 
+/**
+ * Empties the priority, assigned contacts, and created subtasks arrays.
+ * 
+ * @returns {void} (nothing returned)
+ */
 function emptyArrays() {
     priorities = [];
     selectedAssignedContacts = [];
     createdSubtasks = [];
 }
 
+/**
+ * Removes a task from the cards array by its ID.
+ * 
+ * @param {number} id - The ID of the task to remove.
+ * 
+ * @returns {void} (nothing returned)
+ */
 function deleteUneditTask(id) {
     for (let i = cards.length - 1; i >= 0; i--) {
         if (cards[i].id === id) {
@@ -670,6 +711,23 @@ function deleteUneditTask(id) {
     }
 }
 
+/**
+ * Creates a new card object with specified properties.
+ * 
+ * @param {number} id - The task ID.
+ * @param {string} place - The task placement.
+ * @param {string} category - The task category name.
+ * @param {string} categoryColor - The task category color.
+ * @param {string} title - The task title.
+ * @param {string} description - The task description.
+ * @param {string} dueDate - The task due date.
+ * @param {array} subtasks - An array of subtasks.
+ * @param {array} assigned - An array of assigned contacts.
+ * @param {string} priority - The task priority level (Urgent, Medium, Low).
+ * @param {string} priorityImg - The image path for the priority level.
+ * 
+ * @returns {object} The newly created card object.
+ */
 function createCardObject(id, place, category, categoryColor, title, description, dueDate, subtasks, assigned, priority, priorityImg) {
     return {
         id: id,
