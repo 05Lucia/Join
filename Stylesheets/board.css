@@ -494,7 +494,7 @@
 
 .board-task-subtask {
     width: auto;
-    height: 32px;
+    height: auto;
     display: flex;
     display: flex;
     padding: 4px 0px;

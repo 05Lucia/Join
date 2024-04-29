@@ -229,8 +229,9 @@ function allowDrop(ev) {
  * @param {string} place The name of the drop target area (e.g., "todo", "progress").
  */
 function drop(place) {
-    cards[currentDraggedElement]['place'] = '';
-    cards[currentDraggedElement]['place'] = place;
+    let card = cards.find(card => card.id === currentDraggedElement);
+    card['place'] = '';
+    card['place'] = place;
     updateCards();
     UpdateTaskInRemote();
 }
@@ -593,10 +594,10 @@ function subtaskEdit(card) {
 }
 
 
-function editTaskDone(id,) {
+async function editTaskDone(id) {
     const card = cards.find(card => card.id === id);
     let place = card.place;
-    cards.splice(card.id);
+    cards.splice(card.id, 1);
 
     let title = errorMessageIfEmptyTitle(); // Titel überprüfen und abrufen
     let dueDate = errorMessageIfEmptyDueDate(); // Fälligkeitsdatum überprüfen und abrufen
@@ -667,7 +668,7 @@ function editTaskDone(id,) {
         };
 
         // Karte zum Array hinzufügen
-        cards.push(newCard);
+        await cards.push(newCard);
         UpdateTaskInRemote();
 
         // Zur Überprüfung in der Konsole ausgeben
@@ -676,6 +677,7 @@ function editTaskDone(id,) {
         priorities = [];
         selectedAssignedContacts = [];
         createdSubtasks = [];
-        bigCard(id); // checken das nicht doppelt...?
+        bigCard(id); 
+        updateCards();
     }
 }
