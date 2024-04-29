@@ -34,6 +34,10 @@
     }
 }
 
+.greeting-Container {
+    display: none;
+}
+
 .greeting {
     display: none;
 }
@@ -278,6 +282,8 @@
     gap: 24px;
 }
 
+
+
 @media (max-width: 400px) {
     .btn-container {
         max-width: 300px;
@@ -301,11 +307,25 @@
 }
 
 @media (min-width: 800px) {
-    .greeting {
+    .greeting-Container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 22px;
+        }
+
+    .greeting-user {
         display: flex;
         color: var(--greeting-text);
         font-weight: 400;
         font-size: 48px;
+    }
+
+    .greeting {
+        display: flex;
+        color: var(--greeting-text);
+        font-weight: 700;
+        font-size: 64px;
     }
 
     .summary-overview {

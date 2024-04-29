@@ -12,6 +12,7 @@ async function summaryLoad() {
     await Templates('summary');
     summaryLoadNumbers();
     changeNavigationHighlightSummary();
+    greetUser()
 }
 
 /**
