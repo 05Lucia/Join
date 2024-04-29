@@ -594,7 +594,7 @@ function subtaskEdit(card) {
 }
 
 
-async function editTaskDone(id) {
+function editTaskDone(id) {
     const card = cards.find(card => card.id === id);
     let place = card.place;
     cards.splice(card.id, 1);
@@ -607,26 +607,11 @@ async function editTaskDone(id) {
     let description = document.getElementById('addTaskDescriptionInput').value.trim(); // Beschreibung abrufen
     let subtasks = createdSubtasks; // Subtasks erstellen
 
-    if (title == null && dueDate == null && !taskCategories.some(categoryObj => categoryObj.name === category)) {
-        errorMessageIfEmptyTitle();
-        errorMessageIfEmptyDueDate();
-        errorMessageIfEmptyCategory();
-    } else if (title == null && dueDate == null) {
-        errorMessageIfEmptyTitle();
-        errorMessageIfEmptyDueDate();
-    } else if (title == null && !taskCategories.some(categoryObj => categoryObj.name === category)) {
-        errorMessageIfEmptyTitle();
-        errorMessageIfEmptyCategory();
-    } else if (dueDate == null && !taskCategories.some(categoryObj => categoryObj.name === category)) {
-        errorMessageIfEmptyDueDate();
-        errorMessageIfEmptyCategory();
-    } else if (title == null) {
-        errorMessageIfEmptyTitle();
-    } else if (dueDate == null) {
-        errorMessageIfEmptyDueDate();
-    } else if (!taskCategories.some(categoryObj => categoryObj.name === category)) {
-        errorMessageIfEmptyCategory();
-    } else {
+    if (!checkErrors(title, dueDate, category)) {
+        return; // Early exit on validation failure
+      }
+        
+     
 
         // Priorität Bildpfad festlegen
         let priorityImg;
@@ -668,7 +653,7 @@ async function editTaskDone(id) {
         };
 
         // Karte zum Array hinzufügen
-        await cards.push(newCard);
+        cards.push(newCard);
         UpdateTaskInRemote();
 
         // Zur Überprüfung in der Konsole ausgeben
@@ -679,5 +664,15 @@ async function editTaskDone(id) {
         createdSubtasks = [];
         bigCard(id); 
         updateCards();
-    }
+    
 }
+
+function checkErrors(title, dueDate, category) {
+    if (!title || !dueDate || !taskCategories.some(categoryObj => categoryObj.name === category)) {
+      errorMessageIfEmptyTitle(!title);
+      errorMessageIfEmptyDueDate(!dueDate);
+      errorMessageIfEmptyCategory(!taskCategories.some(categoryObj => categoryObj.name === category));
+      return false; // Indicate validation failure
+    }
+    return true; // Indicate validation success
+  }
