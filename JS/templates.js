@@ -204,6 +204,188 @@ function TemplateGreetMobile() {
     `;
 }
 
+/**
+ * This function populates the contact info panel with the details of the clicked contact.
+ * It retrieves the contact data from the `contacts` array using the provided index.
+ * Then, it updates the HTML content of specific DOM elements with the contact's name, initials, avatar color, email, and phone number.
+ * Finally, it updates the "Edit Contact" and "Delete Contact" buttons with the clicked contact's index for proper functionality.
+ * @param {number} index - The index of the clicked contact in the `contacts` array.
+ */
+function openContactInfoHTMLTemplate(index) {
+    let contact = localContacts[index];
+    document.getElementById('contactInfoContactDetails').innerHTML = /*html*/`
+                    <div class="contactInfoAvatarAndName">
+                        <div class="contactInfoAvatar" style="background-color: ${contact.avatarColor};">
+                            ${contact['initials']}
+                        </div>
+                        <div>
+                            <div class="contactInfoName">
+                                ${contact['name']} ${contact['surname']}
+                            </div>
+                            <div class="editContactMenuDesktop">
+                                <div class="editContact" onclick="showEditContact(${index})">
+                                    <img src="./img/editContactIcon.svg">
+                                    <span>Edit</span>
+                                </div>
+                                <div class="deleteContact" onclick="deleteContact(${index})">
+                                    <img src="./img/deleteContactIcon.svg">
+                                    <span>Delete</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contactInfoHeadlineDesktop">
+                Contact Information
+            </div>
+                    <div class="contactInfoEmailAndPhone">
+                        <div class="contactInfoEmail">
+                            <p>Email</p>
+                            <a href="mailto:abc@example.com">${contact['email']}</a>
+                        </div>
+                        <div class="contactInfoPhone">
+                            <p>Phone</p>
+                            <span>${contact['phone']}</span>
+                        </div>
+                    </div>
+            `;
+
+    document.getElementById('editContactButtonContainer').innerHTML = /*html*/`
+             <button class="addContactButton" id="addContactButton" onclick="showContactEditDeleteMenu(${index})">
+                <img src="./img/contactMenuButton.svg">
+            </button>
+                                                                `;
+}
+
+/**
+* This function shows the edit and delete menu for the clicked contact on mobile screens (less than 800px wide).
+* It populates the menu container with the "Edit" and "Delete" buttons and adds an event listener to prevent event bubbling.
+* @param {number} index - The index of the clicked contact in the `contacts` array.
+*/
+function showContactEditDeleteMenu(index) {
+    document.getElementById('editContactMenuContainer').classList.add('showEditContactMenu');
+    document.getElementById('editContactMenuContainer').innerHTML = /*html*/`
+                                                                                <div class="editContactMenu" id="editContactMenu">
+                                                                                    <div class="editContact" onclick="showEditContact(${index})">
+                                                                                        <img src="./img/editContactIcon.svg">
+                                                                                        <span>Edit</span>
+                                                                                    </div>
+                                                                                    <div class="deleteContact" onclick="deleteContact(${index})">
+                                                                                        <img src="./img/deleteContactIcon.svg">
+                                                                                        <span>Delete</span>
+                                                                                    </div>
+                                                                                </div>
+
+    `;
+    document.getElementById('editContactMenu').onclick = function (event) {
+        event.stopPropagation();
+    };
+}
+
+/**
+ * This function populates the edit contact card with the details of the clicked contact.
+ * It sets the avatar background color and initials, fills the name, email, and phone input fields with the contact's data, and sets focus on the name field after a short delay.
+ * @param {number} index - The index of the clicked contact in the `contacts` array.
+ */
+function editContactDeleteAndSaveButtonLayoutHTMLTemplate(index) {
+    document.getElementById('addEditContactButtons').innerHTML = /*html*/`
+                                                                            <button type="button" class="deleteEditContactButton" onclick="deleteContact(${index})">
+                                                                                <p>Delete</p>
+                                                                            </button>
+                                                                            <button type="submit"class="saveEditContactButton" onclick="updateContact(${index})">
+                                                                                <p>Save</p>
+                                                                                <img src="./img/createTaskCheckIcon.svg">
+                                                                            </button>
+                                                                        `;
+}
+
+function renderAllContactsHTMLTemplate(i, backgroundColor, contact, textColor, checkBoxSrc) {
+    return `<div class="dropdownEachContact" id="dropdownEachContact(${i})" style="background-color: ${backgroundColor}" onclick="assingContact(${i})">
+                <div class="assignToContactAvatarAndName">
+                    <div class="assignToContactAvatar" style="background-color: ${contact['avatarColor']};">
+                    ${contact['initials']}
+                    </div>
+                    <div class="assignToContactName" id="assignToContactName(${i})" style="color: ${textColor}">
+                    ${contact.name} ${contact.surname}
+                    </div>
+                </div>
+                <div class="assignToCheckBox">
+                    <img id="assignContactCheckBox(${i})" src="${checkBoxSrc}">
+                </div>
+            </div>
+        `;
+}
+
+function renderFilteredContactsHTMLTemplate(i, backgroundColor, contact, textColor, checkBoxSrc) {
+    return `
+    <div class="dropdownEachContact" id="dropdownEachContact(${i})" style="background-color: ${backgroundColor}" onclick="assingContact(${i})">
+        <div class="assignToContactAvatarAndName">
+            <div class="assignToContactAvatar" style="background-color: ${contact['avatarColor']};">
+            ${contact['initials']}
+            </div>
+            <div class="assignToContactName" id="assignToContactName(${i})" style="color: ${textColor}">
+            ${contact.name} ${contact.surname}
+            </div>
+        </div>
+        <div class="assignToCheckBox">
+            <img id="assignContactCheckBox(${i})" src="${checkBoxSrc}">
+        </div>
+    </div>
+    `;
+}
+
+function showSubtaskInputMenu() {
+    document.getElementById('addTaskSubtasksIcons').innerHTML = `
+    <img src="./img/cancelCreateSubtask.svg" onclick="clearSubtaskInputField()">
+    <div class="addTaskSubtasksIconsSeperator"></div>
+    <img src="./img/saveCreateSubtask.svg" id="saveSubtaskInput" onclick="saveSubtaskInput()">
+    `;
+}
+
+function showDefaultInputMenu() {
+    document.getElementById('addTaskSubtasksIcons').innerHTML = `
+        <div class="addTaskSubtasksIcons" id="addTaskSubtasksIcons">
+            <img src="./img/addSubtaskPlusIcon.svg">
+        </div>
+        `;
+}
+
+function openCreatedSubtaskBoxHTMLTemplate(i, subtask) {
+    return `
+    <div class="eachSubtask" id="eachSubtask(${i})">
+       <li class="subtaskListInput" ondblclick="editCreatedSubtask(${i})">${subtask.text}</li>
+       <div class="createdSubtasksIcons" id="createdSubtasksIcons">
+            <img src="./img/edit.svg" onclick="editCreatedSubtask(${i})">
+            <div class="addTaskSubtasksIconsSeperator"></div>
+            <img src="./img/deleteContactIcon.svg" onclick="deleteCreatedSubtask(${i})">
+        </div>
+    </div>
+`;
+}
+
+function editCreatedSubtaskHTMLTemplate(i, currentSubtaskText) {
+    return `
+    <div class="editEachSubtask" id="editEachSubtask(${i})" onclick="">
+        <input class="editTaskSubtasksInput" id="editTaskSubtasksInput" type="text" autocomplete="off" value="${currentSubtaskText.text}" onkeypress="if (event.keyCode === 13) saveEditSubtaskInput(${i})">
+        <div class="editCreatedSubtasksIcons" id="editCreatedSubtasksIcons">
+        <img src="./img/deleteContactIcon.svg" onclick="deleteCreatedSubtask(${i}); event.stopPropagation();">
+            <div class="addTaskSubtasksIconsSeperator"></div>
+            <img src="./img/saveCreateSubtask.svg" onclick="saveEditSubtaskInput(${i}); event.stopPropagation();">
+        </div>
+    </div>
+    `;
+}
+
+function saveEditSubtaskInputHTMLTemplate(i, editedSubtask) {
+    return `
+        <li class="subtaskListInput" ondblclick="editCreatedSubtask(${i})">${editedSubtask}</li>
+        <div class="createdSubtasksIcons" id="createdSubtasksIcons">
+          <img src="./img/edit.svg" onclick="editCreatedSubtask(${i})">
+          <div class="addTaskSubtasksIconsSeperator"></div>
+          <img src="./img/deleteContactIcon.svg" onclick="deleteCreatedSubtask(${i})">
+        </div>
+        `;
+}
+
 function restoreDefault() {
     setItem("cards", backupCards)
 }

@@ -98,6 +98,24 @@ let allUsers = [];
 let currentUser = localStorage.getItem('currentUserName');
 let userEmail = "";
 
+/**
+ * Loads contacts by rendering templates, fetching remote contacts,
+ * checking if the user is added, and initializing the display.
+ *
+ * @returns {Promise<void>} A promise that resolves when all contacts are loaded and displayed.
+ */
+async function loadContacts() {
+    await Templates('contacts');
+    await loadRemoteContactsOfLoggedInUser();
+    await checkIfUserIsAddedAsContact();
+    await initContacts();
+}
+
+/**
+ * Fetches remote contacts for the logged-in user from storage.
+ *
+ * @returns {Promise<Array<Object>>} A promise that resolves with an array of contact objects, or an empty array if no contacts are found.
+ */
 async function loadRemoteContactsOfLoggedInUser() {
     try {
         let result = await getItem('users');
@@ -106,11 +124,8 @@ async function loadRemoteContactsOfLoggedInUser() {
             let thisUser = allUsers.find(entry => entry.name === currentUser);
             localContacts = thisUser.userContacts;
             userEmail = thisUser.email;
-            userName = thisUser.name;
-            console.log('localContacts beim Laden aus remote Storage (unsortiert)', localContacts);
             return localContacts;
         } else {
-            console.log("No users contacts found in storage, returning empty array.");
             return [];
         }
     } catch (e) {
@@ -119,46 +134,53 @@ async function loadRemoteContactsOfLoggedInUser() {
     }
 }
 
-async function updateUserContactsInRemote() {
-    await setItem('users', allUsers);
-    await initContacts();
-}
-
-async function loadContacts() {
-    await Templates('contacts');
-    await loadRemoteContactsOfLoggedInUser();
-    await checkIfUserIsAddedAsContact();
-    await initContacts();
-}
-
+/**
+ * Checks if the current user is already added as a contact in the local contacts list.
+ *
+ * @returns {Promise<boolean>} A promise that resolves with true if the user is a contact, or false otherwise.
+ */
 async function checkIfUserIsAddedAsContact() {
     for (let i = 0; i < localContacts.length; i++) {
         if (localContacts[i].email === userEmail) {
-            console.log("Der eingeloggte Nutzer ist auch schon als Kontakt angelegt");
-            return true; // Der Benutzer ist bereits ein Kontakt
+            return true;
         }
     }
-    console.log("Der eingeloggte Nutzer ist NICHT als Kontakt angelegt");
     createUserAsContact();
 }
 
+/**
+ * Creates a new contact object for the current user if they are not already added.
+ *
+ * @returns {Promise<void>} A promise that resolves when the user is added as a contact.
+ */
 async function createUserAsContact() {
-    console.log("User wird als eigener Kontakt angelegt");
-
     let name = currentUser;
     let email = userEmail;
     let phone = "+49";
-
-    console.log("Username: ", name);
-    console.log("User Email: ", email);
-    console.log("User Phone: ", phone);
-
     let dataSet = newContactDataSetForArray(name, email, phone);
     localContacts.push(dataSet.newContact);
     await updateUserContactsInRemote();
     clearAddContactForm();
 }
 
+/**
+ * Updates the remote storage with the current list of user contacts.
+ *
+ * @returns {Promise<void>} A promise that resolves when the remote storage is updated.
+ */
+async function updateUserContactsInRemote() {
+    await setItem('users', allUsers);
+    await initContacts();
+}
+
+/**
+ * Initializes the contact display by performing the following steps:
+ * 1. Sorts contacts by first name.
+ * 2. Creates categories for contacts based on their first letter.
+ * 3. Renders the contact list with categories and individual contacts.
+ *
+ * @returns {Promise<void>} A promise that resolves when the contact list is initialized.
+ */
 async function initContacts() {
     await sortByFirstName();
     let categorizedContacts = await createCategories();
@@ -166,53 +188,19 @@ async function initContacts() {
 }
 
 /**
- * This function sorts all contacts in the `contacts` array alphabetically according to their first names.
+ * Sorts the `localContacts` array in ascending order by the first name of each contact.
+ *
+ * @returns {Promise<void>} A promise that resolves when sorting is complete.
  */
 async function sortByFirstName() {
     localContacts.sort((a, b) => a.name.localeCompare(b.name));
-    console.log('Sortierte localContacts', localContacts);
 }
 
-
-// let userContacts = [];
-// let sortedUserContacts = [];
-// async function sortByFirstName() {
-//     // // Daten aus dem Remote-Speicher abrufen
-//     // let usersData = await getItem('users');
-//     // console.log('userData', usersData);
-
-//     // // Parsen der JSON-Daten
-//     // let users = JSON.parse(usersData);
-//     // console.log('userData2', usersData);
-
-
-
-//     // Kontakte von Max Mustermann filtern
-//     userContacts = users.find(entry => entry.name === currentUser).userContacts;
-
-//     // Funktion zur Sortierung nach dem Vornamen
-//     function sortContactsByFirstName(localContacts) {
-//         return localContacts.sort((a, b) => a.name.localeCompare(b.name));
-//     }
-
-//     // Kontakte von Max Mustermann sortieren
-//     sortedUserContacts = sortContactsByFirstName(userContacts);
-//     localContacts = sortedUserContacts;
-//     console.log('Sortierte localContacts', localContacts);
-
-//     // Ausgabe der sortierten Kontakte von Max Mustermann
-//     console.log('sortierte Kontakte von Max', sortedUserContacts);
-
-//     console.log('current User ist: ', currentUser);
-// }
-
-
 /**
- * This function creates categories for contacts based on the first letter of their first names.
- * It returns a new object where each property is a category letter (uppercase) and its value is an array
- * of `Contact` objects belonging to that category.
+ * Creates categories for contacts based on the first letter of their names.
  *
- * @returns {CategoryContacts} An object containing categories and their associated contacts.
+ * @returns {Promise<Object>} A promise that resolves with an object where keys are category initials (uppercase letters)
+ * and values are arrays of contacts belonging to that category.
  */
 async function createCategories() {
     let categories = {};
@@ -227,9 +215,10 @@ async function createCategories() {
 }
 
 /**
- * This function renders the HTML for the contact list based on the provided categorized contacts.
+ * Renders the HTML structure for the contact list with categories and individual contacts.
  *
- * @param {CategoryContacts} categories - An object containing categories and their associated contacts.
+ * @param {Object} categories An object containing contact categories (initials as keys, contact arrays as values).
+ * @returns {Promise<void>} A promise that resolves when the contact list is rendered.
  */
 async function renderContactList(categories) {
     let contactListHTML = '';
@@ -243,12 +232,12 @@ async function renderContactList(categories) {
 }
 
 /**
- * This function renders the HTML for a category heading and its associated contacts within the contact list.
+ * Recursively renders the HTML for contact categories and individual contacts within those categories.
  *
- * @param {CategoryContacts} categories - An object containing categories and their associated contacts.
- * @param {string} contactListHTML - The accumulated HTML for the contact list so far.
- * @param {number} index - The current index for tracking contacts.
- * @returns {string} The updated `contactListHTML` string with the rendered category and contacts.
+ * @param {Object} categories An object containing contact categories (initials as keys, contact arrays as values).
+ * @param {string} contactListHTML The accumulated HTML string for the contact list.
+ * @param {number} index A counter to keep track of unique IDs for each contact.
+ * @returns {string} The updated `contactListHTML` string with rendered categories and contacts.
  */
 function renderContactCategoryAndEachContact(categories, contactListHTML, index) {
     for (let initial in categories) {
@@ -262,10 +251,10 @@ function renderContactCategoryAndEachContact(categories, contactListHTML, index)
 }
 
 /**
- * This function renders the HTML structure for a category heading in the contact list.
+ * Renders the HTML structure for a single contact category (e.g., "A").
  *
- * @param {string} initial - The first letter of the contact names in the category (uppercase).
- * @returns {string} The HTML string representing the category heading.
+ * @param {string} initial The first letter (uppercase) representing the category.
+ * @returns {string} The HTML string for the contact category.
  */
 function renderContactCategory(initial) {
     return `
@@ -278,11 +267,11 @@ function renderContactCategory(initial) {
 }
 
 /**
- * This function renders the HTML structure for an individual contact in the contact list.
+ * Renders the HTML structure for a single contact with its details.
  *
- * @param {contact} contact - An object containing the contact information (refer to the `Contact` type definition).
- * @param {number} index - The index of the contact within the contacts array.
- * @returns {string} The HTML string representing the individual contact.
+ * @param {Object} contact A contact object containing properties like name, surname, email, avatarColor, and initials.
+ * @param {number} index A unique identifier for the contact.
+ * @returns {string} The HTML string for the individual contact.
  */
 function renderEachContact(contact, index) {
     return `
@@ -303,7 +292,11 @@ function renderEachContact(contact, index) {
 }
 
 /**
- * This function shows the card for adding a new contact.
+ * Shows the "Add Contact" card by:
+ * 1. Unhiding the container element.
+ * 2. An animating the card entrance with a slight delay.
+ * 3. Rendering the initial layout for adding a contact.
+ * 4. Preventing event bubbling on the card itself.
  */
 function showAddContactCard() {
     document.getElementById('addEditContact').style.display = 'flex';
@@ -317,7 +310,12 @@ function showAddContactCard() {
 }
 
 /**
- * This function renders the layout for adding a new contact.
+ * Renders the initial layout for adding a contact within the card.
+ * - Sets the headline to "Add contact".
+ * - Shows the subheadline element.
+ * - Sets the avatar icon background color and adds an "Add Contact" image.
+ * - Clears the input fields for name, email, and phone.
+ * - Updates the buttons section with the HTML template for cancel and create buttons.
  */
 function renderAddContactLayout() {
     document.getElementById('addAndEditContactHeadline').innerHTML = 'Add contact';
@@ -331,8 +329,9 @@ function renderAddContactLayout() {
 }
 
 /**
- * This function generates the HTML template for the cancel and create contact buttons.
- * @returns {string} The HTML string representing the buttons.
+ * Generates the HTML template for the cancel and create buttons used in the "Add Contact" card.
+ *
+ * @returns {string} The HTML string containing the button elements.
  */
 function addContactButtonsCancelAndCreateButtonsHTMLTemplate() {
     return /*html*/`
@@ -348,7 +347,9 @@ function addContactButtonsCancelAndCreateButtonsHTMLTemplate() {
 }
 
 /**
- * This function hides the card for adding a new contact.
+ * Hides the "Add Contact" card by:
+ * 1. Animating the card exit with a slight delay.
+ * 2. Hiding the container element after the animation.
  */
 function hideAddContactCard() {
     document.getElementById('addEditContactCard').classList.remove('showAddEditContactContainer');
@@ -358,28 +359,21 @@ function hideAddContactCard() {
 }
 
 /**
- * This function creates a new contact and adds it to the contacts list.
+ * This function creates a new contact, checks for duplicate emails, and performs
+ * subsequent actions such as updating storage, initializing the contact list,
+ * and opening the created contact's info.
+ *
+ * @returns {Promise<boolean>} A promise that resolves to `true` if a duplicate email
+ * is found, preventing further processing.
  */
 async function createContact() {
     let dataSet = newContactDataSetForArray();
-
-    console.log('dataSET', dataSet);
-    console.log('dataSET contactData email', dataSet.contactData.email);
-    console.log('localContacts', localContacts);
-
-     for (let i = 0; i < localContacts.length; i++) {
-         if (localContacts[i].email === dataSet.contactData.email) {
-            alert('A contact with the same email address already exists in your list.');
-             return true; // Der Benutzer ist bereits ein Kontakt
-         }
-     }
-
+    if (checkForDuplicateEmail(dataSet.contactData.email)) {
+        return true;
+      }
     localContacts.push(dataSet.newContact);
     await updateUserContactsInRemote();
-    // await addContactToUser(dataSet.contactData.email, dataSet.newContact);
-    // contacts.push(dataSet.newContact);
     await initContacts();
-    // let contactIndex = getIndexByNameSurname(contacts, dataSet.formattedName.firstName, dataSet.formattedName.lastName);
     let contactIndex = getIndexByNameSurname(localContacts, dataSet.formattedName.firstName, dataSet.formattedName.lastName);
     openContactInfo(contactIndex);
     showContactCreatedPopUp();
@@ -388,59 +382,16 @@ async function createContact() {
     scrollToAnchor(`contact(${toggleIndex})`);
 }
 
-// async function addContactToUser(userEmail, newContact) {
-// try {
-// // Daten aus dem Remote-Speicher abrufen
-// let usersData = await getItem('users');
-
-// // Parsen der JSON-Daten
-// let users = JSON.parse(usersData);
-
-// Den Eintrag des Benutzers basierend auf der E-Mail finden
-
-
-
-// let allUsers = await loadUsers();
-// let thisUser = allUsers.find(entry => entry.name === currentUser);
-// let userEntry = thisUser.userContacts;
-// userEntry.push(newContact);
-
-// await setItem('users', JSON.stringify(allUsers));
-
-// localContacts = [];
-
-
-
-
-//         // Sicherstellen, dass der Benutzer gefunden wurde
-//         if (!userEntry) {
-//             throw new Error('Benutzer nicht gefunden.');
-//         }
-
-//         // Zugriff auf das userContacts-Array im Benutzereintrag
-//         let userContacts = userEntry.userContacts || [];
-
-//         // Hinzufügen des neuen Kontakts zum userContacts-Array
-//         userContacts.push(newContact);
-
-//         // Aktualisierung des userContacts-Arrays im Benutzereintrag
-//         userEntry.userContacts = userContacts;
-
-//         // Aktualisierung des value-Feldes im Remote-Array
-//         users.data.value = JSON.stringify(users.data.value);
-
-//         // Speichern der aktualisierten Daten im Remote-Speicher
-//         await setItem('users', JSON.stringify(users));
-
-//         console.log('Kontakt erfolgreich hinzugefügt.');
-//     } catch (error) {
-//         console.error('Fehler beim Hinzufügen des Kontakts:', error);
-//     }
-// }
-
 /**
- * This function retrieves contact data from the input fields and formats it.
- * @returns {object} An object containing the contact data and formatted name.
+ * This function creates a new contact data set object by:
+ * 1. Extracting contact data (name, email, phone) from input fields or provided defaults.
+ * 2. Formatting the contact name by capitalizing the first letter of each word.
+ * 3. Creating a new contact data set with formatted name, initials, email, phone, category, and avatar color.
+ *
+ * @param {string} name (optional) The name to use. If omitted, retrieves from the editContactName field.
+ * @param {string} email (optional) The email address to use. If omitted, retrieves from the editContactEmail field.
+ * @param {string} phone (optional) The phone number to use. If omitted, retrieves from the editContactPhone field.
+ * @returns {Object} An object containing the contact data set with formatted name, initials, email, phone, category, and avatar color.
  */
 function newContactDataSetForArray(name, email, phone) {
     let contactData = getContactData(name, email, phone);
@@ -454,8 +405,12 @@ function newContactDataSetForArray(name, email, phone) {
 }
 
 /**
- * This function retrieves the entered contact name, email, and phone number.
- * @returns {object} An object containing the contact data.
+ * This function extracts contact data (name, email, phone) from input fields or provided defaults.
+ * 
+ * @param {string} name (optional) The name to use. If omitted, retrieves from the editContactName field.
+ * @param {string} email (optional) The email address to use. If omitted, retrieves from the editContactEmail field.
+ * @param {string} phone (optional) The phone number to use. If omitted, retrieves from the editContactPhone field.
+ * @returns {Object} An object containing the extracted name, email, and phone data.
  */
 function getContactData(name = "", email = "", phone = "") {
     if (name === "") {
@@ -475,9 +430,10 @@ function getContactData(name = "", email = "", phone = "") {
 }
 
 /**
- * This function formats the contact name by extracting first and last name and capitalizing the first letter of each.
- * @param {object} contactData - An object containing the contact data.
- * @returns {object} An object containing the formatted first and last names.
+ * This function formats a contact name by capitalizing the first letter of each word.
+ *
+ * @param {Object} contactData An object containing the name property to be formatted.
+ * @returns {Object} An object containing the formatted firstName and lastName properties.
  */
 function formatContactName(contactData) {
     let [firstName, lastName] = contactData.name.split(" ");
@@ -496,20 +452,23 @@ function formatContactName(contactData) {
 }
 
 /**
- * This function converts the first letter of a string to uppercase.
- * @param {string} name - The input string whose first letter to be converted.
- * @returns {string} A string with the first letter capitalized and the remaining letters unchanged.
+ * This function capitalizes the first letter of a string.
+ *
+ * @param {string} name The string to be capitalized.
+ * @returns {string} The string with the first letter capitalized.
  */
 function capitalizeFirstLetter(name) {
     return name.charAt(0).toUpperCase() + name.slice(1);
 }
 
 /**
- * This function creates a new contact object with the provided data and formatted name.
- * @param {object} contactData - An object containing the contact data.
- * @param {object} formattedName - An object containing the formatted first and last names.
- * @param {object} existingContact - An optional parameter for an existing contact object (used for editing).
- * @returns {object} The new contact object.
+ * This function creates a new contact data set object containing formatted name, initials,
+ * email, phone, category, and avatar color.
+ *
+ * @param {Object} contactData An object containing name, email, and phone properties.
+ * @param {Object} formattedName An object containing firstName and lastName properties.
+ * @param {Object} existingContact (optional) An existing contact object to inherit avatar color from.
+ * @returns {Object} The newly created contact data set object.
  */
 function createNewContactDataSet(contactData, formattedName, existingContact = null) {
     let avatarColor;
@@ -532,11 +491,29 @@ function createNewContactDataSet(contactData, formattedName, existingContact = n
 }
 
 /**
- * This function finds the index of a contact in the `contacts` array based on name and surname.
- * @param {array} contacts - The array of contact objects.
- * @param {string} firstName - The first name of the contact to find.
- * @param {string} lastName - The last name of the contact to find.
- * @returns {number} The index of the found contact, or -1 if not found.
+ * This function checks if a contact with the provided email already exists in the
+ * `localContacts` array.
+ *
+ * @param {string} email The email address to check for duplication.
+ * @returns {boolean} `true` if a duplicate email is found, `false` otherwise.
+ */
+function checkForDuplicateEmail(email) {
+    for (let i = 0; i < localContacts.length; i++) {
+      if (localContacts[i].email === email) {
+        alert('A contact with the same email address already exists in your list.');
+        return true;
+      }
+    }
+    return false;
+  }
+
+/**
+ * This function finds the index of a contact in the `localContacts` array by name (first and last).
+ *
+ * @param {Array} localContacts The array of contact objects.
+ * @param {string} firstName The first name of the contact to find.
+ * @param {string} lastName The last name of the contact to find.
+ * @returns {number} The index of the contact in the array, or -1 if not found.
  */
 function getIndexByNameSurname(localContacts, firstName, lastName) {
     for (let i = 0; i < localContacts.length; i++) {
@@ -548,7 +525,31 @@ function getIndexByNameSurname(localContacts, firstName, lastName) {
 }
 
 /**
- * This function shows a pop-up indicating a contact has been created.
+ * This function opens the contact info card and populates it with the contact at the specified index.
+ *
+ * @param {number} index The index of the contact to open.
+ */
+   function openContactInfo(index) {
+    if (window.innerWidth >= 800) {
+        highlightCreatedContact(index);
+    }
+    document.getElementById('contactInfo').classList.add('showContactDetailsContainer');
+    openContactInfoHTMLTemplate(index);
+}
+
+/**
+ * This function visually highlights the newly created contact in the contact list.
+ *
+ * @param {number} index The index of the newly created contact.
+ */
+function highlightCreatedContact(index) {
+    document.getElementById(`contact(${index})`).classList.add('contactClicked');
+    document.getElementById(`contactEmail(${index})`).style.color = "white";
+    toggleIndex = index;
+}
+
+/**
+ * This function displays a temporary "Contact Created" pop-up notification.
  */
 function showContactCreatedPopUp() {
     document.getElementById('contactCreatedButtonContainer').classList.add('showContactCreatedButtonContainer');
@@ -558,7 +559,7 @@ function showContactCreatedPopUp() {
 }
 
 /**
- * This function clears the input fields for adding a new contact.
+ * This function clears the input fields in the "Add Contact" form.
  */
 function clearAddContactForm() {
     document.getElementById("editContactName").value = "";
@@ -567,9 +568,9 @@ function clearAddContactForm() {
 }
 
 /**
- * Scrolls the page to the specified anchor element with smooth behavior.
- * 
- * @param {string} anchorId - The ID of the anchor element to scroll to.
+ * This function smooth-scrolls the webpage to the element with the specified anchor ID.
+ *
+ * @param {string} anchorId The ID of the anchor element to scroll to.
  */
 function scrollToAnchor(anchorId) {
     const anchorElement = document.getElementById(anchorId);
@@ -757,86 +758,6 @@ function resetLastClickedContactButtonEmailColor() {
 let toggleIndex = 0;
 
 /**
- * This function opens the contact info panel and populates it with the details of the clicked contact.
- *   - For screens wider than 800px:
- *     - Calls the `highlightCreatedContact` function to visually highlight the clicked contact.
-   - Shows the contact info panel by adding the corresponding class to the DOM element.
-   - Calls the `openContactInfoHTMLTemplate` function to populate the panel with contact details.
- * @param {number} index - The index of the clicked contact in the `contacts` array.
- */
-function openContactInfo(index) {
-    if (window.innerWidth >= 800) {
-        highlightCreatedContact(index);
-    }
-    document.getElementById('contactInfo').classList.add('showContactDetailsContainer');
-    openContactInfoHTMLTemplate(index);
-}
-
-/**
- * This function visually highlights the clicked contact on the contact list (for screens wider than 800px).
- * It sets the clicked contact button's style class to indicate it's selected and changes the email color to white.
- * It also updates the `toggleIndex` variable to store the index of the highlighted contact.
- * @param {number} index - The index of the clicked contact in the `contacts` array.
- */
-function highlightCreatedContact(index) {
-    document.getElementById(`contact(${index})`).classList.add('contactClicked');
-    document.getElementById(`contactEmail(${index})`).style.color = "white";
-    toggleIndex = index;
-}
-
-/**
- * This function populates the contact info panel with the details of the clicked contact.
- * It retrieves the contact data from the `contacts` array using the provided index.
- * Then, it updates the HTML content of specific DOM elements with the contact's name, initials, avatar color, email, and phone number.
- * Finally, it updates the "Edit Contact" and "Delete Contact" buttons with the clicked contact's index for proper functionality.
- * @param {number} index - The index of the clicked contact in the `contacts` array.
- */
-function openContactInfoHTMLTemplate(index) {
-    let contact = localContacts[index];
-    document.getElementById('contactInfoContactDetails').innerHTML = /*html*/`
-                    <div class="contactInfoAvatarAndName">
-                        <div class="contactInfoAvatar" style="background-color: ${contact.avatarColor};">
-                            ${contact['initials']}
-                        </div>
-                        <div>
-                            <div class="contactInfoName">
-                                ${contact['name']} ${contact['surname']}
-                            </div>
-                            <div class="editContactMenuDesktop">
-                                <div class="editContact" onclick="showEditContact(${index})">
-                                    <img src="./img/editContactIcon.svg">
-                                    <span>Edit</span>
-                                </div>
-                                <div class="deleteContact" onclick="deleteContact(${index})">
-                                    <img src="./img/deleteContactIcon.svg">
-                                    <span>Delete</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="contactInfoHeadlineDesktop">
-                Contact Information
-            </div>
-                    <div class="contactInfoEmailAndPhone">
-                        <div class="contactInfoEmail">
-                            <p>Email</p>
-                            <a href="mailto:abc@example.com">${contact['email']}</a>
-                        </div>
-                        <div class="contactInfoPhone">
-                            <p>Phone</p>
-                            <span>${contact['phone']}</span>
-                        </div>
-                    </div>
-            `;
-
-    document.getElementById('editContactButtonContainer').innerHTML = /*html*/`
-             <button class="addContactButton" id="addContactButton" onclick="showContactEditDeleteMenu(${index})">
-                <img src="./img/contactMenuButton.svg">
-            </button>
-                                                                `;
-}
-
-/**
 * This function removes the visual highlight from the previously highlighted contact (for screens wider than 800px).
 * It uses the `toggleIndex` variable to identify the contact that was previously highlighted.
 * It removes the "contactClicked" class from the button and resets the email color to its original state.
@@ -845,31 +766,6 @@ function openContactInfoHTMLTemplate(index) {
 function unclickCreatedContact(toggleIndex) {
     document.getElementById(`contact(${toggleIndex})`).classList.remove('contactClicked');
     document.getElementById(`contactEmail(${toggleIndex})`).style.color = "rgba(69, 137, 255, 1)";
-}
-
-/**
-* This function shows the edit and delete menu for the clicked contact on mobile screens (less than 800px wide).
-* It populates the menu container with the "Edit" and "Delete" buttons and adds an event listener to prevent event bubbling.
-* @param {number} index - The index of the clicked contact in the `contacts` array.
-*/
-function showContactEditDeleteMenu(index) {
-    document.getElementById('editContactMenuContainer').classList.add('showEditContactMenu');
-    document.getElementById('editContactMenuContainer').innerHTML = /*html*/`
-                                                                                <div class="editContactMenu" id="editContactMenu">
-                                                                                    <div class="editContact" onclick="showEditContact(${index})">
-                                                                                        <img src="./img/editContactIcon.svg">
-                                                                                        <span>Edit</span>
-                                                                                    </div>
-                                                                                    <div class="deleteContact" onclick="deleteContact(${index})">
-                                                                                        <img src="./img/deleteContactIcon.svg">
-                                                                                        <span>Delete</span>
-                                                                                    </div>
-                                                                                </div>
-
-    `;
-    document.getElementById('editContactMenu').onclick = function (event) {
-        event.stopPropagation();
-    };
 }
 
 /**
@@ -935,26 +831,11 @@ function showCurrentContactDetails(index) {
 }
 
 /**
- * This function populates the edit contact card with the details of the clicked contact.
- * It sets the avatar background color and initials, fills the name, email, and phone input fields with the contact's data, and sets focus on the name field after a short delay.
- * @param {number} index - The index of the clicked contact in the `contacts` array.
- */
-function editContactDeleteAndSaveButtonLayoutHTMLTemplate(index) {
-    document.getElementById('addEditContactButtons').innerHTML = /*html*/`
-                                                                            <button type="button" class="deleteEditContactButton" onclick="deleteContact(${index})">
-                                                                                <p>Delete</p>
-                                                                            </button>
-                                                                            <button type="submit"class="saveEditContactButton" onclick="updateContact(${index})">
-                                                                                <p>Save</p>
-                                                                                <img src="./img/createTaskCheckIcon.svg">
-                                                                            </button>
-                                                                        `;
-}
-
-/**
- * This function removes the clicked contact from the `contacts` array and performs other actions after deletion is confirmed.
- * It removes the contact data at the specified index, hides the add contact card, refreshes the contact list, hides the edit/delete menu, and closes the contact info panel.
- * @param {number} index - The index of the contact to be deleted from the `contacts` array.
+ * This function attempts to delete a contact at the specified index. Deletion is prevented
+ * if the contact's email matches the user's email.
+ *
+ * @param {number} index The index of the contact to delete in the `localContacts` array.
+ * @returns {Promise<void>} A promise that resolves when the deletion process is complete.
  */
 async function deleteContact(index) {
     if (localContacts[index].email === userEmail) {
@@ -977,44 +858,25 @@ function hideContactEditDeleteMenu() {
 }
 
 /**
- * This function handles updating the contact details based on the user's edits in the edit contact card.
- * It retrieves the updated values from the input fields, validates if all fields are filled, formats the name if necessary, and updates the contact data in the `contacts` array.
- * It then optionally refreshes the contact list and opens the contact info panel for the updated contact. Finally, it optionally clears the input fields and hides the add contact card.
- * @param {number} index - The index of the contact to be updated in the `contacts` array.
+ * This function updates an existing contact at the specified index. It checks if all required
+ * fields (name, email, phone) are filled before updating.
+ *
+ * @param {number} index The index of the contact to update in the `localContacts` array.
+ * @returns {Promise<void>} A promise that resolves when the update process is complete.
  */
 async function updateContact(index) {
-    // Erfassen Sie die aktualisierten Werte aus den Eingabefeldern
     let contactData = getContactData();
-
-    // Überprüfen Sie, ob alle Felder ausgefüllt sind
     if (contactData.name && contactData.email && contactData.phone) {
-        
-        // Formatieren Sie den Namen
         let formattedName = formatContactName(contactData);
-
-        // Übergeben Sie den vorhandenen Kontakt, um dessen Farbe beizubehalten
         let existingContact = localContacts[index];
-
-        // Aktualisieren Sie den ausgewählten Kontakt im Array
         localContacts[index] = createNewContactDataSet(contactData, formattedName, existingContact);
-
         hideAddContactCard();
-        // Optional: Aktualisieren Sie die Kontaktliste auf der Seite
-        console.log("VOR INIT aus EDIT USER");
         await initContacts();
-        console.log("NACH INIT aus EDIT USER");
-
         let contactIndex = getIndexByNameSurname(localContacts, formattedName.firstName, formattedName.lastName);
         openContactInfo(contactIndex);
-
-        // Optional: Leeren Sie die Eingabefelder
         clearAddContactForm();
-
     } else {
-        // Geben Sie eine Fehlermeldung aus, wenn nicht alle Felder ausgefüllt sind
         alert("Please fill out every input field.");
     }
-    console.log("VOR dem Updaten der Kontakte ins Remot");
     await updateUserContactsInRemote();
-    console.log("NACH dem Updaten der Kontakte ins Remot");
 }
