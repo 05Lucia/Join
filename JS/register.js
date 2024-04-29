@@ -610,7 +610,7 @@ async function saveGuestUser() {
  */
 function greetUser() {
     let userName = localStorage.getItem('currentUserName');
-    let greetingElement = document.getElementById('greeting-mobile');
+    let greetingElement = document.getElementById('greeting');
     let currentHour = new Date().getHours();
     let greetingText = "Welcome";
 
@@ -625,10 +625,10 @@ function greetUser() {
     if (userName === 'Gast') {
         greetingElement.textContent = `${greetingText}`;
     } else if (userName !== 'Gast') {
-        let greetingElementUser = document.getElementById('greeting-mobile-user');
+        let greetingElementUser = document.getElementById('greeting-user');
         greetingElementUser.textContent = `${greetingText},`;
         greetingElement.textContent = `${userName}`;
-        greetingElement.style.color = '#005DFF';
+        greetingElement.style.color = '#4589FF';
     }
     UserInitals(userName);
 }

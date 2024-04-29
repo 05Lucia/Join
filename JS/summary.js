@@ -12,6 +12,7 @@ async function summaryLoad() {
     await Templates('summary');
     summaryLoadNumbers();
     changeNavigationHighlightSummary();
+    greetUser()
 }
 
 /**
@@ -243,7 +244,8 @@ function sortUpcomingCards(upcomingCards) {
  */
 function formatDueDate(dueDate) {
     const formattedDate = new Date(dueDate);
-    return formattedDate.toLocaleString('default', { month: 'long', day: 'numeric', year: 'numeric' });
+    const options = ('default', { month: 'long', day: 'numeric', year: 'numeric' });
+    return formattedDate.toLocaleDateString('en-US', options);
 }
 
 /**

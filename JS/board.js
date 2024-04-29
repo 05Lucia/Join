@@ -229,8 +229,9 @@ function allowDrop(ev) {
  * @param {string} place The name of the drop target area (e.g., "todo", "progress").
  */
 function drop(place) {
-    cards[currentDraggedElement]['place'] = '';
-    cards[currentDraggedElement]['place'] = place;
+    let card = cards.find(card => card.id === currentDraggedElement);
+    card['place'] = '';
+    card['place'] = place;
     updateCards();
     UpdateTaskInRemote();
 }
@@ -593,10 +594,10 @@ function subtaskEdit(card) {
 }
 
 
-function editTaskDone(id,) {
+function editTaskDone(id) {
     const card = cards.find(card => card.id === id);
     let place = card.place;
-    cards.splice(card.id);
+    cards.splice(card.id, 1);
 
     let title = errorMessageIfEmptyTitle(); // Titel überprüfen und abrufen
     let dueDate = errorMessageIfEmptyDueDate(); // Fälligkeitsdatum überprüfen und abrufen
@@ -606,26 +607,11 @@ function editTaskDone(id,) {
     let description = document.getElementById('addTaskDescriptionInput').value.trim(); // Beschreibung abrufen
     let subtasks = createdSubtasks; // Subtasks erstellen
 
-    if (title == null && dueDate == null && !taskCategories.some(categoryObj => categoryObj.name === category)) {
-        errorMessageIfEmptyTitle();
-        errorMessageIfEmptyDueDate();
-        errorMessageIfEmptyCategory();
-    } else if (title == null && dueDate == null) {
-        errorMessageIfEmptyTitle();
-        errorMessageIfEmptyDueDate();
-    } else if (title == null && !taskCategories.some(categoryObj => categoryObj.name === category)) {
-        errorMessageIfEmptyTitle();
-        errorMessageIfEmptyCategory();
-    } else if (dueDate == null && !taskCategories.some(categoryObj => categoryObj.name === category)) {
-        errorMessageIfEmptyDueDate();
-        errorMessageIfEmptyCategory();
-    } else if (title == null) {
-        errorMessageIfEmptyTitle();
-    } else if (dueDate == null) {
-        errorMessageIfEmptyDueDate();
-    } else if (!taskCategories.some(categoryObj => categoryObj.name === category)) {
-        errorMessageIfEmptyCategory();
-    } else {
+    if (!checkErrors(title, dueDate, category)) {
+        return; // Early exit on validation failure
+      }
+        
+     
 
         // Priorität Bildpfad festlegen
         let priorityImg;
@@ -676,6 +662,17 @@ function editTaskDone(id,) {
         priorities = [];
         selectedAssignedContacts = [];
         createdSubtasks = [];
-        bigCard(id); // checken das nicht doppelt...?
-    }
+        bigCard(id); 
+        updateCards();
+    
 }
+
+function checkErrors(title, dueDate, category) {
+    if (!title || !dueDate || !taskCategories.some(categoryObj => categoryObj.name === category)) {
+      errorMessageIfEmptyTitle(!title);
+      errorMessageIfEmptyDueDate(!dueDate);
+      errorMessageIfEmptyCategory(!taskCategories.some(categoryObj => categoryObj.name === category));
+      return false; // Indicate validation failure
+    }
+    return true; // Indicate validation success
+  }
