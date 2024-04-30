@@ -677,9 +677,12 @@
 
 @media (min-width: 1446px) {
     .kanban-board {
+        align-items: center;
+        justify-content: center;
         flex-direction: row;
         overflow-x: scroll;
         padding: 0px 16px;
+        height: 100%;
     }
 
     .kanban-board::-webkit-scrollbar {
@@ -689,10 +692,12 @@
     .card-container {
         flex-direction: column;
         overflow-x: hidden;
+        height: 100%;
     }
 
     .board-collum {
         height: 100%;
+        width: 270px;
     }
 
 }
