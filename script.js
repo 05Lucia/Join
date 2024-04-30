@@ -438,6 +438,8 @@ async function dropdownLegalNotice() {
     await Templates('legal_notice');
     await closeDropdown();
     legalNoticeHiglite();
+    removeNavHighlightLegalPartOnDropdown();
+    removeNavHighlightOnDropdown();
 }
 
 /**

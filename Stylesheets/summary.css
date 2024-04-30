@@ -161,6 +161,7 @@
 .btn-text {
     font-size: 19px;
     font-weight: 400;
+    color: var(--maincolor);
 }
 
 .btn-urgent-back {
@@ -197,6 +198,7 @@
     max-height: 106px;
     grid-area: second;
     transition: all 0.2s ease-in-out;
+
 }
 
 .to-do-btn:hover {
@@ -210,6 +212,14 @@
 .to-do-btn:hover .btn-text {
     font-size: 28px;
     font-weight: 400;
+}
+
+.to-do-btn-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 20px;
 }
 
 .light-task-btn {
@@ -312,7 +322,7 @@
         align-items: center;
         justify-content: center;
         gap: 22px;
-        }
+    }
 
     .greeting-user {
         display: flex;
@@ -346,10 +356,18 @@
         align-items: center;
         gap: 16px;
         padding: 40px;
-        width: none;
-        max-width: 200px;
+        max-width: 188px;
         flex-direction: column;
-        max-height: none;
+        max-height: 219px;
+        height: 209px;
+    }
+
+    .to-do-btn-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+        gap: 20px;
     }
 
     .light-task-btn {
@@ -379,10 +397,11 @@
 
     .urgent-button {
         padding: 40px 35px;
-        max-width: calc(100vw - 50px);
+        max-width: 685px;
         grid-area: first;
         max-height: 150px;
         width: 100%;
+        ;
     }
 
 }
