@@ -758,11 +758,12 @@ function resetLastClickedContactButtonEmailColor() {
 let toggleIndex = 0;
 
 /**
-* This function removes the visual highlight from the previously highlighted contact (for screens wider than 800px).
-* It uses the `toggleIndex` variable to identify the contact that was previously highlighted.
-* It removes the "contactClicked" class from the button and resets the email color to its original state.
-* @param {number} toggleIndex - The index of the previously highlighted contact (should be the same value stored in the `toggleIndex` variable).
-*/
+ * This function removes the visual highlight from the previously highlighted contact (for screens wider than 800px).
+ * It uses the `toggleIndex` variable to identify the contact that was previously highlighted.
+ * It removes the "contactClicked" class from the button and resets the email color to its original state.
+ * @param {number} toggleIndex - The index of the previously highlighted contact (should be the same value stored in the `toggleIndex` variable).
+ * @returns {void}
+ */
 function unclickCreatedContact(toggleIndex) {
     if (toggleIndex < localContacts.length) {
         document.getElementById(`contact(${toggleIndex})`).classList.remove('contactClicked');
