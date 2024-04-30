@@ -142,7 +142,7 @@ h3 {
     background-size: 14px;
     background-repeat: no-repeat;
     background-position: left top;
-  }
+}
 
 .dueDateBox {
     display: flex;
@@ -767,6 +767,60 @@ h3 {
     font-size: 21px;
     line-height: 25px;
     color: rgba(255, 255, 255, 1);
+}
+
+@media (max-width: 360px) {
+    .priorityButtons {
+        gap: 8px;
+    }
+
+    .urgentPriorityButton {
+        gap: 6px;
+        padding: 18px 6px 18px 6px;
+        font-size: 15px;
+    }
+
+    .mediumPriorityButton {
+        gap: 6px;
+        padding: 18px 6px 18px 6px;
+        font-size: 15px;
+    }
+
+    .lowPriorityButton {
+        gap: 6px;
+        padding: 18px 6px 18px 6px;
+        font-size: 15px;
+    }
+
+    .clickedUrgentButton {
+        gap: 6px;
+        padding: 18px 6px 18px 6px;
+        font-size: 15px;
+    }
+
+    .clickedMediumButton {
+        gap: 6px;
+        padding: 18px 6px 18px 6px;
+        font-size: 15px;
+    }
+
+    .clickedLowButton {
+        gap: 6px;
+        padding: 18px 6px 18px 6px;
+        font-size: 15px;
+    }
+
+    .urgentIcon{
+        width: 18px; 
+    }
+
+    .mediumIcon{
+        width: 18px; 
+    }
+
+    .lowIcon{
+        width: 18px; 
+    }
 }
 
 @media (max-width: 1010px) {
