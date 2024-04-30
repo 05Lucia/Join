@@ -257,6 +257,8 @@ function changeBackCheckBoxStyle(i) {
     document.getElementById(`assignContactCheckBox(${i})`).src = "./img/assingContactCheckUnchecked.svg";
 }
 
+let filteredContacts = [];
+
 /**
  * This function handles searching for contacts within the "Assign To" dropdown menu.
  * It retrieves the search term from the "assignContactsDropdown" element and converts it to lowercase.
@@ -269,7 +271,7 @@ function searchContactToAssign() {
         renderAllContacts();
         return;
     }
-    const filteredContacts = localContacts.filter(contact =>
+    filteredContacts = localContacts.filter(contact =>
         contact.name.toLowerCase().startsWith(search) ||
         contact.surname.toLowerCase().startsWith(search)
     );
@@ -300,19 +302,51 @@ function renderFilteredContacts(filteredContacts) {
 
 /**
  * This function handles assigning or unassigning a contact based on the provided index.
- * It retrieves the contact information from the `contacts` array and constructs the full name.
- * It then checks if the contact is already assigned by finding its index in the `selectedAssignedContacts` array.
- * If not assigned, it creates a new contact object with name, initials, and avatar color and pushes it to the `selectedAssignedContacts` array. It also calls `checkAssignContact` to update the visual representation.
- * If already assigned, it removes the contact from the `selectedAssignedContacts` array by its index and calls `uncheckAssignContact` to update the visual representation.
- * 
  * @param {number} i - The index of the contact in the list.
  */
 function assingContact(i) {
-    let contact = localContacts[i];
+    let search = document.getElementById('assignContactsDropdown').value.toLowerCase();
+    let contact = getSelectedContact(i, search);
+    let { fullName, initials, avatarColor, contactIndex } = getContactRelatedInfo(contact);
+    handleContactAssignment(contactIndex, fullName, initials, avatarColor, i);
+}
+
+/**
+ * This function retrieves the correct contact based on the search value.
+ * @param {number} i - The index of the contact in the list.
+ * @param {string} search - The search value from the assignContactsDropdown input.
+ * @returns {Object} The selected contact object.
+ */
+function getSelectedContact(i, search) {
+    if (search === "") {
+        return localContacts[i];
+    } else {
+        return filteredContacts[i];
+    }
+}
+
+/**
+ * This function retrieves contact-related information such as full name, initials, avatar color, and index in the selected assigned contacts array.
+ * @param {Object} contact - The contact object.
+ * @returns {Object} An object containing full name, initials, avatar color, and index.
+ */
+function getContactRelatedInfo(contact) {
     let fullName = `${contact.name} ${contact.surname}`;
     let initials = `${contact.name.charAt(0).toUpperCase()}${contact.surname.charAt(0).toUpperCase()}`;
     let avatarColor = contact.avatarColor;
     let contactIndex = selectedAssignedContacts.findIndex(item => item.name === fullName);
+    return { fullName, initials, avatarColor, contactIndex };
+}
+
+/**
+ * This function handles the assignment or unassignment of a contact based on the contact index.
+ * @param {number} contactIndex - The index of the contact in the selectedAssignedContacts array.
+ * @param {string} fullName - The full name of the contact.
+ * @param {string} initials - The initials of the contact.
+ * @param {string} avatarColor - The avatar color of the contact.
+ * @param {number} i - The index of the contact in the list.
+ */
+function handleContactAssignment(contactIndex, fullName, initials, avatarColor, i) {
     if (contactIndex === -1) {
         let selectedContact = { name: fullName, initials: initials, avatarColor: avatarColor };
         selectedAssignedContacts.push(selectedContact);
