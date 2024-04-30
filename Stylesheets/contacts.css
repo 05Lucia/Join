@@ -649,6 +649,24 @@
     display: flex;
 }
 
+@media (max-width: 360px) {
+    .contactName {
+        font-size: 16px;
+    }
+
+    .contactEmail {
+        font-size: 15px;
+    }
+
+    .addAndEditContactHeadline {
+        font-size: 42px;
+    }
+
+    .addContactSubheadline {
+        font-size: 19px;
+    }
+}
+
 @media (min-width: 800px) {
     .contactsWrapper {
         display: flex;
