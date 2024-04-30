@@ -228,7 +228,7 @@ function togglePassword(fieldId) {
  * @param {HTMLElement} inputElement - The password input field element.
  */
 function changeLockIcon(inputElement) {
-    inputElement.nextElementSibling.src = "./img/img/visibility_off.svg";
+    inputElement.nextElementSibling.src = "./img/visibility_off.svg";
 }
 
 
