@@ -62,21 +62,21 @@ function openAddTaskSmallBtnBoard(place) {
 }
 
 /**
- * This function checks if the "Add Task" title input field is empty and displays an error message if so.
- * It also handles hiding the error message if the field is filled.
- *
- * @returns {string|undefined} If the title field is not empty, the function returns its value.
- *                              Otherwise, it returns for error cases is needed).
+ * This function checks if the title input field is empty or contains only whitespace characters.
+ * @returns {string|boolean} Returns the valid title if it's not empty or whitespace, otherwise returns false.
  */
 function errorMessageIfEmptyTitle() {
     let titleInput = document.getElementById('addTaskInputTitle');
     let errorMessage = document.querySelector('.errorMessageIfEmptyTitle');
-    if (titleInput.value == "") {
+    let title = titleInput.value.trim();
+    if (title === "" || /^\s+$/.test(title)) {
         errorMessage.style.visibility = 'visible';
+        document.getElementById('addTaskInputTitle').value = '';
         highlightErrorMessage(errorMessage);
+        return false;
     } else {
         errorMessage.style.visibility = 'hidden';
-        return titleInput.value;
+        return title;
     }
 }
 
@@ -620,10 +620,13 @@ function resetAddTaskForm() {
     document.getElementById('addTaskDescriptionInput').value = '';
     document.getElementById('addTaskDueDateInput').value = '';
     changePriorityColor('mediumPriorityButton');
+    document.getElementById('assignContactsDropdown').value = '';
+    closeAssignToDropdown();
     document.getElementById('avatarsOfSelectedContacts').innerHTML = "";
     selectedAssignedContacts = [];
     document.getElementById('selectTaskCategoryTextField').innerHTML = "Select task category";
     createdSubtasks = [];
+    document.getElementById('addTaskSubtasksInput').value = '';
     document.querySelector('.errorMessageIfEmptyTitle').style.visibility = 'hidden';
     document.querySelector('.errorMessageIfEmptyDueDate').style.visibility = 'hidden';
     document.querySelector('.errorMessageIfEmptyCategory').style.visibility = 'hidden';
