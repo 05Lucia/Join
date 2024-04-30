@@ -218,7 +218,7 @@ const backupCards = [
         },
         "title": "Implement Drag and Drop",
         "description": "Allow users to drag and drop cards between columns (Todo, In Progress, Done) to update their status.",
-        "dueDate": "2024-04-30",
+        "dueDate": "2024-05-10",
         "subtasks": [
             {
                 "text": "Design interaction for dragging cards",
@@ -255,7 +255,7 @@ const backupCards = [
         },
         "title": "Design Card Component",
         "description": "Create a reusable card component that displays task information (title, description, due date, etc.)",
-        "dueDate": "2024-04-28",
+        "dueDate": "2024-05-12",
         "subtasks": [
             {
                 "text": "Define card layout and styles",
@@ -298,7 +298,7 @@ const backupCards = [
         },
         "title": "Display Card Metadata",
         "description": "Fetch and display additional card information like assigned users and due dates.",
-        "dueDate": "2024-04-26",
+        "dueDate": "2024-05-26",
         "subtasks": [
             {
                 "text": "Define API endpoint for card data",
@@ -415,7 +415,7 @@ const backupCards = [
         },
         "title": "Implement User Interface",
         "description": "Design the overall user interface for the Kanban board, including card layouts, columns, drag-and-drop interactions, and visual feedback elements.",
-        "dueDate": "2024-05-01",
+        "dueDate": "2024-05-05",
         "subtasks": [
             {
                 "text": "Create mockups for different Kanban board views",
