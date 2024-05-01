@@ -527,9 +527,7 @@ document.addEventListener('DOMContentLoaded', function() {
  * Displays a message in the message box based on the URL parameters.
  * This function is triggered when the DOM content is loaded.
  */
-document.addEventListener('DOMContentLoaded', function () {
-    const urlParams = new URLSearchParams(window.location.search);
-    const msg = urlParams.get('msg');
+document.addEventListener('DOMContentLoaded', function () { 
     let urlParams = new URLSearchParams(window.location.search);
     let msg = urlParams.get('msg');
     if (msg) {
@@ -669,10 +667,17 @@ function logout() {
 
 
 function getQueryParam(param) {
-    let search = window.location.search;
-    let params = new URLSearchParams(search);
+    var search = window.location.search;
+    var params = new URLSearchParams(search);
     return params.get(param);
 }
+
+
+function navigateTo(page) {
+    var referrer = getQueryParam('ref'); // 'login' or 'signup'
+    window.location.href = page + '?ref=' + referrer;
+}
+
 
 function goBack() {
     let referrer = getQueryParam('ref'); // 'login' or 'signup'
