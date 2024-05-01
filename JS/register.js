@@ -530,6 +530,8 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function () {
     const urlParams = new URLSearchParams(window.location.search);
     const msg = urlParams.get('msg');
+    let urlParams = new URLSearchParams(window.location.search);
+    let msg = urlParams.get('msg');
     if (msg) {
         document.getElementById('msgBox').innerHTML = msg;
     }
@@ -663,4 +665,17 @@ function logout() {
 
     alert('Your logout was successful');
     window.location.href = '../login.html';
+}
+
+
+function getQueryParam(param) {
+    let search = window.location.search;
+    let params = new URLSearchParams(search);
+    return params.get(param);
+}
+
+function goBack() {
+    let referrer = getQueryParam('ref'); // 'login' or 'signup'
+    let page = referrer === 'signup' ? '../signup.html' : '../login.html';
+    window.location.href = page;
 }
