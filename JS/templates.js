@@ -1,3 +1,38 @@
+let users = [
+    {
+        "name": "Guest",
+        "userContacts": [
+            {
+                "name": "Carsten",
+                "surname": "Schmidt",
+                "initials": "CS",
+                "avatarColor": "rgb(252,113,255)",
+                "email": "carsten.schmidt@gmail.com",
+                "phone": "+49 5555 555 55 5",
+                "category": "C"
+            },
+            {
+                "name": "Bernt",
+                "surname": "Saathoff",
+                "initials": "BS",
+                "avatarColor": "rgb(255,187,43)",
+                "email": "bernt.s@gmail.com",
+                "phone": "+49 6666 666 66 6",
+                "category": "B"
+            },
+            {
+                "name": "Caroline",
+                "surname": "Tabeling",
+                "initials": "CT",
+                "avatarColor": "rgb(31,215,193)",
+                "email": "caroline@gmail.com",
+                "phone": "+49 7777 777 77 7",
+                "category": "C"
+            }
+        ]
+    }
+];
+
 /**
  * Generates the HTML structure for a single card on the board.
  * @param {object} card The card object containing details to populate the template.
