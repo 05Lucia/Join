@@ -370,7 +370,7 @@ async function createContact() {
     let dataSet = newContactDataSetForArray();
     if (checkForDuplicateEmail(dataSet.contactData.email)) {
         return true;
-      }
+    }
     localContacts.push(dataSet.newContact);
     await updateUserContactsInRemote();
     await initContacts();
@@ -499,13 +499,13 @@ function createNewContactDataSet(contactData, formattedName, existingContact = n
  */
 function checkForDuplicateEmail(email) {
     for (let i = 0; i < localContacts.length; i++) {
-      if (localContacts[i].email === email) {
-        alert('A contact with the same email address already exists in your list.');
-        return true;
-      }
+        if (localContacts[i].email === email) {
+            alert('A contact with the same email address already exists in your list.');
+            return true;
+        }
     }
     return false;
-  }
+}
 
 /**
  * This function finds the index of a contact in the `localContacts` array by name (first and last).
@@ -529,7 +529,7 @@ function getIndexByNameSurname(localContacts, firstName, lastName) {
  *
  * @param {number} index The index of the contact to open.
  */
-   function openContactInfo(index) {
+function openContactInfo(index) {
     if (window.innerWidth >= 800) {
         highlightCreatedContact(index);
     }
@@ -758,14 +758,17 @@ function resetLastClickedContactButtonEmailColor() {
 let toggleIndex = 0;
 
 /**
-* This function removes the visual highlight from the previously highlighted contact (for screens wider than 800px).
-* It uses the `toggleIndex` variable to identify the contact that was previously highlighted.
-* It removes the "contactClicked" class from the button and resets the email color to its original state.
-* @param {number} toggleIndex - The index of the previously highlighted contact (should be the same value stored in the `toggleIndex` variable).
-*/
+ * This function removes the visual highlight from the previously highlighted contact (for screens wider than 800px).
+ * It uses the `toggleIndex` variable to identify the contact that was previously highlighted.
+ * It removes the "contactClicked" class from the button and resets the email color to its original state.
+ * @param {number} toggleIndex - The index of the previously highlighted contact (should be the same value stored in the `toggleIndex` variable).
+ * @returns {void}
+ */
 function unclickCreatedContact(toggleIndex) {
-    document.getElementById(`contact(${toggleIndex})`).classList.remove('contactClicked');
-    document.getElementById(`contactEmail(${toggleIndex})`).style.color = "rgba(69, 137, 255, 1)";
+    if (toggleIndex < localContacts.length) {
+        document.getElementById(`contact(${toggleIndex})`).classList.remove('contactClicked');
+        document.getElementById(`contactEmail(${toggleIndex})`).style.color = "rgba(69, 137, 255, 1)";
+    } else toggleIndex--;
 }
 
 /**

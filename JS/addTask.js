@@ -1,13 +1,14 @@
 /**
  * Asynchronously loads "add task" templates and initializes functionalities.
  *
- * This function uses `async` to load templates via `Templates` (not provided).
- * After successful loading (assumed), it:
+ * This function uses `async` to load templates via `Templates`.
+ * After successful loading, it:
  *  - Initializes "add task" functionalities with `addTaskInit`.
  *  - Updates navigation to show "Add Task" with `changeNavigationAddTask`.
  */
 async function loadAddTasks() {
     await Templates('add_task');
+    await loadRemoteContactsOfLoggedInUser();
     addTaskInit();
     changeNavigationAddTask()
 }
@@ -16,7 +17,7 @@ async function loadAddTasks() {
  * Initializes functionalities related to adding tasks.
  *
  * This function likely performs actions to prepare the "add task" functionality.
- * It calls `changePriorityColor` (not provided) for potential default priority color setting.
+ * It calls `changePriorityColor` for potential default priority color setting.
  */
 function addTaskInit() {
     changePriorityColor('mediumPriorityButton');
@@ -28,7 +29,7 @@ function addTaskInit() {
  * Updates navigation visuals to show the "Add Task" section.
  *
  * This function switches the visual selection to the "Add Task" navigation item.
- * Additionally, it adjusts element visibility based on screen size (potentially for mobile).
+ * Additionally, it adjusts element visibility based on screen size for mobile.
  */
 function changeNavigationAddTask() {
     let addTask = document.getElementById('navAddTask');
@@ -45,10 +46,10 @@ function changeNavigationAddTask() {
 
 /**
  * This function conditionally opens the "Add Task" functionality based on screen size.
- * - For small screens (less than 800px width), it calls the `loadAddTasks` function (presumably to handle adding tasks in a compact format).
- * - For larger screens, it calls the `boardPopupAddTask` function (presumably to display a popup for adding tasks).
+ * - For small screens (less than 800px width), it calls the `loadAddTasks` function to handle adding tasks in a compact format.
+ * - For larger screens, it calls the `boardPopupAddTask` function to display a popup for adding tasks).
  *
- * @param {string} place The place associated with the task (potentially for routing or filtering).
+ * @param {string} place The place associated with the task.
  */
 let boardPlace = "";
 function openAddTaskSmallBtnBoard(place) {
@@ -61,21 +62,21 @@ function openAddTaskSmallBtnBoard(place) {
 }
 
 /**
- * This function checks if the "Add Task" title input field is empty and displays an error message if so.
- * It also handles hiding the error message if the field is filled.
- *
- * @returns {string|undefined} If the title field is not empty, the function returns its value.
- *                              Otherwise, it returns undefined (assuming no specific return value for error cases is needed).
+ * This function checks if the title input field is empty or contains only whitespace characters.
+ * @returns {string|boolean} Returns the valid title if it's not empty or whitespace, otherwise returns false.
  */
 function errorMessageIfEmptyTitle() {
     let titleInput = document.getElementById('addTaskInputTitle');
     let errorMessage = document.querySelector('.errorMessageIfEmptyTitle');
-    if (titleInput.value == "") {
+    let title = titleInput.value.trim();
+    if (title === "" || /^\s+$/.test(title)) {
         errorMessage.style.visibility = 'visible';
+        document.getElementById('addTaskInputTitle').value = '';
         highlightErrorMessage(errorMessage);
+        return false;
     } else {
         errorMessage.style.visibility = 'hidden';
-        return titleInput.value;
+        return title;
     }
 }
 
@@ -84,7 +85,7 @@ function errorMessageIfEmptyTitle() {
  * It also handles hiding the error message if the field is filled.
  *
  * @returns {string|undefined} If the due date field is not empty, the function returns its value.
- *                              Otherwise, it returns undefined (assuming no specific return value for error cases is needed).
+ *                              Otherwise, it returns for error cases is needed).
  */
 function errorMessageIfEmptyDueDate() {
     let dueDateInput = document.getElementById('addTaskDueDateInput');
@@ -189,7 +190,7 @@ function toggleAssignToDropdown() {
 
 /**
  * This function opens the "Assign To" dropdown menu.
- * It clears the placeholder text, sets the display to flex, clears the inner HTML, scrolls down the container (likely to ensure visibility), and renders all contacts.
+ * It clears the placeholder text, sets the display to flex, clears the inner HTML, scrolls down the container to ensure visibility, and renders all contacts.
  */
 function openAssignToDropdown() {
     document.getElementById("assignContactsDropdown").placeholder = "";
@@ -212,13 +213,13 @@ function scrollDown() {
  * It first sorts the contacts by first name and then loops through each contact.
  * For each contact, it checks if it's already assigned (based on `selectedAssignedContacts`).
  * It then sets the background color, text color, and checkbox source based on the assigned status.
- * Finally, it adds the contact HTML template (presumably generated by another function `renderAllContactsHTMLTemplate`) to the dropdown container.
+ * Finally, it adds the contact HTML template to the dropdown container.
  */
 function renderAllContacts() {
     sortByFirstName();
     document.getElementById('dropdowncontacts').innerHTML = "";
-    for (let i = 0; i < contacts.length; i++) {
-        const contact = contacts[i];
+    for (let i = 0; i < localContacts.length; i++) {
+        const contact = localContacts[i];
         let isAssigned = selectedAssignedContacts.some(item => item.name === `${contact.name} ${contact.surname}`);
         let backgroundColor = isAssigned ? "rgba(69, 137, 255, 1)" : "white";
         let textColor = isAssigned ? "white" : "black";
@@ -256,6 +257,8 @@ function changeBackCheckBoxStyle(i) {
     document.getElementById(`assignContactCheckBox(${i})`).src = "./img/assingContactCheckUnchecked.svg";
 }
 
+let filteredContacts = [];
+
 /**
  * This function handles searching for contacts within the "Assign To" dropdown menu.
  * It retrieves the search term from the "assignContactsDropdown" element and converts it to lowercase.
@@ -268,7 +271,7 @@ function searchContactToAssign() {
         renderAllContacts();
         return;
     }
-    const filteredContacts = contacts.filter(contact =>
+    filteredContacts = localContacts.filter(contact =>
         contact.name.toLowerCase().startsWith(search) ||
         contact.surname.toLowerCase().startsWith(search)
     );
@@ -299,19 +302,51 @@ function renderFilteredContacts(filteredContacts) {
 
 /**
  * This function handles assigning or unassigning a contact based on the provided index.
- * It retrieves the contact information from the `contacts` array and constructs the full name.
- * It then checks if the contact is already assigned by finding its index in the `selectedAssignedContacts` array.
- * If not assigned, it creates a new contact object with name, initials, and avatar color and pushes it to the `selectedAssignedContacts` array. It also calls `checkAssignContact` to update the visual representation.
- * If already assigned, it removes the contact from the `selectedAssignedContacts` array by its index and calls `uncheckAssignContact` to update the visual representation.
- * 
  * @param {number} i - The index of the contact in the list.
  */
 function assingContact(i) {
-    let contact = contacts[i];
+    let search = document.getElementById('assignContactsDropdown').value.toLowerCase();
+    let contact = getSelectedContact(i, search);
+    let { fullName, initials, avatarColor, contactIndex } = getContactRelatedInfo(contact);
+    handleContactAssignment(contactIndex, fullName, initials, avatarColor, i);
+}
+
+/**
+ * This function retrieves the correct contact based on the search value.
+ * @param {number} i - The index of the contact in the list.
+ * @param {string} search - The search value from the assignContactsDropdown input.
+ * @returns {Object} The selected contact object.
+ */
+function getSelectedContact(i, search) {
+    if (search === "") {
+        return localContacts[i];
+    } else {
+        return filteredContacts[i];
+    }
+}
+
+/**
+ * This function retrieves contact-related information such as full name, initials, avatar color, and index in the selected assigned contacts array.
+ * @param {Object} contact - The contact object.
+ * @returns {Object} An object containing full name, initials, avatar color, and index.
+ */
+function getContactRelatedInfo(contact) {
     let fullName = `${contact.name} ${contact.surname}`;
     let initials = `${contact.name.charAt(0).toUpperCase()}${contact.surname.charAt(0).toUpperCase()}`;
     let avatarColor = contact.avatarColor;
     let contactIndex = selectedAssignedContacts.findIndex(item => item.name === fullName);
+    return { fullName, initials, avatarColor, contactIndex };
+}
+
+/**
+ * This function handles the assignment or unassignment of a contact based on the contact index.
+ * @param {number} contactIndex - The index of the contact in the selectedAssignedContacts array.
+ * @param {string} fullName - The full name of the contact.
+ * @param {string} initials - The initials of the contact.
+ * @param {string} avatarColor - The avatar color of the contact.
+ * @param {number} i - The index of the contact in the list.
+ */
+function handleContactAssignment(contactIndex, fullName, initials, avatarColor, i) {
     if (contactIndex === -1) {
         let selectedContact = { name: fullName, initials: initials, avatarColor: avatarColor };
         selectedAssignedContacts.push(selectedContact);
@@ -619,10 +654,13 @@ function resetAddTaskForm() {
     document.getElementById('addTaskDescriptionInput').value = '';
     document.getElementById('addTaskDueDateInput').value = '';
     changePriorityColor('mediumPriorityButton');
+    document.getElementById('assignContactsDropdown').value = '';
+    closeAssignToDropdown();
     document.getElementById('avatarsOfSelectedContacts').innerHTML = "";
     selectedAssignedContacts = [];
     document.getElementById('selectTaskCategoryTextField').innerHTML = "Select task category";
     createdSubtasks = [];
+    document.getElementById('addTaskSubtasksInput').value = '';
     document.querySelector('.errorMessageIfEmptyTitle').style.visibility = 'hidden';
     document.querySelector('.errorMessageIfEmptyDueDate').style.visibility = 'hidden';
     document.querySelector('.errorMessageIfEmptyCategory').style.visibility = 'hidden';

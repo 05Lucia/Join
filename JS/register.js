@@ -1,144 +1,3 @@
-let users = [
-    {
-        "name": "Caro Willers",
-        "email": "caro@gmail.com",
-        "password": "Pommes123",
-        "rememberMe": false,
-        "userContacts": [
-            {
-                "name": "Leyla",
-                "surname": "Blume",
-                "initials": "LB",
-                "avatarColor": "rgb(255,122,0)",
-                "email": "leyla@gmail.com",
-                "phone": "+49 9999 888 77 6",
-                "category": "A"
-            },
-            {
-                "name": "Albert",
-                "surname": "Gerdes",
-                "initials": "AG",
-                "avatarColor": "rgb(255,70,70)",
-                "email": "albert@gmail.com",
-                "phone": "+49 2222 222 22 2",
-                "category": "A"
-            },
-            {
-                "name": "Sabine",
-                "surname": "Becker",
-                "initials": "SB",
-                "avatarColor": "rgb(147,39,255)",
-                "email": "sabine@gmail.com",
-                "phone": "+49 5555 555 55 5",
-                "category": "A"
-            }
-        ]
-    },
-    {
-        "name": "Alice Buchholz",
-        "email": "alice@gmail.com",
-        "password": "Currywurst345",
-        "rememberMe": false,
-        "userContacts": [
-            {
-                "name": "Anton",
-                "surname": "Mayer",
-                "initials": "AM",
-                "avatarColor": "rgb(255,122,0)",
-                "email": "anton@gmail.com",
-                "phone": "+49 1111 111 11 1",
-                "category": "A"
-            },
-            {
-                "name": "Chantal",
-                "surname": "Müller",
-                "initials": "CM",
-                "avatarColor": "rgb(255,70,70)",
-                "email": "chantal@gmail.com",
-                "phone": "+49 2233 444 55 6",
-                "category": "A"
-            },
-            {
-                "name": "Aaron",
-                "surname": "Brier",
-                "initials": "AB",
-                "avatarColor": "rgb(147,39,255)",
-                "email": "aaron@gmail.com",
-                "phone": "+49 3333 333 33 3",
-                "category": "A"
-            }
-        ]
-    },
-    {
-        "name": "Vitali Rudi",
-        "email": "vitali@gmail.com",
-        "password": "Mayo6789",
-        "rememberMe": false,
-        "userContacts": [
-            {
-                "name": "Carsten",
-                "surname": "Schmidt",
-                "initials": "CS",
-                "avatarColor": "rgb(252,113,255)",
-                "email": "carsten.schmidt@gmail.com",
-                "phone": "+49 5555 555 55 5",
-                "category": "C"
-            },
-            {
-                "name": "Bernt",
-                "surname": "Saathoff",
-                "initials": "BS",
-                "avatarColor": "rgb(255,187,43)",
-                "email": "bernt.s@gmail.com",
-                "phone": "+49 6666 666 66 6",
-                "category": "B"
-            },
-            {
-                "name": "Caroline",
-                "surname": "Tabeling",
-                "initials": "CT",
-                "avatarColor": "rgb(31,215,193)",
-                "email": "caroline@gmail.com",
-                "phone": "+49 7777 777 77 7",
-                "category": "C"
-            }
-        ]
-    },
-    {
-        "name": "Guest",
-        "userContacts": [
-            {
-                "name": "Carsten",
-                "surname": "Schmidt",
-                "initials": "CS",
-                "avatarColor": "rgb(252,113,255)",
-                "email": "carsten.schmidt@gmail.com",
-                "phone": "+49 5555 555 55 5",
-                "category": "C"
-            },
-            {
-                "name": "Bernt",
-                "surname": "Saathoff",
-                "initials": "BS",
-                "avatarColor": "rgb(255,187,43)",
-                "email": "bernt.s@gmail.com",
-                "phone": "+49 6666 666 66 6",
-                "category": "B"
-            },
-            {
-                "name": "Caroline",
-                "surname": "Tabeling",
-                "initials": "CT",
-                "avatarColor": "rgb(31,215,193)",
-                "email": "caroline@gmail.com",
-                "phone": "+49 7777 777 77 7",
-                "category": "C"
-            }
-        ]
-    }
-];
-
-
 /**
  * Validates the user's email address.
  * @returns {boolean} Returns true if the email address is valid, otherwise false.
@@ -284,6 +143,17 @@ async function loadUsers() {
 }
 
 
+function loadGuestUser() {
+    let guestData = localStorage.getItem('guestUser');
+    if (guestData) {
+        return JSON.parse(guestData);
+    } else {
+        console.error('No guest user data found in local storage.');
+        return null;
+    }
+}
+
+
 /**
  * Adds a new user after form validation and redirects to login page on success.
  * @async
@@ -332,6 +202,7 @@ function validateFormFields(email, password, name) {
     }
     return true;
 }
+
 
 /**
  * Saves a new user to the storage.
@@ -527,13 +398,14 @@ document.addEventListener('DOMContentLoaded', function() {
  * Displays a message in the message box based on the URL parameters.
  * This function is triggered when the DOM content is loaded.
  */
-document.addEventListener('DOMContentLoaded', function () {
-    const urlParams = new URLSearchParams(window.location.search);
-    const msg = urlParams.get('msg');
+document.addEventListener('DOMContentLoaded', function () { 
+    let urlParams = new URLSearchParams(window.location.search);
+    let msg = urlParams.get('msg');
     if (msg) {
         document.getElementById('msgBox').innerHTML = msg;
     }
 });
+
 
 
 /**
@@ -542,14 +414,14 @@ document.addEventListener('DOMContentLoaded', function () {
  */
 async function guestLogin() { 
     setGuestLogin();
-    try {
-        await saveGuestUser();  
+    try { 
         alert("Welcome, dear guest! Please be aware that your access is limited. To fully enjoy all the features of Join, consider registering using our sign-up form.");
         greetUser();
     } finally {
         window.location.href = '../index.html';
     }
 }
+
 
 
 /**
@@ -561,56 +433,12 @@ function setGuestLogin() {
     localStorage.setItem('userType', 'guest');
 }
 
-
-/**
- * Checks if a user is already logged in and prevents guest login in that case.
- * Redirects to the login page if a user is already logged in.
- */
-function attemptGuestLogin() {
-    if (checkLoginStatus()) {
-        alert(`Sie sind bereits als ${localStorage.getItem('currentUserName')} eingeloggt. Bitte loggen Sie sich aus, bevor Sie als Gast fortfahren.`);
-        window.location.href = '../login.html';
-    }
-}
-
-
-/**
- * Saves the guest user to storage if the guest user doesn't already exist.
- * @async
- */
-async function saveGuestUser() { 
-    let users = await getItem('users');
-    users = JSON.parse(users);
  
-    let guestExists = users.some(user => user.name === "Guest");
- 
-    if (!guestExists) {
-        let guestUser = {
-            "name": "Guest",
-            "userContacts": [
-                {
-                    "name": "Caroline",
-                    "surname": "Tabeling",
-                    "initials": "CT",
-                    "avatarColor": "rgb(31,215,193)",
-                    "email": "caroline@gmail.com",
-                    "phone": "+49 7777 777 77 7",
-                    "category": "C"
-                }
-            ]
-        };
-        users.push(guestUser);
-    } 
-    await setItem('users', JSON.stringify(users));
-}
-
-
 /**
  * Displays a greeting message based on the current time of day to the logged-in user.
  */
 function greetUser() {
     let userName = localStorage.getItem('currentUserName');
-    let greetingElement = document.getElementById('greeting');
     let currentHour = new Date().getHours();
     let greetingText = "Welcome";
 
@@ -623,6 +451,7 @@ function greetUser() {
     }
 
     if (userName === 'Gast') {
+        let greetingElement = document.getElementById('greeting');
         greetingElement.textContent = `${greetingText}`;
     } else if (userName !== 'Gast') {
         let greetingElementUser = document.getElementById('greeting-user');
@@ -663,4 +492,45 @@ function logout() {
 
     alert('Your logout was successful');
     window.location.href = '../login.html';
+}
+
+
+/**
+ * Retrieves the value of a specified URL parameter.
+ * @param {string} param - The name of the URL parameter to retrieve.
+ * @returns {string|null} The value of the URL parameter if found, otherwise null.
+ * This function uses the URLSearchParams interface to handle query string parameters.
+ * 'window.location.search' gives the query string part of the URL.
+ */
+function getQueryParam(param) {
+    var search = window.location.search;
+    var params = new URLSearchParams(search);
+    return params.get(param);
+}
+
+
+/**
+ * Redirects the user to a specified page while retaining the 'ref' URL parameter.
+ * @param {string} page - The relative URL to which the user should be redirected.
+ * This function is primarily used to navigate between related pages (like Privacy Policy and Legal Notice)
+ * while keeping track of the user's original entry page (e.g., 'login' or 'signup').
+ * It appends the 'ref' parameter to the URL to maintain the reference throughout the navigation.
+ */
+function navigateTo(page) {
+    var referrer = getQueryParam('ref'); // 'login' or 'signup'
+    window.location.href = page + '?ref=' + referrer;
+}
+
+
+/**
+ * Redirects the user back to their original entry page.
+ * This function determines whether the user originally came from the 'login' or 'signup' page
+ * by checking the 'ref' URL parameter and redirects them back to that page.
+ * It provides a convenient way for users to return to their previous context after visiting a linked page,
+ * like a Privacy Policy or Legal Notice.
+ */
+function goBack() {
+    let referrer = getQueryParam('ref'); // 'login' or 'signup'
+    let page = referrer === 'signup' ? '../signup.html' : '../login.html';
+    window.location.href = page;
 }
