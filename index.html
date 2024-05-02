@@ -24,6 +24,7 @@
 </head>
 
 <body onload="init()" id="body">
+
     <div id="overlay" class="overlay"></div>
 
     <div class="borad-card-overlay d-none" id="borad-card-overlay" onclick="closeCard()">
@@ -51,26 +52,26 @@
                 </div>
             </div>
         </div>
-    </div> <!--noch fertig machen richtig!!-->
+    </div>
     <div class="main-container">
         <div class="navigation">
             <div class="navigation-row" onclick="navigationClick()">
-                <div id="navSummary" class="navigation-item" onclick="summaryLoad()"><!-- js noch nötig -->
+                <div id="navSummary" class="navigation-item" onclick="summaryLoad()">
                     <img class="unclicked" src="./img/summary icon gray.svg" alt="summary icon">
                     <img class="clicked d-none" src="./img/summary icon blue.svg" alt="summary icon">
                     <p>Summary</p>
                 </div>
-                <div id="navAddTask" class="navigation-item" onclick="loadAddTasks()"><!-- js noch nötig -->
+                <div id="navAddTask" class="navigation-item" onclick="loadAddTasks()">
                     <img class="unclicked" src="./img/task icon gray.svg" alt="task icon">
                     <img class="clicked d-none" src="./img/task icon blue.svg" alt="task icon">
                     <p>Add Task</p>
                 </div>
-                <div id="navBoard" class="navigation-item" onclick="loadBoard()"><!-- js noch nötig -->
+                <div id="navBoard" class="navigation-item" onclick="loadBoard()">
                     <img class="unclicked" src="./img/bord icon gray.svg" alt="board icon">
                     <img class="clicked d-none" src="./img/board icon blue.svg" alt="board icon">
                     <p>Board</p>
                 </div>
-                <div class="navigation-item" onclick="loadContacts()"><!-- js noch nötig -->
+                <div class="navigation-item" onclick="loadContacts()">
                     <img class="unclicked" src="./img/contacts icon gray.svg" alt="contacts icon">
                     <img class="clicked d-none" src="./img/contacts icon blue.svg" alt="contacts icon">
                     <p>Contacts</p>
@@ -78,15 +79,13 @@
             </div>
             <div class="navigation-legal" onclick="clickedLegalPart()">
                 <div id="navPrivacyPolicy" onclick="Templates('privacy_policy')">Privacy Policy</div>
-                <!-- js noch nötig -->
-                <div id="navLegalNotice" onclick="Templates('legal_notice')">Legal notice</div><!-- js noch nötig -->
+                <div id="navLegalNotice" onclick="Templates('legal_notice')">Legal notice</div>
             </div>
         </div>
 
         <div class="content" id="content">
             <div class="template-container" include-html="./Templates/summary.html"> </div>
         </div>
-    </div>
     </div>
 
 </body>
