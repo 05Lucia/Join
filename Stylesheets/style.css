@@ -159,7 +159,7 @@ body {
 /*privacyPolicy*/
 .templateMainContainer {
     max-width: 1250px;
-    max-height: 80vh;
+    height: 100%;
     overflow: auto;
     margin: auto;
     padding: 20px;

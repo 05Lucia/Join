@@ -355,11 +355,11 @@ function changeNavigationPrivacyPolicy() {
 /**
  * Removes highlight from any clicked navigation item on dropdown click.
  *
- * This function attaches click event listeners to all anchor tags within elements with the class "dropdowen-container".
+ * This function attaches click event listeners to all anchor tags within elements with the class "dropdown-container".
  * When a dropdown anchor is clicked, it removes the "navigation-item-clicked" class from any currently highlighted navigation item (if any).
  */
 function removeNavHighlightOnDropdown() {
-    const btnElList = document.querySelectorAll('.dropdowen-container a');
+    const btnElList = document.querySelectorAll('.dropdown-container a');
 
     btnElList.forEach(btnEl => {
         btnEl.addEventListener('click', () => {
@@ -376,7 +376,7 @@ function removeNavHighlightOnDropdown() {
  * When a dropdown anchor is clicked, it removes the "navigation-legal-clicked" class from any currently highlighted legal section element (if any).
  */
 function removeNavHighlightLegalPartOnDropdown() {
-    const btnElList = document.querySelectorAll('.dropdowen-container a');
+    const btnElList = document.querySelectorAll('.dropdown-container a');
 
     btnElList.forEach(btnEl => {
         btnEl.addEventListener('click', () => {
