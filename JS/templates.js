@@ -662,3 +662,96 @@ const backupCards = [
     }
 ]
 
+let contacts = [
+    {
+        "name": "Anton",
+        "surname": "Mayer",
+        "initials": "AM",
+        "avatarColor": "rgb(255,122,0)",
+        "email": "anton@gmail.com",
+        "phone": "+49 1111 111 11 1",
+        "category": "A"
+    },
+    {
+        "name": "Albert",
+        "surname": "Gerdes",
+        "initials": "AG",
+        "avatarColor": "rgb(255,70,70)",
+        "email": "albert@gmail.com",
+        "phone": "+49 2222 222 22 2",
+        "category": "A"
+    },
+    {
+        "name": "Aaron",
+        "surname": "Brier",
+        "initials": "AB",
+        "avatarColor": "rgb(147,39,255)",
+        "email": "aaron@gmail.com",
+        "phone": "+49 3333 333 33 3",
+        "category": "A"
+    },
+    {
+        "name": "Britta",
+        "surname": "Zielke",
+        "initials": "BZ",
+        "avatarColor": "rgb(110,82,255)",
+        "email": "b.zielke@gmail.com",
+        "phone": "+49 4444 444 44 4",
+        "category": "B"
+    },
+    {
+        "name": "Carsten",
+        "surname": "Schmidt",
+        "initials": "CS",
+        "avatarColor": "rgb(252,113,255)",
+        "email": "carsten.schmidt@gmail.com",
+        "phone": "+49 5555 555 55 5",
+        "category": "C"
+    },
+    {
+        "name": "Bernt",
+        "surname": "Saathoff",
+        "initials": "BS",
+        "avatarColor": "rgb(255,187,43)",
+        "email": "bernt.s@gmail.com",
+        "phone": "+49 6666 666 66 6",
+        "category": "B"
+    },
+    {
+        "name": "Caroline",
+        "surname": "Tabeling",
+        "initials": "CT",
+        "avatarColor": "rgb(31,215,193)",
+        "email": "caroline@gmail.com",
+        "phone": "+49 7777 777 77 7",
+        "category": "C"
+    },
+    {
+        "name": "Diana",
+        "surname": "König",
+        "initials": "DK",
+        "avatarColor": "rgb(255,70,70)",
+        "email": "diana.koenig@gmail.com",
+        "phone": "+49 8888 888 88 8",
+        "category": "D"
+    },
+    {
+        "name": "Erik",
+        "surname": "Wagner",
+        "initials": "EW",
+        "avatarColor": "rgb(255,0,191)",
+        "email": "erik.wagner@gmail.com",
+        "phone": "+49 9999 999 99 9",
+        "category": "E"
+    },
+    {
+        "name": "Fiona",
+        "surname": "Müller",
+        "initials": "FM",
+        "avatarColor": "rgb(255,122,0)",
+        "email": "fiona.mueller@gmail.com",
+        "phone": "+49 1010 101 01 0",
+        "category": "F"
+    }
+]
+
