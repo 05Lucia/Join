@@ -879,6 +879,7 @@ input::placeholder {
 
 .privacy-policy-link:hover {
     text-decoration: underline;
+    font-weight: 600;
 }
 
 .legalNotesNegative {
@@ -920,17 +921,26 @@ input::placeholder {
     height: 23px;
     cursor: pointer;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     gap: 10px;
     margin-top: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 30px; 
+}
+
+.checkboxContainer:hover .checkboxImage {
+    background-color: var(--lightBlueHover);
+    padding: 0.2px;
+    font-weight: 600;
+    transition: background-image 0.3s ease-in-out;  
 }
 
 .acceptPolicy img:hover {
-    background-image: url('../img/img/Rectangle5Hover.svg');
+    background-image: url('../img/Rectangle5Hover.svg');
     background-size: cover;
 }
+
+
 
 .acceptance {
     width: 250px;
