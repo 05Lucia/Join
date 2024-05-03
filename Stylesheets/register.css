@@ -222,18 +222,6 @@ input::placeholder {
     outline: none;
 }
 
-.checkboxContainer {
-    width: 90%;
-    height: 23px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-top: 30px;
-    margin-bottom: 30px;
-}
-
 .checkboxImage {
     cursor: pointer;
     border: unset;
@@ -448,10 +436,6 @@ input::placeholder {
     padding: 0;
 }
 
-.h1Login {
-    font-size: 36px;
-}
-
 .loginHeader {
     margin-top: 10px;
 }
@@ -468,7 +452,6 @@ input::placeholder {
 }
 
 .input,
-.blueBtn,
 .greyBorderBtn {
     font-size: 14px;
 }
@@ -505,10 +488,6 @@ input::placeholder {
     height: auto;
     top: 20px;
     left: 20px;
-}
-
-.h1Login {
-    font-size: 32px;
 }
 
 .loginForm {
@@ -941,7 +920,7 @@ input::placeholder {
     height: 23px;
     cursor: pointer;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     gap: 10px;
     margin-top: 30px;

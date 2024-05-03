@@ -370,7 +370,6 @@ body {
     position: relative;
     width: 100%;
     height: 100%;
-    height: calc(100vh - 10rem);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -406,7 +405,14 @@ body {
     position: absolute;
     top: 80px;
     width: 100vw;
-    height: 100%;
+    height: calc(100vh - 10rem);
+}
+
+.main-container-Legal {
+    position: absolute;
+    top: 80px;
+    width: 100vw;
+    height: calc(100vh - 5rem);
 }
 
 .navLogo {
@@ -520,6 +526,10 @@ body {
     .main-container {
         display: flex;
         width: 100vw;
+    }
+
+    .main-container-Legal {
+        display: flex;
     }
 
     .content {
