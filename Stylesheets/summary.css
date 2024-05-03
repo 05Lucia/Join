@@ -417,7 +417,7 @@
 @media (min-width: 1050px) {
     .btn-container {
         width: 100%;
-        max-width: 1000px;
+        max-width: 870px;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
         grid-template-rows: 190px 220px;

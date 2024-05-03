@@ -31,7 +31,7 @@ let users = [
             }
         ]
     }
-];
+]; 
 
 /**
  * Generates the HTML structure for a single card on the board.
