@@ -158,6 +158,14 @@
     min-width: 116px;
 }
 
+.btn-urgent-front p {
+    color: white;
+}
+
+.urgent-button:hover > .btn-urgent-front p {
+    color: var(--maincolor);
+}
+
 .btn-text {
     font-size: 19px;
     font-weight: 400;
