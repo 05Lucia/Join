@@ -431,6 +431,7 @@ body {
         height: 100%;
         justify-content: flex-start;
         gap: 16px;
+        box-shadow: none;
     }
 
     .navigation-item {
