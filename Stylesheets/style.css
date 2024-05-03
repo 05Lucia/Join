@@ -223,6 +223,13 @@ body {
     }
 }
 
+@media (min-width: 800px) {
+    .templateMainContainer {
+        padding: 4rem;
+        max-width: 2000px;
+    }
+}
+
 /*  Navigation ----------------------------------------------------- */
 
 .navigation-row {
