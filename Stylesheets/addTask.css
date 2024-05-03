@@ -1097,7 +1097,8 @@ h3 {
 
     .subtaskListInput {
         min-width: 80%;
-        line-height: 40px;
+        text-indent: -23px;
+        padding-left: 20px;
     }
 
     .editCreatedSubtasksIcons img {

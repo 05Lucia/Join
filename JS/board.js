@@ -41,6 +41,7 @@ async function loadBoard() {
     await Templates('board');
     updateCards();
     changeNavigation()
+    await loadRemoteContactsOfLoggedInUser();
 }
 
 /**
@@ -284,6 +285,7 @@ function closeCard() {
     priorities = [];
     selectedAssignedContacts = [];
     createdSubtasks = [];
+    boardPlace = "";
     updateCards();
 }
 

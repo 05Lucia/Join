@@ -305,8 +305,8 @@ body {
     align-items: center;
     justify-content: center;
     background-color: white;
-    height: 40px;
-    width: 40px;
+    height: 44px;
+    width: 44px;
     border-radius: 100%;
     border: var(--maincolor) solid 3px;
     outline: white solid 3px;
