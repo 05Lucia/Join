@@ -429,7 +429,7 @@ async function guestLogin() {
  */
 function setGuestLogin() {
     localStorage.setItem('isLoggedIn', 'true');
-    localStorage.setItem('currentUserName', 'Gast');
+    localStorage.setItem('currentUserName', 'Guest');
     localStorage.setItem('userType', 'guest');
 }
 
@@ -450,10 +450,10 @@ function greetUser() {
         greetingText = "Good evening";
     }
 
-    if (userName === 'Gast') {
-        let greetingElement = document.getElementById('greeting');
+    let greetingElement = document.getElementById('greeting');
+    if (userName === 'Guest') {
         greetingElement.textContent = `${greetingText}`;
-    } else if (userName !== 'Gast') {
+    } else if (userName !== 'Guest') {
         let greetingElementUser = document.getElementById('greeting-user');
         greetingElementUser.textContent = `${greetingText},`;
         greetingElement.textContent = `${userName}`;

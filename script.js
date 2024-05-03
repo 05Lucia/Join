@@ -19,7 +19,7 @@ async function init() {
     } else {
         await hideStartAnimation();
         await loadUsers();
-        loadGuestUser();
+        // loadGuestUser();
         await mobileGreeting();
         await loadTasks();
         await checkCards();

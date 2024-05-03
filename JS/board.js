@@ -1,8 +1,13 @@
 /**
- * Array to test card implement!!
+ * Array to implement the Task cards !!
  */
 let cards = []
 
+/**
+ * Loads tasks from local storage.
+ * 
+ * @returns {Promise<Array<object>>} A promise that resolves to an array of tasks or an empty array if no tasks are found.
+ */
 async function loadTasks() {
     try {
         let result = await getItem('cards');
@@ -19,6 +24,11 @@ async function loadTasks() {
     }
 }
 
+/**
+ * Saves the current tasks array to local storage.
+ * 
+ * @returns {Promise<void>} A promise that resolves after saving the tasks.
+ */
 async function UpdateTaskInRemote() {
     await setItem('cards', cards);
     console.log("cards saved to storage", cards);

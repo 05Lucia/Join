@@ -552,7 +552,7 @@ const backupCards = [
         },
         "title": "Refine User Authentication",
         "description": "Review and improve the implemented user authentication system. Consider adding features like password hashing, secure session management, and role-based access control (RBAC) if necessary.",
-        "dueDate": "2024-05-07",
+        "dueDate": "2024-08-07",
         "subtasks": [
             {
                 "text": "Evaluate the security strength of current implementation",
@@ -595,7 +595,7 @@ const backupCards = [
         },
         "title": "Implement Data Persistence",
         "description": "Store card data (title, description, due date, assigned users, etc.) in a persistent storage mechanism like a database or local storage. Ensure data integrity and retrieval.",
-        "dueDate": "2024-05-03",
+        "dueDate": "2024-05-10",
         "subtasks": [
             {
                 "text": "Choose a suitable data storage solution",
@@ -632,7 +632,7 @@ const backupCards = [
         },
         "title": "Implement User Interface",
         "description": "Design the overall user interface for the Kanban board, including card layouts, columns, drag-and-drop interactions, and visual feedback elements.",
-        "dueDate": "2024-05-05",
+        "dueDate": "2024-05-07",
         "subtasks": [
             {
                 "text": "Create mockups for different Kanban board views",
