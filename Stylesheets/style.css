@@ -569,15 +569,3 @@ body {
     }
 }
 
-@media (orientation: landscape) {
-    body {
-        transform: rotate(-90deg);
-        transform-origin: center center;
-        width: 100vh;
-        height: 100vw;
-        overflow-x: hidden;
-        position: absolute;
-        top: 100%;
-        left: 0;
-    }
-}
