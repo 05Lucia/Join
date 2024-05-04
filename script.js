@@ -23,6 +23,8 @@ async function init() {
         await loadTasks();
         await checkCards();
         await summaryLoad();
+        await loadRemoteContactsOfLoggedInUser();
+        await checkIfUserIsAddedAsContact();
         greetUser();
     
     }      

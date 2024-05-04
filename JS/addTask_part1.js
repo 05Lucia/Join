@@ -8,7 +8,6 @@
  */
 async function loadAddTasks() {
     await Templates('add_task');
-    await loadRemoteContactsOfLoggedInUser();
     addTaskInit();
     changeNavigationAddTask()
 }

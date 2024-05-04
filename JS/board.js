@@ -41,7 +41,6 @@ async function loadBoard() {
     await Templates('board');
     updateCards();
     changeNavigation()
-    await loadRemoteContactsOfLoggedInUser();
 }
 
 /**

@@ -13,8 +13,6 @@ let userEmail = "";
  */
 async function loadContacts() {
     await Templates('contacts');
-    await loadRemoteContactsOfLoggedInUser();
-    await checkIfUserIsAddedAsContact();
     await initContacts();
 }
 
@@ -61,9 +59,18 @@ async function checkIfUserIsAddedAsContact() {
  * @returns {Promise<void>} A promise that resolves when the user is added as a contact.
  */
 async function createUserAsContact() {
-    let name = currentUser;
-    let email = userEmail;
-    let phone = "+49";
+    let name = '';
+    let email = '';
+    let phone = '';
+    if (currentUser === 'Guest') {
+        name = 'Guest';
+        email = 'guest@guestmail.com';
+        phone = '+49';
+    } else if (currentUser != 'Guest') {
+        name = currentUser;
+        email = userEmail;
+        phone = "+49";
+    }
     let dataSet = newContactDataSetForArray(name, email, phone);
     localContacts.push(dataSet.newContact);
     await updateUserContactsInRemote();
