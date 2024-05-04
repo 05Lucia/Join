@@ -426,7 +426,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-
 /**
  * /**
  * Sets up the session for a guest user and calls greetUser to display a welcome message.
