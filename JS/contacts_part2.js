@@ -10,7 +10,7 @@ function checkForDuplicateEmail(email, phone) {
         if (localContacts[i].email === email) {
             alert('A contact with the same email address already exists in your list.');
             return true;
-        } else if (localContacts[i].phone === phone){
+        } else if (localContacts[i].phone === phone) {
             alert('A contact with the same phone number already exists in your list.');
             return true;
         }
@@ -45,7 +45,11 @@ function openContactInfo(index) {
         highlightCreatedContact(index);
     }
     document.getElementById('contactInfo').classList.add('showContactDetailsContainer');
-    openContactInfoHTMLTemplate(index);
+    if (localContacts[index].name === 'Guest') {
+        openGuestContactInfoHTMLTemplate(index);
+    } else if (localContacts[index].name != 'Guest') {
+        openContactInfoHTMLTemplate(index);
+    }
 }
 
 /**

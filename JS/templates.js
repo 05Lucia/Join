@@ -355,6 +355,52 @@ function openContactInfoHTMLTemplate(index) {
                                                                 `;
 }
 
+function openGuestContactInfoHTMLTemplate(index){
+    let contact = localContacts[index];
+    document.getElementById('contactInfoContactDetails').innerHTML = /*html*/`
+                    <div class="contactInfoAvatarAndName">
+                        <div class="contactInfoAvatar" style="background-color: ${contact.avatarColor};">
+                            ${contact['initials']}
+                        </div>
+                        <div>
+                            <div class="contactInfoName">
+                                ${contact['name']} ${contact['surname']}
+                            </div>
+                            <div class="editContactMenuDesktop">
+                                <div class="editGuestContact">
+                                    <img src="./img/editContactIcon.svg">
+                                    <span>Edit</span>
+                                </div>
+                                <div class="deleteGuestContact">
+                                    <img src="./img/deleteContactIcon.svg">
+                                    <span>Delete</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contactInfoHeadlineDesktop">
+                Contact Information
+            </div>
+                    <div class="contactInfoEmailAndPhone">
+                        <div class="contactInfoEmail">
+                            <p>Email</p>
+                            <a href="mailto:abc@example.com">${contact['email']}</a>
+                        </div>
+                        <div class="contactInfoPhone">
+                            <p>Phone</p>
+                            <span>${contact['phone']}</span>
+                        </div>
+                    </div>
+            `;
+
+    document.getElementById('editContactButtonContainer').innerHTML = /*html*/`
+             <button class="addContactButton" id="addContactButton" onclick="showContactEditDeleteMenu(${index})">
+                <img src="./img/contactMenuButton.svg">
+            </button>
+                                                                `;
+}
+
+
 /**
 * This function shows the edit and delete menu for the clicked contact on mobile screens (less than 800px wide).
 * It populates the menu container with the "Edit" and "Delete" buttons and adds an event listener to prevent event bubbling.
