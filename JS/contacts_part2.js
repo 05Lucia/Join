@@ -5,10 +5,13 @@
  * @param {string} email The email address to check for duplication.
  * @returns {boolean} `true` if a duplicate email is found, `false` otherwise.
  */
-function checkForDuplicateEmail(email) {
+function checkForDuplicateEmail(email, phone) {
     for (let i = 0; i < localContacts.length; i++) {
         if (localContacts[i].email === email) {
             alert('A contact with the same email address already exists in your list.');
+            return true;
+        } else if (localContacts[i].phone === phone){
+            alert('A contact with the same phone number already exists in your list.');
             return true;
         }
     }

@@ -282,7 +282,7 @@ function hideAddContactCard() {
  */
 async function createContact() {
     let dataSet = newContactDataSetForArray();
-    if (checkForDuplicateEmail(dataSet.contactData.email)) {
+    if (checkForDuplicateEmail(dataSet.contactData.email, dataSet.contactData.phone)) {
         return true;
     }
     localContacts.push(dataSet.newContact);

@@ -609,12 +609,6 @@
     color: rgba(66, 82, 110, 1);
 }
 
-.deleteEditContactButton:hover {
-    cursor: pointer;
-    border: 2px solid var(--maincolor); 
-    filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.2));
-}
-
 .deleteEditContactButton:hover p { 
     color: var(--maincolor);  
 }
@@ -1014,8 +1008,9 @@
     }
 
     .deleteEditContactButton:hover {
-        border: 2px solid rgba(100, 113, 136, 1);
-        transition: transform 0.1s ease-in-out;
+        cursor: pointer;
+        border: 2px solid var(--maincolor); 
+        filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.2));
     }
 
     .contactCreatedButtonContainer {
