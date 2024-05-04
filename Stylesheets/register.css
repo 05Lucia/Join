@@ -792,8 +792,11 @@ input::placeholder {
 
 
 /* sign up -------------------------------------------------------------- */
-.signupContainer {
-    position: relative;
+.body {
+    margin: 0;
+}
+
+.signupContainer { 
     width: 100%;
     height: 100vh;
     display: flex;
@@ -803,7 +806,7 @@ input::placeholder {
     background-color: var(--maincolor);
 }
 
-.signinPage {
+.signupPage {
     width: 100%;
     padding: 10px;
     display: flex;
@@ -816,7 +819,6 @@ input::placeholder {
     max-width: 650px;
     width: 100%;
     padding: 20px;
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -848,11 +850,12 @@ input::placeholder {
     flex: 1;
 }
 
-.signinHeader {
+.signupHeader {
+    height: 70px;
     margin-top: 0px;
 }
 
-.signinHeader img {
+.signupHeader img {
     position: fixed;
     top: 50px;
     left: 50px;
@@ -977,11 +980,11 @@ input::placeholder {
         max-width: 760px;
     }
 
-    .signinHeader {
+    .signupHeader {
         margin-top: 0px;
     }
 
-    .signinHeader img {
+    .signupHeader img {
         position: fixed;
         top: 50px;
         left: 50px;
@@ -997,7 +1000,7 @@ input::placeholder {
 
 
 @media (max-width: 768px) {
-    .signinPage {
+    .signupPage {
         max-height: 650px;
         padding: 15px;
     }
@@ -1023,12 +1026,12 @@ input::placeholder {
 @media (max-width: 540px) {
     .signupContent {
         max-width: 500px;
-        max-height: 650px;
+        max-height: 450px;
         padding: 20px 10px;
         margin-top: 20px;
     }
 
-    .signinHeader {
+    .signupHeader {
         margin-top: 80px;
     }
 
@@ -1036,7 +1039,7 @@ input::placeholder {
         margin-top: -20px;
     }
 
-    .signinHeader img {
+    .signupHeader img {
         position: fixed;
         top: 30px;
         left: 30px;
@@ -1065,17 +1068,18 @@ input::placeholder {
 
 @media (max-width: 480px) {
     .signupContent {
+        max-width: 390px;
         padding: 20px 5px;
         margin-top: -80px;
     }
 }
 
 @media (max-width: 414px) {
-    .signinPage {
+    .signupPage {
         max-height: 500px;
     }
 
-    .signinHeader img {
+    .signupHeader img {
         position: fixed;
         top: 30px;
         left: 30px;
@@ -1090,7 +1094,8 @@ input::placeholder {
     }
 
     .headlineContainer {
-        margin: 0;
+        margin-top: -50px;
+        height: 180px;
     }
 
     .loginForm {
@@ -1101,15 +1106,21 @@ input::placeholder {
         margin-top: 30px;
         margin-bottom: 30px;
     }
+
+    .msgError {
+        margin: 0;
+    }
 }
 
 @media (max-width: 375px) {
-    .signinPage {
-        max-height: 500px;
-        margin-top: 0;
+    .signupContent {
+        max-height: 450px;
+        margin-top: -80px;
+        max-width: 320px;
+        padding: 0;
     }
 
-    .signinHeader img {
+    .signupHeader img {
         position: fixed;
         top: 20px;
         left: 20px;
@@ -1117,12 +1128,6 @@ input::placeholder {
         height: auto;
     }
 
-    .signupContent {
-        max-width: 320px;
-        padding: 0;
-        margin-top: -40px;
-    }
-
     .loginForm {
         margin-bottom: 10px;
     }
@@ -1133,7 +1138,7 @@ input::placeholder {
     }
 }
 
-@media (max-width: 350px) {
+@media (max-width: 360px) {
     .signupContent {
         padding: 20px 5px;
         gap: 20px;
