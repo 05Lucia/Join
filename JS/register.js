@@ -185,8 +185,27 @@ async function addUser() {
     };
 
     await saveNewUser(user);
-    window.location.href = '../login.html?msg=Your signup is successful';
+    successfulSignup(); 
 }
+
+
+/**
+ * Displays the login modal.
+ */
+function successfulSignup() {
+    let signupModal = document.getElementById("signupModal");
+    if (signupModal.style.display !== "block") {
+        signupModal.style.display = "block";
+
+        setTimeout(function() {
+            if (signupModal.style.display === "block") {
+                signupModal.style.display = "none";
+                window.location.href = '../login.html';
+            }
+        }, 2000);
+    }
+}
+
 
 /**
  * Validates form fields and displays an alert if any field is empty.
