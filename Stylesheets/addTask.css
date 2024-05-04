@@ -694,14 +694,21 @@ h3 {
     color: rgba(100, 113, 136, 1);
 }
 
-.clearTaskButton img {
-    height: 24px
+.taskIcon {
+    font-size: 20px;
+    font-weight: 400;
+    color: rgba(100, 113, 136, 1);
 }
 
 .clearTaskButton:hover {
     cursor: pointer;
-    border: 2px solid rgba(69, 137, 255, 1);
+    border: 2px solid var(--maincolor); 
     filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+.clearTaskButton:hover p,
+.clearTaskButton:hover .taskIcon {
+    color: var(--maincolor);  
 }
 
 .createTaskButton {

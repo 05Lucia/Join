@@ -244,7 +244,7 @@ function addContactButtonsCancelAndCreateButtonsHTMLTemplate() {
     return /*html*/`
             <button type="button" class="cancelCreateContactButton" id="cancelCreateContactButton" onclick="hideAddContactCard()">
                 <p>Cancel</p>
-                <img src="./img/clearTaskX.svg">
+                <span class="taskIcon">X</span>
             </button>
             <button type="submit" class="createContactButton" id="createContactButton">
                 <p>Create contact</p>

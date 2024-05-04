@@ -547,6 +547,11 @@
     color: rgba(100, 113, 136, 1);
 }
 
+.cancelCreateContactButton:hover p,
+.cancelCreateContactButton:hover .taskIcon {
+    color: var(--maincolor);  
+}
+
 .cancelCreateContactButton img {
     height: 24px
 }
@@ -606,8 +611,12 @@
 
 .deleteEditContactButton:hover {
     cursor: pointer;
-    border: 2px solid rgba(69, 137, 255, 1);
+    border: 2px solid var(--maincolor); 
     filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+.deleteEditContactButton:hover p { 
+    color: var(--maincolor);  
 }
 
 /* Pop-Up when new Contact is created */

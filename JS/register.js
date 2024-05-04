@@ -536,7 +536,7 @@ function getQueryParam(param) {
  * It appends the 'ref' parameter to the URL to maintain the reference throughout the navigation.
  */
 function navigateTo(page) {
-    var referrer = getQueryParam('ref'); // 'login' or 'signup'
+    let referrer = getQueryParam('ref'); // 'login' or 'signup'
     window.location.href = page + '?ref=' + referrer;
 }
 
