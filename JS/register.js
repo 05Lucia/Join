@@ -97,7 +97,7 @@ function changeLockIcon(inputElement) {
  * @returns {boolean} Returns true if the Privacy Policy checkbox is checked, otherwise false.
  */
 function togglePrivacyPolicyCheckbox(buttonElement) {
-    let container = buttonElement.closest('.checkboxContainer');
+    let container = buttonElement.closest('.checkboxContainerSignup');
     let realCheckbox = container.querySelector(".realCheckbox");
     let checkboxImage = container.querySelector(".checkboxImage");
 

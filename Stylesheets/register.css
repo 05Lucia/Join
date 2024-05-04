@@ -890,11 +890,6 @@ input::placeholder {
     text-decoration: none;
 }
 
-.privacy-policy-link:hover {
-    text-decoration: underline;
-    font-weight: 600;
-}
-
 .legalNotesNegative {
     position: fixed;
     bottom: 30px;
@@ -929,26 +924,7 @@ input::placeholder {
     color: var(--hoverBlue);
 }
 
-.checkboxContainer {
-    width: 90%;
-    height: 23px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-top: 30px;
-    margin-bottom: 30px; 
-}
-
-.checkboxContainer:hover .checkboxImage {
-    background-color: var(--lightBlueHover);
-    padding: 0.2px;
-    font-weight: 600;
-    transition: background-image 0.3s ease-in-out;  
-}
-
-.checkboxContainerSingup {
+.checkboxContainerSignup {
     width: 90%;
     height: 23px;
     cursor: pointer;
@@ -960,16 +936,26 @@ input::placeholder {
     margin-bottom: 30px;
 }
 
+.checkboxContainerSignup:hover .checkboxImage {
+    background-color: var(--lightBlueHover);
+    padding: 0.3px;
+    transition: background-color 0.3s ease-in-out;  
+}
+
+.checkboxContainerSignup:hover .privacy-policy-link { 
+    font-weight: 600;
+    text-decoration: underline;
+    transition: background-color 0.3s ease-in-out;  
+}
+
 .btn-Sign-up {
     width: 200px;
 }
 
 .acceptPolicy img:hover {
-    background-image: url('../img/Rectangle5Hover.svg');
-    background-size: cover;
+    background-color: var(--lightBlueHover);
+    padding: 0.2px;
 }
-
-
 
 .acceptance {
     width: 250px;
