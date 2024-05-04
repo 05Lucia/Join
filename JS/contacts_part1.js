@@ -289,11 +289,12 @@ async function createContact() {
     await updateUserContactsInRemote();
     await initContacts();
     let contactIndex = getIndexByNameSurname(localContacts, dataSet.formattedName.firstName, dataSet.formattedName.lastName);
-    openContactInfo(contactIndex);
+    changeContactButtonColorAsClicked(contactIndex)
     showContactCreatedPopUp();
     clearAddContactForm();
     hideAddContactCard();
     scrollToAnchor(`contact(${toggleIndex})`);
+    // clickedButtons = [`contact(${toggleIndex})`];
 }
 
 /**

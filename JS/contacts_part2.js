@@ -355,12 +355,14 @@ async function deleteContact(index) {
     if (localContacts[index].email === userEmail) {
         alert('The user cannot delete themselves from their own contact list.');
     } else {
+        changeContactButtonColorAsClicked(index);
         localContacts.splice(index, 1);
         await updateUserContactsInRemote();
         hideAddContactCard();
         await initContacts();
         hideContactEditDeleteMenu();
         closeContactInfo();
+        clickedButtons = [];
     }
 }
 
