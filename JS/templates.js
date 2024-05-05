@@ -269,7 +269,7 @@ function EditTemplate() {
             <img class="board-card-close-hover" src="./img/close hover.svg" alt="close hover">
         </div>
     </div>
-    <div class="fullHeight" include-AddTask="./Templates/add_task-popup.html"> </div>
+    <div class="fullHeight small-width" include-AddTask="./Templates/add_task-popup.html"> </div>
     `
 }
 
