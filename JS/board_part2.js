@@ -286,3 +286,21 @@ function createCardObject(id, place, category, categoryColor, title, description
         }
     };
   }
+
+/**
+ * Closes the Popup modal.
+ */
+function closeCard() {
+    let container = document.getElementById('borad-card-overlay');
+    container.classList.add('d-none');
+    container.style.justifyContent = "center";
+    container.style.alignItems = "center"
+    container.innerHTML = `<div class="borad-card-popup d-none" id="borad-card-popup" onclick="doNotClose(event)"></div>`
+    document.body.classList.remove('body-noscroll-class');
+
+    priorities = [];
+    selectedAssignedContacts = [];
+    createdSubtasks = [];
+    boardPlace = "";
+    updateCards();
+}
