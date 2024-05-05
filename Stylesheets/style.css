@@ -165,6 +165,13 @@ body {
     padding: 20px;
 }
 
+.main-container-Legal {
+    position: absolute;
+    top: 80px;
+    width: 100vw;
+    height: calc(100vh - 5rem);
+}
+
 .topHeadline {
     display: flex;
     justify-content: space-between;
@@ -226,6 +233,10 @@ body {
     .templateMainContainer {
         padding: 4rem;
         max-width: 2000px;
+    }
+    
+    .main-container-Legal {
+        display: flex;
     }
 }
 /*  Navigation ----------------------------------------------------- */
