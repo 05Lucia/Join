@@ -358,20 +358,20 @@
     padding: 32px 24px;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
     z-index: 3;
-    bottom: -100%;
-    animation: slideup 0.5s forwards;
-    -webkit-animation: slideup 0.5s forwards;
+    right: -100%;
+    animation: slidein 0.5s forwards;
+    -webkit-animation: slidein 0.5s forwards;
 }
 
-@-webkit-keyframes slideup {
+@-webkit-keyframes slidein {
     100% {
-        bottom: 0;
+        right: 0;
     }
 }
 
-@keyframes slideup {
+@keyframes slidein {
     100% {
-        bottom: 0;
+        right: 0;
     }
 }
 
@@ -606,7 +606,7 @@
         filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.2));
     }
 
-    .add-btn-top:active{
+    .add-btn-top:active {
         background-color: #000;
     }
 
@@ -631,6 +631,22 @@
         width: 525px;
         gap: 24px;
         padding: 48px 40px;
+        right: 0;
+        bottom: -100%;
+        animation: slideup 0.5s forwards;
+        -webkit-animation: slideup 0.5s forwards;
+    }
+
+    @-webkit-keyframes slideup {
+        100% {
+            bottom: 0;
+        }
+    }
+
+    @keyframes slideup {
+        100% {
+            bottom: 0;
+        }
     }
 
     .borad-card-popup p {
