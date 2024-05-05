@@ -162,7 +162,7 @@
     color: white;
 }
 
-.urgent-button:hover > .btn-urgent-front p {
+.urgent-button:hover>.btn-urgent-front p {
     color: var(--maincolor);
 }
 
@@ -329,6 +329,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        flex-direction: column;
         gap: 22px;
     }
 
@@ -439,5 +440,11 @@
         max-height: 190px;
         gap: 32px;
         justify-content: space-evenly;
+    }
+}
+
+@media (min-width: 1300px) {
+    .greeting-Container {
+        flex-direction: row;
     }
 }
