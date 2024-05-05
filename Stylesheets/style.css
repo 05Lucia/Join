@@ -482,7 +482,7 @@ body {
 
     .navigation-item:hover {
         cursor: pointer;
-        background-color: var(--lightBlue);
+        background-color: var(--lightBlueHover);
     }
 
     .navigation-item:focus {
@@ -600,16 +600,24 @@ body {
     }
 
     .navigation-item-clicked {
-        background-color: var(--lightBlueHover);
+        background-color: var(--lightBlue);
+        cursor:default !important;
+    }
+
+    .navigation-item-clicked:hover {
+        background-color: var(--lightBlue);
+        cursor:default !important;
     }
 
     .navigation-item-clicked p {
         color: var(--menue-text);
+        cursor:default !important;
     }
 
     .navigation-legal-clicked {
         color: white;
         background-color: var(--maincolor);
+        cursor: default !important;
     }
 
     .navigation-legal-clicked:hover {
