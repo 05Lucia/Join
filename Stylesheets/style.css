@@ -229,16 +229,18 @@ body {
         font-size: 22px;
     }
 }
+
 @media (min-width: 800px) {
     .templateMainContainer {
         padding: 4rem;
         max-width: 2000px;
     }
-    
+
     .main-container-Legal {
         display: flex;
     }
 }
+
 /*  Navigation ----------------------------------------------------- */
 
 .navigation-row {
@@ -254,6 +256,7 @@ body {
     padding: 0px 16px;
     background-color: white;
     box-shadow: 0px -1px 6px 0px rgba(0, 0, 0, 0.10);
+    z-index: 1;
 }
 
 .navigation-item {
@@ -363,10 +366,24 @@ body {
     align-items: flex-end;
     justify-content: flex-start;
     padding: 10px;
-    right: 32px;
     box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.20);
     border-radius: 10px 0px 10px 10px;
     margin-top: 64px;
+    right: -100%;
+    animation: slideinDropdowen 0.5s forwards;
+    -webkit-animation: slideinDropdowen 0.5s forwards;
+}
+
+@-webkit-keyframes slideinDropdowen {
+    100% {
+        right: 32px;
+    }
+}
+
+@keyframes slideinDropdowen {
+    100% {
+        right: 32px;
+    }
 }
 
 .dropdown-container a {
@@ -407,9 +424,9 @@ body {
 }
 
 .greeting-container h1 {
- font-weight: 700 !important;
- font-size: 48px !important;
- color: var(--greeting-text);
+    font-weight: 700 !important;
+    font-size: 48px !important;
+    color: var(--greeting-text);
 }
 
 .greeting-container p {
@@ -497,7 +514,7 @@ body {
         color: var(--menue-text);
     }
 
-    .navigation-legal div{
+    .navigation-legal div {
         padding: 8px;
         border-radius: 8px;
     }
@@ -555,12 +572,27 @@ body {
         align-items: flex-end;
         justify-content: center;
         padding: 10px;
-        right: 0px;
         box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.20);
         border-radius: 20px 0px 20px 20px;
         margin-top: 80px;
         gap: 8px;
+        right: -100%;
+        animation: slideinDropdowen 0.5s forwards;
+        -webkit-animation: slideinDropdowen 0.5s forwards;
     }
+
+    @-webkit-keyframes slideinDropdowen {
+        100% {
+            right: 0px;
+        }
+    }
+
+    @keyframes slideinDropdowen {
+        100% {
+            right: 0px;
+        }
+    }
+
 
     .dropdown-container a:hover {
         cursor: pointer;
@@ -571,7 +603,7 @@ body {
         background-color: var(--lightBlueHover);
     }
 
-    .navigation-item-clicked p{
+    .navigation-item-clicked p {
         color: var(--menue-text);
     }
 
@@ -584,4 +616,3 @@ body {
         color: white !important;
     }
 }
- 

@@ -408,11 +408,18 @@
         padding: 40px 35px;
         max-width: 685px;
         grid-area: first;
-        max-height: 150px;
+        max-height: 188px;
         width: 100%;
-        ;
+        justify-content: space-evenly;
     }
 
+}
+
+@media (min-width: 900px) {
+    .btn-container {
+        width: 650px;
+        gap: 24px;
+    }
 }
 
 @media (min-width: 1050px) {
