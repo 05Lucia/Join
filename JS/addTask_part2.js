@@ -271,7 +271,20 @@ function createTask() {
     let newCard = buildTemplateForArrayInput(id, place, taskData.category, categoryColor, taskData.title, taskData.description, taskData.dueDate, taskData.subtasks, taskData.assigned, taskData.priority, priorityImg);
     addTaskToBoard(newCard);
     resetCreateTaskFormInputs();
-    showTaskCreatedPopUp();
+    CreatedPopUpOptions();
+}
+
+/**
+ * Selects and displays the appropriate popup based on element availability.
+ * 
+ * @returns {void} (nothing returned)
+ */
+function CreatedPopUpOptions() {
+    if (document.getElementById('taskCreatedButtonContainer')) {
+        showTaskCreatedPopUp();
+    } else {
+        showTaskCreatedPopUpBoard();
+    }
 }
 
 /**
@@ -401,5 +414,21 @@ function showTaskCreatedPopUp() {
     }, 800);
     setTimeout(() => {
         loadBoard();
+    }, 820);
+}
+
+/**
+ * Displays a temporary popup board indicating task creation and reloads the board.
+ * 
+ * @returns {void} (nothing returned)
+ */
+function showTaskCreatedPopUpBoard() {
+    document.getElementById('taskCreatedButtonContainerBoard').style.display = "flex";
+    setTimeout(() => {
+        document.getElementById('taskCreatedButtonContainerBoard').style.display = "none";
+    }, 800);
+    setTimeout(() => {
+        loadBoard();
+        closeCard()
     }, 820);
 }
