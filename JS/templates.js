@@ -286,7 +286,7 @@ function templateOkBtn(id) {
         <p>Ok</p>
         <img src="./img/createTaskCheckIcon.svg">
     </button>
-    `
+    `;
 }
 
 /**

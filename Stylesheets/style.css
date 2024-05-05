@@ -593,7 +593,6 @@ body {
         }
     }
 
-
     .dropdown-container a:hover {
         cursor: pointer;
         background-color: var(--lightBlueHover);
