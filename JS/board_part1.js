@@ -231,7 +231,7 @@ function startDragging(id) {
  */
 function allowDrop(ev) {
     ev.preventDefault();
-    currentDraggedElement = id;
+    currentDraggedElement;
 }
 
 /**
