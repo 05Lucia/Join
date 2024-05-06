@@ -197,6 +197,7 @@ function openAssignToDropdown() {
     document.getElementById('dropdowncontacts').innerHTML = '';
     scrollDown();
     renderAllContacts();
+    searchIndexAssinged();
 }
 
 /**

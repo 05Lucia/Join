@@ -130,12 +130,50 @@
     align-items: flex-start;
     gap: 24px;
     cursor: pointer;
+    text-underline-position:manipulation;
 }
 
 .board-card-small:active {
     transform: rotate(5deg);
     -webkit-transform: rotate(5deg);
     -ms-transform: rotate(5deg);
+}
+
+.dropdowen-arrow {
+    width: 32px;
+    height: auto;
+}
+
+.flex-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.dropdown-container-task {
+    position: absolute;
+    background-color: white;
+    height: 176px;
+    width: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 10px;
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.20);
+    border-radius: 10px 10px 10px 10px;
+    z-index: 3;
+    margin-left: -125px;
+}
+
+.dropdown-container-task a {
+    cursor: pointer;
+    color: var(--maincolor);
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 400;
+    padding: 8px;
 }
 
 .category-card {
@@ -608,6 +646,7 @@
 
     .small-width {
         width: 100%;
+
     }
 
     .addTaskContainerPopup {

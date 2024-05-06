@@ -156,7 +156,19 @@ function TemplateSubtaskProgressbar(card) {
 function TaskCadBigTemplate(card, id) {
     return `
         <div class="board-card-big-top">
+        <div class="flex-row">
             <div style="background-color:${card.category.color};" class="category-card-big">${card.category.name} </div>
+            <div class="dropdowen-task">
+                <img class="dropdowen-arrow" onclick="dropdowenTask()" src="./img/arrow_drop_down.svg" alt="openDropdown">
+                <div onfocusout="closeDropdowenTask()" tabindex="0" class="dropdown-container-task d-none" id="task-dropdown" onclick="doNotClose(event)">
+                    <p>Move to:</p>
+                    <a onclick="dropMobile('todo', ${card.id})">todo</a>
+                    <a onclick="dropMobile('progress', ${card.id})">In progress</a>
+                    <a onclick="dropMobile('feedback', ${card.id})">Await feedback</a>
+                    <a onclick="dropMobile('done', ${card.id})">done</a>
+                </div>
+            </div>
+            </div>
             <div class="board-card-close-container" onclick="closeCard()">
                 <img class="board-card-close" src="./img/Close.svg" alt="close">
                 <img class="board-card-close-hover" src="./img/close hover.svg" alt="close hover">

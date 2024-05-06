@@ -1178,7 +1178,7 @@ h3 {
 .addTaskContainerPopup {
     width: 488px;
     min-width: 396px;
-    height: 769px;
+    height: 700px;
     padding-top: 0;
     gap: 24px;
     overflow-y: auto;

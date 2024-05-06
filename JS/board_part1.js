@@ -231,6 +231,7 @@ function startDragging(id) {
  */
 function allowDrop(ev) {
     ev.preventDefault();
+    currentDraggedElement = id;
 }
 
 /**
@@ -243,6 +244,29 @@ function drop(place) {
     card['place'] = place;
     updateCards();
     UpdateTaskInRemote();
+}
+
+/**
+ * Updates the card's "place" property in the cards array based on the drop target.
+ * @param {string} place The name of the drop target area (e.g., "todo", "progress").
+ */
+function dropMobile(place, id) {
+    let card = cards.find(card => card.id === id);
+    card['place'] = '';
+    card['place'] = place;
+    closeDropdowenTask();
+    updateCards();
+    UpdateTaskInRemote();
+}
+
+function dropdowenTask() {
+    let container = document.getElementById('task-dropdown');
+    container.classList.remove('d-none');
+    container.focus()
+}
+
+function closeDropdowenTask() {
+    document.getElementById('task-dropdown').classList.add('d-none');
 }
 
 /**
@@ -309,13 +333,11 @@ function dueDateConvert(card) {
         dueDateContainer.innerText = "No due date";
         return; // Exit the function if no due date or not a string
     }
-
     // Split the date string into year, month, and day components
     const [year, month, day] = card.dueDate.split('-');
 
     // Create the formatted date string in DD.MM.YYYY format
     const formattedDueDate = `${day.padStart(2, '0')}.${month.padStart(2, '0')}.${year}`;
-
     dueDateContainer.innerText = formattedDueDate;
 }
 

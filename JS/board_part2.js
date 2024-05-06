@@ -67,6 +67,8 @@ async function editTask(id) {
     const editTaskBnt = document.getElementById('finish-btn');
     editTaskBnt.classList.add('editTaskButton');
     TaskTextInEdit(id)
+    document.querySelector('#taskCategoryBoxPopup').style.display = 'none';
+    document.getElementById('subtasksBox').style.paddingTop = '16px';
 }
 
 /**
@@ -115,7 +117,22 @@ function isAssignedEdit(card) {
         selectedAssignedContacts.push(selectedContact); // Kontakt zum Array hinzufügen
     }
     showAvatarsOfSelectedContacts();
+    
 }
+
+function searchIndexAssinged() {
+    for (let i = 0; i < selectedAssignedContacts.length; i++) {
+        const element = selectedAssignedContacts[i];
+        const initials = element.initials;
+        
+        const indexOfAssigned = localContacts.findIndex(contact => contact.initials === initials);
+        checkAssignContact(indexOfAssigned);
+    }  
+}
+
+function findeIndex(initials, array) {
+    return array.indexOf(initials);
+  }
 
 /**
  * Handles pre-filling subtask data based on the provided card's subtasks.
@@ -142,12 +159,12 @@ function subtaskEdit(card) {
 function editTaskDone(id) {
     const card = cards.find(card => card.id === id);
     let place = card.place;
+    let category = card.category.name;
     deleteUneditTask(id);
 
     let title = errorMessageIfEmptyTitle(); // Titel überprüfen und abrufen
     let dueDate = errorMessageIfEmptyDueDate(); // Fälligkeitsdatum überprüfen und abrufen
     let priority = priorities[0]; // Priorität abrufen
-    let category = document.getElementById('selectTaskCategoryTextField').innerText.trim(); // Kategorie abrufen
     let assigned = selectedAssignedContacts; // Zugeordnete Personen abrufen
     let description = document.getElementById('addTaskDescriptionInput').value.trim(); // Beschreibung abrufen
     let subtasks = createdSubtasks; // Subtasks erstellen
