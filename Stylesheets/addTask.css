@@ -559,6 +559,15 @@ h3 {
     border-bottom: 1px solid rgb(209, 209, 209);
 }
 
+.subtaskListInput {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 4px 0;
+    line-height: 1.4;
+    text-indent: -23px;
+    padding-left: 20px;
+}
+
 .addTaskSubtasksInputContainer:hover {
     cursor: pointer;
     border-bottom-color: rgba(0, 93, 255, 1);
