@@ -251,6 +251,7 @@ function resetAddTaskForm() {
     document.querySelector('.errorMessageIfEmptyTitle').style.visibility = 'hidden';
     document.querySelector('.errorMessageIfEmptyDueDate').style.visibility = 'hidden';
     document.querySelector('.errorMessageIfEmptyCategory').style.visibility = 'hidden';
+    loadAddTasks();
 }
 
 /**
