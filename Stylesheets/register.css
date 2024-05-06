@@ -225,8 +225,16 @@ input::placeholder {
 }
 
 .loginCheckboxContainer {
+    width: 90%; 
     padding: 20px 0; 
 }
+
+.loginCheckboxContainer label {
+    display: flex;
+    align-items: center; 
+    gap: 10px;
+}
+
 .checkboxImage {
     cursor: pointer;
     border: unset;

@@ -209,10 +209,27 @@ body {
 }
 
 .goBackButton {
+    width: 25px;
+    height: 25px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    background-color: white;
-    border: unset;
+    background-color: transparent;
+    color: var(--hoverBlue); 
+    border-radius: 50%;
+    border: none;
+    font-size: 24px;
+    font-weight: bold;
+    font-weight: 700;
     z-index: 1;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.goBackButton:hover {
+    background-color: var(--lightBlueHover);
+    color: var(--maincolor);  
+    padding: 15px;
 }
 
 @media (max-width: 480px) {
