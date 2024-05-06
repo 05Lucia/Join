@@ -73,8 +73,16 @@ async function createUserAsContact() {
     }
     let dataSet = newContactDataSetForArray(name, email, phone);
     localContacts.push(dataSet.newContact);
-    await updateUserContactsInRemote();
-    clearAddContactForm();
+    await updateUserContactsInRemoteAfterRegistration();
+}
+
+/**
+ * Updates the remote storage with the current list of user contacts.
+ *
+ * @returns {Promise<void>} A promise that resolves when the remote storage is updated.
+ */
+async function updateUserContactsInRemoteAfterRegistration() {
+    await setItem('users', allUsers);
 }
 
 /**
