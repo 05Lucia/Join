@@ -161,11 +161,15 @@ function TaskCadBigTemplate(card, id) {
             <div class="dropdowen-task">
                 <img class="dropdowen-arrow" onclick="dropdowenTask()" src="./img/arrow_drop_down.svg" alt="openDropdown">
                 <div onfocusout="closeDropdowenTask()" tabindex="0" class="dropdown-container-task d-none" id="task-dropdown" onclick="doNotClose(event)">
-                    <p>Move to:</p>
-                    <a onclick="dropMobile('todo', ${card.id})">todo</a>
-                    <a onclick="dropMobile('progress', ${card.id})">In progress</a>
-                    <a onclick="dropMobile('feedback', ${card.id})">Await feedback</a>
-                    <a onclick="dropMobile('done', ${card.id})">done</a>
+                    <div class="move-to">    
+                        <p>Move Task to:</p>
+                    </div> 
+                    <div class="move-link">
+                        <a onclick="dropMobile('todo', ${card.id})">todo</a>
+                        <a onclick="dropMobile('progress', ${card.id})">In progress</a>
+                        <a onclick="dropMobile('feedback', ${card.id})">Await feedback</a>
+                        <a onclick="dropMobile('done', ${card.id})">done</a>
+                    </div>
                 </div>
             </div>
             </div>
