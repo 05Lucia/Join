@@ -103,6 +103,15 @@
     border: 1px solid var(--style);
 }
 
+#no-search-results {
+    color: var(--greeting-text);
+    font-size: 32px;
+    font-weight: 500;
+    text-decoration: underline;
+    padding: 10px;
+    border-radius: 10px;
+}
+
 .no-task-div {
     height: 48px;
     width: 100%;
