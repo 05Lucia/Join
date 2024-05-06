@@ -729,7 +729,7 @@ const backupCards = [
             },
             {
                 "text": "Design data schema to represent card information",
-                "done": false
+                "done": true
             },
             {
                 "text": "Implement logic to save and load card data from storage",
@@ -762,15 +762,15 @@ const backupCards = [
         "subtasks": [
             {
                 "text": "Create mockups for different Kanban board views",
-                "done": false
+                "done": true
             },
             {
                 "text": "Design user interactions like adding, editing, and deleting cards",
-                "done": false
+                "done": true
             },
             {
                 "text": "Ensure a clean and user-friendly visual style",
-                "done": false
+                "done": true
             }
         ],
         "assigned": [
