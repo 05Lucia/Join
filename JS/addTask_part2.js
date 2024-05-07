@@ -251,7 +251,6 @@ function resetAddTaskForm() {
     document.querySelector('.errorMessageIfEmptyTitle').style.visibility = 'hidden';
     document.querySelector('.errorMessageIfEmptyDueDate').style.visibility = 'hidden';
     document.querySelector('.errorMessageIfEmptyCategory').style.visibility = 'hidden';
-    loadAddTasks();
 }
 
 /**
@@ -262,7 +261,7 @@ function resetAddTaskForm() {
  */
 function createTask() {
     let taskData = getTaskData();
-    let id = cards.length > 0 ? cards.length: 0;
+    let id = giveId();
     let place = boardPlace === "" ? 'todo' : boardPlace;
     if (!validateTaskData(taskData)) {
         return;
@@ -274,6 +273,32 @@ function createTask() {
     resetCreateTaskFormInputs();
     CreatedPopUpOptions();
 }
+
+/**
+ * Generates a unique ID for a new card.
+ * 
+ * @returns {number} A unique ID for the new card.
+ */
+function giveId() {
+    if (cards.length === 0) {
+      return 0; // Return 0 if no cards exist
+    }
+  
+    let highestId = cards.reduce((maxId, currentCard) => Math.max(maxId, currentCard.id), 0);
+  
+    let missingIds = [];// Find any missing IDs in the sequence (gaps between existing IDs)
+    for (let i = 0; i <= highestId; i++) {
+      if (!cards.find(card => card.id === i)) {
+        missingIds.push(i);
+      }
+    }
+    
+    if (missingIds.length > 0) {
+      return missingIds[0];
+    }
+  
+    return highestId + 1;// If no missing IDs exist, return the highest ID + 1
+  }
 
 /**
  * Selects and displays the appropriate popup based on element availability.

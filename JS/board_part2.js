@@ -1,4 +1,39 @@
 /**
+ * Searches cards based on user input, hiding unmatched & showing matches.
+ * Calls NoMatchFound for empty search or no results.
+ */
+function search() {
+    let query = document.getElementById('search').value.toLowerCase();
+    let hasMatch = false; // Flag to track if any match is found 
+    const containers = [document.getElementById('todo'), document.getElementById('progress'), document.getElementById('feedback'), document.getElementById('done')];
+
+    for (const container of containers) {
+        for (const card of container.querySelectorAll('.board-card-small')) {
+            const titleText = card.querySelector('.card-title').textContent.toLowerCase();
+            const descriptionText = card.querySelector('.card-description')?.textContent.toLowerCase() || ""; // Optional description handling
+
+            const combinedText = `${titleText} ${descriptionText}`;
+
+            if (combinedText.includes(query)) {
+                card.classList.remove('d-none'); // Show matching card
+                hasMatch = true;
+            } else {
+                card.classList.add('d-none'); // Hide non-matching card
+            }
+        }
+    }
+    NoMatchFound(hasMatch, query);
+}
+
+/**
+ * Prevents the close event from bubbling up when clicking inside the big card modal.
+ * @param {Event} event The event object.
+ */
+function doNotClose(event) {
+    event.stopPropagation();
+}
+
+/**
  * Opens the modal for adding a new task to the board.
  * Fetches the add task template using the 'include-AddTask' attribute and injects it into the modal content.
  */
@@ -321,3 +356,21 @@ function closeCard() {
     boardPlace = "";
     updateCards();
 }
+
+/**
+ * Removes a card from the cards array and the board based on its ID.
+ * @param {number} cardId The ID of the card to be deleted.
+ */
+function deleteTask(cardId) {
+    for (let i = cards.length - 1; i >= 0; i--) {
+        if (cards[i].id === cardId) {
+            cards.splice(i, 1);
+            updateCards();
+            closeCard();
+            UpdateTaskInRemote();
+            return;
+        }
+    }
+    console.error("Card with ID", cardId, "not found in the cards array");
+}
+
