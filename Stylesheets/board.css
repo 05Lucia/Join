@@ -726,9 +726,6 @@ cursor: pointer;
         padding: 0px 16px;
     }
 
-    .dropdowen-task {
-        display: none;
-    }
 
     .borad-card-popup h1 {
         font-size: 61px;
@@ -826,6 +823,10 @@ cursor: pointer;
 }
 
 @media (min-width: 1446px) {
+    .dropdowen-task {
+        display: none;
+    }
+
     .kanban-board {
         align-items: center;
         justify-content: center;

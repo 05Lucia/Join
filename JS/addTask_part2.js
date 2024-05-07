@@ -272,6 +272,7 @@ function createTask() {
     addTaskToBoard(newCard);
     resetCreateTaskFormInputs();
     CreatedPopUpOptions();
+    
 }
 
 /**
@@ -455,6 +456,6 @@ function showTaskCreatedPopUpBoard() {
     }, 800);
     setTimeout(() => {
         loadBoard();
-        closeCard()
-    }, 820);
-}
+        closeCardAddTaskPopup();
+    }, 820); 
+};

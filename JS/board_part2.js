@@ -358,6 +358,23 @@ function closeCard() {
 }
 
 /**
+ * Closes the Popup modal for Add Task Popup.
+ */
+function closeCardAddTaskPopup() {
+    let container = document.getElementById('borad-card-overlay');
+    container.classList.add('d-none');
+    container.style.justifyContent = "center";
+    container.style.alignItems = "center"
+    container.innerHTML = `<div class="borad-card-popup d-none" id="borad-card-popup" onclick="doNotClose(event)"></div>`
+    document.body.classList.remove('body-noscroll-class');
+
+    priorities = [];
+    selectedAssignedContacts = [];
+    createdSubtasks = [];
+    boardPlace = "";
+}
+
+/**
  * Removes a card from the cards array and the board based on its ID.
  * @param {number} cardId The ID of the card to be deleted.
  */
