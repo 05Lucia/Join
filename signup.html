@@ -3,27 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign up</title>
+    <title>JOIN</title>
     <link rel="icon" type="image/vnd.icon" href="../img/join.ico">
     <link rel="stylesheet" href="./Stylesheets/style.css">
     <link rel="stylesheet" href="./Stylesheets/board.css">
     <link rel="stylesheet" href="./Stylesheets/summary.css">
     <link rel="stylesheet" href="./Stylesheets/register.css">
-    <link rel="stylesheet" href="./fonts/fonts.css">
-    <script src="script.js"></script> 
-    <script src="./JS/storage.js"></script>
+    <link rel="stylesheet" href="./Stylesheets/addTask.css">
+    <link rel="stylesheet" href="./Stylesheets/contacts.css">
+    <script src="script.js"></script>
+    <script src="./JS/summary.js"></script>
     <script src="./JS/contacts_part1.js"></script>
     <script src="./JS/contacts_part2.js"></script>
-    <script src="./JS/register.js"></script> 
+    <script src="./JS/privacyAndLegal.js"></script>
+    <script src="./JS/signup.js"></script>
+    <script src="./JS/login.js"></script>
+    <script src="./JS/storage.js"></script>
+    <script src="./JS/addTask_part1.js"></script>
+    <script src="./JS/addTask_part2.js"></script>
+    <script src="./JS/board_part1.js"></script>
+    <script src="./JS/board_part2.js"></script>
     <script src="./JS/templates.js"></script>
-</head> 
+    <link rel="stylesheet" href="./fonts/fonts.css">
+</head>
 <main class="signupContainer"> 
     <div class="signupHeader">
         <img src="../img/logoNegative.png"> 
     </div>     
     <div class="signupContent">
-        <div class="headlineContainer" >
-            <button class="goBackButton" onclick="window.location.href='../login.html'"><img src="../img/arrow-left-line.svg"></button>
+        <div class="headlineContainer" > 
+            <button class="goBackButton" onclick="window.location.href='../login.html'">
+                <div class="imageContainer"></div>
+            </button>
             <div style= "margin-left: -45px;"class="signupHeadline">
                 <h1 class="h1Login">Sign up</h1> 
                 <div class="seperator"></div>
@@ -42,8 +53,8 @@
             <div class="msgError" id="msgBoxValidateEmail"></div>
             <div class="inputField">
                 <input class="input" type="password" required id="password" placeholder="Password" minlength="8" autocomplete="new-password"
-                       onfocus="changeLockIcon(this)"
-                       oninput="checkPasswordStrength()">
+                    onfocus="changeLockIcon(this)"
+                    oninput="checkPasswordStrength()">
                 <img onclick="togglePassword('password')" class="inputImage" id="passwordIcon" src="./img/lock.svg">
             </div>  
             <div  class="msgError" id="passwordStrengthMessage"></div>          
@@ -54,7 +65,6 @@
                 <img onclick="togglePassword('confirm_password')" class="inputImage" id="confirmPasswordIcon" src="./img/lock.svg">
             </div>
             <div class="msgError" id="passwordMatchMessage"></div>
-        
             <div id="msgBox"></div>
             <div class="checkboxContainerSignup">
                 <button type="button" class="checkbox" onclick="togglePrivacyPolicyCheckbox(this);">
@@ -77,8 +87,7 @@
     <div class="modal-content"> 
       <p>You Signed Up successfully</p>
     </div>
-  </div> 
-  
+</div> 
 </main>
 </html>
  

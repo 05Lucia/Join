@@ -559,6 +559,15 @@ h3 {
     border-bottom: 1px solid rgb(209, 209, 209);
 }
 
+.subtaskListInput {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 4px 0;
+    line-height: 1.4;
+    text-indent: -23px;
+    padding-left: 20px;
+}
+
 .addTaskSubtasksInputContainer:hover {
     cursor: pointer;
     border-bottom-color: rgba(0, 93, 255, 1);
@@ -600,8 +609,6 @@ h3 {
 }
 
 .editTaskSubtasksInput:focus {
-    border-bottom: 1px solid rgb(209, 209, 209);
-    border-bottom-color: rgba(0, 93, 255, 1);
     outline: none;
 }
 
@@ -631,7 +638,6 @@ h3 {
     justify-content: space-between;
     align-items: center;
     padding: 4px 16px 4px 16px;
-    height: 48px;
 }
 
 .eachSubtaskFocused {
@@ -702,13 +708,13 @@ h3 {
 
 .clearTaskButton:hover {
     cursor: pointer;
-    border: 2px solid var(--maincolor); 
+    border: 2px solid var(--maincolor);
     filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.2));
 }
 
 .clearTaskButton:hover p,
 .clearTaskButton:hover .taskIcon {
-    color: var(--maincolor);  
+    color: var(--maincolor);
 }
 
 .createTaskButton {
@@ -817,16 +823,16 @@ h3 {
         font-size: 15px;
     }
 
-    .urgentIcon{
-        width: 18px; 
+    .urgentIcon {
+        width: 18px;
     }
 
-    .mediumIcon{
-        width: 18px; 
+    .mediumIcon {
+        width: 18px;
     }
 
-    .lowIcon{
-        width: 18px; 
+    .lowIcon {
+        width: 18px;
     }
 }
 
@@ -1060,7 +1066,6 @@ h3 {
     }
 
     .eachSubtask {
-        height: 32px;
         border-radius: 10px;
     }
 
@@ -1080,11 +1085,11 @@ h3 {
     }
 
     .editEachSubtask {
-        height: 32px;
+        height: 48px;
     }
 
     .editTaskSubtasksInput {
-        height: 32px;
+        height: 48px;
     }
 
     .createdSubtasksIcons {
@@ -1103,7 +1108,10 @@ h3 {
     }
 
     .subtaskListInput {
-        min-width: 80%;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 4px 0;
+        line-height: 1.4;
         text-indent: -23px;
         padding-left: 20px;
     }
