@@ -261,7 +261,7 @@ function resetAddTaskForm() {
  */
 function createTask() {
     let taskData = getTaskData();
-    let id = cards.length > 0 ? cards[cards.length - 1].id + 1 : 0;
+    let id = cards.length > 0 ? cards.length: 0;
     let place = boardPlace === "" ? 'todo' : boardPlace;
     if (!validateTaskData(taskData)) {
         return;

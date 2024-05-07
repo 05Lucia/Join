@@ -259,12 +259,22 @@ function dropMobile(place, id) {
     UpdateTaskInRemote();
 }
 
+/**
+ * Opens the task dropdown menu.
+ * 
+ * @returns {void} (nothing returned)
+ */
 function dropdowenTask() {
     let container = document.getElementById('task-dropdown');
     container.classList.remove('d-none');
     container.focus()
 }
 
+/**
+ * Closes the task dropdown menu.
+ * 
+ * @returns {void} (nothing returned)
+ */
 function closeDropdowenTask() {
     document.getElementById('task-dropdown').classList.add('d-none');
 }
