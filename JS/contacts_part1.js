@@ -59,18 +59,15 @@ async function checkIfUserIsAddedAsContact() {
  * @returns {Promise<void>} A promise that resolves when the user is added as a contact.
  */
 async function createUserAsContact() {
-    let name = '';
-    let email = '';
-    let phone = '';
+    let name, email, phone;
     if (currentUser === 'Guest') {
         name = 'Guest';
         email = 'guest@guestmail.com';
-        phone = '+49';
-    } else if (currentUser != 'Guest') {
+    } else {
         name = currentUser;
         email = userEmail;
-        phone = "+49";
     }
+    phone = '+49';
     let dataSet = newContactDataSetForArray(name, email, phone);
     localContacts.push(dataSet.newContact);
     await updateUserContactsInRemoteAfterRegistration();
@@ -173,47 +170,6 @@ function renderContactCategoryAndEachContact(categories, contactListHTML, index)
 }
 
 /**
- * Renders the HTML structure for a single contact category (e.g., "A").
- *
- * @param {string} initial The first letter (uppercase) representing the category.
- * @returns {string} The HTML string for the contact category.
- */
-function renderContactCategory(initial) {
-    return `
-            <div class="sectionByFirstLetter">
-                ${initial}
-            </div>
-            <div class="contactsSeparator">
-            </div>
-        `;
-}
-
-/**
- * Renders the HTML structure for a single contact with its details.
- *
- * @param {Object} contact A contact object containing properties like name, surname, email, avatarColor, and initials.
- * @param {number} index A unique identifier for the contact.
- * @returns {string} The HTML string for the individual contact.
- */
-function renderEachContact(contact, index) {
-    return `
-    <div class="contact" id="contact(${index})" onclick="changeContactButtonColorAsClicked(${index})"> <!-- Index übergeben -->
-        <div class="contactAvatar" style="background-color: ${contact.avatarColor};">
-            ${contact.initials}
-        </div>
-        <div class="contactNameAndEmail">
-            <div class="contactName">
-                ${contact.name} ${contact.surname}
-            </div>
-            <div class="contactEmail" id="contactEmail(${index})">
-                ${contact.email}
-            </div>
-        </div>
-    </div>
-`;
-}
-
-/**
  * Shows the "Add Contact" card by:
  * 1. Unhiding the container element.
  * 2. An animating the card entrance with a slight delay.
@@ -302,7 +258,6 @@ async function createContact() {
     clearAddContactForm();
     hideAddContactCard();
     scrollToAnchor(`contact(${toggleIndex})`);
-    // clickedButtons = [`contact(${toggleIndex})`];
 }
 
 /**
@@ -345,11 +300,7 @@ function getContactData(name = "", email = "", phone = "") {
     if (phone === "") {
         phone = document.getElementById("editContactPhone").value;
     }
-    return {
-        name,
-        email,
-        phone,
-    };
+    return { name, email, phone };
 }
 
 /**

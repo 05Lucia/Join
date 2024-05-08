@@ -564,6 +564,47 @@ function openTaskCategoryDropdownHTMLTemplate(i, taskCategory){
 `;
 }
 
+/**
+ * Renders the HTML structure for a single contact category (e.g., "A").
+ *
+ * @param {string} initial The first letter (uppercase) representing the category.
+ * @returns {string} The HTML string for the contact category.
+ */
+function renderContactCategory(initial) {
+    return `
+            <div class="sectionByFirstLetter">
+                ${initial}
+            </div>
+            <div class="contactsSeparator">
+            </div>
+        `;
+}
+
+/**
+ * Renders the HTML structure for a single contact with its details.
+ *
+ * @param {Object} contact A contact object containing properties like name, surname, email, avatarColor, and initials.
+ * @param {number} index A unique identifier for the contact.
+ * @returns {string} The HTML string for the individual contact.
+ */
+function renderEachContact(contact, index) {
+    return `
+    <div class="contact" id="contact(${index})" onclick="changeContactButtonColorAsClicked(${index})"> <!-- Index übergeben -->
+        <div class="contactAvatar" style="background-color: ${contact.avatarColor};">
+            ${contact.initials}
+        </div>
+        <div class="contactNameAndEmail">
+            <div class="contactName">
+                ${contact.name} ${contact.surname}
+            </div>
+            <div class="contactEmail" id="contactEmail(${index})">
+                ${contact.email}
+            </div>
+        </div>
+    </div>
+`;
+}
+
 function restoreDefault() {
     setItem("cards", backupCards)
 }
