@@ -247,6 +247,14 @@ function drop(place) {
     
 }
 
+function highlight(id) {
+    document.getElementById(id).classList.add('drag-area-highlight')
+}
+
+function removeHighlight(id) {
+    document.getElementById(id).classList.remove('drag-area-highlight')
+}
+
 /**
  * Updates the card's "place" property in the cards array based on the drop target.
  * @param {string} place The name of the drop target area (e.g., "todo", "progress").
