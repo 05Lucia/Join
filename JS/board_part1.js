@@ -244,6 +244,15 @@ function drop(place) {
     card['place'] = place;
     updateCards();
     UpdateTaskInRemote();
+    
+}
+
+function highlight(id) {
+    document.getElementById(id).classList.add('drag-area-highlight')
+}
+
+function removeHighlight(id) {
+    document.getElementById(id).classList.remove('drag-area-highlight')
 }
 
 /**
@@ -257,6 +266,7 @@ function dropMobile(place, id) {
     closeDropdowenTask();
     updateCards();
     UpdateTaskInRemote();
+    closeCard();
 }
 
 /**

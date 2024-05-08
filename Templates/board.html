@@ -23,7 +23,7 @@
                     <img class="add-btn-board-click" src="./img/plus button clicked.svg" alt="plus icon">
                 </div>
             </div>
-            <div id="todo" class="card-container" ondrop="drop('todo')" ondragover="allowDrop(event)">
+            <div id="todo" class="card-container" ondrop="drop('todo'); removeHighlight('todo')" ondragleave="removeHighlight('todo')" ondragover="allowDrop(event); highlight('todo')">
                <div class="no-task-div">No tasks To do</div> 
             </div>
             
@@ -37,7 +37,7 @@
                     <img class="add-btn-board-click" src="./img/plus button clicked.svg" alt="plus icon">
                 </div>
             </div>
-            <div id="progress" class="card-container" ondrop="drop('progress')" ondragover="allowDrop(event)">
+            <div id="progress" class="card-container" ondrop="drop('progress'); removeHighlight('progress')" ondragover="allowDrop(event); highlight('progress')" ondragleave="removeHighlight('progress')">
                 <div class="no-task-div">No tasks in progress</div>
             </div>
         </div>
@@ -50,7 +50,7 @@
                     <img class="add-btn-board-click" src="./img/plus button clicked.svg" alt="plus icon">
                 </div>
             </div>
-            <div id="feedback" class="card-container" ondrop="drop('feedback')" ondragover="allowDrop(event)">
+            <div id="feedback" class="card-container" ondrop="drop('feedback'); removeHighlight('feedback')" ondragover="allowDrop(event); highlight('feedback')" ondragleave="removeHighlight('feedback')">
                 <div class="no-task-div">No tasks feedback</div>
             </div>
 
@@ -59,7 +59,7 @@
             <div class="board-header">
                 <h3>Done</h3>
             </div>
-            <div id="done" class="card-container" ondrop="drop('done')" ondragover="allowDrop(event)">
+            <div id="done" class="card-container" ondrop="drop('done'); removeHighlight('done')" ondragover="allowDrop(event); highlight('done')" ondragleave="removeHighlight('done')">
                 <div class="no-task-div">No tasks done</div>
             </div>
 
