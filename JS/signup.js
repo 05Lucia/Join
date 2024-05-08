@@ -19,6 +19,25 @@ function validateEmailAddress() {
     }
 }
 
+async function checkEmailExistence() {
+    let emailInput = document.getElementById("email");
+    let email = emailInput.value.trim();
+    let emailMessage = document.getElementById("msgBoxValidateEmail");
+ 
+    let users = await loadUsers();
+    let emailExists = users.some(user => user.email === email);
+
+    if (emailExists) {
+        emailMessage.innerHTML = "Diese E-Mail-Adresse ist bereits registriert.";
+        emailMessage.style.color = "red";
+        return false;
+    } else {
+        emailMessage.innerHTML = "E-Mail-Adresse ist verfügbar.";
+        emailMessage.style.color = "green";
+        return true;
+    }
+}
+
 /**
  * Checks the strength of the password entered by the user.
  * @returns {boolean} Returns true if the password meets the strength criteria, otherwise rturns false.
@@ -151,24 +170,37 @@ function loadGuestUser() {
  * @returns {Promise<void>}
  */
 async function addUser() {
+    let name = document.getElementById('name').value;
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;
-    let name = document.getElementById('name').value;
+    let confirmPassword = document.getElementById('confirm_password').value;
+  
+    if (name === "" || email === "" || password === "" || confirmPassword === "") {
+        alert("Please fill in all fields.");
+        return;
+    }
 
-    if (!validateFormFields(email, password, name)) {
+    if (!validateEmailAddress()) {
+        return;
+    }
+
+    if (!await checkEmailExistence(email)) {
+        return;
+    }
+
+    if (!checkPasswordStrength() || !validateConfirmedPassword()) {
         return;
     }
 
     if (!checkPrivacyPolicy()) {
+        alert("Please accept the privacy policy to proceed.");
+        return;
+    }
+    if (!checkPrivacyPolicy()) {
         return;
     }
 
-    if (await checkIfEmailExists(email)) {
-        alert("This email is already registered.");
-        return;
-    }
-
-    const user = {
+    let user = {
         name: name,
         email: email,
         password: password,
