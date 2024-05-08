@@ -1,4 +1,4 @@
-<div class="addTaskWrapper">
+<div class="addTaskWrapper" onclick="closeOnClickOutside(event)">
     <div class="addTaskContainer" id="addTaskContainer">
         <div class="enterTitleBox">
             <input class="addTaskInputTitle" id="addTaskInputTitle" onfocusout="errorMessageIfEmptyTitle()" type="text"
@@ -17,7 +17,7 @@
                 <h3>Due date</h3>
             </span>
             <input class="addTaskDueDateInput" id="addTaskDueDateInput" onfocusout="errorMessageIfEmptyDueDate()"
-                type="date" placeholder="dd/mm/yyyy">
+                type="date" placeholder="dd/mm/yyyy" min="">
             <p class="errorMessageIfEmptyDueDate">This field is required</p>
         </div>
         <div class="priorityBox">
@@ -36,14 +36,14 @@
                         src="./img/priorityLowInactive.svg"></button>
             </div>
         </div>
-        <div class="assignedToBox">
+        <div class="assignedToBox" id="assignedToBox">
             <span class="addTaskTopics">
                 <h3>Assigned to</h3>(optional)
             </span>
-            <input class="assignContactsDropdown" id="assignContactsDropdown" onclick="toggleAssignToDropdown()"
-                oninput="searchContactToAssign()" placeholder="Select contacts to assign" autocomplete="off">
+            <input class="assignContactsDropdown" id="assignContactsDropdown" onclick="toggleAssignToDropdown()" 
+                oninput="searchContactToAssign()" placeholder="Select contacts to assign" autocomplete="off" >
             </input>
-            <div class="dropdowncontacts" id="dropdowncontacts" tabindex="0" onfocusout="closeAssignToDropdown()" style="display: none">
+            <div class="dropdowncontacts" id="dropdowncontacts" style="display: none">
             </div>
             <div class="avatarsOfSelectedContacts" id="avatarsOfSelectedContacts" style="display: none">
             </div>
