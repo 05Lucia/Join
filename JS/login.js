@@ -182,12 +182,7 @@ document.addEventListener('DOMContentLoaded', function () {
  */
 async function guestLogin() { 
     setGuestLogin();
-    try { 
-        alert("Welcome, dear guest! Please be aware that your access is limited. To fully enjoy all the features of Join, consider registering using our sign-up form.");
-        greetUser();
-    } finally {
-        window.location.href = '../index.html';
-    }
+    successfulGuestLogin();
 }
 
 /**
@@ -199,6 +194,20 @@ function setGuestLogin() {
     localStorage.setItem('userType', 'guest');
 }
 
+function successfulGuestLogin() {
+    let loginModal = document.getElementById("succesfulGuestLoginModal");
+    if (loginModal.style.display !== "block") {
+        loginModal.style.display = "block";
+
+        setTimeout(function() {
+            if (loginModal.style.display === "block") {
+                loginModal.style.display = "none";
+                window.location.href = '../index.html';
+                greetUser();  
+            }
+        }, 2000);
+    }
+}
 /**
  * Displays a greeting message based on the current time of day to the logged-in user.
  */
@@ -253,6 +262,19 @@ function logout() {
     localStorage.removeItem('rememberedPassword');
     localStorage.removeItem('rememberMe');
 
-    alert('Your logout was successful');
-    window.location.href = '../login.html';
+    successfulLogout();
+}
+
+function successfulLogout() {
+    let logoutModal = document.getElementById("successfulLogoutModal");
+    if (logoutModal.style.display !== "block") {
+        logoutModal.style.display = "block";
+
+        setTimeout(function() {
+            if (logoutModal.style.display === "block") {
+                logoutModal.style.display = "none";
+                window.location.href = '../login.html';
+            }
+        }, 2000);
+    }
 }
