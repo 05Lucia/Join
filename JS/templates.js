@@ -548,6 +548,22 @@ function saveEditSubtaskInputHTMLTemplate(i, editedSubtask) {
         `;
 }
 
+function showAvatarsOfSelectedContactsHTMLTemplate(contact){
+    return `
+                <div class="assignToContactAvatar" style="background-color: ${contact['avatarColor']};">
+                    ${contact['initials']}
+                </div>
+            `;
+}
+
+function openTaskCategoryDropdownHTMLTemplate(i, taskCategory){
+    return `
+    <div class="dropdownEachTaskCategory" id="dropdownEachTaskCategory(${i})" onclick="selectTaskCategory(${i})">
+        ${taskCategory.name}
+    </div>
+`;
+}
+
 function restoreDefault() {
     setItem("cards", backupCards)
 }

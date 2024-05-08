@@ -96,27 +96,45 @@ function getCurrentDate(){
 
 /**
  * This function checks if the "Add Task" due date input field is empty and displays an error message if so.
- * It also handles hiding the error message if the field is filled.
+ * It also handles hiding the error message if the field is filled or contains a valid date.
  *
- * @returns {string|undefined} If the due date field is not empty, the function returns its value.
- *                              Otherwise, it returns for error cases is needed).
+ * @returns {string|undefined} If the due date field is not empty and contains a valid date,
+ *                             the function returns its value. Otherwise, it returns undefined.
  */
 function errorMessageIfEmptyDueDate() {
-    let dueDateInput = document.getElementById('addTaskDueDateInput');
-    let currentDate = getCurrentDate();
-    let errorMessage = document.querySelector('.errorMessageIfEmptyDueDate');
-    if (dueDateInput.value == "") {
-        errorMessage.innerHTML = 'This field is required'
-        errorMessage.style.visibility = 'visible';
-        highlightErrorMessage(errorMessage);
-    } else if (dueDateInput.value < currentDate){
-        errorMessage.style.visibility = 'visible';
-        errorMessage.innerHTML = 'Past date! Please select a date from today and onwards.'
-        highlightErrorMessage(errorMessage);
+    const dueDateInput = document.getElementById('addTaskDueDateInput');
+    const errorMessage = document.querySelector('.errorMessageIfEmptyDueDate');
+    const currentDate = getCurrentDate();
+
+    if (dueDateInput.value === "") {
+        displayErrorMessage(errorMessage, 'This field is required');
+    } else if (dueDateInput.value < currentDate) {
+        displayErrorMessage(errorMessage, 'Past date! Please select a date from today and onwards.');
     } else {
-        errorMessage.style.visibility = 'hidden';
+        hideErrorMessage(errorMessage);
         return dueDateInput.value;
     }
+}
+
+/**
+ * Displays an error message with the provided message.
+ *
+ * @param {HTMLElement} errorMessage - The HTML element to display the error message in.
+ * @param {string} message - The error message to display.
+ */
+function displayErrorMessage(errorMessage, message) {
+    errorMessage.innerHTML = message;
+    errorMessage.style.visibility = 'visible';
+    highlightErrorMessage(errorMessage);
+}
+
+/**
+ * Hides the error message element.
+ *
+ * @param {HTMLElement} errorMessage - The HTML element representing the error message to hide.
+ */
+function hideErrorMessage(errorMessage) {
+    errorMessage.style.visibility = 'hidden';
 }
 
 let priorities = [];
@@ -328,7 +346,6 @@ function renderFilteredContacts(filteredContacts) {
         let backgroundColor = isAssigned ? "rgba(69, 137, 255, 1)" : "white";
         let textColor = isAssigned ? "white" : "black";
         let checkBoxSrc = isAssigned ? "./img/assignContactCheckChecked.svg" : "./img/assingContactCheckUnchecked.svg";
-
         dropdownContainer.innerHTML += renderFilteredContactsHTMLTemplate(i, backgroundColor, contact, textColor, checkBoxSrc)
     });
 }
@@ -369,77 +386,4 @@ function getContactRelatedInfo(contact) {
     let avatarColor = contact.avatarColor;
     let contactIndex = selectedAssignedContacts.findIndex(item => item.name === fullName);
     return { fullName, initials, avatarColor, contactIndex };
-}
-
-/**
- * This function handles the assignment or unassignment of a contact based on the contact index.
- * @param {number} contactIndex - The index of the contact in the selectedAssignedContacts array.
- * @param {string} fullName - The full name of the contact.
- * @param {string} initials - The initials of the contact.
- * @param {string} avatarColor - The avatar color of the contact.
- * @param {number} i - The index of the contact in the list.
- */
-function handleContactAssignment(contactIndex, fullName, initials, avatarColor, i) {
-    if (contactIndex === -1) {
-        let selectedContact = { name: fullName, initials: initials, avatarColor: avatarColor };
-        selectedAssignedContacts.push(selectedContact);
-        checkAssignContact(i);
-    } else {
-        selectedAssignedContacts.splice(contactIndex, 1);
-        uncheckAssignContact(i);
-    }
-}
-
-/**
- * This function updates the visual representation of a contact in the "Assign To" dropdown menu to reflect its assigned state (selected).
- * It targets specific elements based on dynamic IDs constructed using `dropdownEachContact(i)` and `assignToContactName(i)`.
- * It sets the background color of the contact container, text color of the contact name, and calls `changeCheckBoxStyle` to update the checkbox image (likely to checked).
- * Finally, it calls `showAvatarsOfSelectedContacts` to potentially update the assigned contacts avatar list.
- * 
- * @param {number} i - The index of the contact in the list.
- */
-function checkAssignContact(i) {
-    document.getElementById(`dropdownEachContact(${i})`).style.backgroundColor = "rgba(69, 137, 255, 1)";
-    document.getElementById(`assignToContactName(${i})`).style.color = "white";
-    changeCheckBoxStyle(i);
-    showAvatarsOfSelectedContacts();
-}
-
-/**
- * This function updates the visual representation of a contact in the "Assign To" dropdown menu to reflect its unassigned state (unselected).
- * It targets specific elements based on dynamic IDs constructed using `dropdownEachContact(i)` and `assignToContactName(i)`.
- * It sets the background color of the contact container and text color of the contact name back to defaults.
- * It calls `changeBackCheckBoxStyle` to update the checkbox image (likely to unchecked).
- * Finally, it calls `showAvatarsOfSelectedContacts` to potentially update the assigned contacts avatar list.
- * 
- * @param {number} i - The index of the contact in the list.
- */
-function uncheckAssignContact(i) {
-    document.getElementById(`dropdownEachContact(${i})`).style.backgroundColor = "white";
-    document.getElementById(`assignToContactName(${i})`).style.color = "black";
-    changeBackCheckBoxStyle(i);
-    showAvatarsOfSelectedContacts();
-}
-
-/**
- * This function updates the list of assigned contacts' avatars displayed below the dropdown menu.
- * It first sorts the `selectedAssignedContacts` array by name in ascending order using `localeCompare`.
- * It then shows the container for the avatar list, clears its inner HTML, and loops through each assigned contact.
- * For each contact, it constructs the avatar HTML element with the contact's initials and background color set to the contact's avatar color.
- * Finally, it adds the avatar HTML to the container.
- */
-function showAvatarsOfSelectedContacts() {
-    selectedAssignedContacts.sort((a, b) => {
-        return a.name.localeCompare(b.name);
-    });
-    document.getElementById('avatarsOfSelectedContacts').style.display = "flex";
-    document.getElementById('avatarsOfSelectedContacts').innerHTML = "";
-    for (let i = 0; i < selectedAssignedContacts.length; i++) {
-        const contact = selectedAssignedContacts[i];
-        document.getElementById('avatarsOfSelectedContacts').innerHTML += `
-    <div class="assignToContactAvatar" style="background-color: ${contact['avatarColor']};">
-    ${contact['initials']}
-    </div>
-    `;
-    }
 }
