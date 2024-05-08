@@ -10,6 +10,7 @@ async function loadAddTasks() {
     await Templates('add_task');
     addTaskInit();
     changeNavigationAddTask()
+    getCurrentDate();
 }
 
 /**
@@ -80,6 +81,20 @@ function errorMessageIfEmptyTitle() {
 }
 
 /**
+ * This function sets the minimum date value for a specified date input field to the current date.
+ */
+function getCurrentDate(){
+    const today = new Date();
+    const year = today.getFullYear();
+    let month = today.getMonth() + 1; 
+    let day = today.getDate();
+    month = month < 10 ? '0' + month : month;
+    day = day < 10 ? '0' + day : day;
+    document.getElementById('addTaskDueDateInput').min = `${year}-${month}-${day}`;
+    return `${year}-${month}-${day}`;
+}
+
+/**
  * This function checks if the "Add Task" due date input field is empty and displays an error message if so.
  * It also handles hiding the error message if the field is filled.
  *
@@ -88,9 +103,15 @@ function errorMessageIfEmptyTitle() {
  */
 function errorMessageIfEmptyDueDate() {
     let dueDateInput = document.getElementById('addTaskDueDateInput');
+    let currentDate = getCurrentDate();
     let errorMessage = document.querySelector('.errorMessageIfEmptyDueDate');
     if (dueDateInput.value == "") {
+        errorMessage.innerHTML = 'This field is required'
         errorMessage.style.visibility = 'visible';
+        highlightErrorMessage(errorMessage);
+    } else if (dueDateInput.value < currentDate){
+        errorMessage.style.visibility = 'visible';
+        errorMessage.innerHTML = 'Past date! Please select a date from today and onwards.'
         highlightErrorMessage(errorMessage);
     } else {
         errorMessage.style.visibility = 'hidden';
@@ -198,6 +219,18 @@ function openAssignToDropdown() {
     scrollDown();
     renderAllContacts();
     searchIndexAssinged();
+}
+
+/**
+ * This function checks if a click event occurred outside a specific element and performs an action.
+ * @param {MouseEvent} event - The click event that was triggered.
+ */
+function closeOnClickOutside(event) {
+    const assignedToBox = document.getElementById('assignedToBox');
+    const targetElement = event.target;
+    if (!assignedToBox.contains(targetElement)) {
+        closeAssignToDropdown();
+    }
 }
 
 /**
