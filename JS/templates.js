@@ -172,7 +172,8 @@ function TaskCadBigTemplate(card, id) {
                     </div>
                 </div>
             </div>
-            </div>
+            <p>Status<p/>
+        </div>
             <div class="board-card-close-container" onclick="closeCard()">
                 <img class="board-card-close" src="./img/Close.svg" alt="close">
                 <img class="board-card-close-hover" src="./img/close hover.svg" alt="close hover">

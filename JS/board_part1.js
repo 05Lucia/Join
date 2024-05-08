@@ -244,6 +244,7 @@ function drop(place) {
     card['place'] = place;
     updateCards();
     UpdateTaskInRemote();
+    
 }
 
 /**
@@ -257,6 +258,7 @@ function dropMobile(place, id) {
     closeDropdowenTask();
     updateCards();
     UpdateTaskInRemote();
+    closeCard();
 }
 
 /**

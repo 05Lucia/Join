@@ -827,6 +827,11 @@ cursor: pointer;
         display: none;
     }
 
+    
+    .flex-row p {
+        display: none;
+    }
+
     .kanban-board {
         align-items: center;
         justify-content: center;
