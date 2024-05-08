@@ -165,10 +165,10 @@ function TaskCadBigTemplate(card, id) {
                         <p>Move Task to:</p>
                     </div> 
                     <div class="move-link">
-                        <a onclick="dropMobile('todo', ${card.id})">todo</a>
+                        <a onclick="dropMobile('todo', ${card.id})">Todo</a>
                         <a onclick="dropMobile('progress', ${card.id})">In progress</a>
                         <a onclick="dropMobile('feedback', ${card.id})">Await feedback</a>
-                        <a onclick="dropMobile('done', ${card.id})">done</a>
+                        <a onclick="dropMobile('done', ${card.id})">Done</a>
                     </div>
                 </div>
             </div>
