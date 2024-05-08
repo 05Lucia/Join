@@ -31,7 +31,6 @@ async function loadTasks() {
  */
 async function UpdateTaskInRemote() {
     await setItem('cards', cards);
-    console.log("cards saved to storage", cards);
 }
 
 /**

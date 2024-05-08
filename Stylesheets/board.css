@@ -845,6 +845,7 @@
         overflow-x: scroll;
         padding: 0px 16px;
         height: 100%;
+        gap: 7px;
     }
 
     .kanban-board::-webkit-scrollbar {
@@ -859,7 +860,7 @@
 
     .board-collum {
         height: 100%;
-        width: 270px;
+        width: 285px;
     }
 
 }
