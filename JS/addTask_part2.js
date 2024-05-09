@@ -1,4 +1,73 @@
 /**
+ * This function handles the assignment or unassignment of a contact based on the contact index.
+ * @param {number} contactIndex - The index of the contact in the selectedAssignedContacts array.
+ * @param {string} fullName - The full name of the contact.
+ * @param {string} initials - The initials of the contact.
+ * @param {string} avatarColor - The avatar color of the contact.
+ * @param {number} i - The index of the contact in the list.
+ */
+function handleContactAssignment(contactIndex, fullName, initials, avatarColor, i) {
+    if (contactIndex === -1) {
+        let selectedContact = { name: fullName, initials: initials, avatarColor: avatarColor };
+        selectedAssignedContacts.push(selectedContact);
+        checkAssignContact(i);
+    } else {
+        selectedAssignedContacts.splice(contactIndex, 1);
+        uncheckAssignContact(i);
+    }
+}
+
+/**
+ * This function updates the visual representation of a contact in the "Assign To" dropdown menu to reflect its assigned state (selected).
+ * It targets specific elements based on dynamic IDs constructed using `dropdownEachContact(i)` and `assignToContactName(i)`.
+ * It sets the background color of the contact container, text color of the contact name, and calls `changeCheckBoxStyle` to update the checkbox image (likely to checked).
+ * Finally, it calls `showAvatarsOfSelectedContacts` to potentially update the assigned contacts avatar list.
+ * 
+ * @param {number} i - The index of the contact in the list.
+ */
+function checkAssignContact(i) {
+    document.getElementById(`dropdownEachContact(${i})`).style.backgroundColor = "rgba(69, 137, 255, 1)";
+    document.getElementById(`assignToContactName(${i})`).style.color = "white";
+    changeCheckBoxStyle(i);
+    showAvatarsOfSelectedContacts();
+}
+
+/**
+ * This function updates the visual representation of a contact in the "Assign To" dropdown menu to reflect its unassigned state (unselected).
+ * It targets specific elements based on dynamic IDs constructed using `dropdownEachContact(i)` and `assignToContactName(i)`.
+ * It sets the background color of the contact container and text color of the contact name back to defaults.
+ * It calls `changeBackCheckBoxStyle` to update the checkbox image (likely to unchecked).
+ * Finally, it calls `showAvatarsOfSelectedContacts` to potentially update the assigned contacts avatar list.
+ * 
+ * @param {number} i - The index of the contact in the list.
+ */
+function uncheckAssignContact(i) {
+    document.getElementById(`dropdownEachContact(${i})`).style.backgroundColor = "white";
+    document.getElementById(`assignToContactName(${i})`).style.color = "black";
+    changeBackCheckBoxStyle(i);
+    showAvatarsOfSelectedContacts();
+}
+
+/**
+ * This function updates the list of assigned contacts' avatars displayed below the dropdown menu.
+ * It first sorts the `selectedAssignedContacts` array by name in ascending order using `localeCompare`.
+ * It then shows the container for the avatar list, clears its inner HTML, and loops through each assigned contact.
+ * For each contact, it constructs the avatar HTML element with the contact's initials and background color set to the contact's avatar color.
+ * Finally, it adds the avatar HTML to the container.
+ */
+function showAvatarsOfSelectedContacts() {
+    selectedAssignedContacts.sort((a, b) => {
+        return a.name.localeCompare(b.name);
+    });
+    document.getElementById('avatarsOfSelectedContacts').style.display = "flex";
+    document.getElementById('avatarsOfSelectedContacts').innerHTML = "";
+    for (let i = 0; i < selectedAssignedContacts.length; i++) {
+        const contact = selectedAssignedContacts[i];
+        document.getElementById('avatarsOfSelectedContacts').innerHTML += showAvatarsOfSelectedContactsHTMLTemplate(contact);
+    }
+}
+
+/**
  * An array containing task category objects. Each object has properties for name and category color.
  * 
  * @typedef {object} TaskCategory
@@ -40,11 +109,7 @@ function openTaskCategoryDropdown() {
     document.getElementById('dropdownSelectTasksCategory').innerHTML = '';
     for (let i = 0; i < taskCategories.length; i++) {
         const taskCategory = taskCategories[i];
-        document.getElementById('dropdownSelectTasksCategory').innerHTML += /*html*/`
-        <div class="dropdownEachTaskCategory" id="dropdownEachTaskCategory(${i})" onclick="selectTaskCategory(${i})">
-            ${taskCategory.name}
-        </div>
-    `;
+        document.getElementById('dropdownSelectTasksCategory').innerHTML += openTaskCategoryDropdownHTMLTemplate(i, taskCategory);
     }
     scrollDown();
 }
@@ -224,238 +289,74 @@ function deleteCreatedSubtask(subTastIndex) {
 }
 
 /**
- * This function resets the form fields for creating a new task.
- * It clears the values of the following input elements:
- *   - addTaskInputTitle (presumably for the task title)
- *   - addTaskDescriptionInput (presumably for the task description)
- *   - addTaskDueDateInput (presumably for the task due date)
- * It calls `changePriorityColor` to reset the priority color selection (presumably to a default value like 'mediumPriorityButton').
- * It clears the inner HTML of the element with the ID 'avatarsOfSelectedContacts' (likely to remove any displayed assigned contacts).
- * It resets the `selectedAssignedContacts` array to an empty array.
- * It updates the text content of the element with the ID 'selectTaskCategoryTextField' to "Select task category" (presumably to reset the selected category).
- * It resets the `createdSubtasks` array to an empty array (presumably to remove any created subtasks).
- * Finally, it hides any error messages related to empty title, due date, or category selection using query selectors.
+ * This function resets the entire "Add Task" form to its initial state.
+ * It calls various helper functions to reset individual form elements.
  */
 function resetAddTaskForm() {
+    resetInputFields();
+    resetPriority();
+    resetAssignToDropdown();
+    resetTaskCategory();
+    resetSubtasks();
+    resetErrorMessagesVisibility();
+}
+
+/**
+ * This function resets the input fields in the "Add Task" form to their empty states.
+ * It clears the values of the title, description, due date, and subtasks inputs.
+ */
+function resetInputFields() {
     document.getElementById('addTaskInputTitle').value = '';
     document.getElementById('addTaskDescriptionInput').value = '';
     document.getElementById('addTaskDueDateInput').value = '';
+    document.getElementById('addTaskSubtasksInput').value = '';
+}
+
+/**
+ * This function resets the priority selection in the "Add Task" form.
+ * It changes the default activated button representing the priority level.
+ */
+function resetPriority() {
     changePriorityColor('mediumPriorityButton');
+}
+
+/**
+ * This function resets the "Assign To" dropdown menu in the "Add Task" form.
+ * It clears the selected value, closes the dropdown (if open), and empties the container for displaying selected contacts.
+ */
+function resetAssignToDropdown() {
     document.getElementById('assignContactsDropdown').value = '';
     closeAssignToDropdown();
     document.getElementById('avatarsOfSelectedContacts').innerHTML = "";
     selectedAssignedContacts = [];
+}
+
+/**
+ * This function resets the selected task category in the "Add Task" form.
+ * It updates the text content of an element displaying the default text.
+ */
+function resetTaskCategory() {
     document.getElementById('selectTaskCategoryTextField').innerHTML = "Select task category";
+
+}
+
+/**
+ * This function resets the subtasks section in the "Add Task" form.
+ * It clears the `createdSubtasks` array and the subtasks input field.
+ */
+function resetSubtasks() {
     createdSubtasks = [];
     document.getElementById('addTaskSubtasksInput').value = '';
-    document.querySelector('.errorMessageIfEmptyTitle').style.visibility = 'hidden';
-    document.querySelector('.errorMessageIfEmptyDueDate').style.visibility = 'hidden';
-    document.querySelector('.errorMessageIfEmptyCategory').style.visibility = 'hidden';
+    openCreatedSubtaskBox();
 }
 
 /**
- * This function is the main entry point for creating a new task.
- * It gathers data from the form, validates it, and builds a new task object.
- * If validation fails, it displays error messages and exits.
- * Otherwise, it adds the new task to the board, resets the form, and displays a success popup.
+ * This function hides any error messages related to empty fields in the "Add Task" form.
+ * It selects all elements with specific error message classes and sets their visibility to hidden.
  */
-function createTask() {
-    let taskData = getTaskData();
-    let id = giveId();
-    let place = boardPlace === "" ? 'todo' : boardPlace;
-    if (!validateTaskData(taskData)) {
-        return;
-    }
-    let priorityImg = getPriorityImagePath(taskData.priority);
-    let categoryColor = getCategoryColor(taskData.category);
-    let newCard = buildTemplateForArrayInput(id, place, taskData.category, categoryColor, taskData.title, taskData.description, taskData.dueDate, taskData.subtasks, taskData.assigned, taskData.priority, priorityImg);
-    addTaskToBoard(newCard);
-    resetCreateTaskFormInputs();
-    CreatedPopUpOptions();
-    
+function resetErrorMessagesVisibility() {
+    const errorMessages = document.querySelectorAll('.errorMessageIfEmptyTitle, .errorMessageIfEmptyDueDate, .errorMessageIfEmptyCategory');
+    errorMessages.forEach(errorMessage => {
+        errorMessage.style.visibility = 'hidden';
+    });
 }
-
-/**
- * Generates a unique ID for a new card.
- * 
- * @returns {number} A unique ID for the new card.
- */
-function giveId() {
-    if (cards.length === 0) {
-      return 0; // Return 0 if no cards exist
-    }
-  
-    let highestId = cards.reduce((maxId, currentCard) => Math.max(maxId, currentCard.id), 0);
-  
-    let missingIds = [];// Find any missing IDs in the sequence (gaps between existing IDs)
-    for (let i = 0; i <= highestId; i++) {
-      if (!cards.find(card => card.id === i)) {
-        missingIds.push(i);
-      }
-    }
-    
-    if (missingIds.length > 0) {
-      return missingIds[0];
-    }
-  
-    return highestId + 1;// If no missing IDs exist, return the highest ID + 1
-  }
-
-/**
- * Selects and displays the appropriate popup based on element availability.
- * 
- * @returns {void} (nothing returned)
- */
-function CreatedPopUpOptions() {
-    if (document.getElementById('taskCreatedButtonContainer')) {
-        showTaskCreatedPopUp();
-    } else {
-        showTaskCreatedPopUpBoard();
-    }
-}
-
-/**
- * This function gathers data from the create task form and returns an object containing the task details.
- * It retrieves title, due date, category, assigned contacts, description, and subtasks using relevant functions.
- */
-function getTaskData() {
-    return {
-        title: errorMessageIfEmptyTitle(),
-        dueDate: errorMessageIfEmptyDueDate(),
-        priority: priorities[0],
-        category: document.getElementById('selectTaskCategoryTextField').innerText.trim(),
-        assigned: selectedAssignedContacts,
-        description: document.getElementById('addTaskDescriptionInput').value.trim(),
-        subtasks: createdSubtasks,
-    }
-}
-
-/**
- * This function validates the provided task data.
- * It checks for missing title, due date, or invalid category.
- * If any are missing, it displays corresponding error messages and returns false.
- * Otherwise, it returns true.
- */
-function validateTaskData(taskData) {
-    if (!taskData.title || !taskData.dueDate || !taskCategories.some(categoryObj => categoryObj.name === taskData.category)) {
-        errorMessageIfEmptyTitle();
-        errorMessageIfEmptyDueDate();
-        errorMessageIfEmptyCategory();
-        return false;
-    }
-    return true;
-}
-
-/**
- * This function takes the priority urgency level (e.g., 'Urgent', 'Medium', 'Low') and returns the corresponding image path for the priority icon.
- */
-function getPriorityImagePath(priority) {
-    if (priority == 'Urgent') {
-        return './img/priorityHighInactive.svg';
-    } else if (priority == 'Medium') {
-        return './img/priorityMediumInactive.svg';
-    } else {
-        return './img/priorityLowInactive.svg';
-    }
-}
-
-/**
- * This function takes the selected category name and finds the corresponding category object from the `taskCategories` array.
- * If a match is found, it returns the category color. Otherwise, it logs an error message.
- */
-function getCategoryColor(category) {
-    let matchingCategory = taskCategories.find(categoryObj => categoryObj.name === category);
-    if (matchingCategory) {
-        return matchingCategory.categoryColor;
-    } else {
-        console.error("Error: Category color not found");
-    }
-}
-
-/**
- * This function builds a new task object with the provided details.
- * It constructs the object with properties like `id`, `place`, `category` (including name and color), `title`, `description`, `dueDate`, `subtasks`, `assigned contacts`, and `priority` (including urgency and image path).
- */
-function buildTemplateForArrayInput(id, place, category, categoryColor, title, description, dueDate, subtasks, assigned, priority, priorityImg) {
-    return {
-        id: id,
-        place: place,
-        category: {
-            name: category,
-            color: categoryColor
-        },
-        title: title,
-        description: description,
-        dueDate: dueDate,
-        subtasks: subtasks,
-        assigned: assigned,
-        priority: {
-            urgency: priority,
-            img: priorityImg
-        }
-    }
-}
-
-/**
- * This function adds the provided new task object (presumably containing task details) to the `cards` array.
- * The `cards` array likely represents the collection of tasks displayed on the board.
- * Additionally, it calls the `UpdateTaskInRemote` function (assumed to be defined elsewhere) to potentially update the task data remotely.
- * 
- * @param {Object} newCard - The new task object to be added to the board.
- */
-function addTaskToBoard(newCard) {
-    cards.push(newCard);
-    UpdateTaskInRemote();
-}
-
-/**
- * This function resets the input fields and state of the create task form.
- * It clears the `boardPlace` variable (presumably holding the selected board location),
- * resets the `priorities` array (likely containing available priorities),
- * clears the `selectedAssignedContacts` array (presumably holding selected contacts),
- * and empties the `createdSubtasks` array (likely containing created subtasks).
- */
-function resetCreateTaskFormInputs() {
-    boardPlace = "";
-    priorities = [];
-    selectedAssignedContacts = [];
-    createdSubtasks = [];
-}
-
-/**
- * This function displays a popup notification for successfully creating a new task.
- * It manipulates the styles of DOM elements with specific IDs to achieve the visual effect.
- * - Sets the display of the container element (`taskCreatedButtonContainer`) to "flex".
- * - Uses `setTimeout` to schedule adding the 'showTaskCreatedButtonContainer' class to the button element (`taskCreatedButton`) with a 20ms delay.
- * - Uses another `setTimeout` to schedule removing the class and hiding the container element after 800ms.
- * - Finally, it calls the `loadBoard` function (assumed to be defined elsewhere) with another 20ms delay, potentially to refresh the board view.
- */
-function showTaskCreatedPopUp() {
-    document.getElementById('taskCreatedButtonContainer').style.display = "flex";
-    setTimeout(() => {
-        document.getElementById('taskCreatedButton').classList.add('showTaskCreatedButtonContainer');
-    }, 20);
-    setTimeout(() => {
-        document.getElementById('taskCreatedButton').classList.remove('showTaskCreatedButtonContainer');
-        document.getElementById('taskCreatedButtonContainer').style.display = "none";
-    }, 800);
-    setTimeout(() => {
-        loadBoard();
-    }, 820);
-}
-
-/**
- * Displays a temporary popup board indicating task creation and reloads the board.
- * 
- * @returns {void} (nothing returned)
- */
-function showTaskCreatedPopUpBoard() {
-    document.getElementById('taskCreatedButtonContainerBoard').style.display = "flex";
-    setTimeout(() => {
-        document.getElementById('taskCreatedButtonContainerBoard').style.display = "none";
-    }, 800);
-    setTimeout(() => {
-        loadBoard();
-        closeCardAddTaskPopup();
-    }, 820); 
-};
