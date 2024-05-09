@@ -26,7 +26,6 @@ async function init() {
         await loadRemoteContactsOfLoggedInUser();
         await checkIfUserIsAddedAsContact();
         greetUser();
-    
     }      
 }
 
@@ -123,7 +122,21 @@ function greetUserMobile() {
     } else {
         greetingText = "Good evening";
     }
+    GuestOrUser(greetingElement,userName,greetingText);
+}
 
+/**
+ * Updates the greeting element based on whether the user is a guest or a registered user.
+ *
+ * - For guests, displays the provided greeting text.
+ * - For registered users, displays the username followed by the greeting text in blue color.
+ *
+ * @param {HTMLElement} greetingElement The DOM element to update with the greeting content.
+ * @param {string} userName The user name to display (if not a guest).
+ * @param {string} greetingText The base greeting text.
+ * @returns {void} (nothing returned)
+ */
+function GuestOrUser(greetingElement,userName,greetingText) {
     if (userName === 'Gast') {
         greetingElement.textContent = `${greetingText}`;
     } else if (userName !== 'Gast') {
@@ -383,6 +396,12 @@ function removeNavHighlightLegalPartOnDropdown() {
     })
 }
 
+/**
+ * Removes the "navigation-legal-clicked" class from the element with that class when any element with class "help" is clicked.
+ * Also calls the `resetNavigationItems` function (for additional navigation reset logic).
+ *
+ * @returns {void} (nothing returned)
+ */
 function removeNavHighlightLegalPartOnHelp() {
     const btnElList = document.querySelectorAll('.help');
 
@@ -394,6 +413,12 @@ function removeNavHighlightLegalPartOnHelp() {
     })
 }
 
+/**
+ * Removes the "navigation-item-clicked" class from the element with that class when any element with class "help" is clicked.
+ * Also calls the `resetNavigationItems` function (for additional navigation reset logic).
+ *
+ * @returns {void} (nothing returned)
+ */
 function removeNavHighlightOnHelp() {
     const btnElList = document.querySelectorAll('.help');
     btnElList.forEach(btnEl => {
@@ -404,20 +429,22 @@ function removeNavHighlightOnHelp() {
     })
 }
 
+/**
+ * Removes both "navigation-item-clicked" and "navigation-legal-clicked" classes from their respective elements when any element with class "navLogo" is clicked.
+ * Also calls the `resetNavigationItems` function.
+ *
+ * @returns {void} (nothing returned)
+ */
 function removeNavHighlightOnLogo() {
     const btnElList = document.querySelectorAll('.navLogo');
     const buttonElList = document.querySelectorAll('.navLogo');
-
     btnElList.forEach(btnEl => {
-        btnEl.addEventListener('click', () => {
-            document.querySelector('.navigation-item-clicked')?.classList.remove('navigation-item-clicked');
+        btnEl.addEventListener('click', () => { document.querySelector('.navigation-item-clicked')?.classList.remove('navigation-item-clicked');
             resetNavigationItems();
         })
     })
-
     buttonElList.forEach(btnEl => {
-        btnEl.addEventListener('click', () => {
-            document.querySelector('.navigation-legal-clicked')?.classList.remove('navigation-legal-clicked');
+        btnEl.addEventListener('click', () => { document.querySelector('.navigation-legal-clicked')?.classList.remove('navigation-legal-clicked');
             resetNavigationItems();
         })
     })
