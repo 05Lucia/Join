@@ -34,7 +34,7 @@ function changeNavigationHighlightSummary() {
         summary.children[0].classList.add('d-none');
         summary.children[1].classList.remove('d-none');
     }
-    
+
 }
 
 /**
@@ -57,7 +57,6 @@ function summaryLoadNumbers() {
 function todoNumber() {
     let todoCount = 0;
     const container = document.getElementById('to-do-number');
-
     if (!container) {
         console.error("Element with ID 'to-do-number' not found!");
         return;
@@ -78,7 +77,6 @@ function todoNumber() {
 function progressNumber() {
     let progressCount = 0;
     const container = document.getElementById('progess-task-number');
-
     if (!container) {
         console.error("Element with ID 'progress-task-number' not found!");
         return;
@@ -99,7 +97,6 @@ function progressNumber() {
 function feedbackNumber() {
     let feedbackCount = 0;
     const container = document.getElementById('feedback-number');
-
     if (!container) {
         console.error("Element with ID 'feedback-number' not found!");
         return;
@@ -120,7 +117,6 @@ function feedbackNumber() {
 function doneNumber() {
     let doneCount = 0;
     const container = document.getElementById('done-number');
-
     if (!container) {
         console.error("Element with ID 'done-number' not found!");
         return;
@@ -155,12 +151,10 @@ function boardTaskNumber() {
 function urgentNumber() {
     let urgentCount = 0;
     const container = document.getElementById('urgent-number');
-
     if (!container) {
         console.error("Element with ID 'urgent-number' not found!");
         return;
     }
-
 
     for (const card of cards) {
         if (card.priority && card.priority.urgency === 'Urgent') {
@@ -206,8 +200,7 @@ function displayClosestDueDate() {
  * @param {Date} currentDate - The current date object.
  */
 function separateCards(overdueCards, upcomingCards, currentDate) {
-    // Loop through cards and separate overdue and upcoming cards
-    for (let i = 0; i < cards.length; i++) {
+    for (let i = 0; i < cards.length; i++) {// Loop through cards and separate overdue and upcoming cards
         const card = cards[i];
         if (card.place !== 'done') {
             const dueDate = card.dueDate ? new Date(card.dueDate) : null;
@@ -265,7 +258,6 @@ function getOldestOverdueDate(overdueCards) {
             oldestOverdueDate = currentDueDate;
         }
     }
-
     return formatDueDate(oldestOverdueDate);
 }
 
@@ -309,6 +301,18 @@ function updateDueDateContainers(overdueCards, upcomingCards, currentDate) {
     } else {
         output = "No upcoming due dates found.";
     }
+    outputsDueDateContainers(output, deadlineText, urgentButtonClass);
+}
+
+/**
+ * Updates the UI elements representing the due date container.
+ * 
+ * @param {string} output The content to be displayed for the due date (likely formatted).
+ * @param {string} deadlineText The text indicating the deadline status (e.g., "Upcoming Deadline", "Missed Deadline").
+ * @param {string} urgentButtonClass The CSS class to be applied for styling the urgency button (optional).
+ * @returns {void} (nothing returned)
+ */
+function outputsDueDateContainers(output, deadlineText, urgentButtonClass) {
     outputDueDate(output);
     outputDeadlineText(deadlineText);
     urgentButtonColor(urgentButtonClass);

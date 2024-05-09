@@ -1,27 +1,61 @@
 /**
- * Searches cards based on user input, hiding unmatched & showing matches.
- * Calls NoMatchFound for empty search or no results.
+ * Retrieves the current search query string from the search input element.
+ * 
+ * @returns {string} The search query string in lowercase.
  */
-function search() {
-    let query = document.getElementById('search').value.toLowerCase();
-    let hasMatch = false; // Flag to track if any match is found 
-    const containers = [document.getElementById('todo'), document.getElementById('progress'), document.getElementById('feedback'), document.getElementById('done')];
+function getSearchQuery() {
+    return document.getElementById('search').value.toLowerCase();
+}
 
+/**
+* Returns an array containing references to the DOM elements representing the card containers (todo, progress, etc.).
+* 
+* @returns {Array<HTMLElement>} An array of HTML elements representing the card containers.
+*/
+function getCardContainers() {
+    return [
+        document.getElementById('todo'),
+        document.getElementById('progress'),
+        document.getElementById('feedback'),
+        document.getElementById('done')
+    ];
+}
+
+/**
+ * Performs a search within the provided card containers based on the given search query.
+ * 
+ * @param {string} query The search query string to match against card content.
+ * @param {Array<HTMLElement>} containers An array of HTML elements representing the card containers to search within.
+ * @returns {boolean} A flag indicating whether any cards matched the search query (true if there was at least one match).
+ */
+function searchCards(query, containers) {
+    let hasMatch = false;
     for (const container of containers) {
         for (const card of container.querySelectorAll('.board-card-small')) {
             const titleText = card.querySelector('.card-title').textContent.toLowerCase();
-            const descriptionText = card.querySelector('.card-description')?.textContent.toLowerCase() || ""; // Optional description handling
-
+            const descriptionText = card.querySelector('.card-description')?.textContent.toLowerCase() || "";
             const combinedText = `${titleText} ${descriptionText}`;
 
             if (combinedText.includes(query)) {
-                card.classList.remove('d-none'); // Show matching card
+                card.classList.remove('d-none');
                 hasMatch = true;
             } else {
-                card.classList.add('d-none'); // Hide non-matching card
+                card.classList.add('d-none');
             }
         }
     }
+    return hasMatch;
+}
+
+/**
+ * Initiates the search functionality by retrieving the query, getting container elements, performing the search, and handling the "no match" scenario.
+ * 
+ * @returns {void} (nothing returned)
+ */
+function handleSearch() {
+    const query = getSearchQuery();
+    const containers = getCardContainers();
+    const hasMatch = searchCards(query, containers);
     NoMatchFound(hasMatch, query);
 }
 
@@ -39,9 +73,7 @@ function doNotClose(event) {
  */
 async function boardPopupAddTask() {
     let container = document.getElementById('borad-card-overlay');
-
     container.innerHTML = boardPopupAddTaskWindow();
-
 
     document.getElementById('borad-card-overlay').classList.remove('d-none');
     document.body.classList.add('body-noscroll-class');
@@ -152,22 +184,22 @@ function isAssignedEdit(card) {
         selectedAssignedContacts.push(selectedContact); // Kontakt zum Array hinzufügen
     }
     showAvatarsOfSelectedContacts();
-    
+
 }
 
 function searchIndexAssinged() {
     for (let i = 0; i < selectedAssignedContacts.length; i++) {
         const element = selectedAssignedContacts[i];
         const initials = element.initials;
-        
+
         const indexOfAssigned = localContacts.findIndex(contact => contact.initials === initials);
         checkAssignContact(indexOfAssigned);
-    }  
+    }
 }
 
 function findeIndex(initials, array) {
     return array.indexOf(initials);
-  }
+}
 
 /**
  * Handles pre-filling subtask data based on the provided card's subtasks.
@@ -196,7 +228,6 @@ function editTaskDone(id) {
     let place = card.place;
     let category = card.category.name;
     deleteUneditTask(id);
-
     let title = errorMessageIfEmptyTitle(); // Titel überprüfen und abrufen
     let dueDate = errorMessageIfEmptyDueDate(); // Fälligkeitsdatum überprüfen und abrufen
     let priority = priorities[0]; // Priorität abrufen
@@ -208,21 +239,33 @@ function editTaskDone(id) {
         return; // Early exit on validation failure
     }
     const priorityImg = priorityImgCheck(priority);
-    
     let matchingCategory = taskCategories.find(categoryObj => categoryObj.name === category);
     let categoryColor = matchingCategoryCheck(matchingCategory);// Farben für Kategorie abrufen
 
     const newCard = createCardObject(id, place, category, categoryColor, title, description, dueDate, subtasks, assigned, priority, priorityImg);
+    finishEdit(newCard, id);
+}
 
+/**
+ * Finalizes the card editing process by:
+ *  - Adding the new card object to the cards array.
+ *  - Calling a function (likely an API call) to update the task remotely.
+ *  - Clearing any temporary arrays used during editing.
+ *  - Potentially displaying a larger version of the card (implementation in `bigCard` function is assumed).
+ *  - Triggering an update to the card display (implementation in `updateCards` function is assumed).
+ *
+ * @param {Object} newCard The newly created card object representing the edited task.
+ * @param {number} id The ID of the edited task.
+ * @returns {void} (nothing returned)
+ */
+function finishEdit(newCard, id) {
     cards.push(newCard);// Karte zum Array hinzufügen
     UpdateTaskInRemote();
-
-    console.log('Neue Karte erstellt:', newCard); // Zur Überprüfung in der Konsole ausgeben
-
     emptyArrays();
     bigCard(id);
     updateCards();
 }
+
 
 /**
  * Checks for empty title, due date or invalid category.
@@ -337,7 +380,7 @@ function createCardObject(id, place, category, categoryColor, title, description
             img: priorityImg
         }
     };
-  }
+}
 
 /**
  * Closes the Popup modal.

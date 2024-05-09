@@ -57,6 +57,10 @@ function changeNavigation() {
     board.classList.add('navigation-item-clicked');
     addTask.classList.remove('navigation-item-clicked');
 
+    navigationMobile(summary,board,addTask);
+}
+
+function navigationMobile(summary,board,addTask) {
     if (window.innerWidth < 800) {
         summary.children[1].classList.add('d-none');
         summary.children[0].classList.remove('d-none');
@@ -90,15 +94,25 @@ function todoCardUpdate() {
 
     if (todo.length > 0) {
         todoContainer.style.padding = '16px';
-
-        for (let index = 0; index < todo.length; index++) {
-            const card = todo[index];
-            document.getElementById('todo').innerHTML += cardTemplate(card);
-            assignedInitals(card);
-        }
+        loopThrouPlaceArray(todo, 'todo');      
     } else {
         todoContainer.style.padding = '0px';
         todoContainer.innerHTML = '<div class="no-task-div">No tasks To do</div>';
+    }
+}
+
+/**
+ * Loops through a place array and renders card templates within a target element.
+ * 
+ * @param {Array<object>} place An array of card objects representing a specific place (e.g., "todo", "progress").
+ * @param {string} id The ID of the HTML element where the card templates will be rendered.
+ * @returns {void} (nothing returned)
+ */
+function loopThrouPlaceArray(place, id) {
+    for (let index = 0; index < place.length; index++) {
+        const card = place[index];
+        document.getElementById(id).innerHTML += cardTemplate(card);
+        assignedInitals(card);
     }
 }
 
@@ -113,12 +127,7 @@ function progressCardUpdate() {
 
     if (progress.length > 0) {
         progressContainer.style.padding = '16px';
-
-        for (let index = 0; index < progress.length; index++) {
-            const card = progress[index];
-            document.getElementById('progress').innerHTML += cardTemplate(card);
-            assignedInitals(card)
-        }
+        loopThrouPlaceArray(progress, 'progress'); 
     } else {
         progressContainer.style.padding = '0px';
         progressContainer.innerHTML = '<div class="no-task-div">No tasks in progress</div>';
@@ -136,12 +145,7 @@ function feedbackCardUpdate() {
 
     if (feedback.length > 0) {
         feedbackContainer.style.padding = '16px';
-
-        for (let index = 0; index < feedback.length; index++) {
-            const card = feedback[index];
-            document.getElementById('feedback').innerHTML += cardTemplate(card);
-            assignedInitals(card)
-        }
+        loopThrouPlaceArray(feedback, 'feedback'); 
     } else {
         feedbackContainer.style.padding = '0px';
         feedbackContainer.innerHTML = '<div class="no-task-div">No tasks feedback</div>';
@@ -159,13 +163,7 @@ function doneCardUpdate() {
 
     if (done.length > 0) {
         doneContainer.style.padding = '16px';
-
-        for (let index = 0; index < done.length; index++) {
-            done
-            const card = done[index];
-            document.getElementById('done').innerHTML += cardTemplate(card);
-            assignedInitals(card)
-        }
+        loopThrouPlaceArray(done, 'done'); 
     } else {
         doneContainer.style.padding = '0px';
         doneContainer.innerHTML = '<div class="no-task-div">No tasks done</div>';
@@ -297,9 +295,7 @@ function bigCard(id) {
     const card = cards.find(card => card.id === id);
 
     if (card) {
-        // Card found, proceed with big card logic
         let container = document.getElementById('borad-card-popup');
-
         document.getElementById('borad-card-overlay').classList.remove('d-none');
         document.getElementById('borad-card-popup').classList.remove('d-none');
         document.body.classList.add('body-noscroll-class');
@@ -339,16 +335,13 @@ function bigCardAssigned(card) {
 function dueDateConvert(card) {
     let dueDateContainer = document.getElementById('due-date');
 
-    // Check if dueDate exists and is a string (optional safety check)
-    if (!card.dueDate || typeof card.dueDate !== 'string') {
+    if (!card.dueDate || typeof card.dueDate !== 'string') {// Check if dueDate exists and is a string (optional safety check)
         dueDateContainer.innerText = "No due date";
         return; // Exit the function if no due date or not a string
     }
-    // Split the date string into year, month, and day components
-    const [year, month, day] = card.dueDate.split('-');
+    const [year, month, day] = card.dueDate.split('-');// Split the date string into year, month, and day components
 
-    // Create the formatted date string in DD.MM.YYYY format
-    const formattedDueDate = `${day.padStart(2, '0')}.${month.padStart(2, '0')}.${year}`;
+    const formattedDueDate = `${day.padStart(2, '0')}.${month.padStart(2, '0')}.${year}`;// Create the formatted date string in DD.MM.YYYY format
     dueDateContainer.innerText = formattedDueDate;
 }
 
@@ -373,17 +366,27 @@ function bigCardSubtasks(card) {
     let id = card.id
     for (let i = 0; i < card.subtasks.length; i++) {
         const subtask = card.subtasks[i];
-
         let taskText = subtask.text;
         let done = subtask.done;
-        let img;
-
-        if (done === true) {
-            img = './img/Check button.svg';
-        } else {
-            img = './img/Check button unchecked.svg';
-        }
+        let img = subtaskCheckButton(done);
+        
         container.innerHTML += bigCardSubtaskTemplate(taskText, img, done, i, id);
+    }
+}
+
+/**
+ * Determines the image path for the subtask check button based on completion status (intended behavior).
+ * 
+ * **Note:** This function currently does not modify the DOM or return a value.
+ *
+ * @param {boolean} done Indicates whether the subtask is marked as done.
+ * @returns {void} (nothing returned)
+ */
+function subtaskCheckButton(done, img) {
+    if (done === true) {
+       return './img/Check button.svg';
+    } else {
+       return './img/Check button unchecked.svg';
     }
 }
 
