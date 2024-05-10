@@ -35,13 +35,10 @@ function searchCards(query, containers) {
             const titleText = card.querySelector('.card-title').textContent.toLowerCase();
             const descriptionText = card.querySelector('.card-description')?.textContent.toLowerCase() || "";
             const combinedText = `${titleText} ${descriptionText}`;
-
             if (combinedText.includes(query)) {
                 card.classList.remove('d-none');
                 hasMatch = true;
-            } else {
-                card.classList.add('d-none');
-            }
+            } else { card.classList.add('d-none');}
         }
     }
     return hasMatch;
@@ -265,7 +262,6 @@ function finishEdit(newCard, id) {
     bigCard(id);
     updateCards();
 }
-
 
 /**
  * Checks for empty title, due date or invalid category.
