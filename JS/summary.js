@@ -278,14 +278,32 @@ function updateDueDateContainers(overdueCards, upcomingCards, currentDate) {
     let output = '';
     let deadlineText = 'Upcoming Deadline';
     let urgentButtonClass = '';
-
     if (overdueCards.length > 0) {
         deadlineText = 'Missed Deadline';
         urgentButtonClass = 'missed-deadline';
         output = getOldestOverdueDate(overdueCards);
     } else if (upcomingCards.length > 0) {
         const closestUpcomingCard = upcomingCards[0];
-        if (closestUpcomingCard.dueDate) {
+        closestDueDate(closestUpcomingCard,currentDate,urgentButtonClass, output, deadlineText);
+    } else { output = "No upcoming due dates found.";}
+    outputsDueDateContainers(output, deadlineText, urgentButtonClass);
+}
+
+/**
+ * Updates information about the closest upcoming due date based on the provided card and current date.
+ *
+ * - Sets deadline text and output based on whether the due date falls on the current date (ignoring time).
+ * - Updates urgent button class (for styling) if the due date is today.
+ *
+ * @param {Object} closestUpcomingCard An object representing the closest upcoming card with a due date property.
+ * @param {string} currentDate A string representation of the current date.
+ * @param {string} urgentButtonClass (Optional) The current urgent button class (styling).
+ * @param {string} output (Optional) The current output string (displaying the due date).
+ * @param {string} deadlineText (Optional) The current deadline text.
+ * @returns {void} (nothing returned, modifies provided variables)
+ */
+function closestDueDate(closestUpcomingCard,currentDate,urgentButtonClass, output, deadlineText) {
+    if (closestUpcomingCard.dueDate) {
             const dueDateAsDate = new Date(closestUpcomingCard.dueDate);
             dueDateAsDate.setHours(0, 0, 0, 0); // Set time to 00:00:00
             const currentDateWithoutTime = new Date(currentDate);
@@ -298,10 +316,6 @@ function updateDueDateContainers(overdueCards, upcomingCards, currentDate) {
                 output = formatDueDate(dueDateAsDate);
             }
         }
-    } else {
-        output = "No upcoming due dates found.";
-    }
-    outputsDueDateContainers(output, deadlineText, urgentButtonClass);
 }
 
 /**
