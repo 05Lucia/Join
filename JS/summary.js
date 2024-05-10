@@ -284,8 +284,11 @@ function updateDueDateContainers(overdueCards, upcomingCards, currentDate) {
         output = getOldestOverdueDate(overdueCards);
     } else if (upcomingCards.length > 0) {
         const closestUpcomingCard = upcomingCards[0];
-        closestDueDate(closestUpcomingCard,currentDate,urgentButtonClass, output, deadlineText);
-    } else { output = "No upcoming due dates found.";}
+        const { deadlineText: updatedDeadlineText, output: updatedOutput, urgentButtonClass: updatedUrgentButtonClass } = closestDueDate(closestUpcomingCard, currentDate, urgentButtonClass, output, deadlineText);
+        deadlineText = updatedDeadlineText;
+        output = updatedOutput;
+        urgentButtonClass = updatedUrgentButtonClass;
+    } else { output = "No upcoming due dates found."; }
     outputsDueDateContainers(output, deadlineText, urgentButtonClass);
 }
 
@@ -302,20 +305,21 @@ function updateDueDateContainers(overdueCards, upcomingCards, currentDate) {
  * @param {string} deadlineText (Optional) The current deadline text.
  * @returns {void} (nothing returned, modifies provided variables)
  */
-function closestDueDate(closestUpcomingCard,currentDate,urgentButtonClass, output, deadlineText) {
+function closestDueDate(closestUpcomingCard, currentDate, urgentButtonClass, output, deadlineText) {
     if (closestUpcomingCard.dueDate) {
-            const dueDateAsDate = new Date(closestUpcomingCard.dueDate);
-            dueDateAsDate.setHours(0, 0, 0, 0); // Set time to 00:00:00
-            const currentDateWithoutTime = new Date(currentDate);
-            currentDateWithoutTime.setHours(0, 0, 0, 0); // Set time to 00:00:00
-            if (dueDateAsDate.getTime() === currentDateWithoutTime.getTime()) {
-                deadlineText = 'Deadline is today';
-                output = formatDueDate(dueDateAsDate);
-                urgentButtonClass = 'missed-deadline';
-            } else {
-                output = formatDueDate(dueDateAsDate);
-            }
+        const dueDateAsDate = new Date(closestUpcomingCard.dueDate);
+        dueDateAsDate.setHours(0, 0, 0, 0); // Set time to 00:00:00
+        const currentDateWithoutTime = new Date(currentDate);
+        currentDateWithoutTime.setHours(0, 0, 0, 0); // Set time to 00:00:00
+        if (dueDateAsDate.getTime() === currentDateWithoutTime.getTime()) {
+            deadlineText = 'Deadline is today';
+            output = formatDueDate(dueDateAsDate);
+            urgentButtonClass = 'missed-deadline';
+        } else {
+            output = formatDueDate(dueDateAsDate);
         }
+    }
+    return { deadlineText, output, urgentButtonClass };
 }
 
 /**
