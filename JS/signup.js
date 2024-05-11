@@ -170,49 +170,97 @@ function loadGuestUser() {
  * @returns {Promise<void>}
  */
 async function addUser() {
-    let name = document.getElementById('name').value;
-    let email = document.getElementById('email').value;
-    let password = document.getElementById('password').value;
-    let confirmPassword = document.getElementById('confirm_password').value;
-  
+    let formData = getSignupFormValues();
+    if (!await validateFormData(formData)) {
+        return;
+    }
+    await saveNewUser(createUserObject(formData));
+    successfulSignup();
+}
+
+/**
+ * Retrieves values from the signup form fields.
+ * @returns {Object} An object containing the values of the name, email, password, and confirmPassword fields.
+ */
+function getSignupFormValues() {
+    return {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value,
+        confirmPassword: document.getElementById('confirm_password').value
+    };
+}
+
+/**
+ * Validates all necessary form data by checking individual field validations and email-specific validations.
+ * @param {Object} formData - An object containing user inputs from the form.
+ * @returns {Promise<boolean>} A promise that resolves to true if all validations pass, otherwise false.
+ */
+async function validateFormData({ name, email, password, confirmPassword }) {
+    return validateFormFields(name, email, password, confirmPassword) &&
+           await validateEmailAndPrivacy(email);
+}
+
+/**
+ * Validates form fields and displays an alert if any field is empty.
+ * @param {string} email - User's email address.
+ * @param {string} password - User's password.
+ * @param {string} name - User's name.
+ * @returns {boolean} - Returns true if all fields are filled, otherwise false.
+ */
+function validateFormFields(name, email, password, confirmPassword) {
     if (name === "" || email === "" || password === "" || confirmPassword === "") {
         alert("Please fill in all fields.");
-        return;
+        return false;
     }
-
-    if (!validateEmailAddress()) {
-        return;
+    if (!validateConfirmedPassword(password, confirmPassword)) {
+        alert("Passwords do not match.");
+        return false;
     }
+    if (!checkPasswordStrength(password)) {
+        return false;
+    }
+    return true;
+}
 
+/**
+ * Validates an email by checking its format, existence, and user's acceptance of the privacy policy.
+ * Each step must pass for registration to proceed.
+ * 
+ * @param {string} email The email address to be validated.
+ * @returns {Promise<boolean>} True if all validations pass, otherwise false.
+ * @async
+ */
+async function validateEmailAndPrivacy(email) {
+    if (!validateEmailAddress(email)) {
+        return false;
+    }
     if (!await checkEmailExistence(email)) {
-        return;
+        return false;
     }
-
-    if (!checkPasswordStrength() || !validateConfirmedPassword()) {
-        return;
-    }
-
     if (!checkPrivacyPolicy()) {
         alert("Please accept the privacy policy to proceed.");
-        return;
+        return false;
     }
-    if (!checkPrivacyPolicy()) {
-        return;
-    }
+    return true;
+}
 
-    let user = {
+/**
+ * Constructs a user object from the provided form data.
+ * @param {Object} formData - An object containing user data.
+ * @returns {Object} The constructed user object ready for storage.
+ */
+function createUserObject({ name, email, password }) {
+    return {
         name: name,
         email: email,
         password: password,
         userContacts: contacts
     };
-
-    await saveNewUser(user);
-    successfulSignup(); 
 }
 
 /**
- * Displays the login modal.
+ * Handles successful signup by displaying a success message and redirecting the user.
  */
 function successfulSignup() {
     let signupModal = document.getElementById("signupModal");
@@ -226,21 +274,6 @@ function successfulSignup() {
             }
         }, 2000);
     }
-}
-
-/**
- * Validates form fields and displays an alert if any field is empty.
- * @param {string} email - User's email address.
- * @param {string} password - User's password.
- * @param {string} name - User's name.
- * @returns {boolean} - Returns true if all fields are filled, otherwise false.
- */
-function validateFormFields(email, password, name) {
-    if (email === "" || password === "" || name === "") {
-        alert("Please fill in all fields");
-        return false;
-    }
-    return true;
 }
 
 /**
