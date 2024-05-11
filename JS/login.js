@@ -131,27 +131,50 @@ function toggleRememberMeCheckbox(inputElement) {
 }
 
 /**
- * Automatically fills in the password field and checks the "Remember Me" checkbox if the user's email is found and remembered.
+ * Checks if the current user session is for a guest to decide on skipping password restoration.
+ * @returns {boolean} True if the user is a guest, otherwise false.
+ */
+function skipLoginForGuestUser() {
+    if (localStorage.getItem('userType') === 'guest') {
+        console.log('Guest user detected; password restoration skipped.');
+        return true;
+    }
+    return false;
+}
+
+/**
+ * Automatically fills in the password field and checks the "Remember Me" checkbox if the user's email is remembered.
+ * Calls a separate function to determine if this action should be skipped for guest users.
  * @async
  */
 async function loadRememberedPassword() {
-    if (localStorage.getItem('userType') === 'guest') {
-        console.log('Gastbenutzer erkannt; Passwortwiederherstellung übersprungen.');
-        return; 
-    }
+    if (skipLoginForGuestUser()) return;
+
     let inputEmail = document.getElementById('email').value.trim();
     if (inputEmail.length === 0) return;
 
     let users = await loadUsers();
     let rememberedUser = users.find(u => u.rememberMe && u.email === inputEmail);
+    updateLoginForm(rememberedUser);
+}
+
+/**
+ * Updates the login form fields based on the remembered user details.
+ * @param {Object|null} rememberedUser - The user object whose credentials are remembered, or null if no user is remembered.
+ */
+function updateLoginForm(rememberedUser) {
+    const passwordField = document.getElementById('password');
+    const rememberCheckbox = document.getElementById('rememberCheckbox');
+    
     if (rememberedUser) {
-        document.getElementById('password').value = rememberedUser.password;
-        document.getElementById('rememberCheckbox').checked = true; 
+        passwordField.value = rememberedUser.password;
+        rememberCheckbox.checked = true;
     } else {
-        document.getElementById('password').value = '';
-        document.getElementById('rememberCheckbox').checked = false;
+        passwordField.value = '';
+        rememberCheckbox.checked = false;
     }
 }
+
 
 /**
  * Loads remembered password if the email input field is present.
@@ -194,6 +217,9 @@ function setGuestLogin() {
     localStorage.setItem('userType', 'guest');
 }
 
+/**
+ * Displays a modal confirming guest login, then redirects to the homepage and greets the user.
+ */
 function successfulGuestLogin() {
     let loginModal = document.getElementById("succesfulGuestLoginModal");
     if (loginModal.style.display !== "block") {
@@ -208,38 +234,58 @@ function successfulGuestLogin() {
         }, 2000);
     }
 }
+
 /**
  * Displays a greeting message based on the current time of day to the logged-in user.
  */
 function greetUser() {
-    let userName = localStorage.getItem('currentUserName');
-    let currentHour = new Date().getHours();
-    let greetingText = "Welcome";
+    const userName = localStorage.getItem('currentUserName');
+    const currentHour = new Date().getHours();
+    const greetingText = getGreetingText(currentHour);
 
-    if (currentHour < 12) {
-        greetingText = "Good morning";
-    } else if (currentHour < 18) {
-        greetingText = "Good afternoon";
-    } else {
-        greetingText = "Good evening";
-    }
-
-    let greetingElement = document.getElementById('greeting');
-    if (userName === 'Guest') {
-        greetingElement.textContent = `${greetingText}`;
-    } else if (userName !== 'Guest') {
-        let greetingElementUser = document.getElementById('greeting-user');
-        greetingElementUser.textContent = `${greetingText},`;
-        greetingElement.textContent = `${userName}`;
-        greetingElement.style.color = '#4589FF';
-    }
-    UserInitals(userName);
+    const greetingElement = document.getElementById('greeting');
+    updateGreetingElement(greetingElement, greetingText, userName);
+    updateUserInitials(userName);
 }
 
 /**
- * Displays user initials based on the provided user name on the board
+ * Returns a greeting based on the current hour.
+ * @param {number} currentHour - The current hour of the day.
+ * @returns {string} A greeting message.
  */
-function UserInitals(userName) {
+function getGreetingText(currentHour) {
+    if (currentHour < 12) {
+        return "Good morning";
+    } else if (currentHour < 18) {
+        return "Good afternoon";
+    } else {
+        return "Good evening";
+    }
+}
+
+/**
+ * Updates the greeting element with the appropriate message.
+ * @param {HTMLElement} element - The DOM element to display the greeting.
+ * @param {string} text - The greeting text.
+ * @param {string} userName - The name of the user.
+ */
+function updateGreetingElement(element, text, userName) {
+    if (userName === 'Guest') {
+        element.textContent = `${text}`;
+    } else {
+        let greetingElementUser = document.getElementById('greeting-user');
+        greetingElementUser.textContent = `${text},`;
+        element.textContent = `${userName}`;
+        element.style.color = '#4589FF';
+    }
+    updateUserInitials(userName);
+}
+
+/**
+ * Displays user initials based on the provided user name on the board.
+ * @param {string} userName - The full name of the user.
+ */
+function updateUserInitials(userName) {
     let userInitalsContainer = document.getElementById('user-initals');
 
     let names = userName.split(' ');
@@ -265,6 +311,11 @@ function logout() {
     successfulLogout();
 }
 
+/**
+ * Displays a modal to confirm a successful logout and redirects the user to the login page.
+ * The modal is displayed briefly before redirecting the user, providing visual feedback that
+ * the logout has been processed.
+ */
 function successfulLogout() {
     let logoutModal = document.getElementById("successfulLogoutModal");
     if (logoutModal.style.display !== "block") {
